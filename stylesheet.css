@@ -41,7 +41,7 @@
 #title{
   margin-top: 17px;
   float:left;
-  margin-left: 12%;
+  margin-left: 15%;
 
 }
 /*Leftside*/
@@ -98,12 +98,13 @@
 } */
 .animal{
   /* margin: 7%; */
-  margin-left: 20%;
+  margin-top: -10%;
+  margin-left: 10%;
   
 }
 #biber{
-  height: 500px;
-  width: 400px;
+  height: 550px;
+  width: 550px;
 }
 /* #bobble {
     width: 600px;
