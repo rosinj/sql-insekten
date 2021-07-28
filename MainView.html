@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <!-- LINKS:
+    <a target="_blank" href="https://icons8.com/icon/19209/light">Light</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> 
+    <a href='https://de.freepik.com/vektoren/holz'>Holz Vektor erstellt von pch.vector - de.freepik.com</a>-->
+    <script src="MainViewSkript.js"></script>	
+    <?php
+    include('MainController.php');
+    ?>
+    <script language="php"  src='MainController.php'></script>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>SQL Injection Lernspiel</title>
+
+<link href="stylesheet.css" rel="stylesheet">
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class='top'>
+        <!-- <img class="othlogo" src="img/OTH_Logo.png" alt="OTH Logo"/> -->
+        <img id='logo' src="img/OTH_Logo.png"/>
+        <h2 id='lvl'>Level: 1</h2>
+        <h2 id='hints'>Tipps: 
+            <img id='light1' src="img/light.png" /> 
+            <img id='light2' src="img/light.png"/>
+            <img id='light3' src="img/light.png"/></h2>
+        <h2 id='title'>SQL Injection Lernspiel</h2>
+    </div>
+
+    <div class='leftside'>
+    
+        <div class='sprechblase'>
+            <h2 id='speakbubble_h2'> Willkommen!</h2>
+            <h3>
+            <h3 id='speakbubble_h3'> Dies ist ein SQL-Injection-Game. Mit SQL-Injections (dt. SQL-Einschleußung) kann man Websites hacken,
+                 indem man durch bestimmte SQL-Befehle auf eine Datenbank zugreift und Daten zweckentfremdet.<br></h3>
+            
+                <button class="btn btn-lg btn-primary btn-block" id='next_btn' type="submit" onclick="speakbubble_next()">Weiter</button><br>
+            <br>
+            </h3>
+            <br>
+        
+
+        </div>
+
+        <div class='animal'> 
+            <img id='biber' src="img/hellobiber.jpg"/>
+            <!-- Links zum Specht:
+                kostenlos: https://de.freepik.com/vektoren-kostenlos/spechtcharaktere-und-seine-silhouette-auf-weissem-hintergrund_10163831.htm#page=1&query=specht&position=4
+              
+            nicht kostenlos: https://www.shutterstock.com/de/image-vector/woodpecker-bird-flat-cartoon-character-design-1936479550
+            https://de.depositphotos.com/49727107/stock-illustration-woodpecker.html
+            https://www.istockphoto.com/de/vektor/set-von-hellen-specht-in-verschiedenen-posen-gm1308504565-398469646?irgwc=1&cid=IS&utm_medium=affiliate&utm_source=Eezy%2C+LLC&clickid=0LrydW1kfxyLUPTwUx0Mo3EoUkByBxzst0juUE0&utm_term=de.vecteezy.com&utm_campaign=SRP_2_small&utm_content=718498&irpid=38919
+
+            Biber:
+            https://de.freepik.com/vektoren-kostenlos/lustiges-biberset_13146306.htm#page=1&query=Biber&position=1
+
+            
+        -->
+
+        </div>
+    
+        
+        <!-- <div id="bobble">
+            Willkommen!
+            In dieser Sprechblase wird das Spiel allgemein erklärt, die Aufgabenstellung der jeweiligen Level aufgezeigt und ob man die Aufgabe geschafft hat oder nicht.
+
+            <div></div>
+        </div> -->
+
+    </div>
+    <div class='rightside'>
+        <div class='rstop'>
+
+            <div class="wrapper">
+                <form class="form-signin">       
+                  <h2 class="form-signin-heading">Bitte einloggen</h2>
+                  <input type="text" class="form-control" name="username" placeholder="Benutzername" required="" autofocus="" />
+                  <input type="password" class="form-control" name="password" placeholder="Passwort" required=""/>      
+                  <button class="btn btn-lg btn-primary btn-block" id="login_btn" type="submit">Einloggen</button>   
+                </form>
+              </div>
+        </div>
+        <div class='rsbottom'>
+            <button class="btn btn-lg btn-primary btn-block" id='behindscene_btn' type="submit" onclick="show_behindscene()">Hintergrunddetails anzeigen</button> 
+            <button class="btn btn-lg btn-primary btn-block" id='tipp_btn' type="submit" onclick="show_hints()">Tipp einblenden</button> 
+            <div class='btnbox' id='btnboxre'> 
+                <p class='btnboxtxt'>„- -“ wird in SQL zum auskommentieren verwendet. Dies kannst du hier benutzen um den restlichen Code auszukommentieren bzw. um eine gültige  SQL Query zu erzeugen.
+                </p>
+            </div>
+            <div class='rsbtmleft'>
+            </div>
+                <div class='btnbox' id='btnboxli'> 
+                    <p class='btnboxtxt'>
+                        <label class="switch">
+                            <input id='sql_switcher' type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        Erzeugte SQL-Query<br>
+                        <label class="switch">
+                            <input id='code_switcher' type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                        Code
+                    </p>
+                    <img src="img/erzeugtequery.png"/>
+                </div>
+
+
+            
+        </div>
+
+        
+    </div>
+    <div class='bottom'>
+
+
+
+    </div>
+
+</body>
+</html> 
+</html> 
