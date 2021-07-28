@@ -54,6 +54,7 @@
 
 }
 .sprechblase {
+    height: 300px;
     margin: 3%;
     position: relative;
     padding: 1rem;
@@ -102,7 +103,7 @@
   margin-left: 10%;
   
 }
-#biber{
+#insect{
   height: 550px;
   width: 550px;
 }
@@ -225,6 +226,7 @@
   /* text-align: center; */
 }
 #btnboxli{
+  text-align: center;
   display:none;
   margin-top: 3%;
   float: left;
@@ -237,11 +239,6 @@
   float: right;
   margin-right: 4%;
   margin-left:50%;
-
-}
-#bgswitcher{
-  position: absolute;
-  margin-left:4%;
 }
  /* The switch - the box around the slider */
  .switch {

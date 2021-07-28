@@ -47,15 +47,13 @@ function show_hints(){
 }
 function show_behindscene(){
     var e = document.getElementById('btnboxli');
-    var sw1=document.getElementById('sql_switcher');
-    var sw2=document.getElementById('code_switcher');
+    var sw=document.getElementById('switcher');
 
    if(e.style.display == 'block'){
       e.style.display = 'none';
    }
    else{
-       sw1.checked=true;
-       sw2.checked=false;
+       sw.checked=true;
       e.style.display = 'block';
    }
 
@@ -64,10 +62,7 @@ function speakbubble_next(){
    bbltxtindex=bbltxtindex+1;
    document.getElementById("speakbubble_h2").innerHTML = bbltxt[bbltxtindex][0];
    document.getElementById("speakbubble_h3").innerHTML = bbltxt[bbltxtindex][1];
-   document.getElementById("biber").src = bbltxt[bbltxtindex][2];
-   // console.log(bbltxt[0][bbltxtindex])
-   // console.log(bbltxt[1][bbltxtindex])
-   // console.log(bbltxt[2][bbltxtindex])
+   document.getElementById("insect").src = bbltxt[bbltxtindex][2];
 
 
 }
