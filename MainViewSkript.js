@@ -3,10 +3,7 @@ var bbltxtindex=0;
 var fails=0
 var lvl=1;
 TASKS=[
-   {"text": [{"h2": "Willkommen!",
-              "h3":"Dies ist ein SQL-Injection-Game. Mit SQL-Injections (dt. SQL-Einschleußung) kann man Websites hacken, indem man durch bestimmte SQL-Befehle auf eine Datenbank zugreift und Daten zweckentfremdet.",
-              "img": "img/bee.png"},
-              {"h2": "",
+   {"text": [{"h2": "",
               "h3":"Hier lernst du von Level zu Level wie Hacker dabei vorgehen. Vorkenntisse wie SQL wären empfehlenswert. In diesem Fall haben wir rechts ein Login-Formular, wie man es so von anderen Websiten kennt.",
               "img": "img/bee.png"},
               {"h2": "",
@@ -17,16 +14,20 @@ TASKS=[
               "img": "img/happybee.png"}],
     "challenge" : "Versuche mal als Erstes Informationen über den Benutzer „maxmustermann“ herauszufinden.",
     "validation"  : "",
-    "hints"    : ["Tipp1","Tipps2"],
+    "hints"    : ["Tipp 1: '--' wird in SQL zum auskommentieren verwendet. Dies kannst du hier benutzen um den restlichen Code auszukommentieren bzw. um eine gültige  SQL Query zu erzeugen.","Tipps2"],
     "behindscene" : "",
     "lvl" : 1},
-    {"text" : "",
+    {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung",
+                "h3":"",
+                "img": "img/bee.png"}],
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche Informationen über einen oder mehreren Nutzer/n herauszufinden.",
     "Validation"  : ["..."],
     "hints"    : ["Tipp1","Tipp2"],
     "behindscene" : "",
     "lvl" : 2},
-    {"text" : "",
+    {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung",
+    "h3":"",
+    "img": "img/bee.png"}],
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche die Tabelle 'users' zu löschen. ",
     "Validation"  : ["..."],
     "hints"    : ["Tipp1","Tipp2"],
@@ -56,7 +57,6 @@ try {
    }
    // return;
 }
-
 createTables(db);
 db.transaction(
    function (transaction) {
@@ -68,6 +68,8 @@ db.transaction(
 );
 
 function show_hints(){
+    var hinttxt=TASKS[lvl-1].hints;
+    document.getElementsByClassName("btnboxtxt")[0].innerHTML=hinttxt[0];
     var e = document.getElementById('btnboxre');
     if(e.style.display == 'block'){
       e.style.display = 'none';
@@ -115,20 +117,30 @@ function show_behindscene(){
    }
 }
 function speakbubble_next(){
-   bbltxtindex=bbltxtindex+1;
-   console.log(TASKS[lvl-1].text[bbltxtindex].h2);
-   document.getElementById("speakbubble_h2").innerHTML = TASKS[lvl-1].text[bbltxtindex].h2;
-   document.getElementById("speakbubble_h3").innerHTML = TASKS[lvl-1].text[bbltxtindex].h3;
-   document.getElementById("insect").src = TASKS[lvl-1].text[bbltxtindex].img;
-   if(bbltxtindex >= TASKS[lvl-1].text.length -1){
+   // console.log(TASKS[lvl-1].text[bbltxtindex].h2);
+   // console.log(lvl);
+   // console.log(bbltxtindex);
+   // console.log(TASKS[lvl-1].text.length);
+   if(bbltxtindex >= TASKS[lvl-1].text.length){
       show_lvl();
       bbltxtindex=0;
+      document.getElementById('loginlabel').innerHTML= "Bitte einloggen";
+      document.getElementById("username").style.display = 'block';
+      document.getElementById("password").style.display = 'block';
+      document.getElementById("login_btn").style.display = 'block';
+   }else{
+      document.getElementById("speakbubble_h2").innerHTML = TASKS[lvl-1].text[bbltxtindex].h2;
+      document.getElementById("speakbubble_h3").innerHTML = TASKS[lvl-1].text[bbltxtindex].h3;
+      document.getElementById("insect").src = TASKS[lvl-1].text[bbltxtindex].img;
+      bbltxtindex=bbltxtindex+1;
+      console.log(bbltxtindex);
    }
 
 
 }
 function show_lvl(){
    document.getElementById("speakbubble_h2").innerHTML = TASKS[lvl-1].challenge;
+   document.getElementById("speakbubble_h3").innerHTML = "";
    document.getElementById("next_btn").style.display = 'none';
 }
 
@@ -210,4 +222,20 @@ function dataHandler(transaction, results)
         string = string + row['username'] + " (ID "+row['id']+")\n";
     }
     console.log(string);
+}
+function show_info(){
+   e=document.getElementById("info_modal");
+   if(e.style.display == 'block'){
+      e.style.display = 'none';
+   }
+   else{
+      if(hints>0){
+         e.style.display = 'block';
+      }
+   }
+}
+
+function close_modal(){
+   e=document.getElementById("info_modal");
+   e.style.display = 'none';
 }

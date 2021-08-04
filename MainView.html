@@ -92,7 +92,7 @@
             <button class="btn btn-lg btn-primary btn-block" id='behindscene_btn' type="submit" onclick="show_behindscene()">Hintergrunddetails anzeigen</button> 
             <button class="btn btn-lg btn-primary btn-block" id='tipp_btn' type="submit" onclick="show_hints()">Tipp einblenden</button> 
             <div class='btnbox' id='btnboxre'> 
-                <p class='btnboxtxt'>„- -“ wird in SQL zum auskommentieren verwendet. Dies kannst du hier benutzen um den restlichen Code auszukommentieren bzw. um eine gültige  SQL Query zu erzeugen.
+                <p class='btnboxtxt'>
                 </p>
             </div>
             <div class='rsbtmleft'>
@@ -116,8 +116,17 @@
         
     </div>
     <div class='bottom'>
-
-
+        <br>
+        <button id='info_btn' onclick="show_info()"><img id='info' src="https://img.icons8.com/ios/50/000000/info--v4.png"/></button> 
+        <div id='info_modal' class='modal'>
+            <div class="modal-content">
+                <span class="close" onclick="close_modal()">&times;</span>
+                <p>            <h3>Informationen</h3>
+                    <a href="https://icons8.com/icon/ZiRwjHmdrgtj/info">Info icon by Icons8</a><br>
+                    <a target="_blank" href="https://icons8.com/icon/19209/light">Light</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> <br>
+                    <a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a><br></p>
+              </div>
+    </div>
 
     </div>
 
