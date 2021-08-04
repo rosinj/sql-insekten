@@ -82,12 +82,12 @@ db.transaction(
 // );
 function show_hints(){
     var e = document.getElementById('btnboxre');
-   if(e.hidden == false){
-      e.hidden = true;
+    if(e.style.display == 'block'){
+      e.style.display = 'none';
    }
    else{
       if(hints>0){
-         e.hidden = false;
+         e.style.display = 'block';
       }
       hints=hints-1;
       if(hints==2){
@@ -113,13 +113,14 @@ function show_hints(){
 }
 function show_behindscene(){
     var e = document.getElementById('btnboxli');
+   //  var sw=document.getElementById('switcher');
    if (fails >=3){
-      if(e.hidden == false){
-         e.hidden == true;
+      if(e.style.display == 'block'){
+         e.style.display = 'none';
       }
       else{
          //  sw.checked=true;
-          e.hidden == false;
+         e.style.display = 'block';
       }
    }
    else{
@@ -141,7 +142,7 @@ function show_lvl(){
    document.getElementById("speakbubble_h2").innerHTML = TASKS[0].question;
    // document.getElementById("speakbubble_h3").innerHTML = TASKS[0][1];
    // document.getElementById("insect").src = TASKS[0][2];
-   document.getElementById("next_btn").hidden=true;
+   document.getElementById("next_btn").style.display = 'none';
 }
 
 function try_login(event){
@@ -153,20 +154,23 @@ function try_login(event){
               "SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';",[], function (transaction, results) { 
                  if(results.rows.length == 1){
                     document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
-                    document.getElementById("username").hidden=true;
-                    document.getElementById("password").hidden=true;
-                    document.getElementById("login_btn").hidden=true;
+                    document.getElementById("username").style.display = 'none';
+                    document.getElementById("password").style.display = 'none';
+                    document.getElementById("login_btn").style.display = 'none';
                     document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
-                    document.getElementById("next_btn").hidden=false;
+                    document.getElementById("speakbubble_h3").innerHTML="";
+                    document.getElementById("next_btn").style.display = 'block';
                     document.getElementById("lvl").innerHTML="Level: 2";
                     fails=0;
+                    document.getElementById('btnboxli').style.display = 'none';
                     console.log(fails);
                     console.log("iam in the if");
                  }else{
                     fails=fails+1;
                     document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
                     document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
-                    document.getElementById("insect").src = "img/surprisebee.jpg";
+                    document.getElementById("speakbubble_h3").innerHTML="";
+                    document.getElementById("insect").src = "img/surprisebee.png";
                     console.log(fails);
                     console.log("iam in the else");
                  }
@@ -174,7 +178,7 @@ function try_login(event){
                  fails=fails+1;
                  document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
                  document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
-                 document.getElementById("insect").src = "img/surprisebee.jpg";
+                 document.getElementById("insect").src = "img/surprisebee.png";
                  console.log(fails);
                  console.log("iam the error function");
                }
@@ -224,144 +228,3 @@ function dataHandler(transaction, results)
     }
     console.log(string);
 }
- 
-// db.transaction(
-//     function (transaction) {
-//         transaction.executeSql("SELECT * from users;",
-//             [], // array of values for the ? placeholders
-//             dataHandler, errorHandler);
-//     }
-// );
-// function createDb() {
-//    var db_name = 'db2hack';
-//    var db_version = '1.0';
-//    var db_describe = 'user Database for hacking';
-//    var db_size = 2048;
-//    var db = openDatabase(db_name, db_version, db_describe, db_size, function(db) {
-//        console.log(db);
-//        console.log("Database opened Successfully! Or created for the first time !");
-//        createTable(db);
-//    });
-// }
-
-// function createTable(db) {
-//    db.transaction(function(tx) {
-//        tx.executeSql('create table users(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , username TEXT NOT NULL, password TEXT NOT NULL, email TEXT NOT NULL )', [], function(transaction, result) {
-//            console.log(result);
-//            console.log('Table created Successfully!');
-//            insertRecords(db);
-//        }, function(transaction, error) {
-//            console.log(error);
-//        });
-//    }, transError, transSuccess);
-// }
-
-// function transError(t, e) {
-//    console.log(t);
-//    console.log(e);
-//    console.error("Error occured ! Code:" + e.code + " Message : " + e.message);
-// }
-
-// function transSuccess(t, r) {
-//    console.info("Transaction completed Successfully!");
-//    console.log(t);
-//    console.log(r);
-// }
-
-// function insertRecords(db) {
-//    if (db) {
-//        db.transaction(function(tx) {
-//            tx.executeSql('INSERT INTO users VALUES (0,"maxmustermann","password123","maxmustermann@examplemail.com"); ', [], function(transaction, result) {
-//                console.log(result.insertId);
-//            }, function(transaction, error) {
-//                console.log(error);
-//            });
-//            tx.executeSql('INSERT INTO users VALUES (1,"alexamusterfrau","alexa12345","alexamustermann@example.de");', [], function(transaction, result) {
-//                console.log(result.insertId);
-//            }, function(transaction, error) {
-//                console.log(error);
-//            });
-//            tx.executeSql('INSERT INTO users VALUES (2,"kati1809","khatrin321","kati@examplemail.com");', [], function(transaction, result) {
-//                console.log(result.insertId);
-//                console.log('Record inserted Successfully!');
-//                displayUsers(db);
-//            }, function(transaction, error) {
-//                console.log(error);
-//            });
-//        }, transError, transSuccess);
-//    } else {
-//        console.log('No Database man! wait creating it for you!');
-//        createDb();
-//    }
-// }
-
-// function displayUsers(db) {
-//    db.transaction(function(tx) {
-//        tx.executeSql("SELECT * FROM users", [], function(sqlTransaction, sqlResultSet) {
-//            var rows = sqlResultSet.rows;
-//            var len = rows.length;
-//            for (var i = 0; i < len; i++) {
-//                var cur_item = rows[i]; // or u can use the item methid ---> var cur_item = rows.item(i);
-//                console.log("the id is : " + cur_item.id + " the data is : " + cur_item.data);
-//            }
-//            console.log('Done!!!');
-//          //   UpdateUser(db);
-//        }, function(sqlTransaction, sqlError) {
-//            switch (sqlError.code) {
-//                case sqlError.SYNTAX_ERR:
-//                    console.error("Syntax error has occurred. " + sqlError.message);
-//                    break;
-//                default:
-//                    console.error("Other error");
-//            }
-//        });
-//    }, transError, transSuccess);
-// }
-
-// function UpdateUsers(db) {
-//    db.transaction(function(tx) {
-//        tx.executeSql('update notes set data=? where id=?', ["rane", 1], function(transaction, result) {
-//            console.log(result);
-//            console.info('Record Updated Successfully!');
-//            deleteNote(db);
-//        }, function(transaction, error) {
-//            console.log(error);
-//        });
-//    }, transError, transSuccess);
-// }
-// createDb();
-// function deleteNote(db) {
-//    db.transaction(function(tx) {
-//        tx.executeSql('delete from notes where id=?', [1], function(transaction, result) {
-//            console.log(result);
-//            console.info('Record Deleted Successfully!');
-//        }, function(transaction, error) {
-//            console.log(error);
-//        });
-//    }, transError, transSuccess);
-// }
-
-// function errorHandler(transaction, error) {
-//    console.log('Error: ' + error.message + ' code: ' + error.code);
-
-// }
-
-// // this is called when a successful transaction happens
-// function successCallBack() {
-//    console.log("DEBUGGING: success");
-//    console.log(result);
-// }
-
-// function selectAll(){
-//    db2hack.transaction(
-//        function(transaction) {
-//            transaction.executeSql("SELECT * FROM users", [], successCallback,errorCallback);
-//    });
-// }
-
-// function retrieveData(transaction, results) {
-//    for(var i = 0; i < results.rows.length; i++) {
-//        var data = results.rows.item(i)['id']
-//        alert(data.value);
-//    }
-// }
