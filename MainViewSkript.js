@@ -1,23 +1,37 @@
 var hints=3;
 var bbltxtindex=0;
 var fails=0
-var bbltxt = [
-   ["Willkommen!","Dies ist ein SQL-Injection-Game. Mit SQL-Injections (dt. SQL-Einschleußung) kann man Websites hacken, indem man durch bestimmte SQL-Befehle auf eine Datenbank zugreift und Daten zweckentfremdet.","img/bee.png"],
-   ["","Hier lernst du von Level zu Level wie Hacker dabei vorgehen. Vorkenntisse wie SQL wären empfehlenswert. In diesem Fall haben wir rechts ein Login-Formular, wie man es so von anderen Websiten kennt.","img/bee.png"],
-   ["","In dem Login-Formular sollst du versuchen dich einzuhacken durch SQL-Injections. Oben wird die Anzahl deiner Tipps angezeigt, was zu Beginn 3 ist und in welchem Level du bist. Rechts unten bei 'Tipp einblenden' kannst du deinen Tipp einlösen.","img/bee.png"],
-   ["","Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert ist, kannst du die die Live Erzeugte SQL-Query anschauen oder den Hintergrundcode.","img/bee.png"],
-   ["Los gehts!","","img/happybee.png"]
-];
+var lvl=1;
 TASKS=[
-   {"question" : "Versuche mal als Erstes Informationen über den Benutzer „maxmustermann“ herauszufinden.",
-    "answers"  : ["...",".."],
-    "hints"    : ["Tipp1","Tipps2"]},
-    {"question": "Nun kennst du keinen Nutzernamen. Versuche Informationen über einen oder mehreren Nutzer/n herauszufinden.",
-    "answers"  : ["..."],
-    "hints"    : ["Tipp1","Tipp2"]},
-    {"question": "Nun kennst du keinen Nutzernamen. Versuche die Tabelle 'users' zu löschen. ",
-    "answers"  : ["..."],
-    "hints"    : ["Tipp1","Tipp2"]}
+   {"text": [{"h2": "Willkommen!",
+              "h3":"Dies ist ein SQL-Injection-Game. Mit SQL-Injections (dt. SQL-Einschleußung) kann man Websites hacken, indem man durch bestimmte SQL-Befehle auf eine Datenbank zugreift und Daten zweckentfremdet.",
+              "img": "img/bee.png"},
+              {"h2": "",
+              "h3":"Hier lernst du von Level zu Level wie Hacker dabei vorgehen. Vorkenntisse wie SQL wären empfehlenswert. In diesem Fall haben wir rechts ein Login-Formular, wie man es so von anderen Websiten kennt.",
+              "img": "img/bee.png"},
+              {"h2": "",
+              "h3":"Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert ist, kannst du die die Live Erzeugte SQL-Query anschauen oder den Hintergrundcode.",
+              "img": "img/bee.png"},
+              {"h2": "Los gehts!",
+              "h3":"",
+              "img": "img/happybee.png"}],
+    "challenge" : "Versuche mal als Erstes Informationen über den Benutzer „maxmustermann“ herauszufinden.",
+    "validation"  : "",
+    "hints"    : ["Tipp1","Tipps2"],
+    "behindscene" : "",
+    "lvl" : 1},
+    {"text" : "",
+    "challenge": "Nun kennst du keinen Nutzernamen. Versuche Informationen über einen oder mehreren Nutzer/n herauszufinden.",
+    "Validation"  : ["..."],
+    "hints"    : ["Tipp1","Tipp2"],
+    "behindscene" : "",
+    "lvl" : 2},
+    {"text" : "",
+    "challenge": "Nun kennst du keinen Nutzernamen. Versuche die Tabelle 'users' zu löschen. ",
+    "Validation"  : ["..."],
+    "hints"    : ["Tipp1","Tipp2"],
+    "behindscene" : "",
+    "lvl": 3}
 ];
 try {
    if (!window.openDatabase) {
@@ -53,33 +67,6 @@ db.transaction(
    }
 );
 
-// createTable(db2hack);
-// insertRecords(db2hack);
-// displayUsers(db2hack);
-// DATA=[
-//    {"_id":"1","username": "maxmustermann", "password":"password123","email":"maxmustermann@examplemail.com"},
-//    {"_id":"2","username": "alexamusterfrau", "password":"alexa12345","email":"alexamustermann@example.de"},
-//    {"_id":"3","username": "kati1809", "password":"khatrin321","email":"kati@examplemail.com"}
-// ];
-// var db2hack = openDatabase('userdbhack', '1.0', 'user Database for hacking', 2 * 1024 * 1024);
-// db2hack.transaction(
-//    function(transaction) {
-//        transaction.executeSql(
-//            'CREATE TABLE IF NOT EXISTS users ' +
-//            '  (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ' +
-//            '   username TEXT NOT NULL, password TEXT NOT NULL, email TEXT NOT NULL );'
-//        );
-//    }
-// );
-// db2hack.transaction(
-//    function(transaction) {
-//        transaction.executeSql(
-//            'INSERT INTO users VALUES ("maxmustermann","password123","maxmustermann@examplemail.com"); ' +
-//            'INSERT INTO users VALUES ("alexamusterfrau","alexa12345","alexamustermann@example.de"); '+
-//            'INSERT INTO users VALUES ("kati1809","khatrin321","kati@examplemail.com"); '
-//        );
-//    }
-// );
 function show_hints(){
     var e = document.getElementById('btnboxre');
     if(e.style.display == 'block'){
@@ -129,19 +116,19 @@ function show_behindscene(){
 }
 function speakbubble_next(){
    bbltxtindex=bbltxtindex+1;
-   document.getElementById("speakbubble_h2").innerHTML = bbltxt[bbltxtindex][0];
-   document.getElementById("speakbubble_h3").innerHTML = bbltxt[bbltxtindex][1];
-   document.getElementById("insect").src = bbltxt[bbltxtindex][2];
-   if(bbltxtindex == bbltxt.length -1){
+   console.log(TASKS[lvl-1].text[bbltxtindex].h2);
+   document.getElementById("speakbubble_h2").innerHTML = TASKS[lvl-1].text[bbltxtindex].h2;
+   document.getElementById("speakbubble_h3").innerHTML = TASKS[lvl-1].text[bbltxtindex].h3;
+   document.getElementById("insect").src = TASKS[lvl-1].text[bbltxtindex].img;
+   if(bbltxtindex >= TASKS[lvl-1].text.length -1){
       show_lvl();
+      bbltxtindex=0;
    }
 
 
 }
 function show_lvl(){
-   document.getElementById("speakbubble_h2").innerHTML = TASKS[0].question;
-   // document.getElementById("speakbubble_h3").innerHTML = TASKS[0][1];
-   // document.getElementById("insect").src = TASKS[0][2];
+   document.getElementById("speakbubble_h2").innerHTML = TASKS[lvl-1].challenge;
    document.getElementById("next_btn").style.display = 'none';
 }
 
@@ -160,27 +147,23 @@ function try_login(event){
                     document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
                     document.getElementById("speakbubble_h3").innerHTML="";
                     document.getElementById("next_btn").style.display = 'block';
-                    document.getElementById("lvl").innerHTML="Level: 2";
+                    document.getElementById("insect").src = "img/happybee.png";
                     fails=0;
+                    lvl=lvl+1;
+                    document.getElementById("lvl").innerHTML="Level: " + lvl;
                     document.getElementById('btnboxli').style.display = 'none';
-                    console.log(fails);
-                    console.log("iam in the if");
                  }else{
                     fails=fails+1;
                     document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
                     document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
                     document.getElementById("speakbubble_h3").innerHTML="";
                     document.getElementById("insect").src = "img/surprisebee.png";
-                    console.log(fails);
-                    console.log("iam in the else");
                  }
               },function(transaction,results){
                  fails=fails+1;
                  document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
                  document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
                  document.getElementById("insect").src = "img/surprisebee.png";
-                 console.log(fails);
-                 console.log("iam the error function");
                }
           );
       }
