@@ -185,6 +185,14 @@
   background-color: #7A89C2;
   border: 1px solid gray;
 }
+#suchleiste{
+  display:none;
+}
+#suche_btn{
+  display:none;
+  background-color: #7A89C2;
+  border: 1px solid gray;
+}
 /* ####### rightside bottom */
 .rsbottom{
     height: 350px;
