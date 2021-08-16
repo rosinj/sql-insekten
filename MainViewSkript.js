@@ -1,3 +1,5 @@
+
+// GLOBAL
 var hints=3;
 var bbltxtindex=0;
 var fails=0
@@ -83,6 +85,8 @@ db.transaction(
    }
 );
 
+//  HINTS
+
 function show_hints(){
     var hinttxt=TASKS[lvl-1].hints;
     document.getElementsByClassName("btnboxtxt")[0].innerHTML=hinttxt[0];
@@ -116,6 +120,9 @@ function show_hints(){
    }
 
 }
+
+// BEHIND THE SCENE
+
 function show_behindscene(){
     var e = document.getElementById('btnboxli');
    //  var sw=document.getElementById('switcher');
@@ -132,6 +139,9 @@ function show_behindscene(){
       alert('Der Button wird erst nach 3 Fehlversuchen aktiviert.')
    }
 }
+
+// SPEAKBUBBLE
+
 function speakbubble_next(){
    // console.log(TASKS[lvl-1].text[bbltxtindex].h2);
    // console.log(lvl);
@@ -155,6 +165,8 @@ function show_lvl(){
    document.getElementById("speakbubble_h3").innerHTML = "";
    document.getElementById("next_btn").style.display = 'none';
 }
+
+// FORMS & VALIDATION
 
 function try_login(){
    if(lvl==1){
@@ -305,6 +317,8 @@ function dataHandler(transaction, results)
     }
     console.log(string);
 }
+
+// INFO MODAL 
 function show_info(){
    e=document.getElementById("info_modal");
    if(e.style.display == 'block'){
