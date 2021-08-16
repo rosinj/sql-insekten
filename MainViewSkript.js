@@ -1,5 +1,6 @@
 
 // GLOBAL
+
 var hints=3;
 var bbltxtindex=0;
 var fails=0
@@ -51,39 +52,8 @@ TASKS=[
     "behindscene" : "",
     "lvl": 4}
 ];
-
-try {
-   if (!window.openDatabase) {
-      // https://caniuse.com/indexeddb https://caniuse.com/?search=web%20sql
-       alert('not supported');
-   } else {
-       var shortName = 'db2hack';
-       var version = '1.0';
-       var displayName = 'user Database for hacking';
-       var maxSize = 65536; // in bytes
-       var db = openDatabase(shortName, version, displayName, maxSize);
-
-       // You should have a database instance in db.
-   }
-} catch(e) {
-   // Error handling code goes here.
-   if (e == 2) {
-       // Version number mismatch.
-       alert("Invalid database version.");
-   } else {
-       alert("Unknown error "+e+".");
-   }
-   // return;
-}
-createTables(db);
-db.transaction(
-   function (transaction) {
-
-       transaction.executeSql('INSERT INTO users VALUES (0,"maxmustermann","password123","maxmustermann@examplemail.com");', [], nullDataHandler, errorHandler);
-       transaction.executeSql('INSERT INTO users VALUES (1,"alexamusterfrau","alexa12345","alexamustermann@example.de");', [], nullDataHandler, errorHandler);
-       transaction.executeSql('INSERT INTO users VALUES (2,"kati1809","khatrin321","kati@examplemail.com");', [], dataHandler, dataHandler);
-   }
-);
+var db= createdb();
+createTableUsers(db);
 
 //  HINTS
 
@@ -278,7 +248,7 @@ function validate_lvl2(){
 }
 function nullDataHandler(transaction, results) { console.log("yeah"); }
  
-function createTables(db)
+function createTableUsers(db)
 {
     db.transaction(
         function (transaction) {
@@ -288,7 +258,7 @@ function createTables(db)
             /* These insertions will be skipped if the table already exists. */
             transaction.executeSql('INSERT INTO users VALUES (0,"maxmustermann","password123","maxmustermann@examplemail.com");', [], nullDataHandler, errorHandler);
             transaction.executeSql('INSERT INTO users VALUES (1,"alexamusterfrau","alexa12345","alexamustermann@example.de");', [], nullDataHandler, errorHandler);
-            transaction.executeSql('INSERT INTO users VALUES (2,"kati1809","khatrin321","kati@examplemail.com");', [], nullDataHandler, errorHandler);
+            transaction.executeSql('INSERT INTO users VALUES (2,"kati1809","khatrin321","kati@examplemail.com");', [], dataHandler, dataHandler);
         }
     );
 }
@@ -317,7 +287,29 @@ function dataHandler(transaction, results)
     }
     console.log(string);
 }
-
+function createdb(){
+   try {
+      if (!window.openDatabase) {
+          alert('not supported');
+      } else {
+          var shortName = 'db2hack';
+          var version = '1.0';
+          var displayName = 'user Database for hacking';
+          var maxSize = 65536; // in bytes
+          var db = openDatabase(shortName, version, displayName, maxSize);
+   
+          return db;
+      }
+   } catch(e) {
+      // Error handling code goes here.
+      if (e == 2) {
+          // Version number mismatch.
+          alert("Invalid database version.");
+      } else {
+          alert("Unknown error "+e+".");
+      }
+   }
+}
 // INFO MODAL 
 function show_info(){
    e=document.getElementById("info_modal");
