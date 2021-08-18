@@ -1,6 +1,6 @@
 
-// GLOBAL
-
+//////////////// GLOBAL
+// import {CodeMirror} from 'codemirror/lib/codemirror.js'
 var hints=3;
 var bbltxtindex=0;
 var fails=0
@@ -54,8 +54,11 @@ TASKS=[
 ];
 var db= createdb();
 createTableUsers(db);
-
-//  HINTS
+// var myCodeMirror = CodeMirror(document.body, {
+//    value: "function myScript(){SELECT * FROM users;}\n",
+//    mode:  "sql"
+//  });
+//////////////  HINTS
 
 function show_hints(){
     var hinttxt=TASKS[lvl-1].hints;
@@ -91,7 +94,7 @@ function show_hints(){
 
 }
 
-// BEHIND THE SCENE
+//////////////// BEHIND THE SCENE
 
 function show_behindscene(){
     var e = document.getElementById('btnboxli');
@@ -110,7 +113,7 @@ function show_behindscene(){
    }
 }
 
-// SPEAKBUBBLE
+//////////////// SPEAKBUBBLE
 
 function speakbubble_next(){
    // console.log(TASKS[lvl-1].text[bbltxtindex].h2);
@@ -127,7 +130,6 @@ function speakbubble_next(){
       document.getElementById("speakbubble_h3").innerHTML = TASKS[lvl-1].text[bbltxtindex].h3;
       document.getElementById("insect").src = TASKS[lvl-1].text[bbltxtindex].img;
       bbltxtindex=bbltxtindex+1;
-      console.log(bbltxtindex);
    }
 }
 function show_lvl(){
@@ -136,7 +138,7 @@ function show_lvl(){
    document.getElementById("next_btn").style.display = 'none';
 }
 
-// FORMS & VALIDATION
+//////////////// FORMS & VALIDATION
 
 function try_login(){
    if(lvl==1){
@@ -151,6 +153,7 @@ function try_login(){
       validate_lvl1();
    }
 }
+
 function change_form(){
    if(TASKS[lvl-1].form == "login"){
       document.getElementById('loginlabel').innerHTML= "Bitte einloggen";
@@ -168,13 +171,19 @@ function change_form(){
       document.getElementById("suche_btn").style.display = 'block';
    }
 }
+
+/////// VALIDATION FOR EACH LEVEL
+
 function validate_lvl1(){
    uname=document.getElementById("username").value;
    pw=document.getElementById("password").value;
+   console.log("username: " + uname + " password: " + pw);
+   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
+   console.log("SQL Query: " + query);
    db.transaction(
       function(transaction) {
           transaction.executeSql(
-              "SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';",[], function (transaction, results) { 
+              query,[], function (transaction, results) { 
                  if(results.rows.length == 1){
                     document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
                     document.getElementById("username").style.display = 'none';
@@ -195,11 +204,12 @@ function validate_lvl1(){
                     document.getElementById("speakbubble_h3").innerHTML="";
                     document.getElementById("insect").src = "img/surprisebee.png";
                  }
-              },function(transaction,results){
+              },function(transaction,error){
                  fails=fails+1;
                  document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
                  document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
                  document.getElementById("insect").src = "img/surprisebee.png";
+                 console.log('Error:'+error.message+' (Code '+error.code+')');
                }
           );
       }
@@ -209,13 +219,15 @@ function validate_lvl2(){
    uname=document.getElementById("username").value;
    pw=document.getElementById("password").value;
    if(uname.indexOf("maxmustermann") >=0){
-      console.log("hier bin ich");
       uname="";
    }
+   console.log("username: " + uname + " password: " + pw);
+   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
+   console.log("SQL Query: " + query);
    db.transaction(
       function(transaction) {
           transaction.executeSql(
-              "SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';",[], function (transaction, results) { 
+              query,[], function (transaction, results) { 
                  if(results.rows.length == 1){
                     document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
                     document.getElementById("username").style.display = 'none';
@@ -236,16 +248,64 @@ function validate_lvl2(){
                     document.getElementById("speakbubble_h3").innerHTML="";
                     document.getElementById("insect").src = "img/surprisebee.png";
                  }
-              },function(transaction,results){
+              },function(transaction,error){
                  fails=fails+1;
                  document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
                  document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
                  document.getElementById("insect").src = "img/surprisebee.png";
+                 console.log('Error:'+error.message+' (Code '+error.code+')');
                }
           );
       }
    );
 }
+
+function validate_lvl3(){
+   uname=document.getElementById("username").value;
+   pw=document.getElementById("password").value;
+   if(uname.indexOf("maxmustermann") >=0){
+      uname="";
+   }
+   console.log("username: " + uname + " password: " + pw);
+   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
+   console.log("SQL Query: " + query);
+   db.transaction(
+      function(transaction) {
+          transaction.executeSql(
+              query,[], function (transaction, results) { 
+                 transaction.executeSql('SELECT * FROM users;',[], function (transaction,results){
+                  document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
+                  document.getElementById("username").style.display = 'none';
+                  document.getElementById("password").style.display = 'none';
+                  document.getElementById("login_btn").style.display = 'none';
+                  document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
+                  document.getElementById("speakbubble_h3").innerHTML="";
+                  document.getElementById("next_btn").style.display = 'block';
+                  document.getElementById("insect").src = "img/happybee.png";
+                  fails=0;
+                  lvl=lvl+1;
+                  document.getElementById("lvl").innerHTML="Level: " + lvl;
+                  document.getElementById('btnboxli').style.display = 'none';
+                 },function(transaction,error){
+                  fails=fails+1;
+                  document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+                  document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+                  document.getElementById("insect").src = "img/surprisebee.png";
+                  console.log('Error:'+error.message+' (Code '+error.code+')');
+                 })
+              },function(transaction,error){
+                 fails=fails+1;
+                 document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+                 document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+                 document.getElementById("insect").src = "img/surprisebee.png";
+                 console.log('Error:'+error.message+' (Code '+error.code+')');
+               }
+          );
+      }
+   );
+}
+/////// DATABASE FUNCTIONS
+
 function nullDataHandler(transaction, results) { console.log("yeah"); }
  
 function createTableUsers(db)
@@ -310,7 +370,7 @@ function createdb(){
       }
    }
 }
-// INFO MODAL 
+//////////////// INFO MODAL 
 function show_info(){
    e=document.getElementById("info_modal");
    if(e.style.display == 'block'){
