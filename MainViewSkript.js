@@ -1,6 +1,6 @@
 
 //////////////// GLOBAL
-// import {CodeMirror} from 'codemirror/lib/codemirror.js'
+
 var hints=3;
 var bbltxtindex=0;
 var fails=0
@@ -16,7 +16,8 @@ TASKS=[
               "h3":"",
               "img": "img/happybee.png"}],
     "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit dem Passwort 'password123' einzuloggen, wie man es normalerweise kennt. ",
-    "validation"  : validate_lvl1,
+    "validation"  : [{"fktn": validation,
+                      "forbiddenstrings": [""]}],
     "form":"login",
     "hints"    : "hints deactivated",
     "behindscene" : "",
@@ -25,7 +26,8 @@ TASKS=[
               "h3":"",
               "img": "img/happybee.png"}],
     "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne das Passwort zu kennen.",
-    "validation"  : validate_lvl2,
+    "validation"  : [{"fktn": validation,
+                      "forbiddenstrings": ["maxmustermann"]}],
     "form":"login",
     "hints"    : ["Tipp 1: '--' wird in SQL zum auskommentieren verwendet. Dies kannst du hier benutzen um den restlichen Code auszukommentieren bzw. um eine gültige  SQL Query zu erzeugen.","Tipps2"],
     "behindscene" : "",
@@ -34,7 +36,8 @@ TASKS=[
                 "h3":"",
                 "img": "img/bee.png"}],
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche Informationen über einen oder mehreren Nutzer/n herauszufinden.",
-    "validation"  : validate_lvl3,
+    "validation"  : [{"fktn": validation,
+                      "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
     "hints"    : ["Tipp1","Tipp2"],
     "behindscene" : "",
@@ -43,7 +46,8 @@ TASKS=[
                 "h3":"",
                 "img": "img/bee.png"}],
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche die Tabelle 'users' zu löschen. ",
-    "validation"  : validate_lvl1,
+    "validation"  : [{"fktn": validation,
+                      "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
     "hints"    : ["Tipp1","Tipp2"],
     "behindscene" : "",
@@ -55,7 +59,8 @@ TASKS=[
                "h3":"Nun haben wir statt ein Login-Formular eine typische Suchleiste. Versuche hier dich per SQL-Injection reinzuhacken! Viel Spaß!",
                "img": "img/bee.png"}],
     "challenge": "Versuche erstmal ganz normal wie du es kennst nach 'Schuhe' zu suchen. ",
-    "validation"  : validate_lvl1,
+    "validation"  : [{"fktn": validation,
+                     "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
     "hints"    : ["Tipp3","Tipp2"],
     "behindscene" : "",
@@ -64,7 +69,8 @@ TASKS=[
                "h3":"",
                "img": "img/bee.png"}],
     "challenge": "Versuche... ",
-    "validation"  : validate_lvl1,
+    "validation"  : [{"fktn": validation,
+                      "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
     "hints"    : ["Tipp3","Tipp2"],
     "behindscene" : "",
@@ -72,10 +78,7 @@ TASKS=[
 ];
 var db= createdb();
 createTableUsers(db);
-// var myCodeMirror = CodeMirror(document.body, {
-//    value: "function myScript(){SELECT * FROM users;}\n",
-//    mode:  "sql"
-//  });
+
 //////////////  HINTS
 
 function show_hints(){
@@ -159,7 +162,7 @@ function show_lvl(){
 //////////////// FORMS & VALIDATION
 
 function try_login(){
-   TASKS[lvl-1].validation();
+   TASKS[lvl-1].validation[0].fktn();
 }
 
 function change_form(){
@@ -181,9 +184,17 @@ function change_form(){
 }
 
 /////// VALIDATION FOR EACH LEVEL
-function validate_lvl1(){
+function validation(){
    uname=document.getElementById("username").value;
    pw=document.getElementById("password").value;
+   forbiddenarray=TASKS[lvl-1].validation[0].forbiddenstrings;
+   console.log(forbiddenarray);
+   for (let i in forbiddenarray){
+      console.log(i);
+         if(uname.includes(forbiddenarray[i]) && forbiddenarray[i]!=""){
+            uname="";
+         }
+      }
    console.log("username: " + uname + " password: " + pw);
    query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
    console.log("SQL Query: " + query);
@@ -191,169 +202,39 @@ function validate_lvl1(){
       function(transaction) {
           transaction.executeSql(
               query,[], function (transaction, results) { 
-                 if(results.rows.length == 1){
-                    document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
-                    document.getElementById("username").style.display = 'none';
-                    document.getElementById("password").style.display = 'none';
-                    document.getElementById("login_btn").style.display = 'none';
-                    document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
-                    document.getElementById("speakbubble_h3").innerHTML="";
-                    document.getElementById("next_btn").style.display = 'block';
-                    document.getElementById("insect").src = "img/happybee.png";
-                    fails=0;
-                    lvl=lvl+1;
-                    document.getElementById("lvl").innerHTML="Level: " + lvl;
-                    document.getElementById('btnboxli').style.display = 'none';
-                 }else{
-                    fails=fails+1;
-                    document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
-                    document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
-                    document.getElementById("speakbubble_h3").innerHTML="";
-                    document.getElementById("insect").src = "img/surprisebee.png";
-                 }
+                  if(results.rows.length == 1){
+                     right_answer();
+                  }else{
+                     false_answer();
+                  }
               },function(transaction,error){
-                 fails=fails+1;
-                 document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
-                 document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
-                 document.getElementById("insect").src = "img/surprisebee.png";
+                 false_answer();
                  console.log('Error:'+error.message+' (Code '+error.code+')');
                }
           );
       }
    );
 }
-function validate_lvl2(){
-   uname=document.getElementById("username").value;
-   pw=document.getElementById("password").value;
-   if(uname.indexOf("maxmustermann") >=0){
-      uname="";
-   }
-   console.log("username: " + uname + " password: " + pw);
-   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
-   console.log("SQL Query: " + query);
-   db.transaction(
-      function(transaction) {
-          transaction.executeSql(
-              query,[], function (transaction, results) { 
-                 if(results.rows.length == 1){
-                    document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
-                    document.getElementById("username").style.display = 'none';
-                    document.getElementById("password").style.display = 'none';
-                    document.getElementById("login_btn").style.display = 'none';
-                    document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
-                    document.getElementById("speakbubble_h3").innerHTML="";
-                    document.getElementById("next_btn").style.display = 'block';
-                    document.getElementById("insect").src = "img/happybee.png";
-                    fails=0;
-                    lvl=lvl+1;
-                    document.getElementById("lvl").innerHTML="Level: " + lvl;
-                    document.getElementById('btnboxli').style.display = 'none';
-                 }else{
-                    fails=fails+1;
-                    document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
-                    document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
-                    document.getElementById("speakbubble_h3").innerHTML="";
-                    document.getElementById("insect").src = "img/surprisebee.png";
-                 }
-              },function(transaction,error){
-                 fails=fails+1;
-                 document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
-                 document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
-                 document.getElementById("insect").src = "img/surprisebee.png";
-                 console.log('Error:'+error.message+' (Code '+error.code+')');
-               }
-          );
-      }
-   );
-}
-function validate_lvl3(){
-   uname=document.getElementById("username").value;
-   pw=document.getElementById("password").value;
-   if(uname.includes("maxmustermann") || uname.includes("alexamusterfrau")){
-      uname="";
-   }
-   console.log("username: " + uname + " password: " + pw);
-   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
-   console.log("SQL Query: " + query);
-   db.transaction(
-      function(transaction) {
-          transaction.executeSql(
-              query,[], function (transaction, results) { 
-                 if(results.rows.length == 1){
-                    document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
-                    document.getElementById("username").style.display = 'none';
-                    document.getElementById("password").style.display = 'none';
-                    document.getElementById("login_btn").style.display = 'none';
-                    document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
-                    document.getElementById("speakbubble_h3").innerHTML="";
-                    document.getElementById("next_btn").style.display = 'block';
-                    document.getElementById("insect").src = "img/happybee.png";
-                    fails=0;
-                    lvl=lvl+1;
-                    document.getElementById("lvl").innerHTML="Level: " + lvl;
-                    document.getElementById('btnboxli').style.display = 'none';
-                 }else{
-                    fails=fails+1;
-                    document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
-                    document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
-                    document.getElementById("speakbubble_h3").innerHTML="";
-                    document.getElementById("insect").src = "img/surprisebee.png";
-                 }
-              },function(transaction,error){
-                 fails=fails+1;
-                 document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
-                 document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
-                 document.getElementById("insect").src = "img/surprisebee.png";
-                 console.log('Error:'+error.message+' (Code '+error.code+')');
-               }
-          );
-      }
-   );
-}
+function right_answer(){
+   document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
+   document.getElementById("username").style.display = 'none';
+   document.getElementById("password").style.display = 'none';
+   document.getElementById("login_btn").style.display = 'none';
+   document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
+   document.getElementById("speakbubble_h3").innerHTML="";
+   document.getElementById("next_btn").style.display = 'block';
+   document.getElementById("insect").src = "img/happybee.png";
+   fails=0;
+   lvl=lvl+1;
+   document.getElementById("lvl").innerHTML="Level: " + lvl;
+   document.getElementById('btnboxli').style.display = 'none';
 
-function validate_lvl4(){
-   uname=document.getElementById("username").value;
-   pw=document.getElementById("password").value;
-   if(uname.indexOf("maxmustermann") >=0){
-      uname="";
-   }
-   console.log("username: " + uname + " password: " + pw);
-   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
-   console.log("SQL Query: " + query);
-   db.transaction(
-      function(transaction) {
-          transaction.executeSql(
-              query,[], function (transaction, results) { 
-                 transaction.executeSql('SELECT * FROM users;',[], function (transaction,results){
-                  document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
-                  document.getElementById("username").style.display = 'none';
-                  document.getElementById("password").style.display = 'none';
-                  document.getElementById("login_btn").style.display = 'none';
-                  document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
-                  document.getElementById("speakbubble_h3").innerHTML="";
-                  document.getElementById("next_btn").style.display = 'block';
-                  document.getElementById("insect").src = "img/happybee.png";
-                  fails=0;
-                  lvl=lvl+1;
-                  document.getElementById("lvl").innerHTML="Level: " + lvl;
-                  document.getElementById('btnboxli').style.display = 'none';
-                 },function(transaction,error){
-                  fails=fails+1;
-                  document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
-                  document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
-                  document.getElementById("insect").src = "img/surprisebee.png";
-                  console.log('Error:'+error.message+' (Code '+error.code+')');
-                 })
-              },function(transaction,error){
-                 fails=fails+1;
-                 document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
-                 document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
-                 document.getElementById("insect").src = "img/surprisebee.png";
-                 console.log('Error:'+error.message+' (Code '+error.code+')');
-               }
-          );
-      }
-   );
+}
+function false_answer(){
+   fails=fails+1;
+   document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+   document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+   document.getElementById("insect").src = "img/surprisebee.png";
 }
 /////// DATABASE FUNCTIONS
 
