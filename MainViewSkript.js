@@ -15,42 +15,60 @@ TASKS=[
               {"h2": "Los gehts!",
               "h3":"",
               "img": "img/happybee.png"}],
-    "challenge" : "Versuche mal als Erstes Informationen über den Benutzer „maxmustermann“ herauszufinden.",
+    "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit dem Passwort 'password123' einzuloggen, wie man es normalerweise kennt. ",
     "validation"  : validate_lvl1,
     "form":"login",
-    "hints"    : ["Tipp 1: '--' wird in SQL zum auskommentieren verwendet. Dies kannst du hier benutzen um den restlichen Code auszukommentieren bzw. um eine gültige  SQL Query zu erzeugen.","Tipps2"],
+    "hints"    : "hints deactivated",
     "behindscene" : "",
     "lvl" : 1},
-    {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung",
-                "h3":"",
-                "img": "img/bee.png"}],
-    "challenge": "Nun kennst du keinen Nutzernamen. Versuche Informationen über einen oder mehreren Nutzer/n herauszufinden.",
-    "Validation"  : validate_lvl1,
+   {"text": [{"h2": "ok, jetzt geht's aber wirklich los!",
+              "h3":"",
+              "img": "img/happybee.png"}],
+    "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne das Passwort zu kennen.",
+    "validation"  : validate_lvl2,
     "form":"login",
-    "hints"    : ["Tipp1","Tipp2"],
+    "hints"    : ["Tipp 1: '--' wird in SQL zum auskommentieren verwendet. Dies kannst du hier benutzen um den restlichen Code auszukommentieren bzw. um eine gültige  SQL Query zu erzeugen.","Tipps2"],
     "behindscene" : "",
     "lvl" : 2},
     {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung",
                 "h3":"",
                 "img": "img/bee.png"}],
-    "challenge": "Nun kennst du keinen Nutzernamen. Versuche die Tabelle 'users' zu löschen. ",
-    "Validation"  : validate_lvl1,
+    "challenge": "Nun kennst du keinen Nutzernamen. Versuche Informationen über einen oder mehreren Nutzer/n herauszufinden.",
+    "validation"  : validate_lvl3,
     "form":"login",
     "hints"    : ["Tipp1","Tipp2"],
     "behindscene" : "",
-    "lvl": 3},
+    "lvl" : 3},
+    {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung",
+                "h3":"",
+                "img": "img/bee.png"}],
+    "challenge": "Nun kennst du keinen Nutzernamen. Versuche die Tabelle 'users' zu löschen. ",
+    "validation"  : validate_lvl1,
+    "form":"login",
+    "hints"    : ["Tipp1","Tipp2"],
+    "behindscene" : "",
+    "lvl": 4},
     {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung",
                "h3":"",
                "img": "img/bee.png"},
                {"h2": "",
                "h3":"Nun haben wir statt ein Login-Formular eine typische Suchleiste. Versuche hier dich per SQL-Injection reinzuhacken! Viel Spaß!",
                "img": "img/bee.png"}],
-    "challenge": "Versuche...",
-    "Validation"  : validate_lvl1,
+    "challenge": "Versuche erstmal ganz normal wie du es kennst nach 'Schuhe' zu suchen. ",
+    "validation"  : validate_lvl1,
     "form":"search",
     "hints"    : ["Tipp3","Tipp2"],
     "behindscene" : "",
-    "lvl": 4}
+    "lvl": 5},
+    {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung",
+               "h3":"",
+               "img": "img/bee.png"}],
+    "challenge": "Versuche... ",
+    "validation"  : validate_lvl1,
+    "form":"search",
+    "hints"    : ["Tipp3","Tipp2"],
+    "behindscene" : "",
+    "lvl": 6}
 ];
 var db= createdb();
 createTableUsers(db);
@@ -141,17 +159,7 @@ function show_lvl(){
 //////////////// FORMS & VALIDATION
 
 function try_login(){
-   if(lvl==1){
-      validate_lvl1();
-   }else if(lvl==2){
-      validate_lvl2();
-   }else if(lvl==3){
-      validate_lvl1();
-   }else if(lvl==4){
-      validate_lvl1();
-   }else if(lvl==5){
-      validate_lvl1();
-   }
+   TASKS[lvl-1].validation();
 }
 
 function change_form(){
@@ -173,7 +181,6 @@ function change_form(){
 }
 
 /////// VALIDATION FOR EACH LEVEL
-
 function validate_lvl1(){
    uname=document.getElementById("username").value;
    pw=document.getElementById("password").value;
@@ -259,8 +266,52 @@ function validate_lvl2(){
       }
    );
 }
-
 function validate_lvl3(){
+   uname=document.getElementById("username").value;
+   pw=document.getElementById("password").value;
+   if(uname.includes("maxmustermann") || uname.includes("alexamusterfrau")){
+      uname="";
+   }
+   console.log("username: " + uname + " password: " + pw);
+   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
+   console.log("SQL Query: " + query);
+   db.transaction(
+      function(transaction) {
+          transaction.executeSql(
+              query,[], function (transaction, results) { 
+                 if(results.rows.length == 1){
+                    document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
+                    document.getElementById("username").style.display = 'none';
+                    document.getElementById("password").style.display = 'none';
+                    document.getElementById("login_btn").style.display = 'none';
+                    document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
+                    document.getElementById("speakbubble_h3").innerHTML="";
+                    document.getElementById("next_btn").style.display = 'block';
+                    document.getElementById("insect").src = "img/happybee.png";
+                    fails=0;
+                    lvl=lvl+1;
+                    document.getElementById("lvl").innerHTML="Level: " + lvl;
+                    document.getElementById('btnboxli').style.display = 'none';
+                 }else{
+                    fails=fails+1;
+                    document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+                    document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+                    document.getElementById("speakbubble_h3").innerHTML="";
+                    document.getElementById("insect").src = "img/surprisebee.png";
+                 }
+              },function(transaction,error){
+                 fails=fails+1;
+                 document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+                 document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+                 document.getElementById("insect").src = "img/surprisebee.png";
+                 console.log('Error:'+error.message+' (Code '+error.code+')');
+               }
+          );
+      }
+   );
+}
+
+function validate_lvl4(){
    uname=document.getElementById("username").value;
    pw=document.getElementById("password").value;
    if(uname.indexOf("maxmustermann") >=0){

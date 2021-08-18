@@ -72,7 +72,7 @@
     position: absolute;
     width: 0;
     height: 0;
-    left: 470px;
+    left: 70%;
     top: 100%;
     border: 40px solid;
     border-color: #72788d transparent transparent #72788d;}
@@ -82,7 +82,7 @@
     position: absolute;
     width: 0;
     height: 0;
-    left: 474px;
+    left: 70.7%;
     top: 100%;
     border: 35px solid;
     border-color: #7A89C2 transparent transparent #7A89C2;}
@@ -99,13 +99,13 @@
 } */
 .animal{
   /* margin: 7%; */
-  margin-top: -10%;
+  margin-top: -8%;
   margin-left: 10%;
   
 }
 #insect{
-  height: 550px;
-  width: 550px;
+  height: 90%;
+  width: 90%;
 }
 /* #bobble {
     width: 600px;
