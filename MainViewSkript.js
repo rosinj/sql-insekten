@@ -109,7 +109,8 @@ function show_hints(){
         document.getElementById('light3').src="img/lightoff.png"
        }
        else if(hints<0){
-          alert("Deine Tipps sind aufgebraucht.")
+         document.getElementById("tipp_modal").style.display='block';
+         //  alert("Deine Tipps sind aufgebraucht.")
        }
    }
 
@@ -119,21 +120,38 @@ function show_hints(){
 
 function show_behindscene(){
     var e = document.getElementById('btnboxli');
-   //  var sw=document.getElementById('switcher');
    if (fails >=3){
       if(e.style.display == 'block'){
          e.style.display = 'none';
       }
       else{
-         //  sw.checked=true;
          e.style.display = 'block';
+         change_codemode();
       }
    }
    else{
-      alert('Der Button wird erst nach 3 Fehlversuchen aktiviert.')
+      document.getElementById("behindscene_modal").style.display='block';
+      // alert('Der Button wird erst nach 3 Fehlversuchen aktiviert.')
    }
 }
-
+function update_codetxt(){
+   uname=document.getElementById("username").value;
+   pw=document.getElementById("password").value;
+   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
+   document.querySelector("#codetxt > code").innerHTML = query;
+   document.querySelector("#codetxt > code").innerHTML.reload;
+}
+function change_codemode(){
+   var checked= document.getElementById("switcher").checked;
+   if(checked){
+      document.getElementById("codetxt").style.display="block";
+      document.getElementById("behindcode").style.display="none";
+   }
+   else{
+      document.getElementById("codetxt").style.display="none";
+      document.getElementById("behindcode").style.display="block";
+   }
+}
 //////////////// SPEAKBUBBLE
 
 function speakbubble_next(){
@@ -197,23 +215,29 @@ function validation(){
       }
    console.log("username: " + uname + " password: " + pw);
    query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
+   // queries=query.split(";");
    console.log("SQL Query: " + query);
-   db.transaction(
-      function(transaction) {
-          transaction.executeSql(
-              query,[], function (transaction, results) { 
-                  if(results.rows.length == 1){
-                     right_answer();
-                  }else{
-                     false_answer();
+   // console.log(queries)
+   // for (let j in queries){
+      db.transaction(
+         function(transaction) {
+             transaction.executeSql(
+               query,[], function (transaction, results) { 
+               //   queries[j],[], function (transaction, results) { 
+                     if(results.rows.length == 1){
+                        right_answer();
+                        // break;
+                     }else{
+                        false_answer();
+                     }
+                 },function(transaction,error){
+                    false_answer();
+                    console.log('Error:'+error.message+' (Code '+error.code+')');
                   }
-              },function(transaction,error){
-                 false_answer();
-                 console.log('Error:'+error.message+' (Code '+error.code+')');
-               }
-          );
-      }
-   );
+             );
+         }
+      );
+   // }
 }
 function right_answer(){
    document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
@@ -317,5 +341,7 @@ function show_info(){
 
 function close_modal(){
    e=document.getElementById("info_modal");
+   document.getElementById("behindscene_modal").style.display='none';
+   document.getElementById("tipp_modal").style.display='none';
    e.style.display = 'none';
 }

@@ -15,6 +15,11 @@
 <!-- <script src="codemirror/lib/codemirror.js"></script>
 <link rel="stylesheet" href="codemirror/lib/codemirror.css">
 <script src="codemirror/mode/sql/sql.js"></script> -->
+<!-- highlight js -->
+<link rel="stylesheet" href="highlight/styles/base16/railscasts.min.css">
+<script src="highlight/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
 </head>
 <body>
 
@@ -85,8 +90,8 @@
             <div class="wrapper">
                 <form class="form-signin">       
                   <h2 id='loginlabel' class="form-signin-heading">Bitte einloggen</h2>
-                  <input type="text" class="form-control" name="username" placeholder="Benutzername" id='username' required="" />
-                  <input type="password" class="form-control" name="password" placeholder="Passwort" id='password' required=""/>      
+                  <input type="text" class="form-control" name="username" placeholder="Benutzername" id='username' required="" onchange="update_codetxt(); hljs.highlightAll();" />
+                  <input type="password" class="form-control" name="password" placeholder="Passwort" id='password' required="" onchange="update_codetxt(); hljs.highlightAll();"/>      
                   <button class="btn btn-lg btn-primary btn-block" id="login_btn" type="button" onclick="try_login()">Einloggen</button>  
 
                   <input type="text" class="form-control" name="suchleiste" placeholder="" id='suchleiste' required=""/>  
@@ -96,7 +101,25 @@
         </div>
         <div class='rsbottom'>
             <button class="btn btn-lg btn-primary btn-block" id='behindscene_btn' type="submit" onclick="show_behindscene()">Hintergrunddetails anzeigen</button> 
+            <div id='behindscene_modal' class='modal'>
+                <div class="modal-content">
+                    <span class="close" onclick="close_modal()">&times;</span>
+                    <p>            <h3>Information</h3>
+                        Der Button wird erst nach 3 Fehlversuchen aktiviert.
+                        <button class="btn btn-lg btn-primary btn-block" id='btn_modal' type="submit" onclick="close_modal()">Ok</button>
+                    </p>
+                  </div>
+        </div>
             <button class="btn btn-lg btn-primary btn-block" id='tipp_btn' type="submit" onclick="show_hints()">Tipp einblenden</button> 
+            <div id='tipp_modal' class='modal'>
+                <div class="modal-content">
+                    <span class="close" onclick="close_modal()">&times;</span>
+                    <p>            <h3>Information</h3>
+                        Deine Tipps sind aufgebraucht. 
+                        <button class="btn btn-lg btn-primary btn-block" id='btn_modal' type="submit" onclick="close_modal()">Ok</button>
+                    </p>
+                  </div>
+        </div>
             <div class='btnbox' id='btnboxre'> 
                 <p class='btnboxtxt'>
                 </p>
@@ -107,12 +130,29 @@
                     <p class='btnboxtxt'>
                         Hintergrund-Code
                         <label class="switch">
-                            <input id='switcher' type="checkbox" checked>
+                            <input id='switcher' onclick="change_codemode()" type="checkbox" checked>
                             <span class="slider round"></span>
                         </label>
                         Erzeugte SQL-Query
                     </p>
-                    <img src="img/erzeugtequery.png"/>
+                    <pre id="codetxt"><code>
+SELECT * 
+FROM users 
+WHERE username= '' AND password= '';
+                    </code></pre>
+                    <pre id="behindcode"><code >function validation(){
+uname=document.getElementById("username").value;
+pw=document.getElementById("password").value;
+// ...
+query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
+db.transaction(
+    function(transaction) {
+        transaction.executeSql(
+            query,[], rightanswer ,falseanswer);
+        }
+    );
+}</code></pre>
+                    <!-- <img src="img/erzeugtequery.png"/> -->
                 </div>
 
 
