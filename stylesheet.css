@@ -252,10 +252,18 @@
 #codetxt{
   text-align: left;
   display: 'block';
+  height: 218px;
+}
+#codetxt > code {
+  height: 200px;
 }
 #behindcode{
   text-align: left;
   display:none;
+  height: 218px;
+}
+#behindcode > code{
+  height: 200px;
 }
 #btnboxre{
   display:none;
