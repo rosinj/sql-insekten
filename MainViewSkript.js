@@ -203,6 +203,8 @@ function change_form(){
 
 /////// VALIDATION FOR EACH LEVEL
 function validation(){
+   var j = 0;
+   var correctanswer=false;
    uname=document.getElementById("username").value;
    pw=document.getElementById("password").value;
    forbiddenarray=TASKS[lvl-1].validation[0].forbiddenstrings;
@@ -214,31 +216,51 @@ function validation(){
          }
       }
    console.log("username: " + uname + " password: " + pw);
-   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
-   // queries=query.split(";");
+   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
+   queries=query.split(";");
    console.log("SQL Query: " + query);
-   // console.log(queries)
-   // for (let j in queries){
-      db.transaction(
-         function(transaction) {
-             transaction.executeSql(
-               query,[], function (transaction, results) { 
-               //   queries[j],[], function (transaction, results) { 
+   console.log(queries)
+   var prom= new Promise((resolve,reject) =>{
+
+      while(!correctanswer && j < queries.length){
+         atmquery=queries[j] + ";";
+         console.log("queryatm " + atmquery);
+         db.transaction(function(transaction) {
+                transaction.executeSql(
+                  atmquery,[], function (transaction, results) { 
+                     console.log("iam in the true section");
                      if(results.rows.length == 1){
-                        right_answer();
-                        // break;
+                        correctanswer= "true";
+                        resolve();
                      }else{
-                        false_answer();
+                        resolve();
                      }
-                 },function(transaction,error){
-                    false_answer();
-                    console.log('Error:'+error.message+' (Code '+error.code+')');
-                  }
-             );
-         }
-      );
-   // }
+                     console.log(correctanswer);
+                    },function(transaction,error){
+                       console.log('Error:'+error.message+' (Code '+error.code+')');
+                       resolve();
+                     }
+                );
+            }
+         );
+         j++;
+      }
+   })
+   prom.then(response => {
+      // Loop finished, what to do nexT?
+      console.log("iam the final answer "+ correctanswer)
+      if (correctanswer){
+         right_answer();
+      }else{
+         false_answer();
+      }
+      })
+   prom.catch(error => {
+      // Error
+      // console.log(error);
+      });
 }
+
 function right_answer(){
    document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
    document.getElementById("username").style.display = 'none';
