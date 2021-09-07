@@ -222,6 +222,7 @@ function validation(){
    var prom= new Promise((resolve,reject) =>{
 
       for (let j in queries){
+         var prom2= new Promise((resolve,reject) =>{
          console.log("queryatm " + queries[j] + j +queries.length);
          if(!queries[j].startsWith("--")){
             db.transaction(function(transaction) {
@@ -251,8 +252,13 @@ function validation(){
                      }
                   );
           }
+         })
+         prom2.then(response=>{
+            console.log("iam in promise response 2" + queries[j] + correctanswer[j] + j);
+            if(queries.length==correctanswer.length){resolve(correctanswer);}
+
+         });
       }
-      
    })
    prom.then(response =>{
   
