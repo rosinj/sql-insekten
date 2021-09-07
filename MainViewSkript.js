@@ -16,7 +16,7 @@ TASKS=[
               "h3":"",
               "img": "img/happybee.png"}],
     "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit dem Passwort 'password123' einzuloggen, wie man es normalerweise kennt. ",
-    "validation"  : [{"fktn": validation,
+    "validation"  : [{"param": [""],
                       "forbiddenstrings": [""]}],
     "form":"login",
     "hints"    : "hints deactivated",
@@ -26,7 +26,7 @@ TASKS=[
               "h3":"",
               "img": "img/happybee.png"}],
     "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne das Passwort zu kennen.",
-    "validation"  : [{"fktn": validation,
+    "validation"  : [{"param": [""],
                       "forbiddenstrings": ["maxmustermann"]}],
     "form":"login",
     "hints"    : ["Tipp 1: '--' wird in SQL zum auskommentieren verwendet. Dies kannst du hier benutzen um den restlichen Code auszukommentieren bzw. um eine gültige  SQL Query zu erzeugen.","Tipps2"],
@@ -36,7 +36,7 @@ TASKS=[
                 "h3":"",
                 "img": "img/bee.png"}],
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche Informationen über einen oder mehreren Nutzer/n herauszufinden.",
-    "validation"  : [{"fktn": validation,
+    "validation"  : [{"param": [""],
                       "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
     "hints"    : ["Tipp1","Tipp2"],
@@ -46,7 +46,7 @@ TASKS=[
                 "h3":"",
                 "img": "img/bee.png"}],
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche die Tabelle 'users' zu löschen. ",
-    "validation"  : [{"fktn": validation,
+    "validation"  : [{"param": ["SELECT * FROM users"],
                       "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
     "hints"    : ["Tipp1","Tipp2"],
@@ -59,7 +59,7 @@ TASKS=[
                "h3":"Nun haben wir statt ein Login-Formular eine typische Suchleiste. Versuche hier dich per SQL-Injection reinzuhacken! Viel Spaß!",
                "img": "img/bee.png"}],
     "challenge": "Versuche erstmal ganz normal wie du es kennst nach 'Schuhe' zu suchen. ",
-    "validation"  : [{"fktn": validation,
+    "validation"  : [{"param": [""],
                      "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
     "hints"    : ["Tipp3","Tipp2"],
@@ -69,7 +69,7 @@ TASKS=[
                "h3":"",
                "img": "img/bee.png"}],
     "challenge": "Versuche... ",
-    "validation"  : [{"fktn": validation,
+    "validation"  : [{"param": [""],
                       "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
     "hints"    : ["Tipp3","Tipp2"],
@@ -180,7 +180,7 @@ function show_lvl(){
 //////////////// FORMS & VALIDATION
 
 function try_login(){
-   TASKS[lvl-1].validation[0].fktn();
+   validation();
 }
 
 function change_form(){
@@ -204,6 +204,7 @@ function change_form(){
 /////// VALIDATION FOR EACH LEVEL
 function validation(){
    // var j = 0;
+   var lenminus=0;
    var correctanswer = new Array();
    uname=document.getElementById("username").value;
    pw=document.getElementById("password").value;
@@ -215,6 +216,11 @@ function validation(){
          }
       }
    query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
+   if(TASKS[lvl-1].validation[0].param[0] !=""){
+      query=query + ";" + TASKS[lvl-1].validation[0].param[0];
+      
+
+   }
    queries=query.split(";");
    console.log("SQL Query: " + query);
    console.log(queries)
@@ -224,7 +230,7 @@ function validation(){
       for (let j in queries){
          var prom2= new Promise((resolve,reject) =>{
          console.log("queryatm " + queries[j] + j +queries.length);
-         if(!queries[j].startsWith("--")){
+         if(!queries[j].trim().startsWith("--")){
             db.transaction(function(transaction) {
 
                console.log("iam in the transaction " + queries[j] + j);
@@ -243,19 +249,23 @@ function validation(){
                   resolve(correctanswer);
 
                   },function(transaction,error){
+                     if(TASKS[lvl-1].validation[0].param[0] !="" && error.message=="could not prepare statement (1 no such table: users)"){
+                        correctanswer[j] = "true";
+                        createTableUsers(db);
+                     }else{
                      correctanswer[j] = "error";
                      console.log("iam in the error section" + queries[j] + correctanswer[j] + j);
-                     console.log('Error:'+error.message+' (Code '+error.code+')');
+                     console.log('Error:'+error.message+' (Code '+error.code+')');}
                      resolve(correctanswer);
                               }
                         );
                      }
                   );
-          }
+          }else{lenminus=lenminus+1;}
          })
          prom2.then(response=>{
             console.log("iam in promise response 2" + queries[j] + correctanswer[j] + j);
-            if(queries.length==correctanswer.length){resolve(correctanswer);}
+            if(queries.length-lenminus==correctanswer.length){resolve(correctanswer);}
 
          });
       }
