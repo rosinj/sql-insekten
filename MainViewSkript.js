@@ -208,57 +208,70 @@ function validation(){
    uname=document.getElementById("username").value;
    pw=document.getElementById("password").value;
    forbiddenarray=TASKS[lvl-1].validation[0].forbiddenstrings;
-   console.log(forbiddenarray);
    for (let i in forbiddenarray){
       console.log(i);
          if(uname.includes(forbiddenarray[i]) && forbiddenarray[i]!=""){
             uname="";
          }
       }
-   console.log("username: " + uname + " password: " + pw);
    query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
    queries=query.split(";");
    console.log("SQL Query: " + query);
    console.log(queries)
-   var prom= new Promise((resolve,reject) =>{
+   const maketransaction= async () =>{
 
       while(!correctanswer && j < queries.length){
-         atmquery=queries[j] + ";";
-         console.log("queryatm " + atmquery);
-         db.transaction(function(transaction) {
-                transaction.executeSql(
-                  atmquery,[], function (transaction, results) { 
-                     console.log("iam in the true section");
-                     if(results.rows.length == 1){
-                        correctanswer= "true";
-                        resolve();
-                     }else{
-                        resolve();
-                     }
-                     console.log(correctanswer);
-                    },function(transaction,error){
-                       console.log('Error:'+error.message+' (Code '+error.code+')');
-                       resolve();
-                     }
-                );
-            }
-         );
+         console.log("queryatm " + queries[j] + correctanswer + j +queries.length);
+         // if(!atmquery.startsWith("--")){
+            console.log("iam in the if " + queries[j] + correctanswer + j );
+            await db.transaction(async function(transaction) {
+               console.log("iam in the transaction " + queries[j] + correctanswer + j);
+                  await transaction.executeSql(
+                     queries[j],[],function (transaction, results) {
+                        console.log("iam in the if 2 " + queries[j] + correctanswer+ j);
+                        if (results.rows.length == 1) {
+                           correctanswer = "true";
+                           console.log("iam in the true section " + queries[j] + correctanswer + j);
+                           // resolve();
+                        } else {
+                           // resolve();
+                           console.log("iam in the false section" + queries[j] + correctanswer + j);
+                        }
+                        console.log("iam after if 2" + queries[j] + correctanswer + j);
+                     },function(transaction,error){
+                        correctanswer = "false";
+                        console.log("iam in the error section" + queries[j] + correctanswer + j);
+                        console.log('Error:'+error.message+' (Code '+error.code+')');
+                        // resolve();
+                        }
+                  );
+               }
+            );
+         // }
+         console.log(j)
          j++;
+         console.log(j)
+         
       }
-   })
-   prom.then(response => {
+   };
+   async function gettinganswer(){
+      await maketransaction()
+   // .then(response => {
       // Loop finished, what to do nexT?
+   
       console.log("iam the final answer "+ correctanswer)
       if (correctanswer){
          right_answer();
       }else{
          false_answer();
       }
-      })
-   prom.catch(error => {
+      // })
+   }
+   gettinganswer();
+   // prom.catch(error => {
       // Error
       // console.log(error);
-      });
+      // });
 }
 
 function right_answer(){
@@ -284,7 +297,7 @@ function false_answer(){
 }
 /////// DATABASE FUNCTIONS
 
-function nullDataHandler(transaction, results) { console.log("yeah"); }
+function nullDataHandler(transaction, results) { }
  
 function createTableUsers(db)
 {
