@@ -203,8 +203,8 @@ function change_form(){
 
 /////// VALIDATION FOR EACH LEVEL
 function validation(){
-   var j = 0;
-   var correctanswer=false;
+   // var j = 0;
+   var correctanswer = new Array();
    uname=document.getElementById("username").value;
    pw=document.getElementById("password").value;
    forbiddenarray=TASKS[lvl-1].validation[0].forbiddenstrings;
@@ -218,60 +218,60 @@ function validation(){
    queries=query.split(";");
    console.log("SQL Query: " + query);
    console.log(queries)
-   const maketransaction= async () =>{
 
-      while(!correctanswer && j < queries.length){
-         console.log("queryatm " + queries[j] + correctanswer + j +queries.length);
-         // if(!atmquery.startsWith("--")){
-            console.log("iam in the if " + queries[j] + correctanswer + j );
-            await db.transaction(async function(transaction) {
-               console.log("iam in the transaction " + queries[j] + correctanswer + j);
-                  await transaction.executeSql(
-                     queries[j],[],function (transaction, results) {
-                        console.log("iam in the if 2 " + queries[j] + correctanswer+ j);
-                        if (results.rows.length == 1) {
-                           correctanswer = "true";
-                           console.log("iam in the true section " + queries[j] + correctanswer + j);
-                           // resolve();
-                        } else {
-                           // resolve();
-                           console.log("iam in the false section" + queries[j] + correctanswer + j);
-                        }
-                        console.log("iam after if 2" + queries[j] + correctanswer + j);
-                     },function(transaction,error){
-                        correctanswer = "false";
-                        console.log("iam in the error section" + queries[j] + correctanswer + j);
-                        console.log('Error:'+error.message+' (Code '+error.code+')');
-                        // resolve();
-                        }
+   var prom= new Promise((resolve,reject) =>{
+
+      for (let j in queries){
+         console.log("queryatm " + queries[j] + j +queries.length);
+         if(!queries[j].startsWith("--")){
+            db.transaction(function(transaction) {
+
+               console.log("iam in the transaction " + queries[j] + j);
+               transaction.executeSql(queries[j],[],function (transaction, results) {
+
+                  console.log("iam in the if 2 " + queries[j] + j);
+                  if (results.rows.length == 1) {
+
+                     correctanswer[j] = "true";
+                     console.log("iam in the true section " + queries[j] + correctanswer[j] + j);
+                  } else {
+                     correctanswer[j] = "false";
+                     console.log("iam in the false section" + queries[j] + correctanswer[j] + j);
+                  }
+                  console.log("iam after if 2" + queries[j] + correctanswer[j] + j);
+                  resolve(correctanswer);
+
+                  },function(transaction,error){
+                     correctanswer[j] = "error";
+                     console.log("iam in the error section" + queries[j] + correctanswer[j] + j);
+                     console.log('Error:'+error.message+' (Code '+error.code+')');
+                     resolve(correctanswer);
+                              }
+                        );
+                     }
                   );
-               }
-            );
-         // }
-         console.log(j)
-         j++;
-         console.log(j)
-         
+          }
       }
-   };
-   async function gettinganswer(){
-      await maketransaction()
-   // .then(response => {
-      // Loop finished, what to do nexT?
-   
+      
+   })
+   prom.then(response =>{
+  
       console.log("iam the final answer "+ correctanswer)
-      if (correctanswer){
-         right_answer();
-      }else{
+      if (correctanswer.includes("error")){
          false_answer();
+      }else{
+         if(correctanswer.includes("true")){
+            right_answer();
+         }else{
+            false_answer();
+         }
       }
+   });
       // })
-   }
-   gettinganswer();
-   // prom.catch(error => {
-      // Error
-      // console.log(error);
-      // });
+   
+   prom.catch(error => {
+      false_answer();
+      });
 }
 
 function right_answer(){
