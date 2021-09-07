@@ -265,7 +265,9 @@ function validation(){
          })
          prom2.then(response=>{
             console.log("iam in promise response 2" + queries[j] + correctanswer[j] + j);
-            if(queries.length-lenminus==correctanswer.length){resolve(correctanswer);}
+            console.log(correctanswer);
+            console.log(correctanswer.filter(String));
+            if(queries.length-lenminus==correctanswer.filter(String).length){resolve(correctanswer);}
 
          });
       }
