@@ -19,7 +19,8 @@ TASKS=[
     "validation"  : [{"param": [""],
                       "resultlength":1,
                       "correctanswer":["true","false","error","error"],
-                      "forbiddenstrings": [""]}],
+                      "whitelist": ["maxmustermann"],
+                      "blacklist": [""]}],
     "form":"login",
     "hints"    : "hints deactivated",
     "behindscene" : "",
@@ -31,7 +32,8 @@ TASKS=[
     "validation"  : [{"param": [""],
                       "resultlength":1,
                       "correctanswer":["true","false","error","error"],
-                      "forbiddenstrings": ["maxmustermann"]}],
+                      "whitelist": ["alexamusterfrau"],
+                      "blacklist": ["maxmustermann"]}],
     "form":"login",
     "hints"    : ["Tipp 1: '--' wird in SQL zum auskommentieren verwendet. Dies kannst du hier benutzen um den restlichen Code auszukommentieren bzw. um eine gültige  SQL Query zu erzeugen.","Tipps2"],
     "behindscene" : "",
@@ -43,7 +45,8 @@ TASKS=[
     "validation"  : [{"param": [""],
                       "resultlength":1,
                       "correctanswer":["true","false","error","error"],
-                      "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
+                      "whitelist": [""],
+                      "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
     "hints"    : ["Tipp1","Tipp2"],
     "behindscene" : "",
@@ -55,7 +58,8 @@ TASKS=[
     "validation"  : [{"param": ["SELECT * FROM users"],
                       "resultlength":1,
                       "correctanswer":["false","false","true","error"],
-                      "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
+                      "whitelist": [""],
+                      "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
     "hints"    : ["Tipp1","Tipp2"],
     "behindscene" : "",
@@ -66,11 +70,12 @@ TASKS=[
                {"h2": "",
                "h3":"Nun haben wir statt ein Login-Formular eine typische Suchleiste. In diesem Fall von einem Schuhe Online-Shop. Versuche hier dich per SQL-Injection reinzuhacken! Viel Spaß!",
                "img": "img/bee.png"}],
-    "challenge": "Versuche erstmal ganz normal nach 'Nike' Schuhen zu suchen. ",
+    "challenge": "Versuche erstmal ganz normal nach 'Nicke' Schuhen zu suchen. ",
     "validation"  : [{"param": [""],
                       "resultlength":4,
                       "correctanswer":["true","false","error","error"],
-                     "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
+                      "whitelist": [""],
+                     "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
     "hints"    : ["Tipp3","Tipp2"],
     "behindscene" : "",
@@ -82,7 +87,8 @@ TASKS=[
     "validation"  : [{"param": [""],
                       "resultlength":1,
                      "correctanswer":[""],
-                      "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
+                     "whitelist": [""],
+                      "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
     "hints"    : ["Tipp3","Tipp2"],
     "behindscene" : "",
@@ -216,7 +222,7 @@ function change_form(){
       document.getElementById("suche_btn").style.display = 'none';
       document.getElementById("suchergebnisse").style.display = 'none';
    }else if(TASKS[lvl-1].form == "search"){
-      document.getElementById('loginlabel').innerHTML= "Suche eingeben";
+      document.getElementById('loginlabel').innerHTML= "Produktsuche";
       document.getElementById("username").style.display = 'none';
       document.getElementById("password").style.display = 'none';
       document.getElementById("login_btn").style.display = 'none';
@@ -233,7 +239,7 @@ function validation(){
    var lenminus=0;
    var correctanswer = new Array();
    var form=TASKS[lvl-1].form;
-   var forbiddenarray=TASKS[lvl-1].validation[0].forbiddenstrings;
+   var forbiddenarray=TASKS[lvl-1].validation[0].blacklist;
    switch (form){
       case "login":
          var uname=document.getElementById("username").value;
@@ -261,7 +267,7 @@ function validation(){
    }
    // uname=document.getElementById("username").value;
    // pw=document.getElementById("password").value;
-   // forbiddenarray=TASKS[lvl-1].validation[0].forbiddenstrings;
+   // forbiddenarray=TASKS[lvl-1].validation[0].blacklist;
    // for (let i in forbiddenarray){
    //    console.log(i);
    //       if(uname.includes(forbiddenarray[i]) && forbiddenarray[i]!=""){
@@ -451,20 +457,20 @@ function createTableShoes(db){
           /* The first query causes the transaction to (intentionally) fail if the table exists. */
           transaction.executeSql('create table shoes(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , label TEXT NOT NULL, size TEXT NOT NULL, price TEXT NOT NULL );', [], nullDataHandler, errorHandler);
           /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql('INSERT INTO shoes VALUES (0,"Nike","40","80€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (1,"Adidas","37","70€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (2,"Nike","42","80€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (3,"Adidas","41","80€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (4,"Nike","38","100€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (5,"Nike","40","80€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (6,"Adidas","40","70€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (7,"Converse","43","60€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (8,"Veja","38","130€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (9,"Reebok","45","70€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (10,"Veja","36","120€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (11,"Reebok","46","60€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (12,"Trash Planet","39","190€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (13,"Buffalo","39","99€");', [], dataHandler, dataHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (0,"Nicke","40","80€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (1,"Abidas","37","70€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (2,"Nicke","42","80€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (3,"Abidas","41","80€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (4,"Nicke","38","100€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (5,"Nicke","40","80€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (6,"Abidas","40","70€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (7,"Conwers","43","60€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (8,"Weja","38","130€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (9,"Reedok","45","70€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (10,"Weja","36","120€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (11,"Reedok","46","60€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (12,"Trash Plant","39","190€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (13,"Bifffalo","39","99€");', [], dataHandler, dataHandler);
       }
   );
 }
