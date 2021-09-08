@@ -10,12 +10,12 @@ TASKS=[
               "h3":"Hier lernst du von Level zu Level wie Hacker dabei vorgehen. Vorkenntisse wie SQL wären empfehlenswert. In diesem Fall haben wir rechts ein Login-Formular, wie man es so von anderen Websiten kennt.",
               "img": "img/bee.png"},
               {"h2": "",
-              "h3":"Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert ist, kannst du die die Live Erzeugte SQL-Query anschauen oder den Hintergrundcode. ",
+              "h3":"Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert ist, kannst du die die Live Erzeugte SQL-Query anschauen oder den Hintergrundcode. <br> Zu Beginn hast du 3 Tipps. Einen Tipp kannst du dann bei dem Button 'Tipp einblenden' anzeigen lassen",
               "img": "img/bee.png"},
               {"h2": "Los gehts!",
               "h3":"",
               "img": "img/happybee.png"}],
-    "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit dem Passwort 'password123' einzuloggen, wie man es normalerweise kennt. Zu Beginn hast du 3 Tipps. Einen Tipp kannst du dann bei dem Button 'Tipp einblenden' anzeigen lassen.",
+    "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit dem Passwort 'password123' einzuloggen, wie man es normalerweise kennt.",
     "validation"  : [{"param": [""],
                       "resultlength":1,
                       "correctanswer":["true","false","error","error"],
@@ -163,6 +163,7 @@ function update_codetxt(){
       case "search":
          var search=document.getElementById("suchleiste").value;
          var query="SELECT * FROM shoes WHERE label='" + search + "';";
+         break;
       default:
          console.log("couldn't update codetext");
 
@@ -172,13 +173,25 @@ function update_codetxt(){
 }
 function change_codemode(){
    var checked= document.getElementById("switcher").checked;
+   var form=TASKS[lvl-1].form;
    if(checked){
       document.getElementById("codetxt").style.display="block";
-      document.getElementById("behindcode").style.display="none";
+      document.getElementById("behindcodesearch").style.display="none";
+      document.getElementById("behindcodelogin").style.display="none";
    }
    else{
       document.getElementById("codetxt").style.display="none";
-      document.getElementById("behindcode").style.display="block";
+      switch (form){
+         case "login":
+            document.getElementById("behindcodelogin").style.display="block";
+            break;
+         case "search":
+            document.getElementById("behindcodesearch").style.display="block";
+            break;
+         default:
+            console.log("couldn't update codetext");
+   
+      }
    }
 }
 //////////////// SPEAKBUBBLE

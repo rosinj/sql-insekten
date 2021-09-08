@@ -141,9 +141,9 @@ SELECT *
 FROM users 
 WHERE username= '' AND password= '';
                     </code></pre>
-                    <pre id="behindcode"><code >function validation(){
-uname=document.getElementById("username").value;
-pw=document.getElementById("password").value;
+                    <pre id="behindcodelogin"><code >function validation(){
+var uname=document.getElementById("username").value;
+var pw=document.getElementById("password").value;
 // ...
 query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
 db.transaction(
@@ -153,7 +153,17 @@ db.transaction(
         }
     );
 }</code></pre>
-                    <!-- <img src="img/erzeugtequery.png"/> -->
+                   <pre id="behindcodesearch"><code >function validation(){
+var searchresult=document.getElementById("searchinput").value;
+// ...
+var query="SELECT * FROM shoes WHERE label='" + search + "';";
+db.transaction(
+        function(transaction) {
+            transaction.executeSql(
+                query,[], rightanswer ,falseanswer);
+            }
+        );
+}</code></pre> 
                 </div>
 
 

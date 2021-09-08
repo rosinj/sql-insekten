@@ -259,12 +259,15 @@
 #codetxt > code {
   height: 200px;
 }
-#behindcode{
+#behindcodelogin,#behindcodesearch{
   text-align: left;
   display:none;
   height: 218px;
 }
-#behindcode > code{
+#behindcodelogin > code{
+  height: 200px;
+}
+#behindcodesearch > code{
   height: 200px;
 }
 #btnboxre{
