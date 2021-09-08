@@ -147,9 +147,20 @@ function show_behindscene(){
    }
 }
 function update_codetxt(){
-   uname=document.getElementById("username").value;
-   pw=document.getElementById("password").value;
-   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
+   var form=TASKS[lvl-1].form;
+   switch (form){
+      case "login":
+         var uname=document.getElementById("username").value;
+         var pw=document.getElementById("password").value;
+         var query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
+         break;
+      case "search":
+         var search=document.getElementById("suchleiste").value;
+         var query="SELECT * FROM shoes WHERE label='" + search + "';";
+      default:
+         console.log("couldn't update codetext");
+
+   }
    document.querySelector("#codetxt > code").innerHTML = query;
    document.querySelector("#codetxt > code").innerHTML.reload;
 }
