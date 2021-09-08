@@ -10,13 +10,15 @@ TASKS=[
               "h3":"Hier lernst du von Level zu Level wie Hacker dabei vorgehen. Vorkenntisse wie SQL wären empfehlenswert. In diesem Fall haben wir rechts ein Login-Formular, wie man es so von anderen Websiten kennt.",
               "img": "img/bee.png"},
               {"h2": "",
-              "h3":"Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert ist, kannst du die die Live Erzeugte SQL-Query anschauen oder den Hintergrundcode.",
+              "h3":"Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert ist, kannst du die die Live Erzeugte SQL-Query anschauen oder den Hintergrundcode. ",
               "img": "img/bee.png"},
               {"h2": "Los gehts!",
               "h3":"",
               "img": "img/happybee.png"}],
-    "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit dem Passwort 'password123' einzuloggen, wie man es normalerweise kennt. ",
-    "validation"  : [{"fktn": validation,
+    "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit dem Passwort 'password123' einzuloggen, wie man es normalerweise kennt. Zu Beginn hast du 3 Tipps. Einen Tipp kannst du dann bei dem Button 'Tipp einblenden' anzeigen lassen.",
+    "validation"  : [{"param": [""],
+                      "resultlength":1,
+                      "correctanswer":["true","false","error","error"],
                       "forbiddenstrings": [""]}],
     "form":"login",
     "hints"    : "hints deactivated",
@@ -26,7 +28,9 @@ TASKS=[
               "h3":"",
               "img": "img/happybee.png"}],
     "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne das Passwort zu kennen.",
-    "validation"  : [{"fktn": validation,
+    "validation"  : [{"param": [""],
+                      "resultlength":1,
+                      "correctanswer":["true","false","error","error"],
                       "forbiddenstrings": ["maxmustermann"]}],
     "form":"login",
     "hints"    : ["Tipp 1: '--' wird in SQL zum auskommentieren verwendet. Dies kannst du hier benutzen um den restlichen Code auszukommentieren bzw. um eine gültige  SQL Query zu erzeugen.","Tipps2"],
@@ -36,7 +40,9 @@ TASKS=[
                 "h3":"",
                 "img": "img/bee.png"}],
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche Informationen über einen oder mehreren Nutzer/n herauszufinden.",
-    "validation"  : [{"fktn": validation,
+    "validation"  : [{"param": [""],
+                      "resultlength":1,
+                      "correctanswer":["true","false","error","error"],
                       "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
     "hints"    : ["Tipp1","Tipp2"],
@@ -46,7 +52,9 @@ TASKS=[
                 "h3":"",
                 "img": "img/bee.png"}],
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche die Tabelle 'users' zu löschen. ",
-    "validation"  : [{"fktn": validation,
+    "validation"  : [{"param": ["SELECT * FROM users"],
+                      "resultlength":1,
+                      "correctanswer":["false","false","true","error"],
                       "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
     "hints"    : ["Tipp1","Tipp2"],
@@ -56,10 +64,12 @@ TASKS=[
                "h3":"",
                "img": "img/bee.png"},
                {"h2": "",
-               "h3":"Nun haben wir statt ein Login-Formular eine typische Suchleiste. Versuche hier dich per SQL-Injection reinzuhacken! Viel Spaß!",
+               "h3":"Nun haben wir statt ein Login-Formular eine typische Suchleiste. In diesem Fall von einem Schuhe Online-Shop. Versuche hier dich per SQL-Injection reinzuhacken! Viel Spaß!",
                "img": "img/bee.png"}],
-    "challenge": "Versuche erstmal ganz normal wie du es kennst nach 'Schuhe' zu suchen. ",
-    "validation"  : [{"fktn": validation,
+    "challenge": "Versuche erstmal ganz normal nach 'Nike' Schuhen zu suchen. ",
+    "validation"  : [{"param": [""],
+                      "resultlength":4,
+                      "correctanswer":["true","false","error","error"],
                      "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
     "hints"    : ["Tipp3","Tipp2"],
@@ -69,7 +79,9 @@ TASKS=[
                "h3":"",
                "img": "img/bee.png"}],
     "challenge": "Versuche... ",
-    "validation"  : [{"fktn": validation,
+    "validation"  : [{"param": [""],
+                      "resultlength":1,
+                     "correctanswer":[""],
                       "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
     "hints"    : ["Tipp3","Tipp2"],
@@ -78,7 +90,7 @@ TASKS=[
 ];
 var db= createdb();
 createTableUsers(db);
-
+createTableShoes(db);
 //////////////  HINTS
 
 function show_hints(){
@@ -135,9 +147,20 @@ function show_behindscene(){
    }
 }
 function update_codetxt(){
-   uname=document.getElementById("username").value;
-   pw=document.getElementById("password").value;
-   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
+   var form=TASKS[lvl-1].form;
+   switch (form){
+      case "login":
+         var uname=document.getElementById("username").value;
+         var pw=document.getElementById("password").value;
+         var query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
+         break;
+      case "search":
+         var search=document.getElementById("suchleiste").value;
+         var query="SELECT * FROM shoes WHERE label='" + search + "';";
+      default:
+         console.log("couldn't update codetext");
+
+   }
    document.querySelector("#codetxt > code").innerHTML = query;
    document.querySelector("#codetxt > code").innerHTML.reload;
 }
@@ -180,7 +203,7 @@ function show_lvl(){
 //////////////// FORMS & VALIDATION
 
 function try_login(){
-   TASKS[lvl-1].validation[0].fktn();
+   validation();
 }
 
 function change_form(){
@@ -191,6 +214,7 @@ function change_form(){
       document.getElementById("login_btn").style.display = 'block';
       document.getElementById("suchleiste").style.display = 'none';
       document.getElementById("suche_btn").style.display = 'none';
+      document.getElementById("suchergebnisse").style.display = 'none';
    }else if(TASKS[lvl-1].form == "search"){
       document.getElementById('loginlabel').innerHTML= "Suche eingeben";
       document.getElementById("username").style.display = 'none';
@@ -198,74 +222,160 @@ function change_form(){
       document.getElementById("login_btn").style.display = 'none';
       document.getElementById("suchleiste").style.display = 'block';
       document.getElementById("suche_btn").style.display = 'block';
+      document.getElementById("suchergebnisse").style.display = 'none';
    }
 }
 
 /////// VALIDATION FOR EACH LEVEL
 function validation(){
-   var j = 0;
-   var correctanswer=false;
-   uname=document.getElementById("username").value;
-   pw=document.getElementById("password").value;
-   forbiddenarray=TASKS[lvl-1].validation[0].forbiddenstrings;
-   console.log(forbiddenarray);
-   for (let i in forbiddenarray){
-      console.log(i);
-         if(uname.includes(forbiddenarray[i]) && forbiddenarray[i]!=""){
-            uname="";
-         }
-      }
-   console.log("username: " + uname + " password: " + pw);
-   query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
+   // var j = 0;
+   var ergebnis="";
+   var lenminus=0;
+   var correctanswer = new Array();
+   var form=TASKS[lvl-1].form;
+   var forbiddenarray=TASKS[lvl-1].validation[0].forbiddenstrings;
+   switch (form){
+      case "login":
+         var uname=document.getElementById("username").value;
+         var pw=document.getElementById("password").value;
+         for (let i in forbiddenarray){
+            console.log(i);
+               if(uname.includes(forbiddenarray[i]) && forbiddenarray[i]!=""){
+                  uname="";
+               }
+            }
+         var query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
+      break;
+      case "search":
+         var search=document.getElementById("suchleiste").value;
+         for (let i in forbiddenarray){
+            console.log(i);
+               if(search.includes(forbiddenarray[i]) && forbiddenarray[i]!=""){
+                  search="";
+               }
+            }
+            var query="SELECT * FROM shoes WHERE label='" + search + "'";
+         break;
+      default:
+         console.log("Error: validation from current form doesn't work.");
+   }
+   // uname=document.getElementById("username").value;
+   // pw=document.getElementById("password").value;
+   // forbiddenarray=TASKS[lvl-1].validation[0].forbiddenstrings;
+   // for (let i in forbiddenarray){
+   //    console.log(i);
+   //       if(uname.includes(forbiddenarray[i]) && forbiddenarray[i]!=""){
+   //          uname="";
+   //       }
+   //    }
+   // query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
+   if(TASKS[lvl-1].validation[0].param[0] !=""){
+      query=query + ";" + TASKS[lvl-1].validation[0].param[0];
+      
+
+   }
    queries=query.split(";");
    console.log("SQL Query: " + query);
    console.log(queries)
+
    var prom= new Promise((resolve,reject) =>{
 
-      while(!correctanswer && j < queries.length){
-         atmquery=queries[j] + ";";
-         console.log("queryatm " + atmquery);
-         db.transaction(function(transaction) {
-                transaction.executeSql(
-                  atmquery,[], function (transaction, results) { 
-                     console.log("iam in the true section");
-                     if(results.rows.length == 1){
-                        correctanswer= "true";
-                        resolve();
+      for (let j in queries){
+         var prom2= new Promise((resolve,reject) =>{
+         console.log("queryatm " + queries[j] + j +queries.length);
+         if(!queries[j].trim().startsWith("--")){
+            db.transaction(function(transaction) {
+
+               console.log("iam in the transaction " + queries[j] + j);
+               transaction.executeSql(queries[j],[],function (transaction, results) {
+
+                  console.log("iam in the if 2 " + queries[j] + j);
+                  console.log(results.rows);
+                  console.log("vorgegeben " + TASKS[lvl-1].validation[0].resultlength +" result length: "+ results.rows.length);
+                  if (results.rows.length == TASKS[lvl-1].validation[0].resultlength) {
+                     correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[0];
+                     console.log("iam in the true section " + queries[j] + correctanswer[j] + j);
+                  } else {
+                     correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[1];
+                     console.log("iam in the false section" + queries[j] + correctanswer[j] + j);
+                  }
+                  console.log("iam after if 2" + queries[j] + correctanswer[j] + j);
+                  ergebnis= results.rows;
+                  resolve(correctanswer,ergebnis);
+
+                  },function(transaction,error){
+                     if(TASKS[lvl-1].validation[0].param[0] !="" && error.message=="could not prepare statement (1 no such table: users)"){
+                        correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[2];
+                        createTableUsers(db);
                      }else{
-                        resolve();
+                     correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[3];;
+                     console.log("iam in the error section" + queries[j] + correctanswer[j] + j);
+                     console.log('Error:'+error.message+' (Code '+error.code+')');}
+                     
+                     resolve(correctanswer,ergebnis);
+                              }
+                        );
                      }
-                     console.log(correctanswer);
-                    },function(transaction,error){
-                       console.log('Error:'+error.message+' (Code '+error.code+')');
-                       resolve();
-                     }
-                );
-            }
-         );
-         j++;
+                  );
+          }else{lenminus=lenminus+1;}
+         })
+         prom2.then(response=>{
+            console.log("iam in promise response 2" + queries[j] + correctanswer[j] + j);
+            console.log(correctanswer);
+            console.log(correctanswer.filter(String));
+            if(queries.length-lenminus==correctanswer.filter(String).length){resolve(correctanswer,ergebnis);}
+
+         });
       }
    })
-   prom.then(response => {
-      // Loop finished, what to do nexT?
+   prom.then(response =>{
+  
       console.log("iam the final answer "+ correctanswer)
-      if (correctanswer){
-         right_answer();
+      console.log("ergebnis: " + ergebnis)
+      if (correctanswer.includes("error")){
+         false_answer(form,ergebnis);
       }else{
-         false_answer();
+         if(correctanswer.includes("true")){
+            right_answer(form,ergebnis);
+         }else{
+            false_answer(form,ergebnis);
+         }
       }
-      })
+   });
+      // })
+   
    prom.catch(error => {
-      // Error
-      // console.log(error);
+      false_answer(form);
       });
 }
 
-function right_answer(){
-   document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
-   document.getElementById("username").style.display = 'none';
-   document.getElementById("password").style.display = 'none';
-   document.getElementById("login_btn").style.display = 'none';
+function right_answer(form,ergebnis){
+   switch (form){
+      case "login":
+         document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
+         document.getElementById("username").style.display = 'none';
+         document.getElementById("password").style.display = 'none';
+         document.getElementById("login_btn").style.display = 'none';
+
+      break;
+      case "search":
+         document.getElementById('loginlabel').innerHTML= "Suchergebnisse";
+         document.getElementById("suchleiste").style.display = 'none';
+         document.getElementById("suche_btn").style.display = 'none';
+         document.getElementById("suchergebnisse").style.display = 'block';
+         var printableresult="";
+         for (var i=0; i<ergebnis.length; i++) {
+            // Each row is a standard JavaScript array indexed by
+            // column names.
+            var row = ergebnis.item(i);
+            printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
+        }
+         document.getElementById("suchergebnisse").innerHTML = printableresult;
+         break;
+      default:
+         console.log("Error in right answer");
+         
+   }
    document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
    document.getElementById("speakbubble_h3").innerHTML="";
    document.getElementById("next_btn").style.display = 'block';
@@ -274,17 +384,51 @@ function right_answer(){
    lvl=lvl+1;
    document.getElementById("lvl").innerHTML="Level: " + lvl;
    document.getElementById('btnboxli').style.display = 'none';
+   // document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
+   // document.getElementById("username").style.display = 'none';
+   // document.getElementById("password").style.display = 'none';
+   // document.getElementById("login_btn").style.display = 'none';
+   // document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
+   // document.getElementById("speakbubble_h3").innerHTML="";
+   // document.getElementById("next_btn").style.display = 'block';
+   // document.getElementById("insect").src = "img/happybee.png";
+   // fails=0;
+   // lvl=lvl+1;
+   // document.getElementById("lvl").innerHTML="Level: " + lvl;
+   // document.getElementById('btnboxli').style.display = 'none';
 
 }
-function false_answer(){
+function false_answer(form,ergebnis){
+   switch (form){
+      case "login":
+         document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+         document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+         document.getElementById("insect").src = "img/surprisebee.png";
+      break;
+      case "search":
+         document.getElementById("suchergebnisse").style.display = 'block';
+         var printableresult="";
+         for (var i=0; i<ergebnis.length; i++) {
+            // Each row is a standard JavaScript array indexed by
+            // column names.
+            var row = ergebnis.item(i);
+            printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
+        }
+         document.getElementById("suchergebnisse").innerHTML = printableresult;
+         break;
+      default:
+         console.log("Error in right answer");
+         
+   }
    fails=fails+1;
-   document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+   // document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
    document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+   document.getElementById("speakbubble_h3").innerHTML="";
    document.getElementById("insect").src = "img/surprisebee.png";
 }
 /////// DATABASE FUNCTIONS
 
-function nullDataHandler(transaction, results) { console.log("yeah"); }
+function nullDataHandler(transaction, results) { }
  
 function createTableUsers(db)
 {
@@ -299,6 +443,30 @@ function createTableUsers(db)
             transaction.executeSql('INSERT INTO users VALUES (2,"kati1809","khatrin321","kati@examplemail.com");', [], dataHandler, dataHandler);
         }
     );
+}
+function createTableShoes(db){
+   db.transaction(
+      function (transaction) {
+
+          /* The first query causes the transaction to (intentionally) fail if the table exists. */
+          transaction.executeSql('create table shoes(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , label TEXT NOT NULL, size TEXT NOT NULL, price TEXT NOT NULL );', [], nullDataHandler, errorHandler);
+          /* These insertions will be skipped if the table already exists. */
+          transaction.executeSql('INSERT INTO shoes VALUES (0,"Nike","40","80€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (1,"Adidas","37","70€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (2,"Nike","42","80€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (3,"Adidas","41","80€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (4,"Nike","38","100€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (5,"Nike","40","80€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (6,"Adidas","40","70€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (7,"Converse","43","60€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (8,"Veja","38","130€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (9,"Reebok","45","70€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (10,"Veja","36","120€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (11,"Reebok","46","60€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (12,"Trash Planet","39","190€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (13,"Buffalo","39","99€");', [], dataHandler, dataHandler);
+      }
+  );
 }
 function errorHandler(transaction, error)
 {
