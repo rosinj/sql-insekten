@@ -17,6 +17,7 @@ TASKS=[
               "img": "img/happybee.png"}],
     "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit dem Passwort 'password123' einzuloggen, wie man es normalerweise kennt. ",
     "validation"  : [{"param": [""],
+                      "resultlength":1,
                       "correctanswer":["true","false","error","error"],
                       "forbiddenstrings": [""]}],
     "form":"login",
@@ -28,6 +29,7 @@ TASKS=[
               "img": "img/happybee.png"}],
     "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne das Passwort zu kennen.",
     "validation"  : [{"param": [""],
+                      "resultlength":1,
                       "correctanswer":["true","false","error","error"],
                       "forbiddenstrings": ["maxmustermann"]}],
     "form":"login",
@@ -39,6 +41,7 @@ TASKS=[
                 "img": "img/bee.png"}],
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche Informationen über einen oder mehreren Nutzer/n herauszufinden.",
     "validation"  : [{"param": [""],
+                      "resultlength":1,
                       "correctanswer":["true","false","error","error"],
                       "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
@@ -50,6 +53,7 @@ TASKS=[
                 "img": "img/bee.png"}],
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche die Tabelle 'users' zu löschen. ",
     "validation"  : [{"param": ["SELECT * FROM users"],
+                      "resultlength":1,
                       "correctanswer":["false","false","true","error"],
                       "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
@@ -64,6 +68,7 @@ TASKS=[
                "img": "img/bee.png"}],
     "challenge": "Versuche erstmal ganz normal wie du es kennst nach 'Nike' Schuhen zu suchen. ",
     "validation"  : [{"param": [""],
+                      "resultlength":4,
                       "correctanswer":["true","false","error","error"],
                      "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
@@ -75,6 +80,7 @@ TASKS=[
                "img": "img/bee.png"}],
     "challenge": "Versuche... ",
     "validation"  : [{"param": [""],
+                      "resultlength":1,
                      "correctanswer":[""],
                       "forbiddenstrings": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
@@ -212,6 +218,7 @@ function change_form(){
 /////// VALIDATION FOR EACH LEVEL
 function validation(){
    // var j = 0;
+   var ergebnis="";
    var lenminus=0;
    var correctanswer = new Array();
    var form=TASKS[lvl-1].form;
@@ -272,8 +279,9 @@ function validation(){
                transaction.executeSql(queries[j],[],function (transaction, results) {
 
                   console.log("iam in the if 2 " + queries[j] + j);
-                  if (results.rows.length == 1) {
-
+                  console.log(results.rows);
+                  console.log("vorgegeben " + TASKS[lvl-1].validation[0].resultlength +" result length: "+ results.rows.length);
+                  if (results.rows.length == TASKS[lvl-1].validation[0].resultlength) {
                      correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[0];
                      console.log("iam in the true section " + queries[j] + correctanswer[j] + j);
                   } else {
@@ -281,7 +289,8 @@ function validation(){
                      console.log("iam in the false section" + queries[j] + correctanswer[j] + j);
                   }
                   console.log("iam after if 2" + queries[j] + correctanswer[j] + j);
-                  resolve(correctanswer);
+                  ergebnis= results.rows;
+                  resolve(correctanswer,ergebnis);
 
                   },function(transaction,error){
                      if(TASKS[lvl-1].validation[0].param[0] !="" && error.message=="could not prepare statement (1 no such table: users)"){
@@ -291,7 +300,8 @@ function validation(){
                      correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[3];;
                      console.log("iam in the error section" + queries[j] + correctanswer[j] + j);
                      console.log('Error:'+error.message+' (Code '+error.code+')');}
-                     resolve(correctanswer);
+                     
+                     resolve(correctanswer,ergebnis);
                               }
                         );
                      }
@@ -302,7 +312,7 @@ function validation(){
             console.log("iam in promise response 2" + queries[j] + correctanswer[j] + j);
             console.log(correctanswer);
             console.log(correctanswer.filter(String));
-            if(queries.length-lenminus==correctanswer.filter(String).length){resolve(correctanswer);}
+            if(queries.length-lenminus==correctanswer.filter(String).length){resolve(correctanswer,ergebnis);}
 
          });
       }
@@ -310,13 +320,14 @@ function validation(){
    prom.then(response =>{
   
       console.log("iam the final answer "+ correctanswer)
+      console.log("ergebnis: " + ergebnis)
       if (correctanswer.includes("error")){
-         false_answer(form);
+         false_answer(form,ergebnis);
       }else{
          if(correctanswer.includes("true")){
-            right_answer(form);
+            right_answer(form,ergebnis);
          }else{
-            false_answer(form);
+            false_answer(form,ergebnis);
          }
       }
    });
@@ -327,7 +338,7 @@ function validation(){
       });
 }
 
-function right_answer(form){
+function right_answer(form,ergebnis){
    switch (form){
       case "login":
          document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
@@ -341,7 +352,7 @@ function right_answer(form){
          document.getElementById("suchleiste").style.display = 'none';
          document.getElementById("suche_btn").style.display = 'none';
          document.getElementById("suchergebnisse").style.display = 'block';
-         document.getElementById("suchergebnisse").innerHTML = 'Ergebnis1';
+         document.getElementById("suchergebnisse").innerHTML = ergebnis;
          break;
       default:
          console.log("Error in right answer");
@@ -369,7 +380,7 @@ function right_answer(form){
    // document.getElementById('btnboxli').style.display = 'none';
 
 }
-function false_answer(form){
+function false_answer(form,ergebnis){
    switch (form){
       case "login":
          document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
@@ -381,7 +392,7 @@ function false_answer(form){
          document.getElementById("suchleiste").style.display = 'none';
          document.getElementById("suche_btn").style.display = 'none';
          document.getElementById("suchergebnisse").style.display = 'block';
-         document.getElementById("suchergebnisse").innerHTML = 'Ergebnis1';
+         document.getElementById("suchergebnisse").innerHTML = ergebnis;
          break;
       default:
          console.log("Error in right answer");
@@ -390,6 +401,7 @@ function false_answer(form){
    fails=fails+1;
    // document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
    document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+   document.getElementById("speakbubble_h3").innerHTML="";
    document.getElementById("insect").src = "img/surprisebee.png";
 }
 /////// DATABASE FUNCTIONS
@@ -419,11 +431,18 @@ function createTableShoes(db){
           /* These insertions will be skipped if the table already exists. */
           transaction.executeSql('INSERT INTO shoes VALUES (0,"Nike","40","80€");', [], nullDataHandler, errorHandler);
           transaction.executeSql('INSERT INTO shoes VALUES (1,"Adidas","37","70€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (2,"Converse","43","60€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (3,"Veja","38","130€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (4,"Reebok","45","70€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (5,"Trash Planet","39","190€");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO shoes VALUES (6,"Buffalo","39","99€");', [], dataHandler, dataHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (2,"Nike","42","80€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (3,"Adidas","41","80€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (4,"Nike","38","100€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (5,"Nike","40","80€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (6,"Adidas","40","70€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (7,"Converse","43","60€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (8,"Veja","38","130€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (9,"Reebok","45","70€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (10,"Veja","36","120€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (11,"Reebok","46","60€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (12,"Trash Planet","39","190€");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO shoes VALUES (13,"Buffalo","39","99€");', [], dataHandler, dataHandler);
       }
   );
 }
