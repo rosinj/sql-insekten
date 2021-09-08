@@ -352,7 +352,14 @@ function right_answer(form,ergebnis){
          document.getElementById("suchleiste").style.display = 'none';
          document.getElementById("suche_btn").style.display = 'none';
          document.getElementById("suchergebnisse").style.display = 'block';
-         document.getElementById("suchergebnisse").innerHTML = ergebnis;
+         var printableresult="";
+         for (var i=0; i<ergebnis.length; i++) {
+            // Each row is a standard JavaScript array indexed by
+            // column names.
+            var row = ergebnis.item(i);
+            printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
+        }
+         document.getElementById("suchergebnisse").innerHTML = printableresult;
          break;
       default:
          console.log("Error in right answer");
@@ -388,11 +395,15 @@ function false_answer(form,ergebnis){
          document.getElementById("insect").src = "img/surprisebee.png";
       break;
       case "search":
-         document.getElementById('loginlabel').innerHTML= "Suchergebnisse";
-         document.getElementById("suchleiste").style.display = 'none';
-         document.getElementById("suche_btn").style.display = 'none';
          document.getElementById("suchergebnisse").style.display = 'block';
-         document.getElementById("suchergebnisse").innerHTML = ergebnis;
+         var printableresult="";
+         for (var i=0; i<ergebnis.length; i++) {
+            // Each row is a standard JavaScript array indexed by
+            // column names.
+            var row = ergebnis.item(i);
+            printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
+        }
+         document.getElementById("suchergebnisse").innerHTML = printableresult;
          break;
       default:
          console.log("Error in right answer");
