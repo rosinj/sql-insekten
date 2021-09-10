@@ -15,7 +15,7 @@ TASKS=[
               {"h2": "Los gehts!",
               "h3":"",
               "img": "img/happybee.png"}],
-    "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit dem Passwort 'password123' einzuloggen, wie man es normalerweise kennt.",
+    "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit einem Passwort einzuloggen, wie man es normalerweise kennt.",
     "validation"  : [{"param": [""],
                       "resultlength":1,
                       "correctanswer":["true","false","error","error"],
@@ -247,52 +247,12 @@ function change_form(){
 
 /////// VALIDATION FOR EACH LEVEL
 function validation(){
-   // var j = 0;
    var ergebnis="";
    var lenminus=0;
    var correctanswer = new Array();
    var form=TASKS[lvl-1].form;
-   var forbiddenarray=TASKS[lvl-1].validation[0].blacklist;
-   switch (form){
-      case "login":
-         var uname=document.getElementById("username").value;
-         var pw=document.getElementById("password").value;
-         for (let i in forbiddenarray){
-            console.log(i);
-               if(uname.includes(forbiddenarray[i]) && forbiddenarray[i]!=""){
-                  uname="";
-               }
-            }
-         var query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
-      break;
-      case "search":
-         var search=document.getElementById("suchleiste").value;
-         for (let i in forbiddenarray){
-            console.log(i);
-               if(search.includes(forbiddenarray[i]) && forbiddenarray[i]!=""){
-                  search="";
-               }
-            }
-            var query="SELECT * FROM shoes WHERE label='" + search + "'";
-         break;
-      default:
-         console.log("Error: validation from current form doesn't work.");
-   }
-   // uname=document.getElementById("username").value;
-   // pw=document.getElementById("password").value;
-   // forbiddenarray=TASKS[lvl-1].validation[0].blacklist;
-   // for (let i in forbiddenarray){
-   //    console.log(i);
-   //       if(uname.includes(forbiddenarray[i]) && forbiddenarray[i]!=""){
-   //          uname="";
-   //       }
-   //    }
-   // query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
-   if(TASKS[lvl-1].validation[0].param[0] !=""){
-      query=query + ";" + TASKS[lvl-1].validation[0].param[0];
-      
+   var query=genarate_valid_query(form);
 
-   }
    queries=query.split(";");
    console.log("SQL Query: " + query);
    console.log(queries)
@@ -361,13 +321,68 @@ function validation(){
          }
       }
    });
-      // })
-   
    prom.catch(error => {
       false_answer(form);
       });
 }
-
+function genarate_valid_query(form){
+   var blacklistarray=TASKS[lvl-1].validation[0].blacklist;
+   var whitelistarray=TASKS[lvl-1].validation[0].whitelist;
+   switch (form){
+      case "login":
+         var uname=document.getElementById("username").value;
+         var pw=document.getElementById("password").value;
+         var query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
+         for (let i in blacklistarray){
+            if(blacklistarray[i]!=""){
+               if(uname.includes(blacklistarray[i]) || pw.includes(blacklistarray[i])){
+                  // uname="";
+                  query="notvalid";
+               }
+            }
+         }
+         console.log(query);
+         for (let k in whitelistarray){
+            if(whitelistarray[k]!=""){
+               if(uname.includes(whitelistarray[k]) || pw.includes(whitelistarray[k])){
+                  // donothing
+               }
+               else{
+                  query="notvalid";
+               }
+            }
+         }
+         console.log(query);
+      break;
+      case "search":
+         var search=document.getElementById("suchleiste").value;
+         var query="SELECT * FROM shoes WHERE label='" + search + "'";
+         for (let i in blacklistarray){
+            if(search.includes(blacklistarray[i]) && blacklistarray[i]!=""){
+                  search="";
+            }
+         }
+         for (let k in whitelistarray){
+            if(whitelistarray[k]!=""){
+               if(search.includes(whitelistarray[k])){
+                  // donothing
+               }
+               else{
+                  query="notvalid";
+               }
+            }
+         }
+         
+         break;
+      default:
+         console.log("Error:.");
+   }
+   if(TASKS[lvl-1].validation[0].param[0] !="" && query!="notvalid"){
+      query=query + ";" + TASKS[lvl-1].validation[0].param[0];
+   }
+   return query;
+ 
+}
 function right_answer(form,ergebnis){
    switch (form){
       case "login":
@@ -403,18 +418,6 @@ function right_answer(form,ergebnis){
    lvl=lvl+1;
    document.getElementById("lvl").innerHTML="Level: " + lvl;
    document.getElementById('btnboxli').style.display = 'none';
-   // document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
-   // document.getElementById("username").style.display = 'none';
-   // document.getElementById("password").style.display = 'none';
-   // document.getElementById("login_btn").style.display = 'none';
-   // document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
-   // document.getElementById("speakbubble_h3").innerHTML="";
-   // document.getElementById("next_btn").style.display = 'block';
-   // document.getElementById("insect").src = "img/happybee.png";
-   // fails=0;
-   // lvl=lvl+1;
-   // document.getElementById("lvl").innerHTML="Level: " + lvl;
-   // document.getElementById('btnboxli').style.display = 'none';
 
 }
 function false_answer(form,ergebnis){
