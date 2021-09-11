@@ -21,8 +21,7 @@ TASKS=[
                       "correctanswer":["true","true","true","true"],
                       "speakbblanswer":["Super! Du hast verstanden wie das Login-Formular funktioniert.","Super! Du hast verstanden wie das Login-Formular funktioniert."],
                       "imganswer":["img/happybee.png","img/happybee.png"],
-                      "logout":false,
-                      "whitelist": ["maxmustermann"],
+                      "whitelist": [""],
                       "blacklist": [""]}],
     "form":"login",
     "hints"    : "hints deactivated",
@@ -37,7 +36,6 @@ TASKS=[
                       "correctanswer":["true","false","error","error"],
                       "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
-                      "logout":false,
                       "whitelist": ["alexamusterfrau"],
                       "blacklist": ["maxmustermann"]}],
     "form":"login",
@@ -53,7 +51,6 @@ TASKS=[
                       "correctanswer":["true","false","error","error"],
                       "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
-                      "logout":false,
                       "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
@@ -70,7 +67,6 @@ TASKS=[
                       "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'users' zu löschen."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": [""],
-                      "logout":true,
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
     "hints"    : ["Tipp1","Tipp2"],
@@ -88,7 +84,6 @@ TASKS=[
                       "correctanswer":["true","true","true","true"],
                       "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert.","Super! Du hast verstanden wie das Formular funktioniert."],
                       "imganswer":["img/happybee.png","img/happybee.png"],
-                      "logout":false,
                       "whitelist": [""],
                      "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
@@ -104,7 +99,6 @@ TASKS=[
                      "correctanswer":[""],
                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche es erneut."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
-                     "logout":false,
                      "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
@@ -274,11 +268,11 @@ function validation(){
    var correctanswer = new Array();
    var querysucessful = new Array();
    var form=TASKS[lvl-1].form;
-   var query=genarate_valid_query(form);
+   var query=genarate_query(form);
 
    queries=query.split(";");
    console.log("SQL Query: " + query);
-   console.log(queries)
+   console.log(queries);
 
    var prom= new Promise((resolve,reject) =>{
 
@@ -296,7 +290,11 @@ function validation(){
                   console.log("vorgegeben " + TASKS[lvl-1].validation[0].resultlength +" result length: "+ results.rows.length);
                   if (results.rows.length == TASKS[lvl-1].validation[0].resultlength) {
                      querysucessful[j]="true";
-                     correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[0];
+                     if(is_query_vaild(form)){
+                        correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[0];
+                     }else{
+                        correctanswer[j]="false";
+                     }
                      console.log("iam in the true section " + queries[j] + correctanswer[j] + j);
                   } else {
                      querysucessful[j]="false";
@@ -336,69 +334,70 @@ function validation(){
   
       console.log("iam the final answer "+ correctanswer)
       console.log("ergebnis: " + ergebnis)
+      var correct=answer(correctanswer);
       if (querysucessful.includes("error")){
-         form_success(form,ergebnis,false);
+         form_success(form,ergebnis,false,correct);
       }else{
          if(querysucessful.includes("true")){
-            form_success(form,ergebnis,true);
+            form_success(form,ergebnis,true,correct);
          }else{
-            form_success(form,ergebnis,false);
+            form_success(form,ergebnis,false,correct);
          }
       }
-      answer(correctanswer);
+      
       
    });
    prom.catch(error => {
       false_answer(form);
       });
 }
-function genarate_valid_query(form){
-   var blacklistarray=TASKS[lvl-1].validation[0].blacklist;
-   var whitelistarray=TASKS[lvl-1].validation[0].whitelist;
+function genarate_query(form){
+   // var blacklistarray=TASKS[lvl-1].validation[0].blacklist;
+   // var whitelistarray=TASKS[lvl-1].validation[0].whitelist;
    switch (form){
       case "login":
          var uname=document.getElementById("username").value;
          var pw=document.getElementById("password").value;
          var query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
-         for (let i in blacklistarray){
-            if(blacklistarray[i]!=""){
-               if(uname.includes(blacklistarray[i]) || pw.includes(blacklistarray[i])){
-                  // uname="";
-                  query="notvalid";
-               }
-            }
-         }
-         console.log(query);
-         for (let k in whitelistarray){
-            if(whitelistarray[k]!=""){
-               if(uname.includes(whitelistarray[k]) || pw.includes(whitelistarray[k])){
-                  // donothing
-               }
-               else{
-                  query="notvalid";
-               }
-            }
-         }
+         // for (let i in blacklistarray){
+         //    if(blacklistarray[i]!=""){
+         //       if(uname.includes(blacklistarray[i]) || pw.includes(blacklistarray[i])){
+         //          // uname="";
+         //          query="notvalid";
+         //       }
+         //    }
+         // }
+         // console.log(query);
+         // for (let k in whitelistarray){
+         //    if(whitelistarray[k]!=""){
+         //       if(uname.includes(whitelistarray[k]) || pw.includes(whitelistarray[k])){
+         //          // donothing
+         //       }
+         //       else{
+         //          query="notvalid";
+         //       }
+         //    }
+         // }
          console.log(query);
       break;
       case "search":
          var search=document.getElementById("suchleiste").value;
          var query="SELECT * FROM shoes WHERE label='" + search + "'";
-         for (let i in blacklistarray){
-            if(search.includes(blacklistarray[i]) && blacklistarray[i]!=""){
-                  search="";
-            }
-         }
-         for (let k in whitelistarray){
-            if(whitelistarray[k]!=""){
-               if(search.includes(whitelistarray[k])){
-                  // donothing
-               }
-               else{
-                  query="notvalid";
-               }
-            }
-         }
+         // for (let i in blacklistarray){
+         //    if(search.includes(blacklistarray[i]) && blacklistarray[i]!=""){
+         //          search="";
+         //    }
+         // }
+         // for (let k in whitelistarray){
+         //    if(whitelistarray[k]!=""){
+         //       if(search.includes(whitelistarray[k])){
+         //          // donothing
+         //       }
+         //       else{
+         //          query="notvalid";
+         //       }
+         //    }
+         // }
          
          break;
       default:
@@ -410,7 +409,63 @@ function genarate_valid_query(form){
    return query;
  
 }
-function form_success(form,ergebnis,querysucessful){
+function is_query_vaild(form){
+   var blacklistarray=TASKS[lvl-1].validation[0].blacklist;
+   var whitelistarray=TASKS[lvl-1].validation[0].whitelist;
+   var valid=true;
+   switch (form){
+      case "login":
+         var uname=document.getElementById("username").value;
+         var pw=document.getElementById("password").value;
+         var query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
+         for (let i in blacklistarray){
+            if(blacklistarray[i]!=""){
+               if(uname.includes(blacklistarray[i]) || pw.includes(blacklistarray[i])){
+                  // uname="";
+                  valid=false;
+               }
+            }
+         }
+         console.log(query);
+         for (let k in whitelistarray){
+            if(whitelistarray[k]!=""){
+               if(uname.includes(whitelistarray[k]) || pw.includes(whitelistarray[k])){
+                  // donothing
+               }
+               else{
+                  valid=false;
+               }
+            }
+         }
+         console.log(query);
+      break;
+      case "search":
+         var search=document.getElementById("suchleiste").value;
+         var query="SELECT * FROM shoes WHERE label='" + search + "'";
+         for (let i in blacklistarray){
+            if(search.includes(blacklistarray[i]) && blacklistarray[i]!=""){
+                  valid=false;
+            }
+         }
+         for (let k in whitelistarray){
+            if(whitelistarray[k]!=""){
+               if(search.includes(whitelistarray[k])){
+                  // donothing
+               }
+               else{
+                  valid=false;
+               }
+            }
+         }
+         
+         break;
+      default:
+         console.log("Error:.");
+   }
+
+   return valid;
+}
+function form_success(form,ergebnis,querysucessful,answer){
    if(querysucessful){
 
       switch (form){
@@ -421,9 +476,11 @@ function form_success(form,ergebnis,querysucessful){
             document.getElementById("login_btn").style.display = 'none';
             document.getElementById("suchergebnisse").style.display = 'block';
             document.getElementById("suchergebnisse").innerHTML = "Willkommen " + ergebnis.item(0)['username'] +"!";
-            if(TASKS[lvl-1].validation[0].logout){
+            if(!answer){
                document.getElementById("logout_btn").style.display = 'block';
             }
+            
+            
             break;
          case "search":
             document.getElementById('loginlabel').innerHTML= "Suchergebnisse";
@@ -477,11 +534,13 @@ function form_success(form,ergebnis,querysucessful){
    }
 }
 function answer(correctanswer){
+   var answer;
       if (correctanswer.includes("error")){
          fails=fails+1;
          document.getElementById("speakbubble_h2").innerHTML=TASKS[lvl-1].validation[0].speakbblanswer[1];
          document.getElementById("speakbubble_h3").innerHTML="";
          document.getElementById("insect").src = TASKS[lvl-1].validation[0].imganswer[1];
+         answer=false;
       }else{
          if(correctanswer.includes("true")){
             document.getElementById("speakbubble_h2").innerHTML=TASKS[lvl-1].validation[0].speakbblanswer[0];
@@ -492,13 +551,16 @@ function answer(correctanswer){
             lvl=lvl+1;
             document.getElementById("lvl").innerHTML="Level: " + lvl;
             document.getElementById('btnboxli').style.display = 'none';
+            answer=true;
          }else{
             fails=fails+1;
             document.getElementById("speakbubble_h2").innerHTML=TASKS[lvl-1].validation[0].speakbblanswer[1];
             document.getElementById("speakbubble_h3").innerHTML="";
             document.getElementById("insect").src = TASKS[lvl-1].validation[0].imganswer[1];
+            answer= false;
          }
       }
+      return answer;
 
 }
 /////// DATABASE FUNCTIONS
