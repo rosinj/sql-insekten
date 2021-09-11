@@ -187,6 +187,11 @@
   background-color: #7A89C2;
   border: 1px solid gray;
 }
+#logout_btn{
+  background-color: #7A89C2;
+  border: 1px solid gray;
+  display:none;
+}
 #suchleiste{
   display:none;
 }

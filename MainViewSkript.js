@@ -18,8 +18,10 @@ TASKS=[
     "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit einem Passwort einzuloggen, wie man es normalerweise kennt.",
     "validation"  : [{"param": [""],
                       "resultlength":1,
-                      "correctanswer":["true","false","error","error"],
+                      "correctanswer":["true","true","true","true"],
                       "speakbblanswer":["Super! Du hast verstanden wie das Login-Formular funktioniert.","Super! Du hast verstanden wie das Login-Formular funktioniert."],
+                      "imganswer":["img/happybee.png","img/happybee.png"],
+                      "logout":false,
                       "whitelist": ["maxmustermann"],
                       "blacklist": [""]}],
     "form":"login",
@@ -34,6 +36,8 @@ TASKS=[
                       "resultlength":1,
                       "correctanswer":["true","false","error","error"],
                       "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen."],
+                      "imganswer":["img/happybee.png","img/surprisebee.png"],
+                      "logout":false,
                       "whitelist": ["alexamusterfrau"],
                       "blacklist": ["maxmustermann"]}],
     "form":"login",
@@ -48,6 +52,8 @@ TASKS=[
                       "resultlength":1,
                       "correctanswer":["true","false","error","error"],
                       "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen."],
+                      "imganswer":["img/happybee.png","img/surprisebee.png"],
+                      "logout":false,
                       "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
@@ -62,7 +68,9 @@ TASKS=[
                       "resultlength":1,
                       "correctanswer":["false","false","true","error"],
                       "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'users' zu löschen."],
+                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": [""],
+                      "logout":true,
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
     "hints"    : ["Tipp1","Tipp2"],
@@ -77,8 +85,10 @@ TASKS=[
     "challenge": "Versuche erstmal ganz normal nach 'Nicke' Schuhen zu suchen. ",
     "validation"  : [{"param": [""],
                       "resultlength":4,
-                      "correctanswer":["true","false","error","error"],
+                      "correctanswer":["true","true","true","true"],
                       "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert.","Super! Du hast verstanden wie das Formular funktioniert."],
+                      "imganswer":["img/happybee.png","img/happybee.png"],
+                      "logout":false,
                       "whitelist": [""],
                      "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
@@ -93,6 +103,8 @@ TASKS=[
                       "resultlength":1,
                      "correctanswer":[""],
                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche es erneut."],
+                     "imganswer":["img/happybee.png","img/surprisebee.png"],
+                     "logout":false,
                      "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
@@ -242,6 +254,7 @@ function change_form(){
       document.getElementById("suchleiste").style.display = 'none';
       document.getElementById("suche_btn").style.display = 'none';
       document.getElementById("suchergebnisse").style.display = 'none';
+      document.getElementById("logout_btn").style.display = 'none';
    }else if(TASKS[lvl-1].form == "search"){
       document.getElementById('loginlabel').innerHTML= "Produktsuche";
       document.getElementById("username").style.display = 'none';
@@ -250,6 +263,7 @@ function change_form(){
       document.getElementById("suchleiste").style.display = 'block';
       document.getElementById("suche_btn").style.display = 'block';
       document.getElementById("suchergebnisse").style.display = 'none';
+      document.getElementById("logout_btn").style.display = 'none';
    }
 }
 
@@ -407,8 +421,10 @@ function form_success(form,ergebnis,querysucessful){
             document.getElementById("login_btn").style.display = 'none';
             document.getElementById("suchergebnisse").style.display = 'block';
             document.getElementById("suchergebnisse").innerHTML = "Willkommen " + ergebnis.item(0)['username'] +"!";
-
-         break;
+            if(TASKS[lvl-1].validation[0].logout){
+               document.getElementById("logout_btn").style.display = 'block';
+            }
+            break;
          case "search":
             document.getElementById('loginlabel').innerHTML= "Suchergebnisse";
             document.getElementById("suchleiste").style.display = 'none';
@@ -420,8 +436,12 @@ function form_success(form,ergebnis,querysucessful){
                // column names.
                var row = ergebnis.item(i);
                printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
-         }
-            document.getElementById("suchergebnisse").innerHTML = printableresult;
+            }
+            if(printableresult != ""){
+               document.getElementById("suchergebnisse").innerHTML = printableresult;
+              }else{
+               document.getElementById("suchergebnisse").innerHTML = "keine Suchergebnisse";
+              }
             break;
          default:
             console.log("Error in right answer");
@@ -432,8 +452,7 @@ function form_success(form,ergebnis,querysucessful){
       switch (form){
          case "login":
             document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
-            // document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
-            // document.getElementById("insect").src = "img/surprisebee.png";
+
          break;
          case "search":
             document.getElementById("suchergebnisse").style.display = 'block';
@@ -444,7 +463,11 @@ function form_success(form,ergebnis,querysucessful){
                var row = ergebnis.item(i);
                printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
            }
+           if(printableresult != ""){
             document.getElementById("suchergebnisse").innerHTML = printableresult;
+           }else{
+            document.getElementById("suchergebnisse").innerHTML = "keine Suchergebnisse";
+           }
             break;
          default:
             console.log("Error in right answer");
@@ -458,22 +481,22 @@ function answer(correctanswer){
          fails=fails+1;
          document.getElementById("speakbubble_h2").innerHTML=TASKS[lvl-1].validation[0].speakbblanswer[1];
          document.getElementById("speakbubble_h3").innerHTML="";
-         document.getElementById("insect").src = "img/surprisebee.png";
+         document.getElementById("insect").src = TASKS[lvl-1].validation[0].imganswer[1];
       }else{
          if(correctanswer.includes("true")){
-            document.getElementById("speakbubble_h2").innerHTML=TASKS[lvl-1].validation[0].speakbblanswer[0];;
+            document.getElementById("speakbubble_h2").innerHTML=TASKS[lvl-1].validation[0].speakbblanswer[0];
             document.getElementById("speakbubble_h3").innerHTML="";
             document.getElementById("next_btn").style.display = 'block';
-            document.getElementById("insect").src = "img/happybee.png";
+            document.getElementById("insect").src = TASKS[lvl-1].validation[0].imganswer[0];
             fails=0;
             lvl=lvl+1;
             document.getElementById("lvl").innerHTML="Level: " + lvl;
             document.getElementById('btnboxli').style.display = 'none';
          }else{
             fails=fails+1;
-            document.getElementById("speakbubble_h2").innerHTML=TASKS[lvl-1].validation[0].speakbblanswer[1];;
+            document.getElementById("speakbubble_h2").innerHTML=TASKS[lvl-1].validation[0].speakbblanswer[1];
             document.getElementById("speakbubble_h3").innerHTML="";
-            document.getElementById("insect").src = "img/surprisebee.png";
+            document.getElementById("insect").src = TASKS[lvl-1].validation[0].imganswer[1];
          }
       }
 

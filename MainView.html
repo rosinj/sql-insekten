@@ -93,10 +93,11 @@
                   <input type="text" class="form-control" name="username" placeholder="Benutzername" id='username' required="" oninput="update_codetxt(); hljs.highlightAll();" />
                   <input type="password" class="form-control" name="password" placeholder="Passwort" id='password' required="" oninput="update_codetxt(); hljs.highlightAll();"/>      
                   <button class="btn btn-lg btn-primary btn-block" id="login_btn" type="button" onclick="try_login()">Einloggen</button>  
-
+                    
                   <input type="text" class="form-control" name="suchleiste" placeholder="" id='suchleiste' required="" oninput="update_codetxt(); hljs.highlightAll();"/>  
                   <button class="btn btn-lg btn-primary btn-block" id="suche_btn" type="button" onclick="try_login()">Suchen</button>  
                   <h4 id='suchergebnisse'></h4>
+                  <button class="btn btn-lg btn-primary btn-block" id="logout_btn" type="button" onclick="change_form()">Ausloggen</button>
                 </form>
               </div>
         </div>
