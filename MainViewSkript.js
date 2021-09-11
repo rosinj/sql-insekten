@@ -19,6 +19,7 @@ TASKS=[
     "validation"  : [{"param": [""],
                       "resultlength":1,
                       "correctanswer":["true","false","error","error"],
+                      "speakbblanswer":["Super! Du hast verstanden wie das Login-Formular funktioniert.","Super! Du hast verstanden wie das Login-Formular funktioniert."],
                       "whitelist": ["maxmustermann"],
                       "blacklist": [""]}],
     "form":"login",
@@ -32,6 +33,7 @@ TASKS=[
     "validation"  : [{"param": [""],
                       "resultlength":1,
                       "correctanswer":["true","false","error","error"],
+                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen."],
                       "whitelist": ["alexamusterfrau"],
                       "blacklist": ["maxmustermann"]}],
     "form":"login",
@@ -45,6 +47,7 @@ TASKS=[
     "validation"  : [{"param": [""],
                       "resultlength":1,
                       "correctanswer":["true","false","error","error"],
+                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen."],
                       "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
@@ -58,6 +61,7 @@ TASKS=[
     "validation"  : [{"param": ["SELECT * FROM users"],
                       "resultlength":1,
                       "correctanswer":["false","false","true","error"],
+                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'users' zu löschen."],
                       "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
@@ -74,6 +78,7 @@ TASKS=[
     "validation"  : [{"param": [""],
                       "resultlength":4,
                       "correctanswer":["true","false","error","error"],
+                      "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert.","Super! Du hast verstanden wie das Formular funktioniert."],
                       "whitelist": [""],
                      "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
@@ -87,6 +92,7 @@ TASKS=[
     "validation"  : [{"param": [""],
                       "resultlength":1,
                      "correctanswer":[""],
+                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche es erneut."],
                      "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"search",
@@ -450,12 +456,12 @@ function form_success(form,ergebnis,querysucessful){
 function answer(correctanswer){
       if (correctanswer.includes("error")){
          fails=fails+1;
-         document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+         document.getElementById("speakbubble_h2").innerHTML=TASKS[lvl-1].validation[0].speakbblanswer[1];
          document.getElementById("speakbubble_h3").innerHTML="";
          document.getElementById("insect").src = "img/surprisebee.png";
       }else{
          if(correctanswer.includes("true")){
-            document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
+            document.getElementById("speakbubble_h2").innerHTML=TASKS[lvl-1].validation[0].speakbblanswer[0];;
             document.getElementById("speakbubble_h3").innerHTML="";
             document.getElementById("next_btn").style.display = 'block';
             document.getElementById("insect").src = "img/happybee.png";
@@ -465,7 +471,7 @@ function answer(correctanswer){
             document.getElementById('btnboxli').style.display = 'none';
          }else{
             fails=fails+1;
-            document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+            document.getElementById("speakbubble_h2").innerHTML=TASKS[lvl-1].validation[0].speakbblanswer[1];;
             document.getElementById("speakbubble_h3").innerHTML="";
             document.getElementById("insect").src = "img/surprisebee.png";
          }
