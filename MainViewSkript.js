@@ -251,6 +251,7 @@ function change_form(){
       document.getElementById("suche_btn").style.display = 'none';
       document.getElementById("suchergebnisse").style.display = 'none';
       document.getElementById("logout_btn").style.display = 'none';
+      document.getElementsByClassName("form-signin")[0].style.maxWidth="350px";
    }else if(TASKS[lvl-1].form == "search"){
       document.getElementById('loginlabel').innerHTML= "Produktsuche";
       document.getElementById("username").style.display = 'none';
@@ -260,6 +261,7 @@ function change_form(){
       document.getElementById("suche_btn").style.display = 'block';
       document.getElementById("suchergebnisse").style.display = 'none';
       document.getElementById("logout_btn").style.display = 'none';
+      document.getElementsByClassName("form-signin")[0].style.maxWidth="500px";
    }
 }
 
