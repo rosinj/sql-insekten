@@ -252,6 +252,7 @@ function validation(){
    var ergebnis="";
    var lenminus=0;
    var correctanswer = new Array();
+   var querysucessful = new Array();
    var form=TASKS[lvl-1].form;
    var query=genarate_valid_query(form);
 
@@ -274,26 +275,28 @@ function validation(){
                   console.log(results.rows);
                   console.log("vorgegeben " + TASKS[lvl-1].validation[0].resultlength +" result length: "+ results.rows.length);
                   if (results.rows.length == TASKS[lvl-1].validation[0].resultlength) {
+                     querysucessful[j]="true";
                      correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[0];
                      console.log("iam in the true section " + queries[j] + correctanswer[j] + j);
                   } else {
+                     querysucessful[j]="false";
                      correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[1];
                      console.log("iam in the false section" + queries[j] + correctanswer[j] + j);
                   }
                   console.log("iam after if 2" + queries[j] + correctanswer[j] + j);
                   ergebnis= results.rows;
-                  resolve(correctanswer,ergebnis);
+                  resolve(correctanswer,ergebnis,querysucessful);
 
                   },function(transaction,error){
                      if(TASKS[lvl-1].validation[0].param[0] !="" && error.message=="could not prepare statement (1 no such table: users)"){
                         correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[2];
                         createTableUsers(db);
                      }else{
-                     correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[3];;
+                     correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[3];
                      console.log("iam in the error section" + queries[j] + correctanswer[j] + j);
                      console.log('Error:'+error.message+' (Code '+error.code+')');}
-                     
-                     resolve(correctanswer,ergebnis);
+                     querysucessful[j]="error";
+                     resolve(correctanswer,ergebnis,querysucessful);
                               }
                         );
                      }
@@ -304,7 +307,7 @@ function validation(){
             console.log("iam in promise response 2" + queries[j] + correctanswer[j] + j);
             console.log(correctanswer);
             console.log(correctanswer.filter(String));
-            if(queries.length-lenminus==correctanswer.filter(String).length){resolve(correctanswer,ergebnis);}
+            if(queries.length-lenminus==correctanswer.filter(String).length){resolve(correctanswer,ergebnis,querysucessful);}
 
          });
       }
@@ -313,15 +316,17 @@ function validation(){
   
       console.log("iam the final answer "+ correctanswer)
       console.log("ergebnis: " + ergebnis)
-      if (correctanswer.includes("error")){
-         false_answer(form,ergebnis);
+      if (querysucessful.includes("error")){
+         form_success(form,ergebnis,false);
       }else{
-         if(correctanswer.includes("true")){
-            right_answer(form,ergebnis);
+         if(querysucessful.includes("true")){
+            form_success(form,ergebnis,true);
          }else{
-            false_answer(form,ergebnis);
+            form_success(form,ergebnis,false);
          }
       }
+      answer(correctanswer);
+      
    });
    prom.catch(error => {
       false_answer(form);
@@ -385,72 +390,87 @@ function genarate_valid_query(form){
    return query;
  
 }
-function right_answer(form,ergebnis){
-   switch (form){
-      case "login":
-         document.getElementById('loginlabel').innerHTML= "Login war erfolgreich.";
-         document.getElementById("username").style.display = 'none';
-         document.getElementById("password").style.display = 'none';
-         document.getElementById("login_btn").style.display = 'none';
-         // document.getElementById("suchergebnisse").style.display = 'block';
-         // document.getElementById("suchergebnisse").innerHTML = "Willkommen " + ergebnis.item(0)['username'] +"!";
+function form_success(form,ergebnis,querysucessful){
+   if(querysucessful){
 
-      break;
-      case "search":
-         document.getElementById('loginlabel').innerHTML= "Suchergebnisse";
-         document.getElementById("suchleiste").style.display = 'none';
-         document.getElementById("suche_btn").style.display = 'none';
-         document.getElementById("suchergebnisse").style.display = 'block';
-         var printableresult="";
-         for (var i=0; i<ergebnis.length; i++) {
-            // Each row is a standard JavaScript array indexed by
-            // column names.
-            var row = ergebnis.item(i);
-            printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
-        }
-         document.getElementById("suchergebnisse").innerHTML = printableresult;
+      switch (form){
+         case "login":
+            document.getElementById('loginlabel').innerHTML= "Login war erfolgreich.";
+            document.getElementById("username").style.display = 'none';
+            document.getElementById("password").style.display = 'none';
+            document.getElementById("login_btn").style.display = 'none';
+            document.getElementById("suchergebnisse").style.display = 'block';
+            document.getElementById("suchergebnisse").innerHTML = "Willkommen " + ergebnis.item(0)['username'] +"!";
+
          break;
-      default:
-         console.log("Error in right answer");
-         
+         case "search":
+            document.getElementById('loginlabel').innerHTML= "Suchergebnisse";
+            document.getElementById("suchleiste").style.display = 'none';
+            document.getElementById("suche_btn").style.display = 'none';
+            document.getElementById("suchergebnisse").style.display = 'block';
+            var printableresult="";
+            for (var i=0; i<ergebnis.length; i++) {
+               // Each row is a standard JavaScript array indexed by
+               // column names.
+               var row = ergebnis.item(i);
+               printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
+         }
+            document.getElementById("suchergebnisse").innerHTML = printableresult;
+            break;
+         default:
+            console.log("Error in right answer");
+            
+      }
    }
-   document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
-   document.getElementById("speakbubble_h3").innerHTML="";
-   document.getElementById("next_btn").style.display = 'block';
-   document.getElementById("insect").src = "img/happybee.png";
-   fails=0;
-   lvl=lvl+1;
-   document.getElementById("lvl").innerHTML="Level: " + lvl;
-   document.getElementById('btnboxli').style.display = 'none';
+   else{
+      switch (form){
+         case "login":
+            document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+            // document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+            // document.getElementById("insect").src = "img/surprisebee.png";
+         break;
+         case "search":
+            document.getElementById("suchergebnisse").style.display = 'block';
+            var printableresult="";
+            for (var i=0; i<ergebnis.length; i++) {
+               // Each row is a standard JavaScript array indexed by
+               // column names.
+               var row = ergebnis.item(i);
+               printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
+           }
+            document.getElementById("suchergebnisse").innerHTML = printableresult;
+            break;
+         default:
+            console.log("Error in right answer");
+            
+      }
 
+   }
 }
-function false_answer(form,ergebnis){
-   switch (form){
-      case "login":
-         document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+function answer(correctanswer){
+      if (correctanswer.includes("error")){
+         fails=fails+1;
          document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+         document.getElementById("speakbubble_h3").innerHTML="";
          document.getElementById("insect").src = "img/surprisebee.png";
-      break;
-      case "search":
-         document.getElementById("suchergebnisse").style.display = 'block';
-         var printableresult="";
-         for (var i=0; i<ergebnis.length; i++) {
-            // Each row is a standard JavaScript array indexed by
-            // column names.
-            var row = ergebnis.item(i);
-            printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
-        }
-         document.getElementById("suchergebnisse").innerHTML = printableresult;
-         break;
-      default:
-         console.log("Error in right answer");
-         
-   }
-   fails=fails+1;
-   // document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
-   document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
-   document.getElementById("speakbubble_h3").innerHTML="";
-   document.getElementById("insect").src = "img/surprisebee.png";
+      }else{
+         if(correctanswer.includes("true")){
+            document.getElementById("speakbubble_h2").innerHTML="Super! du hast die Herausforderung gemeistert!";
+            document.getElementById("speakbubble_h3").innerHTML="";
+            document.getElementById("next_btn").style.display = 'block';
+            document.getElementById("insect").src = "img/happybee.png";
+            fails=0;
+            lvl=lvl+1;
+            document.getElementById("lvl").innerHTML="Level: " + lvl;
+            document.getElementById('btnboxli').style.display = 'none';
+         }else{
+            fails=fails+1;
+            document.getElementById("speakbubble_h2").innerHTML="Schade, das hat nicht geklappt. Versuche es erneut.";
+            document.getElementById("speakbubble_h3").innerHTML="";
+            document.getElementById("insect").src = "img/surprisebee.png";
+         }
+      }
+
 }
 /////// DATABASE FUNCTIONS
 
