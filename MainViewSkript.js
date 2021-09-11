@@ -10,7 +10,7 @@ TASKS=[
               "h3":"Hier lernst du von Level zu Level wie Hacker dabei vorgehen. Vorkenntisse wie SQL wären empfehlenswert. In diesem Fall haben wir rechts ein Login-Formular, wie man es so von anderen Websiten kennt.",
               "img": "img/bee.png"},
               {"h2": "",
-              "h3":"Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert ist, kannst du die die Live Erzeugte SQL-Query anschauen oder den Hintergrundcode. <br> Zu Beginn hast du 3 Tipps. Einen Tipp kannst du dann bei dem Button 'Tipp einblenden' anzeigen lassen",
+              "h3":"Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert wird, kannst du dir die live-erzeugte SQL-Query anschauen oder den Hintergrundcode. <br> Zu Beginn hast du 3 Tipps. Einen Tipp kannst du dann bei dem Button 'Tipp einblenden' anzeigen lassen.",
               "img": "img/bee.png"},
               {"h2": "Los gehts!",
               "h3":"",
@@ -105,8 +105,10 @@ function show_hints(){
     var e = document.getElementById('btnboxre');
     if(e.style.display == 'block'){
       e.style.display = 'none';
-   }
-   else{
+   // }else if(hinttext[0]=="hints deactivated"){
+
+
+   }else{
       if(hints>0){
          e.style.display = 'block';
       }
@@ -386,10 +388,12 @@ function genarate_valid_query(form){
 function right_answer(form,ergebnis){
    switch (form){
       case "login":
-         document.getElementById('loginlabel').innerHTML= "Login war erfolgreich";
+         document.getElementById('loginlabel').innerHTML= "Login war erfolgreich.";
          document.getElementById("username").style.display = 'none';
          document.getElementById("password").style.display = 'none';
          document.getElementById("login_btn").style.display = 'none';
+         // document.getElementById("suchergebnisse").style.display = 'block';
+         // document.getElementById("suchergebnisse").innerHTML = "Willkommen " + ergebnis.item(0)['username'] +"!";
 
       break;
       case "search":
