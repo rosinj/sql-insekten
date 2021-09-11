@@ -16,7 +16,8 @@ TASKS=[
               "h3":"",
               "img": "img/happybee.png"}],
     "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit einem Passwort einzuloggen, wie man es normalerweise kennt.",
-    "validation"  : [{"param": [""],
+    "validation"  : [{"validationquery": [""],
+                      "validationerror":"",
                       "resultlength":1,
                       "correctanswer":["true","true","true","true"],
                       "speakbblanswer":["Super! Du hast verstanden wie das Login-Formular funktioniert.","Super! Du hast verstanden wie das Login-Formular funktioniert."],
@@ -31,7 +32,8 @@ TASKS=[
               "h3":"",
               "img": "img/happybee.png"}],
     "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne das Passwort zu kennen.",
-    "validation"  : [{"param": [""],
+    "validation"  : [{"validationquery": [""],
+                      "validationerror":"",
                       "resultlength":1,
                       "correctanswer":["true","false","error","error"],
                       "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen."],
@@ -43,10 +45,62 @@ TASKS=[
     "behindscene" : "",
     "lvl" : 2},
     {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung",
+    "h3":"",
+    "img": "img/bee.png"}],
+   "challenge": "Versuche die Tabelle 'users' zu löschen. ",
+   "validation"  : [{"validationquery": ["SELECT * FROM users"],
+                     "validationerror":"could not prepare statement (1 no such table: users)",
+                     "resultlength":1,
+                     "correctanswer":["false","false","true","error"],
+                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'users' zu löschen."],
+                     "imganswer":["img/happybee.png","img/surprisebee.png"],
+                     "whitelist": [""],
+                     "blacklist": [""]}],
+   "form":"login",
+   "hints"    : ["Tipp1","Tipp2"],
+   "behindscene" : "",
+   "lvl": 3},
+    {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung",
+    "h3":"",
+    "img": "img/bee.png"},
+    {"h2": "",
+    "h3":"Nun haben wir statt ein Login-Formular eine typische Suchleiste. In diesem Fall von einem Schuhe Online-Shop. Versuche hier dich per SQL-Injection reinzuhacken! Viel Spaß!",
+    "img": "img/bee.png"}],
+   "challenge": "Versuche erstmal ganz normal nach 'Nicke' Schuhen zu suchen. ",
+   "validation"  : [{"validationquery": [""],
+                     "validationerror":"",
+                     "resultlength":4,
+                     "correctanswer":["true","true","true","true"],
+                     "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert.","Super! Du hast verstanden wie das Formular funktioniert."],
+                     "imganswer":["img/happybee.png","img/happybee.png"],
+                     "whitelist": [""],
+                     "blacklist": [""]}],
+   "form":"search",
+   "hints"    : ["Tipp3","Tipp2"],
+   "behindscene" : "",
+   "lvl": 4},
+   {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung",
+      "h3":"",
+      "img": "img/bee.png"}],
+   "challenge": "Versuche die Tabelle 'shoes' zu löschen. ",
+   "validation"  : [{"validationquery": ["SELECT * FROM shoes"],
+                     "validationerror":"could not prepare statement (1 no such table: shoes)",
+                     "resultlength":1,
+                     "correctanswer":["false","false","true","error"],
+                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche es erneut."],
+                     "imganswer":["img/happybee.png","img/surprisebee.png"],
+                     "whitelist": [""],
+                     "blacklist": [""]}],
+   "form":"search",
+   "hints"    : ["Tipp3","Tipp2"],
+   "behindscene" : "",
+   "lvl": 5},
+    {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung",
                 "h3":"",
                 "img": "img/bee.png"}],
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche Informationen über einen oder mehreren Nutzer/n herauszufinden.",
-    "validation"  : [{"param": [""],
+    "validation"  : [{"validationquery": [""],
+                      "validationerror":"",
                       "resultlength":1,
                       "correctanswer":["true","false","error","error"],
                       "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen."],
@@ -56,55 +110,7 @@ TASKS=[
     "form":"login",
     "hints"    : ["Tipp1","Tipp2"],
     "behindscene" : "",
-    "lvl" : 3},
-    {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung",
-                "h3":"",
-                "img": "img/bee.png"}],
-    "challenge": "Nun kennst du keinen Nutzernamen. Versuche die Tabelle 'users' zu löschen. ",
-    "validation"  : [{"param": ["SELECT * FROM users"],
-                      "resultlength":1,
-                      "correctanswer":["false","false","true","error"],
-                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'users' zu löschen."],
-                      "imganswer":["img/happybee.png","img/surprisebee.png"],
-                      "whitelist": [""],
-                      "blacklist": ["maxmustermann","alexamusterfrau"]}],
-    "form":"login",
-    "hints"    : ["Tipp1","Tipp2"],
-    "behindscene" : "",
-    "lvl": 4},
-    {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung",
-               "h3":"",
-               "img": "img/bee.png"},
-               {"h2": "",
-               "h3":"Nun haben wir statt ein Login-Formular eine typische Suchleiste. In diesem Fall von einem Schuhe Online-Shop. Versuche hier dich per SQL-Injection reinzuhacken! Viel Spaß!",
-               "img": "img/bee.png"}],
-    "challenge": "Versuche erstmal ganz normal nach 'Nicke' Schuhen zu suchen. ",
-    "validation"  : [{"param": [""],
-                      "resultlength":4,
-                      "correctanswer":["true","true","true","true"],
-                      "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert.","Super! Du hast verstanden wie das Formular funktioniert."],
-                      "imganswer":["img/happybee.png","img/happybee.png"],
-                      "whitelist": [""],
-                     "blacklist": ["maxmustermann","alexamusterfrau"]}],
-    "form":"search",
-    "hints"    : ["Tipp3","Tipp2"],
-    "behindscene" : "",
-    "lvl": 5},
-    {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung",
-               "h3":"",
-               "img": "img/bee.png"}],
-    "challenge": "Versuche... ",
-    "validation"  : [{"param": [""],
-                      "resultlength":1,
-                     "correctanswer":[""],
-                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche es erneut."],
-                     "imganswer":["img/happybee.png","img/surprisebee.png"],
-                     "whitelist": [""],
-                      "blacklist": ["maxmustermann","alexamusterfrau"]}],
-    "form":"search",
-    "hints"    : ["Tipp3","Tipp2"],
-    "behindscene" : "",
-    "lvl": 6}
+    "lvl" : 6},
 ];
 var db= createdb();
 createTableUsers(db);
@@ -142,7 +148,6 @@ function show_hints(){
        }
        else if(hints<0){
          document.getElementById("tipp_modal").style.display='block';
-         //  alert("Deine Tipps sind aufgebraucht.")
        }
    }
 
@@ -163,7 +168,6 @@ function show_behindscene(){
    }
    else{
       document.getElementById("behindscene_modal").style.display='block';
-      // alert('Der Button wird erst nach 3 Fehlversuchen aktiviert.')
    }
 }
 function update_codetxt(){
@@ -211,15 +215,11 @@ function change_codemode(){
 //////////////// SPEAKBUBBLE
 
 function speakbubble_next(){
-   // console.log(TASKS[lvl-1].text[bbltxtindex].h2);
-   // console.log(lvl);
-   // console.log(bbltxtindex);
-   // console.log(TASKS[lvl-1].text.length);
+
    change_form();
    if(bbltxtindex >= TASKS[lvl-1].text.length){
       show_lvl();
       bbltxtindex=0;
-      // change_form();
    }else{
       document.getElementById("speakbubble_h2").innerHTML = TASKS[lvl-1].text[bbltxtindex].h2;
       document.getElementById("speakbubble_h3").innerHTML = TASKS[lvl-1].text[bbltxtindex].h3;
@@ -237,6 +237,8 @@ function show_lvl(){
 
 function try_login(){
    validation();
+   createTableUsers(db);
+   createTableShoes(db);
 }
 
 function change_form(){
@@ -306,9 +308,8 @@ function validation(){
                   resolve(correctanswer,ergebnis,querysucessful);
 
                   },function(transaction,error){
-                     if(TASKS[lvl-1].validation[0].param[0] !="" && error.message=="could not prepare statement (1 no such table: users)"){
+                     if(TASKS[lvl-1].validation[0].validationquery[0] !="" && error.message==TASKS[lvl-1].validation[0].validationerror){
                         correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[2];
-                        createTableUsers(db);
                      }else{
                      correctanswer[j] = TASKS[lvl-1].validation[0].correctanswer[3];
                      console.log("iam in the error section" + queries[j] + correctanswer[j] + j);
@@ -352,59 +353,22 @@ function validation(){
       });
 }
 function genarate_query(form){
-   // var blacklistarray=TASKS[lvl-1].validation[0].blacklist;
-   // var whitelistarray=TASKS[lvl-1].validation[0].whitelist;
    switch (form){
       case "login":
          var uname=document.getElementById("username").value;
          var pw=document.getElementById("password").value;
          var query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
-         // for (let i in blacklistarray){
-         //    if(blacklistarray[i]!=""){
-         //       if(uname.includes(blacklistarray[i]) || pw.includes(blacklistarray[i])){
-         //          // uname="";
-         //          query="notvalid";
-         //       }
-         //    }
-         // }
-         // console.log(query);
-         // for (let k in whitelistarray){
-         //    if(whitelistarray[k]!=""){
-         //       if(uname.includes(whitelistarray[k]) || pw.includes(whitelistarray[k])){
-         //          // donothing
-         //       }
-         //       else{
-         //          query="notvalid";
-         //       }
-         //    }
-         // }
          console.log(query);
       break;
       case "search":
          var search=document.getElementById("suchleiste").value;
          var query="SELECT * FROM shoes WHERE label='" + search + "'";
-         // for (let i in blacklistarray){
-         //    if(search.includes(blacklistarray[i]) && blacklistarray[i]!=""){
-         //          search="";
-         //    }
-         // }
-         // for (let k in whitelistarray){
-         //    if(whitelistarray[k]!=""){
-         //       if(search.includes(whitelistarray[k])){
-         //          // donothing
-         //       }
-         //       else{
-         //          query="notvalid";
-         //       }
-         //    }
-         // }
-         
          break;
       default:
          console.log("Error:.");
    }
-   if(TASKS[lvl-1].validation[0].param[0] !="" && query!="notvalid"){
-      query=query + ";" + TASKS[lvl-1].validation[0].param[0];
+   if(TASKS[lvl-1].validation[0].validationquery[0] !="" && query!="notvalid"){
+      query=query + ";" + TASKS[lvl-1].validation[0].validationquery[0];
    }
    return query;
  
@@ -421,7 +385,6 @@ function is_query_vaild(form){
          for (let i in blacklistarray){
             if(blacklistarray[i]!=""){
                if(uname.includes(blacklistarray[i]) || pw.includes(blacklistarray[i])){
-                  // uname="";
                   valid=false;
                }
             }
@@ -489,8 +452,6 @@ function form_success(form,ergebnis,querysucessful,answer){
             document.getElementById("suchergebnisse").style.display = 'block';
             var printableresult="";
             for (var i=0; i<ergebnis.length; i++) {
-               // Each row is a standard JavaScript array indexed by
-               // column names.
                var row = ergebnis.item(i);
                printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
             }
@@ -515,8 +476,6 @@ function form_success(form,ergebnis,querysucessful,answer){
             document.getElementById("suchergebnisse").style.display = 'block';
             var printableresult="";
             for (var i=0; i<ergebnis.length; i++) {
-               // Each row is a standard JavaScript array indexed by
-               // column names.
                var row = ergebnis.item(i);
                printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
            }
