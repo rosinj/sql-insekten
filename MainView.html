@@ -103,7 +103,7 @@
         </div>
         <div class='rsbottom'>
             <button class="btn btn-lg btn-primary btn-block" id='behindscene_btn' type="submit" onclick="show_behindscene()">Hintergrunddetails anzeigen</button> 
-            <div id='behindscene_modal' class='modal'>
+            <!-- <div id='behindscene_modal' class='modal'>
                 <div class="modal-content">
                     <span class="close" onclick="close_modal()">&times;</span>
                     <p>            <h3>Information</h3>
@@ -111,17 +111,17 @@
                         <button class="btn btn-lg btn-primary btn-block" id='btn_modal' type="submit" onclick="close_modal()">Ok</button>
                     </p>
                   </div>
-        </div>
+        </div> -->
             <button class="btn btn-lg btn-primary btn-block" id='tipp_btn' type="submit" onclick="show_hints()">Tipp einblenden</button> 
-            <div id='tipp_modal' class='modal'>
+            <!-- <div id='tipp_modal' class='modal'>
                 <div class="modal-content">
                     <span class="close" onclick="close_modal()">&times;</span>
                     <p>            <h3>Information</h3>
-                        Deine Tipps sind aufgebraucht. 
+                        <h5>Deine Tipps sind aufgebraucht.</h5>
                         <button class="btn btn-lg btn-primary btn-block" id='btn_modal' type="submit" onclick="close_modal()">Ok</button>
                     </p>
                   </div>
-        </div>
+        </div> -->
             <div class='btnbox' id='btnboxre'> 
                 <p class='btnboxtxt'>
                 </p>
@@ -176,14 +176,17 @@ db.transaction(
     <div class='bottom'>
         <br>
         <button id='info_btn' onclick="show_info()"><img id='info' src="https://img.icons8.com/ios/50/000000/info--v4.png"/></button> 
-        <div id='info_modal' class='modal'>
+        <div id='modal' class='modal'>
             <div class="modal-content">
                 <span class="close" onclick="close_modal()">&times;</span>
                 <p>            <h3>Informationen</h3>
-                    <a href="https://icons8.com/icon/ZiRwjHmdrgtj/info">Info icon by Icons8</a><br>
+                    <h5><a href="https://icons8.com/icon/ZiRwjHmdrgtj/info">Info icon by Icons8</a><br>
                     <a target="_blank" href="https://icons8.com/icon/19209/light">Light</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> <br>
-                    <a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a><br></p>
-              </div>
+                    <a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a><br></h5>
+                    <button class="btn btn-lg btn-primary btn-block" id='btn_modal' type="submit" onclick="close_modal()">Ok</button>
+                </p>
+              
+                </div>
     </div>
 
     </div>
