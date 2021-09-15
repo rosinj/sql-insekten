@@ -119,6 +119,23 @@ TASKS=[
     "hints"    : ["Wir müssen die Query so geschickt erzeugen, dass sie EINE Zeile ausgibt. Wenn wir die erste WHERE Bedingung leer lassen und eine zweite mit OR hinzufügen die immer stimmt, können wir mit LIMIT beschließen wie viele Zeilen wir ausgeben wollen."],
     "behindscene" : "",
     "lvl" : 4},
+    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
+                "h3":"",
+                "img": "img/happybee.png"},
+               ],
+    "challenge": "Versuche...",
+    "validation"  : [{"validationquery": [""],
+                      "validationerror":"",
+                      "resultlength":1,
+                      "correctanswer":["true","false","error","error"],
+                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen."],
+                      "imganswer":["img/happybee.png","img/surprisebee.png"],
+                      "whitelist": [""],
+                      "blacklist": ["maxmustermann","alexamusterfrau"]}],
+    "form":"login",
+    "hints"    : [" Tipp"],
+    "behindscene" : "",
+    "lvl" : 5}
 ];
 var db= createdb();
 createTableUsers(db);
@@ -276,7 +293,6 @@ function change_form(){
    }
 }
 
-/////// VALIDATION FOR EACH LEVEL
 function validation(){
    var ergebnis="";
    var lenminus=0;
