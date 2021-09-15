@@ -8,21 +8,24 @@ var fails=0
 var task_index=0;
 TASKS=[
    {"text": [{"h2": "",
-              "h3":"Hier lernst du von Level zu Level wie Hacker dabei vorgehen. Vorkenntisse in SQL wären empfehlenswert. In diesem Fall haben wir rechts ein Login-Formular, wie man es so von anderen Websiten kennt.",
+              "h3":"Diese Sicherheitslücke ist oft in Anwendungen zu finden, in denen keine Prepared Statements verwendet werden. Da wir dies aus Lernzwecken nicht verwenden, ist hier fast alles möglich! <br> In SQL-Insekten lernst du von Level zu Level wie Hacker diese Sicherheitslücke ausnutzen, dabei wären Vorkenntisse in SQL empfehlenswert.",
               "img": "img/bee.png"},
               {"h2": "",
-              "h3":"Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert wird, kannst du dir die live-erzeugte SQL-Query anschauen und den Programmcode der Anwendung. <br>  Einen Tipp kannst du dann bei dem Button 'Tipp einblenden' anzeigen lassen. Aber Vorsicht: Dir stehen insgesamt nur 3 Tipps zur Verfügung!",
+              "h3":"In diesem Fall haben wir rechts ein Login-Formular, wie man es so von anderen Websiten kennt. <br> <br>  Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert wird, kannst du dir die live-erzeugte SQL-Query anschauen und den Programmcode der Anwendung.",
               "img": "img/bee.png"},
               {"h2": "",
-              "h3":" Allgemein versucht man durch geschickten Input in den Eingabefeldern eine Syntax-korrekte SQL-Query zu erzeugen, die die Aufgabe löst. Hierbei ist es wichtig rumzuprobieren oder sich die Hindergrunddetails anzuschauen, um zu wissen, wie die Query aus den Werten aus den Eingabefeldern erzeugt wird, die dann schließlich in der Datenbank ausgeführt wird.",
+              "h3":"Einen Tipp kannst du dann bei dem Button 'Tipp einblenden' anzeigen lassen. Aber Vorsicht: Dir stehen insgesamt nur 3 Tipps zur Verfügung! <br> <br> Allgemein versucht man durch geschickten Input in den Eingabefeldern eine Syntax-korrekte SQL-Query zu erzeugen, die die Aufgabe löst.",
               "img": "img/bee.png"},
               {"h2": "",
-              "h3":"In den ersten Levels wirst du geschickt Apostrophe und SQL-Kommentare '--' verwenden. ",
+              "h3":"Hierbei ist es wichtig rumzuprobieren oder sich die Hindergrunddetails anzuschauen, um zu wissen, wie die Query aus den Werten der Eingabefelder erzeugt wird, die dann schließlich in der Datenbank ausgeführt wird. <br> <br> <br> <br>",
               "img": "img/bee.png"},
-              {"h2": "Genug geredet, los gehts!",
+              {"h2": "",
+              "h3":"Kleiner Hinweis im Voraus: In den ersten Levels wirst du geschickt Apostrophe und SQL-Kommentare '--' verwenden. <br> <br> <br> <br> <br>",
+              "img": "img/bee.png"},
+              {"h2": "Genug geredet, los gehts! <br> <br> <br> <br> <br> ",
               "h3":"",
               "img": "img/happybee.png"}],
-    "challenge" : "Versuche als Erstes dich ganz normal als 'maxmustermann' mit einem Passwort einzuloggen, wie man es normalerweise kennt. Da du sein Password nicht kennst, gib einfach irgendwas ein.",
+    "challenge" : "Versuche als Erstes dich ganz normal als 'alexamusterfrau' mit einem Passwort einzuloggen, wie man es normalerweise kennt. Da du ihr Passwort nicht kennst, gib einfach irgendwas ein.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
                       "resultlength":1,
@@ -38,7 +41,7 @@ TASKS=[
    {"text": [{"h2": "Ok, jetzt geht's aber wirklich los!",
               "h3":"",
               "img": "img/happybee.png"}],
-    "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne ihr Passwort zu kennen.",
+    "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne ihr Passwort zu kennen. Vergiss nicht, wie am Anfang erwähnt, Apostrophe und SQL-Kommentare geschickt zu nutzen und dir die Hintergrunddetails anzuschauen!",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
                       "resultlength":1,
@@ -54,7 +57,7 @@ TASKS=[
     {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung",
     "h3":"",
     "img": "img/bee.png"}],
-   "challenge": "Versuche die Tabelle 'users' zu droppen. ",
+   "challenge": "Versuche die Tabelle 'users' zu droppen. Im Hintergrund wird zwar eigentlich nur eine Query ausgeführt, aber wenn du eine Query mit ';' beendest kannst du eine weitere Query einschleußen.",
    "validation"  : [{"validationquery": ["SELECT * FROM users"],
                      "validationerror":"could not prepare statement (1 no such table: users)",
                      "resultlength":1,
@@ -64,7 +67,7 @@ TASKS=[
                      "whitelist": [""],
                      "blacklist": [""]}],
    "form":"login",
-   "hints"    : ["Nehme die Lösung von Level 1 und quetsche dazwischen einen DROP-TABLE-Befehl. Mit Semikolon trennst du verschiedene Queries voneinander."],
+   "hints"    : ["Nehme die Lösung von Level 1 und quetsche dazwischen einen DROP-TABLE-Befehl. Mit Semikolon trennst du verschiedenen Queries voneinander."],
    "behindscene" : "",
    "lvl": 2},
     {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung",
@@ -366,12 +369,12 @@ function validation(){
       console.log("ergebnis: " + ergebnis)
       var correct=answer(correctanswer);
       if (querysucessful.includes("error")){
-         form_success(form,ergebnis,false,correct);
+         form_success(form,ergebnis,'error',correct);
       }else{
          if(querysucessful.includes("true")){
-            form_success(form,ergebnis,true,correct);
+            form_success(form,ergebnis,'true',correct);
          }else{
-            form_success(form,ergebnis,false,correct);
+            form_success(form,ergebnis,'false',correct);
          }
       }
       
@@ -458,7 +461,7 @@ function is_query_vaild(form){
    return valid;
 }
 function form_success(form,ergebnis,querysucessful,answer){
-   if(querysucessful){
+   if(querysucessful=='true'){
 
       switch (form){
          case "login":
@@ -495,7 +498,7 @@ function form_success(form,ergebnis,querysucessful,answer){
             
       }
    }
-   else{
+   else if (querysucessful=='false'){
       switch (form){
          case "login":
             document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
@@ -519,6 +522,29 @@ function form_success(form,ergebnis,querysucessful,answer){
             
       }
 
+   }else{
+      switch (form){
+         case "login":
+            document.getElementById('loginlabel').innerHTML= "Internal Server Error";
+
+         break;
+         case "search":
+            document.getElementById("suchergebnisse").style.display = 'block';
+            var printableresult="";
+            for (var i=0; i<ergebnis.length; i++) {
+               var row = ergebnis.item(i);
+               printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
+           }
+           if(printableresult != ""){
+            document.getElementById("suchergebnisse").innerHTML = printableresult;
+           }else{
+            document.getElementById("suchergebnisse").innerHTML = "Internal Server Error";
+           }
+            break;
+         default:
+            console.log("Error in right answer");
+            
+      }
    }
 }
 function answer(correctanswer){

@@ -87,7 +87,7 @@
     border: 35px solid;
     border-color: #7A89C2 transparent transparent #7A89C2;}
 #next_btn{
-      margin-top: 3%;
+      /* margin-top: 2%; */
       float: right;
       margin-right:3%;
       width: 250px;
