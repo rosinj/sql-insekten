@@ -4,6 +4,7 @@
 var hints=3;
 var bbltxtindex=0;
 var fails=0
+var cheatactive=true;
 // var lvl=1;
 var task_index=0;
 TASKS=[
@@ -478,17 +479,18 @@ function form_success(form,ergebnis,querysucessful,answer){
             
             break;
          case "search":
-            document.getElementById('loginlabel').innerHTML= "Suchergebnisse";
+            document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Suchergebnisse";
             document.getElementById("suchleiste").style.display = 'none';
             document.getElementById("suche_btn").style.display = 'none';
             document.getElementById("suchergebnisse").style.display = 'block';
             var printableresult="";
+            var columns="<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Marke &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Größe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Preis <br> <br> </h3>"
             for (var i=0; i<ergebnis.length; i++) {
                var row = ergebnis.item(i);
-               printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
-            }
-            if(printableresult != ""){
-               document.getElementById("suchergebnisse").innerHTML = printableresult;
+               printableresult = printableresult + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " +row['label'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['size']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['price'] +"<br>";
+           }
+           if(printableresult != ""){
+            document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
               }else{
                document.getElementById("suchergebnisse").innerHTML = "keine Suchergebnisse";
               }
@@ -507,12 +509,13 @@ function form_success(form,ergebnis,querysucessful,answer){
          case "search":
             document.getElementById("suchergebnisse").style.display = 'block';
             var printableresult="";
+            var columns="<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Marke &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Größe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Preis <br> <br> </h3>"
             for (var i=0; i<ergebnis.length; i++) {
                var row = ergebnis.item(i);
-               printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
+               printableresult = printableresult + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " +row['label'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['size']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['price'] +"<br>";
            }
            if(printableresult != ""){
-            document.getElementById("suchergebnisse").innerHTML = printableresult;
+            document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
            }else{
             document.getElementById("suchergebnisse").innerHTML = "keine Suchergebnisse";
            }
@@ -531,12 +534,13 @@ function form_success(form,ergebnis,querysucessful,answer){
          case "search":
             document.getElementById("suchergebnisse").style.display = 'block';
             var printableresult="";
+            var columns="<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Marke &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Größe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Preis <br> <br> </h3>"
             for (var i=0; i<ergebnis.length; i++) {
                var row = ergebnis.item(i);
-               printableresult = printableresult + "Marke: " + row['label'] + " Größe: "+row['size']+ " Preis: " + row['price'] +"\n";
+               printableresult = printableresult + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " +row['label'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['size']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['price'] +"<br>";
            }
            if(printableresult != ""){
-            document.getElementById("suchergebnisse").innerHTML = printableresult;
+            document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
            }else{
             document.getElementById("suchergebnisse").innerHTML = "Internal Server Error";
            }
@@ -675,15 +679,49 @@ function show_info(){
       e.style.display = 'none';
    }
    else{
-      document.querySelector("#modal > div >h5 ").innerHTML = "<a href='https://icons8.com/icon/ZiRwjHmdrgtj/info'>Info icon by Icons8</a><br><a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a>";
-      e.style.display = 'block';
+      if(cheatactive){
+        document.querySelector("#modal > div >h5 ").innerHTML = "<a href='https://icons8.com/icon/ZiRwjHmdrgtj/info'>Info icon by Icons8</a><br><a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <br> <br> <input type='text' class='form-control' id='cheat_input'/>  <br> <button class='btn btn-lg btn-primary btn-block' id='cheat_btn' type='button' onclick='cheat()'>cheat</button> ";
+      }else{
+         document.querySelector("#modal > div >h5 ").innerHTML = "<a href='https://icons8.com/icon/ZiRwjHmdrgtj/info'>Info icon by Icons8</a><br><a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> ";
+      }
+      
+        e.style.display = 'block';
       
    }
 }
 
 function close_modal(){
    document.getElementById("modal").style.display='none';
+
    // document.getElementById("behindscene_modal").style.display='none';
    // document.getElementById("tipp_modal").style.display='none';
    // e.style.display = 'none';
+}
+function cheat(){
+   var lvl_input=document.getElementById("cheat_input").value;
+   for (let i in TASKS){
+      if (TASKS[i].lvl.toString().trim()==lvl_input.toString().trim()){
+         task_index=i;
+         console.log(i)
+         console.log(task_index);
+         console.log(TASKS[task_index].lvl +1 )
+         document.getElementById("speakbubble_h2").innerHTML=TASKS[task_index].validation[0].speakbblanswer[0];
+         document.getElementById("speakbubble_h3").innerHTML="";
+         document.getElementById("next_btn").style.display = 'block';
+         document.getElementById("insect").src = TASKS[task_index].validation[0].imganswer[0];
+         fails=0;
+         task_index=parseInt(task_index) + 1;
+         console.log(task_index);
+         console.log(TASKS[task_index].lvl);
+         // lvl=lvl+1;
+         document.getElementById("lvl").innerHTML="Level: " + TASKS[task_index].lvl;
+         document.getElementById('btnboxli').style.display = 'none';
+         break;
+      }
+      else{
+         console.log('Level existiert nicht.')
+      }
+   }
+   close_modal();
+
 }
