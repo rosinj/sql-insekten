@@ -29,9 +29,9 @@ TASKS=[
     "challenge" : "Versuche als Erstes dich ganz normal als 'alexamusterfrau' mit einem Passwort einzuloggen, wie man es normalerweise kennt. Da du ihr Passwort nicht kennst, gib einfach irgendwas ein.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "resultlength":1,
+                      "truecondition":"results.rows.length > 0",
                       "correctanswer":["true","true","true","true"],
-                      "speakbblanswer":["Super! Du hast verstanden wie das Login-Formular funktioniert.","Super! Du hast verstanden wie das Login-Formular funktioniert."],
+                      "speakbblanswer":["Super! Du hast verstanden wie das Login-Formular funktioniert. <br> <br> <br> <br>","Super! Du hast verstanden wie das Login-Formular funktioniert.<br> <br> <br> <br>"],
                       "imganswer":["img/happybee.png","img/happybee.png"],
                       "whitelist": [""],
                       "blacklist": [""]}],
@@ -39,15 +39,15 @@ TASKS=[
     "hints"    : ["hints deactivated"],
     "behindscene" : "",
     "lvl" : 1},
-   {"text": [{"h2": "Ok, jetzt geht's aber wirklich los!",
+   {"text": [{"h2": "Ok, jetzt geht's aber wirklich los! <br> <br> <br> <br> <br>",
               "h3":"",
               "img": "img/happybee.png"}],
     "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne ihr Passwort zu kennen. Vergiss nicht, wie am Anfang erwähnt, Apostrophe und SQL-Kommentare geschickt zu nutzen und dir die Hintergrunddetails anzuschauen!",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "resultlength":1,
+                      "truecondition":"results.rows.length > 0",
                       "correctanswer":["true","false","error","error"],
-                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen."],
+                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": ["alexamusterfrau"],
                       "blacklist": ["maxmustermann"]}],
@@ -55,34 +55,34 @@ TASKS=[
     "hints"    : ["Wie du es in den Hintergrunddetails siehst, ist vor der Eingabevariable 'uname' ein Apostroph zu finden. D.h. nachdem du den Benutzernamen in das Eingabefeld eingegeben hast brauchen wir noch ein Apostroph um den String zu beenden. Danach interessiert uns die restliche Query nicht, daher kommentieren wir sie aus."],
     "behindscene" : "",
     "lvl" : 1},
-    {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung",
+    {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung <br> <br> <br> <br> <br>",
     "h3":"",
     "img": "img/bee.png"}],
-   "challenge": "Versuche die Tabelle 'users' zu droppen. Im Hintergrund wird zwar eigentlich nur eine Query ausgeführt, aber wenn du eine Query mit ';' beendest kannst du eine weitere Query einschleußen.",
+   "challenge": "Versuche die Tabelle 'users' zu droppen. Im Hintergrund wird zwar eigentlich nur eine Query ausgeführt, aber wenn du eine Query mit ';' beendest kannst du eine weitere Query einschleußen. Lass dich übrigens nicht davon irritieren, wenn der Login fehlschlägt oder eine Fehlermeldung auftaucht.",
    "validation"  : [{"validationquery": ["SELECT * FROM users"],
                      "validationerror":"could not prepare statement (1 no such table: users)",
-                     "resultlength":1,
+                     "truecondition":"results.rows.length > 0",
                      "correctanswer":["false","false","true","error"],
-                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'users' zu droppen."],
+                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'users' zu droppen."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
                      "blacklist": [""]}],
    "form":"login",
-   "hints"    : ["Nehme die Lösung von Level 1 und quetsche dazwischen einen DROP-TABLE-Befehl. Mit Semikolon trennst du verschiedenen Queries voneinander."],
+   "hints"    : ["Nehme die Lösung von Level 1 und quetsche dazwischen einen DROP-TABLE-Befehl. Mit Semikolon trennst du verschiedene Queries voneinander."],
    "behindscene" : "",
    "lvl": 2},
-    {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung",
+    {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung <br> <br> <br> <br> <br>",
     "h3":"",
     "img": "img/bee.png"},
     {"h2": "",
-    "h3":"Nun haben wir statt eines Login-Formulars eine typische Suchleiste. In diesem Fall von einem Online-Shop für Schuhe. Versuche hier dich per SQL-Injection reinzuhacken! Viel Spaß!",
+    "h3":"Nun haben wir statt eines Login-Formulars eine typische Suchleiste. In diesem Fall von einem Online-Shop für Schuhe. Versuche hier dich per SQL-Injection reinzuhacken! Viel Spaß! <br> <br> <br> <br>",
     "img": "img/bee.png"}],
    "challenge": "Versuche erstmal ganz normal nach Schuhen der Marke 'Nicke' zu suchen. ",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     "resultlength":4,
+                     "truecondition":"results.rows.length == 4",
                      "correctanswer":["true","true","true","true"],
-                     "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert.","Super! Du hast verstanden wie das Formular funktioniert."],
+                     "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert. <br> <br> <br> <br>","Super! Du hast verstanden wie das Formular funktioniert."],
                      "imganswer":["img/happybee.png","img/happybee.png"],
                      "whitelist": [""],
                      "blacklist": [""]}],
@@ -90,15 +90,15 @@ TASKS=[
    "hints"    : ["hints deactivated"],
    "behindscene" : "",
    "lvl": 3},
-   {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung",
+   {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung <br> <br> <br> <br> <br>",
       "h3":"",
       "img": "img/bee.png"}],
    "challenge": "Versuche die Tabelle 'shoes' zu droppen. ",
    "validation"  : [{"validationquery": ["SELECT * FROM shoes"],
                      "validationerror":"could not prepare statement (1 no such table: shoes)",
-                     "resultlength":1,
+                     "truecondition":"results.rows.length > 0",
                      "correctanswer":["false","false","true","error"],
-                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'shoes' zu droppen."],
+                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'shoes' zu droppen."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
                      "blacklist": [""]}],
@@ -106,40 +106,60 @@ TASKS=[
    "hints"    : ["Du machst das gleiche wie beim Level davor nur dass du eine andere Eingabe hast und einen anderen Tabellennamen."],
    "behindscene" : "",
    "lvl": 3},
-    {"text" : [{"h2": "Nun sind wir wieder zurück beim Login-Formular! Schauen wir uns mal die nächste Herausforderung an.",
+    {"text" : [{"h2": "Nun sind wir wieder zurück beim Login-Formular! Schauen wir uns mal die nächste Herausforderung an. <br> <br> <br> ",
                 "h3":"",
                 "img": "img/happybee.png"},
                ],
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche dich trotzdem mit einem User einzuloggen.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "resultlength":1,
+                      "truecondition":"results.rows.length > 0",
                       "correctanswer":["true","false","error","error"],
-                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen."],
+                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
-    "hints"    : ["Wir müssen die Query so geschickt erzeugen, dass sie EINE Zeile ausgibt. Wenn wir die erste WHERE Bedingung leer lassen und eine zweite mit OR hinzufügen die immer wahr ist, können wir mit LIMIT bestimmen wie viele Zeilen wir ausgeben wollen."],
+    "hints"    : ["Wir müssen die Query so geschickt erzeugen, dass sie mind. eine Zeile ausgibt. Wenn wir die erste WHERE Bedingung leer lassen und eine zweite mit OR hinzufügen die immer wahr ist, können wir wieder mit '--' den restlichen Code auskommentieren und haben somit eien Query erzeugt, die alle User ausgeben würde."],
     "behindscene" : "",
     "lvl" : 4},
-    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
+    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
                 "h3":"",
                 "img": "img/happybee.png"},
+                {"h2": "",
+                "h3":"Die Softwareentwickler haben eine Lücke in ihrem Code entdeckt. Nun wird man erst eingeloggt, wenn es wirklich nur einen User mit dem Namen und Passwort gibt. Das heißt für dich: Du kannst nur noch Queries erzeugen, die eine Zeile/ein Ergebnis ausgeben. <br> <br> <br>",
+                "img": "img/happybee.png"}
                ],
-    "challenge": "Versuche...",
+    "challenge": "Ohne einen Nutzernamen zu kennen versucht du wieder dich mit irgendeinen User einzuloggen.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "resultlength":1,
+                      "truecondition":"results.rows.length == 1",
                       "correctanswer":["true","false","error","error"],
-                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert!","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen."],
+                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> <br> <br> <br>"],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "form":"login",
-    "hints"    : [" Tipp"],
+    "hints"    : ["Diese Aufgabe ist ähnlich wie die davor nur, dass du versuchen musst EINE Zeile auszugeben und nicht mehr. Vorher hätte die Query die ganze Tabelle ausgegeben, aber die Sicherheitsbedingungen waren so schwach, dass die Länge der Ergebnisse egal war. Mit LIMIT kannst du nun am Ende einer Query entscheiden, wie viele Zeilen die Query ausgeben soll."],
     "behindscene" : "",
-    "lvl" : 5}
+    "lvl" : 5},
+    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
+    "h3":"",
+    "img": "img/happybee.png"}
+   ],
+   "challenge": "Versuche...",
+   "validation"  : [{"validationquery": [""],
+            "validationerror":"",
+            "truecondition":"results.rows.length == 1",
+            "correctanswer":["true","false","error","error"],
+            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> <br> <br> <br>"],
+            "imganswer":["img/happybee.png","img/surprisebee.png"],
+            "whitelist": [""],
+            "blacklist": ["maxmustermann","alexamusterfrau"]}],
+   "form":"login",
+   "hints"    : [""],
+   "behindscene" : "",
+   "lvl" : 6}
 ];
 var db= createdb();
 createTableUsers(db);
@@ -322,8 +342,8 @@ function validation(){
 
                   console.log("iam in the if 2 " + queries[j] + j);
                   console.log(results.rows);
-                  console.log("vorgegeben " + TASKS[task_index].validation[0].resultlength +" result length: "+ results.rows.length);
-                  if (results.rows.length == TASKS[task_index].validation[0].resultlength) {
+                  console.log("vorgegeben " + TASKS[task_index].validation[0].truecondition +" result length: "+ results.rows.length);
+                  if (eval(TASKS[task_index].validation[0].truecondition)) {
                      querysucessful[j]="true";
                      if(is_query_vaild(form)){
                         correctanswer[j] = TASKS[task_index].validation[0].correctanswer[0];
@@ -477,6 +497,7 @@ function form_success(form,ergebnis,querysucessful,answer){
             }
             
             
+            
             break;
          case "search":
             document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Suchergebnisse";
@@ -570,6 +591,7 @@ function answer(correctanswer){
             // lvl=lvl+1;
             document.getElementById("lvl").innerHTML="Level: " + TASKS[task_index].lvl;
             document.getElementById('btnboxli').style.display = 'none';
+            document.getElementById('btnboxre').style.display = 'none';
             answer=true;
          }else{
             fails=fails+1;
@@ -716,6 +738,7 @@ function cheat(){
          // lvl=lvl+1;
          document.getElementById("lvl").innerHTML="Level: " + TASKS[task_index].lvl;
          document.getElementById('btnboxli').style.display = 'none';
+         document.getElementById('btnboxre').style.display = 'none';
          break;
       }
       else{
