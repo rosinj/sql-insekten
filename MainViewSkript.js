@@ -462,7 +462,7 @@ function validation(){
                      console.log("iam in the false section" + queries[j] + correctanswer[j] + j);
                   }
                   console.log("iam after if 2" + queries[j] + correctanswer[j] + j);
-                  ergebnis= results.rows;
+                  ergebnis= results;
                   resolve(correctanswer,ergebnis,querysucessful);
 
                   },function(transaction,error){
@@ -614,6 +614,9 @@ function is_query_vaild(form){
    return valid;
 }
 function form_success(form,ergebnis,querysucessful,answer){
+   console.log(ergebnis.rows);
+   console.log(ergebnis.rows.item(0));
+
    if(querysucessful=='true'){
 
       switch (form){
@@ -623,7 +626,7 @@ function form_success(form,ergebnis,querysucessful,answer){
             document.getElementById("password").style.display = 'none';
             document.getElementById("login_btn").style.display = 'none';
             document.getElementById("suchergebnisse").style.display = 'block';
-            document.getElementById("suchergebnisse").innerHTML = "Willkommen " + ergebnis.item(0)['username'] +"!";
+            document.getElementById("suchergebnisse").innerHTML = "Willkommen " + ergebnis.rows.item(0)['username'] +"!";
             if(!answer){
                document.getElementById("logout_btn").style.display = 'block';
             }       
@@ -635,8 +638,8 @@ function form_success(form,ergebnis,querysucessful,answer){
             document.getElementById("suchergebnisse").style.display = 'block';
             var printableresult="";
             var columns="<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Marke &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Größe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Preis <br> <br> </h3>"
-            for (var i=0; i<ergebnis.length; i++) {
-               var row = ergebnis.item(i);
+            for (var i=0; i<ergebnis.rows.length; i++) {
+               var row = ergebnis.rows.item(i);
                printableresult = printableresult + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " +row['label'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['size']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['price'] +"<br>";
            }
            if(printableresult != ""){
@@ -651,8 +654,8 @@ function form_success(form,ergebnis,querysucessful,answer){
             document.getElementById("suchergebnisse").style.display = 'block';
             var printableresult="";
             var columns="<h3>id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; email <br> <br> </h3>"
-            for (var i=0; i<ergebnis.length; i++) {
-               var row = ergebnis.item(i);
+            for (var i=0; i<ergebnis.rows.length; i++) {
+               var row = ergebnis.rows.item(i);
                printableresult = printableresult + row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['username']+ "&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
             }
             if(printableresult != ""){
@@ -675,8 +678,8 @@ function form_success(form,ergebnis,querysucessful,answer){
             document.getElementById("suchergebnisse").style.display = 'block';
             var printableresult="";
             var columns="<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Marke &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Größe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Preis <br> <br> </h3>"
-            for (var i=0; i<ergebnis.length; i++) {
-               var row = ergebnis.item(i);
+            for (var i=0; i<ergebnis.rows.length; i++) {
+               var row = ergebnis.rows.item(i);
                printableresult = printableresult + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " +row['label'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['size']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['price'] +"<br>";
            }
            if(printableresult != ""){
@@ -689,8 +692,8 @@ function form_success(form,ergebnis,querysucessful,answer){
             document.getElementById("suchergebnisse").style.display = 'block';
             var printableresult="";
             var columns="<h3>id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; email <br> <br> </h3>"
-            for (var i=0; i<ergebnis.length; i++) {
-               var row = ergebnis.item(i);
+            for (var i=0; i<ergebnis.rows.length; i++) {
+               var row = ergebnis.rows.item(i);
                printableresult = printableresult +row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['username']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
             }
             if(printableresult != ""){
@@ -714,8 +717,8 @@ function form_success(form,ergebnis,querysucessful,answer){
             document.getElementById("suchergebnisse").style.display = 'block';
             var printableresult="";
             var columns="<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Marke &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Größe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Preis <br> <br> </h3>"
-            for (var i=0; i<ergebnis.length; i++) {
-               var row = ergebnis.item(i);
+            for (var i=0; i<ergebnis.rows.length; i++) {
+               var row = ergebnis.rows.item(i);
                printableresult = printableresult + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " +row['label'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['size']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['price'] +"<br>";
            }
            if(printableresult != ""){
@@ -728,8 +731,8 @@ function form_success(form,ergebnis,querysucessful,answer){
             document.getElementById("suchergebnisse").style.display = 'block';
             var printableresult="";
             var columns="<h3>id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; email <br> <br> </h3>"
-            for (var i=0; i<ergebnis.length; i++) {
-               var row = ergebnis.item(i);
+            for (var i=0; i<ergebnis.rows.length; i++) {
+               var row = ergebnis.rows.item(i);
                printableresult = printableresult +row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['username']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
             }
             if(printableresult != ""){
