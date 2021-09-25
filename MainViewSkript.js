@@ -167,19 +167,39 @@ TASKS=[
    "h3":"",
    "img": "img/happybee.png"}
    ],
-   "challenge": "Ohne einen Nutzernamen zu kennen versucht du einen User auszugeben",
+   "challenge": "Ohne einen Nutzernamen zu kennen versucht du alle Users auszugeben",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1",
+            "truecondition":"results.rows.length >= 1",
             "correctanswer":["true","false","error","error"],
-            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> <br> <br> <br>"],
+            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut alle User auszugeben. <br> <br> <br> <br>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau"]}],
    "form":"url",
-   "hints"    : ["Wir müssen die Query wie vorher geschickt erzeugen, dass sie EINE Zeile ausgibt. Wenn wir die erste WHERE Bedingung leer lassen und eine zweite mit OR hinzufügen die immer wahr ist, können wir mit LIMIT am Ende einer Query entscheiden, wie viele Zeilen die Query ausgeben soll. Der Rest soll mit '--' auskommeniert werden."],
+   "hints"    : ["Mit Semikolon nach der letzten Lösung kannst du eine neue Query anfangen."],
    "behindscene" : "",
    "lvl" : 6},
+   {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
+               "h3":"",
+               "img": "img/happybee.png"},
+               {"h2": "",
+               "h3":"Jede Datenbank hat eine vorgefertigte Tabelle mit Metadaten, diese wird erzeugt sobald man eine Datenbank erstellt. Bei Oracle heißt die Tabelle zum Beispiel 'sys.tables', sie beinhaltet alle Informationen über Tabellen und Views in einer Datenbank. In dieser Datenbank heißt die Tabelle 'tables'.",
+               "img": "img/happybee.png"}
+   ],
+   "challenge": "Gebe die Metadaten von allen Tabeller der Datenbank aus.",
+   "validation"  : [{"validationquery": [""],
+            "validationerror":"",
+            "truecondition":"results.rows.length == 3",
+            "correctanswer":["true","false","error","error"],
+            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut alle Tabellen-Metadaten auszugeben. <br> <br> <br> <br>"],
+            "imganswer":["img/happybee.png","img/surprisebee.png"],
+            "whitelist": [""],
+            "blacklist": ["maxmustermann","alexamusterfrau"]}],
+   "form":"url",
+   "hints"    : ["Mit Semikolon nach der letzten Lösung kannst du eine neue Query anfangen."],
+   "behindscene" : "",
+   "lvl" : 7},
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
     "h3":"",
     "img": "img/happybee.png"},
@@ -199,7 +219,7 @@ TASKS=[
    "form":"login",
    "hints"    : ["Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Achtung: Die Query darf nur eine Zeile ausgeben!"],
    "behindscene" : "",
-   "lvl" : 7},
+   "lvl" : 8},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
    "h3":"",
    "img": "img/happybee.png"}
@@ -216,11 +236,13 @@ TASKS=[
   "form":"login",
   "hints"    : [""],
   "behindscene" : "",
-  "lvl" : 8}
+  "lvl" : 9}
 ];
 var db= createdb();
 createTableUsers(db);
 createTableShoes(db);
+createTableMa(db);
+createTableTables(db);
 //////////////  HINTS
 
 function show_hints(){
@@ -361,6 +383,8 @@ function try_login(){
    validation();
    createTableUsers(db);
    createTableShoes(db);
+   createTableMa(db);
+   createTableTables(db);
 }
 
 function change_form(){
@@ -706,7 +730,7 @@ function form_success(form,ergebnis,querysucessful,answer){
             var columns="<h3>id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; email <br> <br> </h3>"
             for (var i=0; i<ergebnis.length; i++) {
                var row = ergebnis.item(i);
-               printableresult = printableresult +row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+ser+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
+               printableresult = printableresult +row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['username']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
             }
             if(printableresult != ""){
               document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
@@ -792,6 +816,35 @@ function createTableShoes(db){
           transaction.executeSql('INSERT INTO shoes VALUES (11,"Reedok","46","60€");', [], nullDataHandler, errorHandler);
           transaction.executeSql('INSERT INTO shoes VALUES (12,"Trash Plant","39","190€");', [], nullDataHandler, errorHandler);
           transaction.executeSql('INSERT INTO shoes VALUES (13,"Bifffalo","39","99€");', [], dataHandler, dataHandler);
+      }
+  );
+}
+function createTableMa(db){
+   db.transaction(
+      function (transaction) {
+
+          /* The first query causes the transaction to (intentionally) fail if the table exists. */
+          transaction.executeSql('create table mitarbeiter(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , Name TEXT NOT NULL, Vorname TEXT NOT NULL, Email TEXT NOT NULL, Lohn TEXT NOT NULL, seit TEXT NOT NULL );', [], nullDataHandler, errorHandler);
+          /* These insertions will be skipped if the table already exists. */
+          transaction.executeSql('INSERT INTO mitarbeiter VALUES (0,"Franziska","die Große","examplemail.com","700€","2020");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO mitarbeiter VALUES (1,"Mohammed","Schneider","schneider@webb.de","1700€","2017");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO mitarbeiter VALUES (2,"Greta Maria","Reifenberger","gretamaria-reifenberger@email.com","4500€","2000");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO mitarbeiter VALUES (3,"Dietmar","Kaslowski","dietmar0123@exm.com","2800€","2005");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO mitarbeiter VALUES (4,"Jessica","Koch","Koch1009@mail.com","1200€","2019");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO mitarbeiter VALUES (5,"Clarissa","Waismeier","waismeier.com","3500€","2010");', [], nullDataHandler, errorHandler);
+      }
+  );
+}
+function createTableTables(db){
+   db.transaction(
+      function (transaction) {
+
+          /* The first query causes the transaction to (intentionally) fail if the table exists. */
+          transaction.executeSql('create table tables(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , tablenamename TEXT NOT NULL, rowcount TEXT NOT NULL, columncount TEXT NOT NULL);', [], nullDataHandler, errorHandler);
+          /* These insertions will be skipped if the table already exists. */
+          transaction.executeSql('INSERT INTO tables VALUES (0,"users","3","4");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO tables VALUES (1,"shoes","14","4");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO tables VALUES (2,"mitarbeiter","6","6");', [], nullDataHandler, errorHandler);
       }
   );
 }
