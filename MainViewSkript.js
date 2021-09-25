@@ -130,7 +130,7 @@ TASKS=[
                 "h3":"Die Softwareentwickler haben eine Lücke in ihrem Code entdeckt. Nun wird man erst eingeloggt, wenn es wirklich nur einen User mit dem Namen und Passwort gibt. Das heißt für dich: Du kannst nur noch Queries erzeugen, die eine Zeile/ein Ergebnis ausgeben. <br> <br> <br>",
                 "img": "img/happybee.png"}
                ],
-    "challenge": "Ohne einen Nutzernamen zu kennen versucht du wieder dich mit irgendeinen User einzuloggen.",
+    "challenge": "Ohne einen Nutzernamen zu kennen versucht du wieder dich mit irgendeinem User einzuloggen.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
                       "truecondition":"results.rows.length == 1",
@@ -144,10 +144,30 @@ TASKS=[
     "behindscene" : "",
     "lvl" : 5},
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
-    "h3":"",
-    "img": "img/happybee.png"}
+               "h3":"",
+               "img": "img/happybee.png"},
+               {"h2": "Nun haben wir statt ein Login-Formular eine Url-Leiste. Sie funktioniert ähnlich wie die Suchleiste nur kommt nach dem letzten slash die WHERE Bedingung.",
+               "h3":"",
+               "img": "img/happybee.png"}
+    ],
+   "challenge": "Mal schauen, ob du es einigermaßen verstanden hast. Gib nach dem letzten Slash folgendes ein: ?id=0",
+   "validation"  : [{"validationquery": [""],
+            "validationerror":"",
+            "truecondition":"results.rows.length == 1",
+            "correctanswer":["true","false","error","error"],
+            "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert. <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut nach dem letzten Slash '?id=0' einzugeben. <br> <br> <br> <br>"],
+            "imganswer":["img/happybee.png","img/surprisebee.png"],
+            "whitelist": [""],
+            "blacklist": ["maxmustermann","alexamusterfrau"]}],
+   "form":"url",
+   "hints"    : ["hints deactivated"],
+   "behindscene" : "",
+   "lvl" : 6},
+   {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
+   "h3":"",
+   "img": "img/happybee.png"}
    ],
-   "challenge": "Versuche...",
+   "challenge": "Ohne einen Nutzernamen zu kennen versucht du einen User auszugeben",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
             "truecondition":"results.rows.length == 1",
@@ -156,10 +176,47 @@ TASKS=[
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau"]}],
-   "form":"login",
-   "hints"    : [""],
+   "form":"url",
+   "hints"    : ["Wir müssen die Query wie vorher geschickt erzeugen, dass sie EINE Zeile ausgibt. Wenn wir die erste WHERE Bedingung leer lassen und eine zweite mit OR hinzufügen die immer wahr ist, können wir mit LIMIT am Ende einer Query entscheiden, wie viele Zeilen die Query ausgeben soll. Der Rest soll mit '--' auskommeniert werden."],
    "behindscene" : "",
-   "lvl" : 6}
+   "lvl" : 6},
+    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
+    "h3":"",
+    "img": "img/happybee.png"},
+    {"h2": "Den Softwareentwicklern ist aufgefallen, dass Hacker mit ';' neue Queries in Eingabefelder einschleußen können, daher haben sie ';' im Input verboten. <br> <br>",
+    "h3":"",
+    "img": "img/happybee.png"}
+   ],
+   "challenge": "Versuche ohne einen Nutzer zu kennen und ohne Semikolon dich mit einem User einzuloggen.",
+   "validation"  : [{"validationquery": [""],
+            "validationerror":"",
+            "truecondition":"results.rows.length == 1",
+            "correctanswer":["true","false","error","error"],
+            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> <br> <br> <br>"],
+            "imganswer":["img/happybee.png","img/surprisebee.png"],
+            "whitelist": [""],
+            "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
+   "form":"login",
+   "hints"    : ["Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Achtung: Die Query darf nur eine Zeile ausgeben!"],
+   "behindscene" : "",
+   "lvl" : 7},
+   {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
+   "h3":"",
+   "img": "img/happybee.png"}
+   ],
+  "challenge": "Versuche...",
+  "validation"  : [{"validationquery": [""],
+           "validationerror":"",
+           "truecondition":"results.rows.length == 1",
+           "correctanswer":["true","false","error","error"],
+           "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> <br> <br> <br>"],
+           "imganswer":["img/happybee.png","img/surprisebee.png"],
+           "whitelist": [""],
+           "blacklist": ["maxmustermann","alexamusterfrau"]}],
+  "form":"login",
+  "hints"    : [""],
+  "behindscene" : "",
+  "lvl" : 8}
 ];
 var db= createdb();
 createTableUsers(db);
@@ -234,6 +291,11 @@ function update_codetxt(){
          var search=document.getElementById("suchleiste").value;
          var query="SELECT * FROM shoes WHERE label='" + search + "';";
          break;
+      case "url":
+         var url=document.getElementById("url").value;
+         var id=url.toString().split('?');
+         var query="SELECT * FROM users WHERE " + id[id.length-1] +  ";";
+         break;
       default:
          console.log("couldn't update codetext");
 
@@ -258,6 +320,9 @@ function change_codemode(){
          case "search":
             document.getElementById("behindcodesearch").style.display="block";
             break;
+         // case "url":
+         //    //document.getElementById("behindcodeurl").style.display="block";
+         //    break;
          default:
             console.log("couldn't update codetext");
    
@@ -286,7 +351,12 @@ function show_lvl(){
 }
 
 //////////////// FORMS & VALIDATION
+function onEnter(event){
+   if (event.keyCode==13){
+         try_login();
+    }
 
+}
 function try_login(){
    validation();
    createTableUsers(db);
@@ -314,6 +384,17 @@ function change_form(){
       document.getElementById("suchergebnisse").style.display = 'none';
       document.getElementById("logout_btn").style.display = 'none';
       document.getElementsByClassName("form-signin")[0].style.maxWidth="500px";
+   }else if(TASKS[task_index].form == "url"){
+      document.getElementById('loginlabel').innerHTML= "Url";
+      document.getElementById("username").style.display = 'none';
+      document.getElementById("password").style.display = 'none';
+      document.getElementById("login_btn").style.display = 'none';
+      document.getElementById("suchleiste").style.display = 'none';
+      document.getElementById("suche_btn").style.display = 'none';
+      document.getElementById("suchergebnisse").style.display = 'none';
+      document.getElementById("logout_btn").style.display = 'none';
+      document.getElementById("url").style.display = 'block';
+      document.getElementsByClassName("form-signin")[0].style.maxWidth="700px";
    }
 }
 
@@ -417,6 +498,12 @@ function genarate_query(form){
          var search=document.getElementById("suchleiste").value;
          var query="SELECT * FROM shoes WHERE label='" + search + "'";
          break;
+      case "url":
+         var url=document.getElementById("url").value;
+         var id=url.toString().split('?');
+         console.log("id:  " + id)
+         var query="SELECT * FROM users WHERE " + id[id.length-1]+"";
+         break;
       default:
          console.log("Error:.");
    }
@@ -475,6 +562,27 @@ function is_query_vaild(form){
          }
          
          break;
+      case "url":
+         var search=document.getElementById("url").value;
+         var id=url.toString().split('?');
+         var query="SELECT * FROM shoes WHERE " + id[id.length-1] + "";
+         for (let i in blacklistarray){
+            if(search.includes(blacklistarray[i]) && blacklistarray[i]!=""){
+                  valid=false;
+            }
+         }
+         for (let k in whitelistarray){
+            if(whitelistarray[k]!=""){
+               if(search.includes(whitelistarray[k])){
+                  // donothing
+               }
+               else{
+                  valid=false;
+               }
+            }
+         }
+            
+         break;
       default:
          console.log("Error:.");
    }
@@ -494,10 +602,7 @@ function form_success(form,ergebnis,querysucessful,answer){
             document.getElementById("suchergebnisse").innerHTML = "Willkommen " + ergebnis.item(0)['username'] +"!";
             if(!answer){
                document.getElementById("logout_btn").style.display = 'block';
-            }
-            
-            
-            
+            }       
             break;
          case "search":
             document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Suchergebnisse";
@@ -516,6 +621,22 @@ function form_success(form,ergebnis,querysucessful,answer){
                document.getElementById("suchergebnisse").innerHTML = "keine Suchergebnisse";
               }
             break;
+         case "url":
+            document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ergebnisse";
+            document.getElementById("url").style.display = 'none';
+            document.getElementById("suchergebnisse").style.display = 'block';
+            var printableresult="";
+            var columns="<h3>id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; email <br> <br> </h3>"
+            for (var i=0; i<ergebnis.length; i++) {
+               var row = ergebnis.item(i);
+               printableresult = printableresult + row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['username']+ "&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
+            }
+            if(printableresult != ""){
+            document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
+               }else{
+               document.getElementById("suchergebnisse").innerHTML = "keine Ergebnisse";
+               }
+            break;
          default:
             console.log("Error in right answer");
             
@@ -525,8 +646,7 @@ function form_success(form,ergebnis,querysucessful,answer){
       switch (form){
          case "login":
             document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
-
-         break;
+            break;
          case "search":
             document.getElementById("suchergebnisse").style.display = 'block';
             var printableresult="";
@@ -540,6 +660,20 @@ function form_success(form,ergebnis,querysucessful,answer){
            }else{
             document.getElementById("suchergebnisse").innerHTML = "keine Suchergebnisse";
            }
+            break;
+         case "url":
+            document.getElementById("suchergebnisse").style.display = 'block';
+            var printableresult="";
+            var columns="<h3>id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; email <br> <br> </h3>"
+            for (var i=0; i<ergebnis.length; i++) {
+               var row = ergebnis.item(i);
+               printableresult = printableresult +row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['username']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
+            }
+            if(printableresult != ""){
+               document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
+            }else{
+               document.getElementById("suchergebnisse").innerHTML = "keine Ergebnisse";
+            }
             break;
          default:
             console.log("Error in right answer");
@@ -566,6 +700,21 @@ function form_success(form,ergebnis,querysucessful,answer){
             document.getElementById("suchergebnisse").innerHTML = "Internal Server Error";
            }
             break;
+         case "url":
+            document.getElementById("suchergebnisse").style.display = 'block';
+            var printableresult="";
+            var columns="<h3>id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; email <br> <br> </h3>"
+            for (var i=0; i<ergebnis.length; i++) {
+               var row = ergebnis.item(i);
+               printableresult = printableresult +row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+ser+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
+            }
+            if(printableresult != ""){
+              document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
+            }else{
+              document.getElementById("suchergebnisse").innerHTML = "Internal Server Error";
+            }
+         break;
+      
          default:
             console.log("Error in right answer");
             
@@ -720,7 +869,7 @@ function close_modal(){
    // e.style.display = 'none';
 }
 function cheat(){
-   var lvl_input=document.getElementById("cheat_input").value;
+   var lvl_input=document.getElementById("cheat_input").value - 1;
    for (let i in TASKS){
       if (TASKS[i].lvl.toString().trim()==lvl_input.toString().trim()){
          task_index=i;
@@ -739,9 +888,7 @@ function cheat(){
          document.getElementById("lvl").innerHTML="Level: " + TASKS[task_index].lvl;
          document.getElementById('btnboxli').style.display = 'none';
          document.getElementById('btnboxre').style.display = 'none';
-         break;
-      }
-      else{
+      }else{
          console.log('Level existiert nicht.')
       }
    }

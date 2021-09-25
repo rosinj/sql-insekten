@@ -195,6 +195,9 @@
 #suchleiste{
   display:none;
 }
+#url{
+  display:none;
+}
 #suche_btn{
   display:none;
   background-color: #7A89C2;
