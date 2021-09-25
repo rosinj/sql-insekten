@@ -148,7 +148,17 @@
     margin-top: 60px;
     margin-bottom: 40px;
   }
+table, th, td {
+  border: 1px solid black; 
+  /* border-right: 1px solid black; */
+  padding: 5px;
+}
+th{
+  width:30%;
+}
 #suchergenbisse{
+  width:100%;
+  border-spacing: 15px;
   display:none;
 } 
 .form-signin {

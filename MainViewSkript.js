@@ -29,7 +29,7 @@ TASKS=[
     "challenge" : "Versuche als Erstes dich ganz normal als 'alexamusterfrau' mit einem Passwort einzuloggen, wie man es normalerweise kennt. Da du ihr Passwort nicht kennst, gib einfach irgendwas ein.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0",
+                      "truecondition":"results.rows.length > 0  && queries[j].includes('users')",
                       "correctanswer":["true","true","true","true"],
                       "speakbblanswer":["Super! Du hast verstanden wie das Login-Formular funktioniert. <br> <br> <br> <br>","Super! Du hast verstanden wie das Login-Formular funktioniert.<br> <br> <br> <br>"],
                       "imganswer":["img/happybee.png","img/happybee.png"],
@@ -45,7 +45,7 @@ TASKS=[
     "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne ihr Passwort zu kennen. Vergiss nicht, wie am Anfang erwähnt, Apostrophe und SQL-Kommentare geschickt zu nutzen und dir die Hintergrunddetails anzuschauen!",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0",
+                      "truecondition":"results.rows.length > 0 && queries[j].includes('users')",
                       "correctanswer":["true","false","error","error"],
                       "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
@@ -80,7 +80,7 @@ TASKS=[
    "challenge": "Versuche erstmal ganz normal nach Schuhen der Marke 'Nicke' zu suchen. ",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     "truecondition":"results.rows.length == 4",
+                     "truecondition":"results.rows.length == 4 && queries[j].includes('shoes')",
                      "correctanswer":["true","true","true","true"],
                      "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert. <br> <br> <br> <br>","Super! Du hast verstanden wie das Formular funktioniert."],
                      "imganswer":["img/happybee.png","img/happybee.png"],
@@ -96,7 +96,7 @@ TASKS=[
    "challenge": "Versuche die Tabelle 'shoes' zu droppen. ",
    "validation"  : [{"validationquery": ["SELECT * FROM shoes"],
                      "validationerror":"could not prepare statement (1 no such table: shoes)",
-                     "truecondition":"results.rows.length > 0",
+                     "truecondition":"results.rows.length > 0 && queries[j].includes('shoes')",
                      "correctanswer":["false","false","true","error"],
                      "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'shoes' zu droppen."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
@@ -113,7 +113,7 @@ TASKS=[
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche dich trotzdem mit einem User einzuloggen.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0",
+                      "truecondition":"results.rows.length > 0 && queries[j].includes('users')",
                       "correctanswer":["true","false","error","error"],
                       "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
@@ -133,7 +133,7 @@ TASKS=[
     "challenge": "Ohne einen Nutzernamen zu kennen versucht du wieder dich mit irgendeinem User einzuloggen.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length == 1",
+                      "truecondition":"results.rows.length == 1 && queries[j].includes('users')",
                       "correctanswer":["true","false","error","error"],
                       "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> <br> <br> <br>"],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
@@ -150,10 +150,10 @@ TASKS=[
                "h3":"",
                "img": "img/happybee.png"}
     ],
-   "challenge": "Mal schauen, ob du es einigermaßen verstanden hast. Gib nach dem letzten Slash folgendes ein: ?id=0",
+   "challenge": "Mal schauen, ob du es einigermaßen verstanden hast. Gib nach dem letzten Slash folgendes ein: '?id=0' ",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1",
+            "truecondition":"results.rows.length == 1 && queries[j].includes('users')",
             "correctanswer":["true","false","error","error"],
             "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert. <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut nach dem letzten Slash '?id=0' einzugeben. <br> <br> <br> <br>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
@@ -167,10 +167,10 @@ TASKS=[
    "h3":"",
    "img": "img/happybee.png"}
    ],
-   "challenge": "Ohne einen Nutzernamen zu kennen versucht du alle Users auszugeben",
+   "challenge": "Ohne einen Nutzernamen zu kennen versuchst du alle Users auszugeben",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length >= 1",
+            "truecondition":"results.rows.length == 3 && queries[j].includes('users')",
             "correctanswer":["true","false","error","error"],
             "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut alle User auszugeben. <br> <br> <br> <br>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
@@ -180,6 +180,7 @@ TASKS=[
    "hints"    : ["Mit Semikolon nach der letzten Lösung kannst du eine neue Query anfangen."],
    "behindscene" : "",
    "lvl" : 6},
+   
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
                "h3":"",
                "img": "img/happybee.png"},
@@ -187,36 +188,36 @@ TASKS=[
                "h3":"Jede Datenbank hat eine vorgefertigte Tabelle mit Metadaten, diese wird erzeugt sobald man eine Datenbank erstellt. Bei Oracle heißt die Tabelle zum Beispiel 'sys.tables', sie beinhaltet alle Informationen über Tabellen und Views in einer Datenbank. In dieser Datenbank heißt die Tabelle 'tables'.",
                "img": "img/happybee.png"}
    ],
-   "challenge": "Gebe die Metadaten von allen Tabeller der Datenbank aus.",
+   "challenge": "Gebe die Metadaten von allen Tabellen der Datenbank aus.",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 3",
+            "truecondition":"results.rows.length == 3 && queries[j].includes('tables')",
             "correctanswer":["true","false","error","error"],
             "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut alle Tabellen-Metadaten auszugeben. <br> <br> <br> <br>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
-            "whitelist": [""],
+            "whitelist": ["tables"],
             "blacklist": ["maxmustermann","alexamusterfrau"]}],
    "form":"url",
    "hints"    : ["Mit Semikolon nach der letzten Lösung kannst du eine neue Query anfangen."],
    "behindscene" : "",
    "lvl" : 7},
-    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
+    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. Zurück zum Login-Formular.<br> <br> <br> <br>",
     "h3":"",
     "img": "img/happybee.png"},
     {"h2": "Den Softwareentwicklern ist aufgefallen, dass Hacker mit ';' neue Queries in Eingabefelder einschleußen können, daher haben sie ';' im Input verboten. <br> <br>",
     "h3":"",
     "img": "img/happybee.png"}
    ],
-   "challenge": "Versuche ohne einen Nutzer zu kennen und ohne Semikolon dich mit einem User einzuloggen.",
+   "challenge": "Versuche ohne Semikolon alle Schuhe der Marke 'Weja' auszugeben.",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1",
+            "truecondition":"results.rows.length == 2 && queries[j].includes('shoes')",
             "correctanswer":["true","false","error","error"],
-            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> <br> <br> <br>"],
+            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut alle Schuhe der Marke 'Weja' auszugeben. <br> <br> <br> <br>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
-            "whitelist": [""],
+            "whitelist": ["Weja"],
             "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
-   "form":"login",
+   "form":"url",
    "hints"    : ["Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Achtung: Die Query darf nur eine Zeile ausgeben!"],
    "behindscene" : "",
    "lvl" : 8},
@@ -397,6 +398,7 @@ function change_form(){
       document.getElementById("suche_btn").style.display = 'none';
       document.getElementById("suchergebnisse").style.display = 'none';
       document.getElementById("logout_btn").style.display = 'none';
+      document.getElementById("url").style.display = 'none';
       document.getElementsByClassName("form-signin")[0].style.maxWidth="350px";
    }else if(TASKS[task_index].form == "search"){
       document.getElementById('loginlabel').innerHTML= "Produktsuche";
@@ -408,6 +410,7 @@ function change_form(){
       document.getElementById("suchergebnisse").style.display = 'none';
       document.getElementById("logout_btn").style.display = 'none';
       document.getElementsByClassName("form-signin")[0].style.maxWidth="500px";
+      document.getElementById("url").style.display = 'none';
    }else if(TASKS[task_index].form == "url"){
       document.getElementById('loginlabel').innerHTML= "Url";
       document.getElementById("username").style.display = 'none';
@@ -429,8 +432,16 @@ function validation(){
    var querysucessful = new Array();
    var form=TASKS[task_index].form;
    var query=genarate_query(form);
+   console.log("blacklist  "+TASKS[task_index].validation[0].blacklist);
+   if(TASKS[task_index].validation[0].blacklist.includes(";")){
+      queries=[query];
+      console.log("; not allowed")
 
-   queries=query.split(";");
+   }else{
+      queries=query.split(";");
+      console.log("; allowed")
+   }
+   // queries=query.split(";");
    console.log("SQL Query: " + query);
    console.log(queries);
 
@@ -454,6 +465,10 @@ function validation(){
                         correctanswer[j] = TASKS[task_index].validation[0].correctanswer[0];
                      }else{
                         correctanswer[j]="false";
+                        if(';' in TASKS[task_index].validation[0].blacklist){
+                           querysucessful[j]="error";
+                     
+                        }
                      }
                      console.log("iam in the true section " + queries[j] + correctanswer[j] + j);
                   } else {
@@ -484,7 +499,8 @@ function validation(){
             console.log("iam in promise response 2" + queries[j] + correctanswer[j] + j);
             console.log(correctanswer);
             console.log(correctanswer.filter(String));
-            if(queries.length-lenminus==correctanswer.filter(String).length){resolve(correctanswer,ergebnis,querysucessful);}
+            qu=queries[j];
+            if(queries.length-lenminus==correctanswer.filter(String).length){resolve(correctanswer,ergebnis,querysucessful,qu);}
 
          });
       }
@@ -495,12 +511,12 @@ function validation(){
       console.log("ergebnis: " + ergebnis)
       var correct=answer(correctanswer);
       if (querysucessful.includes("error")){
-         form_success(form,ergebnis,'error',correct);
+         form_success(form,ergebnis,'error',correct,qu);
       }else{
          if(querysucessful.includes("true")){
-            form_success(form,ergebnis,'true',correct);
+            form_success(form,ergebnis,'true',correct,qu);
          }else{
-            form_success(form,ergebnis,'false',correct);
+            form_success(form,ergebnis,'false',correct,qu);
          }
       }
       
@@ -613,20 +629,20 @@ function is_query_vaild(form){
 
    return valid;
 }
-function form_success(form,ergebnis,querysucessful,answer){
-   console.log(ergebnis.rows);
-   console.log(ergebnis.rows.item(0));
-
+function form_success(form,ergebnis,querysucessful,answer,qu){
+   // console.log(ergebnis[[prototype]]);
+   console.log(ergebnis);
+   console.log(qu);
    if(querysucessful=='true'){
 
       switch (form){
          case "login":
-            document.getElementById('loginlabel').innerHTML= "Login war erfolgreich.";
+            document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis.rows.item(0)['username'] +"!";
             document.getElementById("username").style.display = 'none';
             document.getElementById("password").style.display = 'none';
             document.getElementById("login_btn").style.display = 'none';
-            document.getElementById("suchergebnisse").style.display = 'block';
-            document.getElementById("suchergebnisse").innerHTML = "Willkommen " + ergebnis.rows.item(0)['username'] +"!";
+            document.getElementById("suchergebnisse").style.display = 'none';
+            // document.getElementById("suchergebnisse").innerHTML = "Willkommen " + ergebnis.rows.item(0)['username'] +"!";
             if(!answer){
                document.getElementById("logout_btn").style.display = 'block';
             }       
@@ -636,33 +652,20 @@ function form_success(form,ergebnis,querysucessful,answer){
             document.getElementById("suchleiste").style.display = 'none';
             document.getElementById("suche_btn").style.display = 'none';
             document.getElementById("suchergebnisse").style.display = 'block';
-            var printableresult="";
-            var columns="<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Marke &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Größe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Preis <br> <br> </h3>"
-            for (var i=0; i<ergebnis.rows.length; i++) {
-               var row = ergebnis.rows.item(i);
-               printableresult = printableresult + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " +row['label'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['size']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['price'] +"<br>";
-           }
-           if(printableresult != ""){
-            document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
-              }else{
-               document.getElementById("suchergebnisse").innerHTML = "keine Suchergebnisse";
-              }
+            if(!answer){
+               document.getElementById("suchleiste").style.display = 'block';
+               document.getElementById("suche_btn").style.display = 'block';
+            }
+            generate_resulttable(qu,ergebnis);    
             break;
          case "url":
-            document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ergebnisse";
+            document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ergebnisse";
             document.getElementById("url").style.display = 'none';
             document.getElementById("suchergebnisse").style.display = 'block';
-            var printableresult="";
-            var columns="<h3>id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; email <br> <br> </h3>"
-            for (var i=0; i<ergebnis.rows.length; i++) {
-               var row = ergebnis.rows.item(i);
-               printableresult = printableresult + row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['username']+ "&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
-            }
-            if(printableresult != ""){
-            document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
-               }else{
-               document.getElementById("suchergebnisse").innerHTML = "keine Ergebnisse";
-               }
+            if(!answer){
+               document.getElementById("url").style.display = 'block';
+            } 
+            generate_resulttable(qu,ergebnis);      
             break;
          default:
             console.log("Error in right answer");
@@ -676,78 +679,20 @@ function form_success(form,ergebnis,querysucessful,answer){
             break;
          case "search":
             document.getElementById("suchergebnisse").style.display = 'block';
-            var printableresult="";
-            var columns="<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Marke &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Größe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Preis <br> <br> </h3>"
-            for (var i=0; i<ergebnis.rows.length; i++) {
-               var row = ergebnis.rows.item(i);
-               printableresult = printableresult + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " +row['label'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['size']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['price'] +"<br>";
-           }
-           if(printableresult != ""){
-            document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
-           }else{
-            document.getElementById("suchergebnisse").innerHTML = "keine Suchergebnisse";
-           }
+            generate_resulttable(qu,ergebnis);    
             break;
          case "url":
             document.getElementById("suchergebnisse").style.display = 'block';
-            var printableresult="";
-            var columns="<h3>id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; email <br> <br> </h3>"
-            for (var i=0; i<ergebnis.rows.length; i++) {
-               var row = ergebnis.rows.item(i);
-               printableresult = printableresult +row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['username']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
-            }
-            if(printableresult != ""){
-               document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
-            }else{
-               document.getElementById("suchergebnisse").innerHTML = "keine Ergebnisse";
-            }
+            generate_resulttable(qu,ergebnis);    
             break;
          default:
             console.log("Error in right answer");
             
       }
 
-   }else{
-      switch (form){
-         case "login":
-            document.getElementById('loginlabel').innerHTML= "Internal Server Error";
-
-         break;
-         case "search":
-            document.getElementById("suchergebnisse").style.display = 'block';
-            var printableresult="";
-            var columns="<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Marke &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Größe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Preis <br> <br> </h3>"
-            for (var i=0; i<ergebnis.rows.length; i++) {
-               var row = ergebnis.rows.item(i);
-               printableresult = printableresult + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " +row['label'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['size']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['price'] +"<br>";
-           }
-           if(printableresult != ""){
-            document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
-           }else{
-            document.getElementById("suchergebnisse").innerHTML = "Internal Server Error";
-           }
-            break;
-         case "url":
-            document.getElementById("suchergebnisse").style.display = 'block';
-            var printableresult="";
-            var columns="<h3>id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uname &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; email <br> <br> </h3>"
-            for (var i=0; i<ergebnis.rows.length; i++) {
-               var row = ergebnis.rows.item(i);
-               printableresult = printableresult +row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['username']+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
-            }
-            if(printableresult != ""){
-              document.getElementById("suchergebnisse").innerHTML = columns + printableresult;
-            }else{
-              document.getElementById("suchergebnisse").innerHTML = "Internal Server Error";
-            }
-         break;
-      
-         default:
-            console.log("Error in right answer");
-            
-      }
-   }
+   }else{document.getElementById('loginlabel').innerHTML= "Internal Server Error";document.getElementById("suchergebnisse").style.display = 'none';}
 }
+
 function answer(correctanswer){
    var answer;
       if (correctanswer.includes("error")){
@@ -779,6 +724,41 @@ function answer(correctanswer){
       }
       return answer;
 
+}
+function generate_resulttable(qu,ergebnis){
+   if(qu.includes("users")){
+      var columns=["id","username","password","email"];
+   }else if(qu.includes("shoes")){
+      var columns=["id","label","size","price"];
+   }else if(qu.includes("mitarbeiter")){
+      var columns=["id","Vorname","Vachname","Email","Lohn","seit"];
+   }else if(qu.includes("tables")){
+      var columns=["id","tablename","rowcount","columncount"];
+   }
+   console.log(qu);
+   let table = document.querySelector("table");
+   table.deleteTHead();
+   table.innerHTML = "";
+   let thead = table.createTHead();
+   let row= thead.insertRow();
+   for(let j in columns){
+      let th = document.createElement("th");
+      let text = document.createTextNode(columns[j]);
+      th.appendChild(text);
+      row.appendChild(th);
+   }
+   for (var i=0; i<ergebnis.rows.length; i++)  {
+      let row = table.insertRow();
+      for (key in columns) {
+        let cell = row.insertCell();
+        let text = document.createTextNode(ergebnis.rows.item(i)[columns[key]]);
+        cell.appendChild(text);
+      }
+    }
+                // for (var i=0; i<ergebnis.rows.length; i++) {
+            //    var row = ergebnis.rows.item(i);
+            //    printableresult = printableresult + row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['username']+ "&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
+            // }
 }
 /////// DATABASE FUNCTIONS
 
@@ -843,7 +823,7 @@ function createTableTables(db){
       function (transaction) {
 
           /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql('create table tables(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , tablenamename TEXT NOT NULL, rowcount TEXT NOT NULL, columncount TEXT NOT NULL);', [], nullDataHandler, errorHandler);
+          transaction.executeSql('create table tables(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , tablename TEXT NOT NULL, rowcount TEXT NOT NULL, columncount TEXT NOT NULL);', [], nullDataHandler, errorHandler);
           /* These insertions will be skipped if the table already exists. */
           transaction.executeSql('INSERT INTO tables VALUES (0,"users","3","4");', [], nullDataHandler, errorHandler);
           transaction.executeSql('INSERT INTO tables VALUES (1,"shoes","14","4");', [], nullDataHandler, errorHandler);
