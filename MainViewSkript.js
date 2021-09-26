@@ -630,9 +630,6 @@ function is_query_vaild(form){
    return valid;
 }
 function form_success(form,ergebnis,querysucessful,answer,qu){
-   // console.log(ergebnis[[prototype]]);
-   console.log(ergebnis);
-   console.log(qu);
    if(querysucessful=='true'){
 
       switch (form){
@@ -656,7 +653,9 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
                document.getElementById("suchleiste").style.display = 'block';
                document.getElementById("suche_btn").style.display = 'block';
             }
-            generate_resulttable(qu,ergebnis);    
+            if(qu.trim() != TASKS[task_index].validation[0].validationquery[0].trim()){
+               generate_resulttable(qu,ergebnis);  
+            }  
             break;
          case "url":
             document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ergebnisse";
@@ -665,7 +664,9 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
             if(!answer){
                document.getElementById("url").style.display = 'block';
             } 
-            generate_resulttable(qu,ergebnis);      
+            if(qu.trim() != TASKS[task_index].validation[0].validationquery[0].trim()){
+               generate_resulttable(qu,ergebnis);  
+            }       
             break;
          default:
             console.log("Error in right answer");
@@ -679,11 +680,15 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
             break;
          case "search":
             document.getElementById("suchergebnisse").style.display = 'block';
-            generate_resulttable(qu,ergebnis);    
+            if(qu.trim() != TASKS[task_index].validation[0].validationquery[0].trim()){
+               generate_resulttable(qu,ergebnis);  
+            }     
             break;
          case "url":
             document.getElementById("suchergebnisse").style.display = 'block';
-            generate_resulttable(qu,ergebnis);    
+            if(qu.trim() != TASKS[task_index].validation[0].validationquery[0].trim()){
+               generate_resulttable(qu,ergebnis);  
+            }   
             break;
          default:
             console.log("Error in right answer");
