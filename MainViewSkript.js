@@ -333,19 +333,26 @@ function change_codemode(){
       document.getElementById("codetxt").style.display="block";
       document.getElementById("behindcodesearch").style.display="none";
       document.getElementById("behindcodelogin").style.display="none";
+      document.getElementById("behindcodeurl").style.display="none";
    }
    else{
       document.getElementById("codetxt").style.display="none";
       switch (form){
          case "login":
             document.getElementById("behindcodelogin").style.display="block";
+            document.getElementById("behindcodesearch").style.display="none";
+            document.getElementById("behindcodeurl").style.display="none";
             break;
          case "search":
             document.getElementById("behindcodesearch").style.display="block";
+            document.getElementById("behindcodelogin").style.display="none";
+            document.getElementById("behindcodeurl").style.display="none";
             break;
-         // case "url":
-         //    //document.getElementById("behindcodeurl").style.display="block";
-         //    break;
+         case "url":
+            document.getElementById("behindcodeurl").style.display="block";
+            document.getElementById("behindcodelogin").style.display="none";
+            document.getElementById("behindcodesearch").style.display="none";
+            break;
          default:
             console.log("couldn't update codetext");
    
@@ -435,16 +442,9 @@ function validation(){
    console.log("blacklist  "+TASKS[task_index].validation[0].blacklist);
    if(TASKS[task_index].validation[0].blacklist.includes(";")){
       queries=[query];
-      console.log("; not allowed")
-
    }else{
       queries=query.split(";");
-      console.log("; allowed")
    }
-   // queries=query.split(";");
-   console.log("SQL Query: " + query);
-   console.log(queries);
-
    var prom= new Promise((resolve,reject) =>{
 
       for (let j in queries){
@@ -455,10 +455,6 @@ function validation(){
 
                console.log("iam in the transaction " + queries[j] + j);
                transaction.executeSql(queries[j],[],function (transaction, results) {
-
-                  console.log("iam in the if 2 " + queries[j] + j);
-                  console.log(results.rows);
-                  console.log("vorgegeben " + TASKS[task_index].validation[0].truecondition +" result length: "+ results.rows.length);
                   if (eval(TASKS[task_index].validation[0].truecondition)) {
                      querysucessful[j]="true";
                      if(is_query_vaild(form)){
@@ -470,13 +466,10 @@ function validation(){
                      
                         }
                      }
-                     console.log("iam in the true section " + queries[j] + correctanswer[j] + j);
                   } else {
                      querysucessful[j]="false";
                      correctanswer[j] = TASKS[task_index].validation[0].correctanswer[1];
-                     console.log("iam in the false section" + queries[j] + correctanswer[j] + j);
                   }
-                  console.log("iam after if 2" + queries[j] + correctanswer[j] + j);
                   ergebnis= results;
                   resolve(correctanswer,ergebnis,querysucessful);
 
@@ -484,9 +477,8 @@ function validation(){
                      if(TASKS[task_index].validation[0].validationquery[0] !="" && error.message==TASKS[task_index].validation[0].validationerror){
                         correctanswer[j] = TASKS[task_index].validation[0].correctanswer[2];
                      }else{
-                     correctanswer[j] = TASKS[task_index].validation[0].correctanswer[3];
-                     console.log("iam in the error section" + queries[j] + correctanswer[j] + j);
-                     console.log('Error:'+error.message+' (Code '+error.code+')');}
+                        correctanswer[j] = TASKS[task_index].validation[0].correctanswer[3];
+                     }
                      querysucessful[j]="error";
                      resolve(correctanswer,ergebnis,querysucessful);
                               }
@@ -496,9 +488,6 @@ function validation(){
           }else{lenminus=lenminus+1;}
          })
          prom2.then(response=>{
-            console.log("iam in promise response 2" + queries[j] + correctanswer[j] + j);
-            console.log(correctanswer);
-            console.log(correctanswer.filter(String));
             qu=queries[j];
             if(queries.length-lenminus==correctanswer.filter(String).length){resolve(correctanswer,ergebnis,querysucessful,qu);}
 
@@ -506,9 +495,6 @@ function validation(){
       }
    })
    prom.then(response =>{
-  
-      console.log("iam the final answer "+ correctanswer)
-      console.log("ergebnis: " + ergebnis)
       var correct=answer(correctanswer);
       if (querysucessful.includes("error")){
          form_success(form,ergebnis,'error',correct,qu);

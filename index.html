@@ -96,7 +96,7 @@
                     
                   <input type="text" class="form-control" name="suchleiste" placeholder="" id='suchleiste' required="" oninput="update_codetxt(); hljs.highlightAll();"/>  
                   <button class="btn btn-lg btn-primary btn-block" id="suche_btn" type="button" onclick="try_login()">Suchen</button>  
-                  <input type="text" value="https://sql-insekten.oth-rgb.de/"class="form-control" name="url" placeholder="" id='url' required="" oninput="update_codetxt(); hljs.highlightAll();" onKeyPress="onEnter(event);" /> 
+                  <input type="text" value="https://sql-insekten.oth-rgb.de/index.php"class="form-control" name="url" placeholder="" id='url' required="" oninput="update_codetxt(); hljs.highlightAll();" onKeyPress="onEnter(event);" /> 
                   <!-- <h4 id='suchergebnisse'></h4> -->
                   <table id='suchergebnisse'>
 
@@ -149,26 +149,94 @@ WHERE username= '' AND password= '';
                     <pre id="behindcodelogin"><code >function validation(){
 var uname=document.getElementById("username").value;
 var pw=document.getElementById("password").value;
+var ergebnis="";
+var correctanswer = "";
+var querysucessful = "";
 // ...
 query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
-db.transaction(
-    function(transaction) {
-        transaction.executeSql(
-            query,[], rightanswer ,falseanswer);
-        }
-    );
+db.transaction(function(transaction) {
+    transaction.executeSql(query,[],function (transaction, results) {
+       if (eval(TASKS[task_index].validation[0].truecondition)) {
+          querysucessful="true";
+          correctanswer= TASKS[0]['validation'][0]['correctanswer'][0]
+       } else {
+          querysucessful="false";
+          correctanswer= TASKS[task_index].validation[0].correctanswer[1];
+       }
+       ergebnis= results;
+    },function(transaction,error){
+          correctanswer = TASKS[task_index].validation[0].correctanswer[2];
+          querysucessful="error";
+                   }
+             );
+          }
+       );
+var correct=answer(correctanswer);
+form_success(ergebnis,querysucessful,correct);
+
 }</code></pre>
-                   <pre id="behindcodesearch"><code >function validation(){
-var searchresult=document.getElementById("searchinput").value;
-// ...
-var query="SELECT * FROM shoes WHERE label='" + search + "';";
-db.transaction(
-        function(transaction) {
-            transaction.executeSql(
-                query,[], rightanswer ,falseanswer);
-            }
-        );
-}</code></pre> 
+                   <pre id="behindcodesearch"><code ># ...
+def validation():
+    search=document.getElementById("suchleiste").value
+    query="SELECT * FROM shoes WHERE label='" + search + "';"
+    ergebnis=""
+    correctanswer = ""
+    querysucessful = ""
+    # ...
+    try:
+        cursor = connection.cursor()
+        cursor.execute(query)
+        results = cursor.fetchall()
+        if (eval(TASKS[task_index]['validation'][0]['truecondition'])):
+            querysucessful="true"
+            correctanswer= TASKS[task_index]['validation'][0]['correctanswer'][0]
+        else:
+            querysucessful="false";
+            correctanswer= TASKS[task_index]['validation'][0]['correctanswer'][1]
+
+        ergebnis= results;
+        cursor.close()
+
+    except sqlite3.Error as error:
+        correctanswer = TASKS[task_index]['validation'][0]['correctanswer'][2]
+        querysucessful="error"
+    finally:
+        if connection:
+            connection.close()
+            
+    correct=answer(correctanswer)
+    form_success(ergebnis,querysucessful,correct)
+
+# ...
+</code></pre> 
+                  <pre id="behindcodeurl"><code >public function validation(){
+$url=(string) $doc->getElementById('url')->value;
+$id=explode("?", $url );
+$query="SELECT * FROM users WHERE ".$id[count(id)-1].";";
+$ergebnis="";
+$correctanswer = "";
+$querysucessful = "";
+/* ... */
+$db->transaction(function($transaction) {
+    $transaction->executeSql($query,[],function ($transaction, $results) {
+        if (eval($TASKS[task_index].validation[0].truecondition)) {
+            $querysucessful="true";
+            $correctanswer= $TASKS[task_index]['validation'][0]['correctanswer'][0];
+        } else {
+            $querysucessful="false";
+            $correctanswer= $TASKS[task_index]['validation'][0]['correctanswer'][1];
+        }
+        $ergebnis= $results;
+    },function($transaction,$error){
+        $correctanswer = $TASKS[task_index]['validation'][0]['correctanswer'][2];
+        $querysucessful="error";
+    }
+    );
+});
+$correct=answer($correctanswer);
+form_success($ergebnis,$querysucessful,$correct);
+}               
+</code></pre> 
                 </div>
 
 

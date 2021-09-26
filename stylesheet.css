@@ -277,7 +277,7 @@ th{
 #codetxt > code {
   height: 200px;
 }
-#behindcodelogin,#behindcodesearch{
+#behindcodelogin,#behindcodesearch,#behindcodeurl{
   text-align: left;
   display:none;
   height: 218px;
@@ -286,6 +286,9 @@ th{
   height: 200px;
 }
 #behindcodesearch > code{
+  height: 200px;
+}
+#behindcodeurl > code{
   height: 200px;
 }
 #btnboxre{
