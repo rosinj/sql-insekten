@@ -146,7 +146,7 @@ TASKS=[
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
                "h3":"",
                "img": "img/happybee.png"},
-               {"h2": "Nun haben wir statt ein Login-Formular eine Url-Leiste. Sie funktioniert ähnlich wie die Suchleiste nur kommt nach dem letzten slash die WHERE Bedingung.",
+               {"h2": "Nun haben wir statt ein Login-Formular eine Url-Leiste. Sie funktioniert ähnlich wie die Suchleiste nur kommt nach dem letzten slash die WHERE Bedingung. <br> <br>",
                "h3":"",
                "img": "img/happybee.png"}
     ],
@@ -185,7 +185,7 @@ TASKS=[
                "h3":"",
                "img": "img/happybee.png"},
                {"h2": "",
-               "h3":"Jede Datenbank hat eine vorgefertigte Tabelle mit Metadaten, diese wird erzeugt sobald man eine Datenbank erstellt. Bei Oracle heißt die Tabelle zum Beispiel 'sys.tables', sie beinhaltet alle Informationen über Tabellen und Views in einer Datenbank. In dieser Datenbank heißt die Tabelle 'tables'.",
+               "h3":"Jede Datenbank hat eine vorgefertigte Tabelle mit Metadaten, diese wird erzeugt sobald man eine Datenbank erstellt. Bei Oracle heißt die Tabelle zum Beispiel 'sys.tables', sie beinhaltet alle Informationen über Tabellen und Views in einer Datenbank. In dieser Datenbank heißt die Tabelle 'tables'. <br> <br>",
                "img": "img/happybee.png"}
    ],
    "challenge": "Gebe die Metadaten von allen Tabellen der Datenbank aus.",
@@ -201,7 +201,7 @@ TASKS=[
    "hints"    : ["Mit Semikolon nach der letzten Lösung kannst du eine neue Query anfangen."],
    "behindscene" : "",
    "lvl" : 7},
-    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. Zurück zum Login-Formular.<br> <br> <br> <br>",
+    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> <br> <br> <br>",
     "h3":"",
     "img": "img/happybee.png"},
     {"h2": "Den Softwareentwicklern ist aufgefallen, dass Hacker mit ';' neue Queries in Eingabefelder einschleußen können, daher haben sie ';' im Input verboten. <br> <br>",
@@ -433,7 +433,7 @@ function change_form(){
 }
 
 function validation(){
-   var ergebnis="";
+   var ergebnis=new Array();
    var lenminus=0;
    var correctanswer = new Array();
    var querysucessful = new Array();
@@ -470,7 +470,7 @@ function validation(){
                      querysucessful[j]="false";
                      correctanswer[j] = TASKS[task_index].validation[0].correctanswer[1];
                   }
-                  ergebnis= results;
+                  ergebnis[j]= results;
                   resolve(correctanswer,ergebnis,querysucessful);
 
                   },function(transaction,error){
@@ -479,6 +479,7 @@ function validation(){
                      }else{
                         correctanswer[j] = TASKS[task_index].validation[0].correctanswer[3];
                      }
+                     ergebnis[j]="error";
                      querysucessful[j]="error";
                      resolve(correctanswer,ergebnis,querysucessful);
                               }
@@ -555,7 +556,6 @@ function is_query_vaild(form){
                }
             }
          }
-         console.log(query);
          for (let k in whitelistarray){
             if(whitelistarray[k]!=""){
                if(uname.includes(whitelistarray[k]) || pw.includes(whitelistarray[k])){
@@ -566,7 +566,6 @@ function is_query_vaild(form){
                }
             }
          }
-         console.log(query);
       break;
       case "search":
          var search=document.getElementById("suchleiste").value;
@@ -616,11 +615,26 @@ function is_query_vaild(form){
    return valid;
 }
 function form_success(form,ergebnis,querysucessful,answer,qu){
+   console.log(qu.trim());
+   console.log(task_index-1);
+   console.log(TASKS[task_index-1].validation[0].validationquery[0].trim());
+   console.log(ergebnis);
+   console.log(ergebnis[0]);
+   console.log(ergebnis.length);
+   var index=ergebnis.length-1;
+   var task_index_temp=task_index;
+   if(answer){
+      task_index_temp=task_index_temp-1;
+   }
    if(querysucessful=='true'){
 
       switch (form){
          case "login":
-            document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis.rows.item(0)['username'] +"!";
+            if(qu.trim() != TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+               document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index].rows.item(0)['username'] +"!";
+            }else{
+               document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index-1].rows.item(0)['username'] +"!";
+            }
             document.getElementById("username").style.display = 'none';
             document.getElementById("password").style.display = 'none';
             document.getElementById("login_btn").style.display = 'none';
@@ -639,9 +653,18 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
                document.getElementById("suchleiste").style.display = 'block';
                document.getElementById("suche_btn").style.display = 'block';
             }
-            if(qu.trim() != TASKS[task_index].validation[0].validationquery[0].trim()){
-               generate_resulttable(qu,ergebnis);  
-            }  
+            if(qu.trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+               index= index-1;
+               console.log("hier")
+            }
+            if(ergebnis[index] == null){
+               index= index-1;
+               console.log("h2")
+            }
+            if(index>=0){
+               generate_resulttable(qu,ergebnis[index]); 
+            }
+            console.log(index);
             break;
          case "url":
             document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ergebnisse";
@@ -650,9 +673,15 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
             if(!answer){
                document.getElementById("url").style.display = 'block';
             } 
-            if(qu.trim() != TASKS[task_index].validation[0].validationquery[0].trim()){
-               generate_resulttable(qu,ergebnis);  
-            }       
+            if(qu.trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+               index= index-1;
+            }
+            if(ergebnis[index] == null){
+               index= index-1;
+            }
+            if(index>=0){
+               generate_resulttable(qu,ergebnis[index]); 
+            }  
             break;
          default:
             console.log("Error in right answer");
@@ -666,15 +695,27 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
             break;
          case "search":
             document.getElementById("suchergebnisse").style.display = 'block';
-            if(qu.trim() != TASKS[task_index].validation[0].validationquery[0].trim()){
-               generate_resulttable(qu,ergebnis);  
-            }     
+            if(qu.trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+               index= index-1;
+            }
+            if(ergebnis[index] == null){
+               index= index-1;
+            }
+            if(index>=0){
+               generate_resulttable(qu,ergebnis[index]); 
+            }  
             break;
          case "url":
             document.getElementById("suchergebnisse").style.display = 'block';
-            if(qu.trim() != TASKS[task_index].validation[0].validationquery[0].trim()){
-               generate_resulttable(qu,ergebnis);  
-            }   
+            if(qu.trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+               index= index-1;
+            }
+            if(ergebnis[index] == null){
+               index= index-1;
+            }
+            if(index>=0){
+               generate_resulttable(qu,ergebnis[index]); 
+            }  
             break;
          default:
             console.log("Error in right answer");
