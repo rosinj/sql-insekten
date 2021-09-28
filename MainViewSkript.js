@@ -130,7 +130,7 @@ TASKS=[
                 "h3":"Die Softwareentwickler haben eine Lücke in ihrem Code entdeckt. Nun wird man erst eingeloggt, wenn es wirklich nur einen User mit dem Namen und Passwort gibt. Das heißt für dich: Du kannst nur noch Queries erzeugen, die eine Zeile/ein Ergebnis ausgeben. <br> <br> <br>",
                 "img": "img/happybee.png"}
                ],
-    "challenge": "Ohne einen Nutzernamen zu kennen versucht du wieder dich mit irgendeinem User einzuloggen.",
+    "challenge": "Ohne einen Nutzernamen zu kennen versucht du dich wieder mit irgendeinem User einzuloggen.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
                       "truecondition":"results.rows.length == 1 && queries[j].includes('users')",
@@ -201,10 +201,44 @@ TASKS=[
    "hints"    : ["Mit Semikolon nach der letzten Lösung kannst du eine neue Query anfangen."],
    "behindscene" : "",
    "lvl" : 7},
-    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> <br> <br> <br>",
+   {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. Ich hoffe du hast gut aufgepasst! <br> <br> <br> <br>",
+   "h3":"",
+   "img": "img/happybee.png"}
+   ],
+   "challenge": "Ich will wissen wer bei dem Schuhunternehmen am meisten verdient.",
+   "validation"  : [{"validationquery": [""],
+                     "validationerror":"",
+                     "truecondition":"results.rows.length == 1 && results.rows.item(0)['Email']=='gretamaria-reifenberger@email.com'",
+                     "correctanswer":["true","false","error","error"],
+                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut den Mitarbeiter zu finden der am meisten verdient. <br> <br> <br> <br>"],
+                     "imganswer":["img/happybee.png","img/surprisebee.png"],
+                     "whitelist": [""],
+                     "blacklist": ["maxmustermann","alexamusterfrau"]}],
+   "form":"url",
+   "hints"    : ["In dem vorherigen Level hast du gesehen welche Tabellen in der Datenbank existieren. Da war eine Tabelle dabei, die wir vorher nicht erwähnt hatten: die Tabelle 'mitarbeiter'. Wie vorher kannst du durch Semikolon eine neue Query beginnen, wo du als Bedingung 'Lohn > 4000' eingibst. "],
+   "behindscene" : "",
+   "lvl" : 8},
+   {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> <br> <br> <br>",
     "h3":"",
     "img": "img/happybee.png"},
     {"h2": "Den Softwareentwicklern ist aufgefallen, dass Hacker mit ';' neue Queries in Eingabefelder einschleußen können, daher haben sie ';' im Input verboten. <br> <br>",
+    "h3":"",
+    "img": "img/happybee.png"}
+   ],
+   "challenge": "Versuche ohne Semikolon die User auszugeben, die den gleichen E-Mail Anbieter '@examplemail.com' nutzen. ",
+   "validation"  : [{"validationquery": [""],
+            "validationerror":"",
+            "truecondition":"results.rows.length == 2 && ((results.rows.item(0)['id']== 0 && results.rows.item(1)['id']== 2) || (results.rows.item(0)['id']== 2 && results.rows.item(1)['id']== 0))",
+            "correctanswer":["true","false","error","error"],
+            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut alle Schuhe der Marke 'Weja' auszugeben. <br> <br> <br> <br>"],
+            "imganswer":["img/happybee.png","img/surprisebee.png"],
+            "whitelist": [""],
+            "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
+   "form":"url",
+   "hints"    : ["Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen."],
+   "behindscene" : "",
+   "lvl" : 9},
+    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> <br> <br> <br>",
     "h3":"",
     "img": "img/happybee.png"}
    ],
@@ -218,26 +252,23 @@ TASKS=[
             "whitelist": ["Weja"],
             "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
    "form":"url",
-   "hints"    : ["Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Achtung: Die Query darf nur eine Zeile ausgeben!"],
+   "hints"    : ["Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. "],
    "behindscene" : "",
-   "lvl" : 8},
-   {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
-   "h3":"",
-   "img": "img/happybee.png"}
-   ],
-  "challenge": "Versuche...",
+   "lvl" : 10},
+   {"text" : [],
+  "challenge": "Super! Du hast das Spiel durchgespielt! <br> <br> <br> <br>",
   "validation"  : [{"validationquery": [""],
            "validationerror":"",
-           "truecondition":"results.rows.length == 1",
+           "truecondition":"false",
            "correctanswer":["true","false","error","error"],
-           "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> <br> <br> <br>"],
+           "speakbblanswer":["Super! Du hast das Spiel durchgespielt! <br> <br> <br> <br>","Super! Du hast das Spiel durchgespielt! <br> <br> <br> <br>"],
            "imganswer":["img/happybee.png","img/surprisebee.png"],
            "whitelist": [""],
            "blacklist": ["maxmustermann","alexamusterfrau"]}],
-  "form":"login",
-  "hints"    : [""],
+  "form":"url",
+  "hints"    : ["hints deactivated"],
   "behindscene" : "",
-  "lvl" : 9}
+  "lvl" : 10}
 ];
 var db= createdb();
 createTableUsers(db);
@@ -615,25 +646,38 @@ function is_query_vaild(form){
    return valid;
 }
 function form_success(form,ergebnis,querysucessful,answer,qu){
-   console.log(qu.trim());
-   console.log(task_index-1);
-   console.log(TASKS[task_index-1].validation[0].validationquery[0].trim());
+   // console.log(qu.trim());
+   // console.log(task_index-1);
+   // console.log(TASKS[task_index-1].validation[0].validationquery[0].trim());
    console.log(ergebnis);
    console.log(ergebnis[0]);
-   console.log(ergebnis.length);
+   // console.log(ergebnis.length);
    var index=ergebnis.length-1;
    var task_index_temp=task_index;
    if(answer){
       task_index_temp=task_index_temp-1;
    }
+   // console.log(ergebnis[index].rows['id']);
    if(querysucessful=='true'){
 
       switch (form){
          case "login":
-            if(qu.trim() != TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+            // if(qu.trim() != TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+            //    document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index].rows.item(0)['username'] +"!";
+            // }else{
+            //    document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index-1].rows.item(0)['username'] +"!";
+            // }
+            if(qu.trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+               index= index-1;
+            }
+            if(ergebnis[index] == null){
+               index= index-1;
+            }
+            if(qu.includes("DROP")){
+               index= index-1;
+            }
+            if(index>=0){
                document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index].rows.item(0)['username'] +"!";
-            }else{
-               document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index-1].rows.item(0)['username'] +"!";
             }
             document.getElementById("username").style.display = 'none';
             document.getElementById("password").style.display = 'none';
@@ -763,7 +807,7 @@ function generate_resulttable(qu,ergebnis){
    }else if(qu.includes("shoes")){
       var columns=["id","label","size","price"];
    }else if(qu.includes("mitarbeiter")){
-      var columns=["id","Vorname","Vachname","Email","Lohn","seit"];
+      var columns=["id","Vorname","Nachname","Email","Lohn","seit"];
    }else if(qu.includes("tables")){
       var columns=["id","tablename","rowcount","columncount"];
    }
@@ -839,14 +883,14 @@ function createTableMa(db){
       function (transaction) {
 
           /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql('create table mitarbeiter(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , Name TEXT NOT NULL, Vorname TEXT NOT NULL, Email TEXT NOT NULL, Lohn TEXT NOT NULL, seit TEXT NOT NULL );', [], nullDataHandler, errorHandler);
+          transaction.executeSql('create table mitarbeiter(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , Name TEXT NOT NULL, Vorname TEXT NOT NULL, Email TEXT NOT NULL, Lohn INT NOT NULL, seit INT NOT NULL );', [], nullDataHandler, errorHandler);
           /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql('INSERT INTO mitarbeiter VALUES (0,"Franziska","die Große","examplemail.com","700€","2020");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO mitarbeiter VALUES (1,"Mohammed","Schneider","schneider@webb.de","1700€","2017");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO mitarbeiter VALUES (2,"Greta Maria","Reifenberger","gretamaria-reifenberger@email.com","4500€","2000");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO mitarbeiter VALUES (3,"Dietmar","Kaslowski","dietmar0123@exm.com","2800€","2005");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO mitarbeiter VALUES (4,"Jessica","Koch","Koch1009@mail.com","1200€","2019");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO mitarbeiter VALUES (5,"Clarissa","Waismeier","waismeier.com","3500€","2010");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO mitarbeiter VALUES (0,"Franziska","die Große","examplemail.com",700,2020);', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO mitarbeiter VALUES (1,"Mohammed","Schneider","schneider@webb.de",1700,2017);', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO mitarbeiter VALUES (2,"Greta Maria","Reifenberger","gretamaria-reifenberger@email.com",4500,2000);', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO mitarbeiter VALUES (3,"Dietmar","Kaslowski","dietmar0123@exm.com",2800,2005);', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO mitarbeiter VALUES (4,"Jessica","Koch","Koch1009@mail.com",1200,2019);', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO mitarbeiter VALUES (5,"Clarissa","Waismeier","waismeier.com",3500,2010);', [], nullDataHandler, errorHandler);
       }
   );
 }

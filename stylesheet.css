@@ -160,6 +160,9 @@ th{
   width:100%;
   border-spacing: 15px;
   display:none;
+  max-height: 50%;
+  height: 50%;
+  overflow: auto;
 } 
 .form-signin {
     max-width: 350px;
