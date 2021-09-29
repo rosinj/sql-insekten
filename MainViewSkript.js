@@ -333,30 +333,6 @@ function show_behindscene(){
 
    }
 }
-function update_codetxt(){
-   var form=TASKS[task_index].form;
-   switch (form){
-      case "login":
-         var uname=document.getElementById("username").value;
-         var pw=document.getElementById("password").value;
-         var query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
-         break;
-      case "search":
-         var search=document.getElementById("suchleiste").value;
-         var query="SELECT * FROM shoes WHERE label='" + search + "';";
-         break;
-      case "url":
-         var url=document.getElementById("url").value;
-         var id=url.toString().split('?');
-         var query="SELECT * FROM users WHERE " + id[id.length-1] +  ";";
-         break;
-      default:
-         console.log("couldn't update query");
-
-   }
-   document.querySelector("#codetxt > code").innerHTML = query;
-   document.querySelector("#codetxt > code").innerHTML.reload;
-}
 function change_codemode(){
    var checked= document.getElementById("switcher").checked;
    var form=TASKS[task_index].form;
@@ -469,7 +445,10 @@ function validation(){
    var correctanswer = new Array();
    var querysucessful = new Array();
    var form=TASKS[task_index].form;
-   var query=genarate_query(form);
+   var query=generate_query();
+   if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
+      query=query + ";" + TASKS[task_index].validation[0].validationquery[0];
+   }
    if(TASKS[task_index].validation[0].blacklist.includes(";")){
       queries=[query];
    }else{
@@ -540,7 +519,8 @@ function validation(){
       false_answer(form);
       });
 }
-function genarate_query(form){
+function generate_query(){
+   var form=TASKS[task_index].form;
    switch (form){
       case "login":
          var uname=document.getElementById("username").value;
@@ -559,9 +539,8 @@ function genarate_query(form){
       default:
          console.log("Error:.");
    }
-   if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
-      query=query + ";" + TASKS[task_index].validation[0].validationquery[0];
-   }
+   document.querySelector("#codetxt > code").innerHTML = query + ";";
+   document.querySelector("#codetxt > code").innerHTML.reload;
    return query;
  
 }

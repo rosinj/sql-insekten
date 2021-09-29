@@ -52,13 +52,13 @@
             <div class="wrapper">
                 <form class="form-signin">       
                   <h2 id='loginlabel' class="form-signin-heading">Bitte einloggen</h2>
-                  <input type="text" class="form-control" name="username" placeholder="Benutzername" id='username' required="" oninput="update_codetxt(); hljs.highlightAll();" />
-                  <input type="password" class="form-control" name="password" placeholder="Passwort" id='password' required="" oninput="update_codetxt(); hljs.highlightAll();" onKeyPress="onEnter(event);"/>      
+                  <input type="text" class="form-control" name="username" placeholder="Benutzername" id='username' required="" oninput="generate_query(); hljs.highlightAll();" />
+                  <input type="password" class="form-control" name="password" placeholder="Passwort" id='password' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event);"/>      
                   <button class="btn btn-lg btn-primary btn-block" id="login_btn" type="button" onclick="try_login()">Einloggen</button>  
                     
-                  <input type="text" class="form-control" name="suchleiste" placeholder="" id='suchleiste' required="" oninput="update_codetxt(); hljs.highlightAll();" onKeyPress="onEnter(event);"/>  
+                  <input type="text" class="form-control" name="suchleiste" placeholder="" id='suchleiste' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event);"/>  
                   <button class="btn btn-lg btn-primary btn-block" id="suche_btn" type="button" onclick="try_login()">Suchen</button>  
-                  <input type="text" value="https://sql-insekten.oth-rgb.de/index.php"class="form-control" name="url" placeholder="" id='url' required="" oninput="update_codetxt(); hljs.highlightAll();" onKeyPress="onEnter(event);" /> 
+                  <input type="text" value="https://sql-insekten.oth-rgb.de/index.php"class="form-control" name="url" placeholder="" id='url' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event);" /> 
                   <table id='suchergebnisse'>
 
                   </table>
