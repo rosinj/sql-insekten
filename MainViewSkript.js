@@ -442,6 +442,7 @@ function change_form(){
 function validation(){
    var ergebnis=new Array();
    var lenminus=0;
+   var qu = new Array();
    var correctanswer = new Array();
    var querysucessful = new Array();
    var form=TASKS[task_index].form;
@@ -495,7 +496,7 @@ function validation(){
           }else{lenminus=lenminus+1;}
          })
          prom2.then(response=>{
-            qu=queries[j];
+            qu[j]=queries[j];
             if(queries.length-lenminus==correctanswer.filter(String).length){resolve(correctanswer,ergebnis,querysucessful,qu);}
 
          });
@@ -624,9 +625,11 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
    // console.log(TASKS[task_index-1].validation[0].validationquery[0].trim());
    console.log(ergebnis);
    console.log(ergebnis[0]);
+   console.log(qu);
    // console.log(ergebnis.length);
    var index=ergebnis.length-1;
    var task_index_temp=task_index;
+   console.log(qu[index]);
    if(answer){
       task_index_temp=task_index_temp-1;
    }
@@ -634,13 +637,13 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
 
       switch (form){
          case "login":
-            if(qu.trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+            if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
                index= index-1;
             }
             if(ergebnis[index] == null){
                index= index-1;
             }
-            if(qu.includes("DROP")){
+            if(qu[index].includes("DROP")){
                index= index-1;
             }
             if(index>=0){
@@ -664,14 +667,14 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
                document.getElementById("suchleiste").style.display = 'block';
                document.getElementById("suche_btn").style.display = 'block';
             }
-            if(qu.trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+            if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
                index= index-1;
             }
             if(ergebnis[index] == null){
                index= index-1;
             }
             if(index>=0){
-               generate_resulttable(qu,ergebnis[index]); 
+               generate_resulttable(qu[index],ergebnis[index]); 
             }
             break;
          case "url":
@@ -681,14 +684,14 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
             if(!answer){
                document.getElementById("url").style.display = 'block';
             } 
-            if(qu.trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+            if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
                index= index-1;
             }
             if(ergebnis[index] == null){
                index= index-1;
             }
             if(index>=0){
-               generate_resulttable(qu,ergebnis[index]); 
+               generate_resulttable(qu[index],ergebnis[index]); 
             }  
             break;
          default:
@@ -703,26 +706,26 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
             break;
          case "search":
             document.getElementById("suchergebnisse").style.display = 'block';
-            if(qu.trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+            if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
                index= index-1;
             }
             if(ergebnis[index] == null){
                index= index-1;
             }
             if(index>=0){
-               generate_resulttable(qu,ergebnis[index]); 
+               generate_resulttable(qu[index],ergebnis[index]); 
             }  
             break;
          case "url":
             document.getElementById("suchergebnisse").style.display = 'block';
-            if(qu.trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+            if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
                index= index-1;
             }
             if(ergebnis[index] == null){
                index= index-1;
             }
             if(index>=0){
-               generate_resulttable(qu,ergebnis[index]); 
+               generate_resulttable(qu[index],ergebnis[index]); 
             }  
             break;
          default:
