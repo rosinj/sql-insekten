@@ -633,6 +633,8 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
    if(answer){
       task_index_temp=task_index_temp-1;
       document.querySelector("table").style.maxHeight="270px";
+   }else{
+      document.querySelector("table").style.maxHeight="170px";
    }
    if(querysucessful=='true'){
 
@@ -774,7 +776,7 @@ function generate_resulttable(qu,ergebnis){
    }else if(qu.includes("shoes")){
       var columns=["id","label","size","price"];
    }else if(qu.includes("mitarbeiter")){
-      var columns=["id","Vorname","Nachname","Email","Lohn","seit"];
+      var columns=["id","Vorname","Name","Email","Lohn","seit"];
    }else if(qu.includes("tables")){
       var columns=["id","tablename","rowcount","columncount"];
    }

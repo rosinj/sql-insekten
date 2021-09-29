@@ -115,12 +115,12 @@
 table{
   margin-top: 1%;
   max-width: 350px;
-  max-height: 180px;
+  max-height: 170px;
   overflow: auto;
 }
 th,
 td {
-  padding: 8px 16px;
+  padding: 8px 39px;
   border: 1px solid #ccc;
 }
 th {
