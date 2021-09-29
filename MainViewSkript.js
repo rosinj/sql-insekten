@@ -632,6 +632,7 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
    console.log(qu[index]);
    if(answer){
       task_index_temp=task_index_temp-1;
+      document.querySelector("table").style.maxHeight="270px";
    }
    if(querysucessful=='true'){
 

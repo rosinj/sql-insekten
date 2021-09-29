@@ -113,6 +113,7 @@
     margin-bottom: 40px;
   }
 table{
+  margin-top: 1%;
   max-width: 350px;
   max-height: 180px;
   overflow: auto;
