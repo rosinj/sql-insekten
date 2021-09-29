@@ -351,7 +351,7 @@ function update_codetxt(){
          var query="SELECT * FROM users WHERE " + id[id.length-1] +  ";";
          break;
       default:
-         console.log("couldn't update codetext");
+         console.log("couldn't update query");
 
    }
    document.querySelector("#codetxt > code").innerHTML = query;
@@ -470,7 +470,6 @@ function validation(){
    var querysucessful = new Array();
    var form=TASKS[task_index].form;
    var query=genarate_query(form);
-   console.log("blacklist  "+TASKS[task_index].validation[0].blacklist);
    if(TASKS[task_index].validation[0].blacklist.includes(";")){
       queries=[query];
    }else{
@@ -480,11 +479,8 @@ function validation(){
 
       for (let j in queries){
          var prom2= new Promise((resolve,reject) =>{
-         console.log("queryatm " + queries[j] + j +queries.length);
          if(!queries[j].trim().startsWith("--")){
             db.transaction(function(transaction) {
-
-               console.log("iam in the transaction " + queries[j] + j);
                transaction.executeSql(queries[j],[],function (transaction, results) {
                   if (eval(TASKS[task_index].validation[0].truecondition)) {
                      querysucessful[j]="true";
@@ -550,7 +546,6 @@ function genarate_query(form){
          var uname=document.getElementById("username").value;
          var pw=document.getElementById("password").value;
          var query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
-         console.log(query);
       break;
       case "search":
          var search=document.getElementById("suchleiste").value;
@@ -559,7 +554,6 @@ function genarate_query(form){
       case "url":
          var url=document.getElementById("url").value;
          var id=url.toString().split('?');
-         console.log("id:  " + id)
          var query="SELECT * FROM users WHERE " + id[id.length-1]+"";
          break;
       default:
@@ -657,16 +651,10 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
    if(answer){
       task_index_temp=task_index_temp-1;
    }
-   // console.log(ergebnis[index].rows['id']);
    if(querysucessful=='true'){
 
       switch (form){
          case "login":
-            // if(qu.trim() != TASKS[task_index_temp].validation[0].validationquery[0].trim()){
-            //    document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index].rows.item(0)['username'] +"!";
-            // }else{
-            //    document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index-1].rows.item(0)['username'] +"!";
-            // }
             if(qu.trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
                index= index-1;
             }
@@ -699,16 +687,13 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
             }
             if(qu.trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
                index= index-1;
-               console.log("hier")
             }
             if(ergebnis[index] == null){
                index= index-1;
-               console.log("h2")
             }
             if(index>=0){
                generate_resulttable(qu,ergebnis[index]); 
             }
-            console.log(index);
             break;
          case "url":
             document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ergebnisse";
@@ -785,7 +770,6 @@ function answer(correctanswer){
             document.getElementById("insect").src = TASKS[task_index].validation[0].imganswer[0];
             fails=0;
             task_index=task_index+1;
-            // lvl=lvl+1;
             document.getElementById("lvl").innerHTML="Level: " + TASKS[task_index].lvl;
             document.getElementById('btnboxli').style.display = 'none';
             document.getElementById('btnboxre').style.display = 'none';
@@ -811,7 +795,6 @@ function generate_resulttable(qu,ergebnis){
    }else if(qu.includes("tables")){
       var columns=["id","tablename","rowcount","columncount"];
    }
-   console.log(qu);
    let table = document.querySelector("table");
    table.deleteTHead();
    table.innerHTML = "";
@@ -831,10 +814,6 @@ function generate_resulttable(qu,ergebnis){
         cell.appendChild(text);
       }
     }
-                // for (var i=0; i<ergebnis.rows.length; i++) {
-            //    var row = ergebnis.rows.item(i);
-            //    printableresult = printableresult + row['id'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "+row['username']+ "&nbsp;&nbsp;&nbsp;&nbsp; " + row['password'] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ row['email']+ "<br>";
-            // }
 }
 /////// DATABASE FUNCTIONS
 
@@ -909,8 +888,6 @@ function createTableTables(db){
 }
 function errorHandler(transaction, error)
 {
-    // error.message is a human-readable string.
-    // error.code is a numeric error code
     console.log('Error:'+error.message+' (Code '+error.code+')');
  
     // Handle errors here
@@ -975,10 +952,6 @@ function show_info(){
 
 function close_modal(){
    document.getElementById("modal").style.display='none';
-
-   // document.getElementById("behindscene_modal").style.display='none';
-   // document.getElementById("tipp_modal").style.display='none';
-   // e.style.display = 'none';
 }
 function cheat(){
    var lvl_input=document.getElementById("cheat_input").value - 1;
