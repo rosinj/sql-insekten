@@ -53,12 +53,18 @@
                 <form class="form-signin">       
                   <h2 id='loginlabel' class="form-signin-heading">Bitte einloggen</h2>
                   <input type="text" class="form-control" name="username" placeholder="Benutzername" id='username' required="" oninput="generate_query(); hljs.highlightAll();" />
-                  <input type="password" class="form-control" name="password" placeholder="Passwort" id='password' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event);"/>      
+                  <input type="password" class="form-control" name="password" placeholder="Passwort" id='password' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); hljs.highlightAll();"/>      
                   <button class="btn btn-lg btn-primary btn-block" id="login_btn" type="button" onclick="try_login()">Einloggen</button>  
                     
-                  <input type="text" class="form-control" name="suchleiste" placeholder="" id='suchleiste' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event);"/>  
+                  <input type="text" class="form-control" name="suchleiste" placeholder="" id='suchleiste' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); hljs.highlightAll();"/>  
                   <button class="btn btn-lg btn-primary btn-block" id="suche_btn" type="button" onclick="try_login()">Suchen</button>  
-                  <input type="text" value="https://sql-insekten.oth-rgb.de/index.php"class="form-control" name="url" placeholder="" id='url' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event);" /> 
+                  <input type="text" value="https://sql-insekten.oth-rgb.de/index.php"class="form-control" name="url" placeholder="" id='url' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); hljs.highlightAll();" /> 
+                  <img id='sneaker_img' src="img/sneaker.png"/>
+                  <div id='url_output'>
+                      <h5 id='marke'>Marke:</h5>
+                      <h5 id='groesse'>Größe:</h5>
+                      <h5 id= 'price'>Preis:</h5>
+                  </div>
                   <table id='suchergebnisse'>
 
                   </table>
@@ -67,7 +73,7 @@
               </div>
         </div>
         <div class='rsbottom'>
-            <button class="btn btn-lg btn-primary btn-block" id='behindscene_btn' type="submit" onclick="show_behindscene()">Hintergrunddetails anzeigen</button> 
+            <button class="btn btn-lg btn-primary btn-block" id='behindscene_btn' type="submit" onclick="show_behindscene();hljs.highlightAll();">Hintergrunddetails anzeigen</button> 
             <button class="btn btn-lg btn-primary btn-block" id='tipp_btn' type="submit" onclick="show_hints()">Tipp einblenden</button> 
             <div class='btnbox' id='btnboxre'> 
                 <p class='btnboxtxt'>
@@ -197,7 +203,8 @@ form_success($ergebnis,$querysucessful,$correct);
                 <p>            <h3>Informationen</h3>
                     <h5><a href="https://icons8.com/icon/ZiRwjHmdrgtj/info">Info icon by Icons8</a><br>
                     <a target="_blank" href="https://icons8.com/icon/19209/light">Light</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> <br>
-                    <a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a><br></h5>
+                    <a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a><br>
+                    <div>Icons made by <a href="https://www.flaticon.com/authors/itim2101" title="itim2101">itim2101</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></h5>
                     <button class="btn btn-lg btn-primary btn-block" id='btn_modal' type="submit" onclick="close_modal()">Ok</button>
                 </p>
               

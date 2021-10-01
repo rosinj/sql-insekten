@@ -178,6 +178,16 @@ th {
 #url{
   display:none;
 }
+#sneaker_img{
+  display:none;
+  width:30%;
+  height:20%;
+  float:left;
+}
+#url_output{
+  display:none;
+  float:right;
+}
 #suche_btn{
   display:none;
   background-color: #7A89C2;
