@@ -142,8 +142,8 @@ def validation():
     search=document.getElementById("suchleiste").value
     query="SELECT * FROM shoes WHERE label='" + search + "';"
     ergebnis=[]
-    correctanswer = []
-    querysucessful = []
+    correctanswer = ""
+    querysucessful = ""
     # ...
     try:
         cursor = connection.cursor()
@@ -185,7 +185,7 @@ def generate_resulttable(ergebnis):
     document.getElementById("table")=table
 # ...
 </code></pre> 
-                  <pre id="behindcodeurl"><code >public function validation(){
+                  <pre id="behindcodeurl"><code >function validation(){
 $url=(string) $doc->getElementById('url')->value;
 $id=explode("?", $url );
 $query="SELECT * FROM users WHERE ".$id[count(id)-1].";";
@@ -193,7 +193,8 @@ $ergebnis="";
 $correctanswer = "";
 $querysucessful = "";
 /* ... */
-$db->transaction(function($transaction) {
+
+<!-- $db->transaction(function($transaction) {
     $transaction->executeSql($query,[],function ($transaction, $results) {
         if (eval($TASKS[task_index].validation[0].truecondition)) {
             $querysucessful="true";
@@ -208,10 +209,27 @@ $db->transaction(function($transaction) {
         $querysucessful="error";
     }
     );
-});
-$correct=answer($correctanswer);
-form_success($ergebnis,$querysucessful,$correct);
-}               
+}); -->
+// use the connection here
+$sth = $dbh->query('SELECT * FROM countries');
+// fetch all rows into array
+$ergebnis = $stm->fetchAll();
+// querysucessfull und correctanswer werden hier abhängig vom Level und vom SQL-Fehler zugewiesen.
+form_success($ergebnis,$querysucessful,$correctanswer);
+}    
+function form_success($ergebnis,$querysucessful,$correctanswer){
+    if($querysuccessful=="true" or $querysuccessful=="false"){
+        $doc->getElementById('sneaker_img')->style->display='block';
+        $doc->getElementById('url_output')->style->display='block';
+        $doc->getElementById('login_label')->innerHTML="Ergebnis";
+        $doc->getElementById('login_label')->innerHTML="<strong>Marke:   </strong>" + ergebnis[0][1];
+        $doc->getElementById('login_label')->innerHTML="<strong>Größe:   </strong>" + ergebnis[0][2];
+        $doc->getElementById('login_label')->innerHTML="<strong>Preis:     </strong>" + ergebnis[0][3] + "€";
+    }else{
+        document.getElementById('loginlabel').innerHTML= "Internal Server Error"
+    }
+ 
+}           
 </code></pre> 
                 </div>
 
