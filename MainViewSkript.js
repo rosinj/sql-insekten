@@ -233,19 +233,19 @@ TASKS=[
    "hints"    : ["Mit Semikolon kannst du eine neue Query anfangen. Wir selektieren die Tabelle 'mitarbeiter' mit ma_id=0 oder 1,2,...,5, da wir wissen, dass die Tabelle 6 Einträge enthält."],
    "behindscene" : "",
    "lvl" : 8},
-   {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> <br> <br> <br>",
+   {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung in der Sucheingabe an. <br> <br> <br> <br>",
     "h3":"",
     "img": "img/happybee.png"},
     {"h2": "Den Softwareentwicklern ist aufgefallen, dass Hacker mit ';' neue Queries in Eingabefelder einschleußen können, daher haben sie ';' im Input verboten. <br> <br>",
     "h3":"",
     "img": "img/happybee.png"}
    ],
-   "challenge": "Versuche ohne Semikolon alle Schuhe mit der Größe 40 auszugeben. ",
+   "challenge": "Versuche ohne Semikolon alle Spaltennamen der Tabelle 'kunden' auszugeben ",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 3 && queries[j].includes('shoes') && queries[j].includes('size') && queries[j].includes('40')",
+            "truecondition":"results.rows.length == 5 && queries[j].includes('sys_user_tab_columns')  && queries[j].includes('kunden')",
             "correctanswer":["true","false","error","error"],
-            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut alle Schuhe mit der Größe 40 auszugeben. <br> <br> <br> <br>"],
+            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut die Tabellennamen der Kundentabelle auszugeben. <br> <br> <br> <br>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
@@ -260,11 +260,11 @@ TASKS=[
    "challenge": "Versuche ohne Semikolon die Kundendaten auszugeben. Da wir die Spaltennamen kennen von der Tabelle 'shoes' und 'kunden' können wir die Spaltennamen geschickt umbenennen.",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 2 && queries[j].includes('shoes') && queries[j].includes('Weja')",
+            "truecondition":"results.rows.length == 4 && queries[j].includes('kunden')",
             "correctanswer":["true","false","error","error"],
-            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut alle Schuhe der Marke 'Weja' auszugeben. <br> <br> <br> <br>"],
+            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut die Kundentabelle auszugeben. <br> <br> <br> <br>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
-            "whitelist": ["Weja"],
+            "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
    "form":"search",
    "hints"    : ["Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. "],
@@ -422,6 +422,11 @@ function try_login(){
 }
 
 function change_form(){
+   document.getElementsByClassName("form-signin")[0].style.height="auto";
+   document.getElementById("sneaker_img").style.display='none';
+   document.getElementById("url_output").style.display='none';
+   document.getElementById("loginlabel").style.textAlign = 'left';
+   document.getElementById("suchergebnisse").style.display = 'none';
    if(TASKS[task_index].form == "login"){
       document.getElementById('loginlabel').innerHTML= "Bitte einloggen";
       document.getElementById("username").style.display = 'block';
@@ -429,7 +434,6 @@ function change_form(){
       document.getElementById("login_btn").style.display = 'block';
       document.getElementById("suchleiste").style.display = 'none';
       document.getElementById("suche_btn").style.display = 'none';
-      document.getElementById("suchergebnisse").style.display = 'none';
       document.getElementById("logout_btn").style.display = 'none';
       document.getElementById("url").style.display = 'none';
       document.getElementsByClassName("form-signin")[0].style.maxWidth="350px";
@@ -440,7 +444,6 @@ function change_form(){
       document.getElementById("login_btn").style.display = 'none';
       document.getElementById("suchleiste").style.display = 'block';
       document.getElementById("suche_btn").style.display = 'block';
-      document.getElementById("suchergebnisse").style.display = 'none';
       document.getElementById("logout_btn").style.display = 'none';
       document.getElementsByClassName("form-signin")[0].style.maxWidth="500px";
       document.getElementById("url").style.display = 'none';
@@ -451,7 +454,6 @@ function change_form(){
       document.getElementById("login_btn").style.display = 'none';
       document.getElementById("suchleiste").style.display = 'none';
       document.getElementById("suche_btn").style.display = 'none';
-      document.getElementById("suchergebnisse").style.display = 'none';
       document.getElementById("logout_btn").style.display = 'none';
       document.getElementById("url").style.display = 'block';
       document.getElementsByClassName("form-signin")[0].style.maxWidth="700px";
@@ -561,6 +563,9 @@ function generate_query(){
    }
    document.querySelector("#codetxt > code").innerHTML = query + ";";
    document.querySelector("#codetxt > code").innerHTML.reload;
+   if(query.includes("sys.user_tab_columns")){
+      query=query.replace(".","_");
+   }
    return query;
  
 }
@@ -568,73 +573,91 @@ function is_query_vaild(form){
    var blacklistarray=TASKS[task_index].validation[0].blacklist;
    var whitelistarray=TASKS[task_index].validation[0].whitelist;
    var valid=true;
-   switch (form){
-      case "login":
-         var uname=document.getElementById("username").value;
-         var pw=document.getElementById("password").value;
-         var query="SELECT user_id,username,password,email FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
-         for (let i in blacklistarray){
-            if(blacklistarray[i]!=""){
-               if(uname.includes(blacklistarray[i]) || pw.includes(blacklistarray[i])){
-                  valid=false;
-               }
-            }
+   var query= generate_query();
+   for (let i in blacklistarray){
+      if(blacklistarray[i]!=""){
+         if(query.includes(blacklistarray[i])){
+            valid=false;
          }
-         for (let k in whitelistarray){
-            if(whitelistarray[k]!=""){
-               if(uname.includes(whitelistarray[k]) || pw.includes(whitelistarray[k])){
-                  // donothing
-               }
-               else{
-                  valid=false;
-               }
-            }
-         }
-      break;
-      case "search":
-         var search=document.getElementById("suchleiste").value;
-         var query="SELECT product_id, label,size, price FROM shoes WHERE label='" + search + "'";
-         for (let i in blacklistarray){
-            if(search.includes(blacklistarray[i]) && blacklistarray[i]!=""){
-                  valid=false;
-            }
-         }
-         for (let k in whitelistarray){
-            if(whitelistarray[k]!=""){
-               if(search.includes(whitelistarray[k])){
-                  // donothing
-               }
-               else{
-                  valid=false;
-               }
-            }
-         }
-         
-         break;
-      case "url":
-         var search=document.getElementById("url").value;
-         var id=url.toString().split('?');
-         var query="SELECT product_id, label,size, price FROM shoes WHERE " + id[id.length-1] + "";
-         for (let i in blacklistarray){
-            if(search.includes(blacklistarray[i]) && blacklistarray[i]!=""){
-                  valid=false;
-            }
-         }
-         for (let k in whitelistarray){
-            if(whitelistarray[k]!=""){
-               if(search.includes(whitelistarray[k])){
-                  // donothing
-               }
-               else{
-                  valid=false;
-               }
-            }
-         }
-            
-         break;
-      default:
-         console.log("Error:.");
+      }
    }
+   for (let k in whitelistarray){
+      if(whitelistarray[k]!=""){
+         if(query.includes(whitelistarray[k])){
+            // donothing
+         }
+         else{
+            valid=false;
+         }
+      }
+   }
+   // switch (form){
+   //    case "login":
+   //       var uname=document.getElementById("username").value;
+   //       var pw=document.getElementById("password").value;
+   //       var query="SELECT user_id,username,password,email FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "'";
+   //       for (let i in blacklistarray){
+   //          if(blacklistarray[i]!=""){
+   //             if(uname.includes(blacklistarray[i]) || pw.includes(blacklistarray[i])){
+   //                valid=false;
+   //             }
+   //          }
+   //       }
+   //       for (let k in whitelistarray){
+   //          if(whitelistarray[k]!=""){
+   //             if(uname.includes(whitelistarray[k]) || pw.includes(whitelistarray[k])){
+   //                // donothing
+   //             }
+   //             else{
+   //                valid=false;
+   //             }
+   //          }
+   //       }
+   //    break;
+   //    case "search":
+   //       var search=document.getElementById("suchleiste").value;
+   //       var query="SELECT product_id, label,size, price FROM shoes WHERE label='" + search + "'";
+   //       for (let i in blacklistarray){
+   //          if(search.includes(blacklistarray[i]) && blacklistarray[i]!=""){
+   //                valid=false;
+   //          }
+   //       }
+   //       for (let k in whitelistarray){
+   //          if(whitelistarray[k]!=""){
+   //             if(search.includes(whitelistarray[k])){
+   //                // donothing
+   //             }
+   //             else{
+   //                valid=false;
+   //             }
+   //          }
+   //       }
+         
+   //       break;
+   //    case "url":
+   //       var search=document.getElementById("url").value;
+   //       var id=url.toString().split('?');
+   //       var query="SELECT product_id, label,size, price FROM shoes WHERE " + id[id.length-1] + "";
+   //       for (let i in blacklistarray){
+   //          if(search.includes(blacklistarray[i]) && blacklistarray[i]!=""){
+   //                valid=false;
+   //          }
+   //       }
+   //       for (let k in whitelistarray){
+   //          if(whitelistarray[k]!=""){
+   //             if(search.includes(whitelistarray[k])){
+   //                // donothing
+   //             }
+   //             else{
+   //                valid=false;
+   //             }
+   //          }
+   //       }
+            
+   //       break;
+   //    default:
+   //       console.log("Error:.");
+   // }
 
    return valid;
 }
@@ -681,7 +704,8 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
             }       
             break;
          case "search":
-            document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Suchergebnisse";
+            document.getElementById("loginlabel").style.textAlign = 'center';
+            document.getElementById('loginlabel').innerHTML= "Suchergebnisse";
             document.getElementById("suchleiste").style.display = 'none';
             document.getElementById("suche_btn").style.display = 'none';
             document.getElementById("suchergebnisse").style.display = 'block';
@@ -696,11 +720,12 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
                index= index-1;
             }
             if(index>=0){
-               generate_resulttable(qu[index],ergebnis[index]); 
+               generate_resulttable(qu[index],ergebnis[index],task_index_temp); 
             }
             break;
          case "url":
-            document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ergebnis";
+            document.getElementById("loginlabel").style.textAlign = 'center';
+            document.getElementById('loginlabel').innerHTML= "Ergebnis";
             document.getElementById("url").style.display = 'none';
             document.getElementById("suchergebnisse").style.display = 'none';
             document.getElementById("sneaker_img").style.display='block';
@@ -728,7 +753,8 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
             document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
             break;
          case "search":
-            document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Suchergebnisse";
+            document.getElementById("loginlabel").style.textAlign = 'center';
+            document.getElementById('loginlabel').innerHTML= "Suchergebnisse";
             document.getElementById("suchergebnisse").style.display = 'block';
             
             if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
@@ -738,11 +764,12 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
                index= index-1;
             }
             if(index>=0){
-               generate_resulttable(qu[index],ergebnis[index]); 
+               generate_resulttable(qu[index],ergebnis[index],task_index_temp); 
             }  
             break;
          case "url":
-            document.getElementById('loginlabel').innerHTML= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ergebnis";
+            document.getElementById("loginlabel").style.textAlign = 'center';
+            document.getElementById('loginlabel').innerHTML= "Ergebnis";
             document.getElementById("suchergebnisse").style.display = 'none';
             document.getElementById("sneaker_img").style.display='block';
             document.getElementById("url_output").style.display='block';
@@ -765,7 +792,8 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
       document.getElementById('loginlabel').innerHTML= "Internal Server Error";
       document.getElementById("suchergebnisse").style.display = 'none';
       document.getElementById("sneaker_img").style.display='none';
-      document.getElementById("url_output").style.display='none';}
+      document.getElementById("url_output").style.display='none';
+   }
 }
 
 function answer(correctanswer){
@@ -799,19 +827,23 @@ function answer(correctanswer){
       return answer;
 
 }
-function generate_resulttable(qu,ergebnis){
-   if(qu.includes("sys_user_tables")){
-      var columns=["table_id","table_name","num_rows"];
-   }else if(qu.includes("sys_user_tab_columns")){
-      var columns=["table_id","table_name","column_name","data_type"];
-   }else if(qu.includes("FROM users")){
-      var columns=["user_id","username","password","email"];
-   }else if(qu.includes("FROM shoes")){
+function generate_resulttable(qu,ergebnis,task_index_temp){
+   if(task_index_temp<11){
+      if(qu.includes("sys_user_tables")){
+         var columns=["table_id","table_name","num_rows"];
+      }else if(qu.includes("sys_user_tab_columns")){
+         var columns=["table_id","table_name","column_name","data_type"];
+      }else if(qu.includes("FROM users")){
+         var columns=["user_id","username","password","email"];
+      }else if(qu.includes("FROM shoes")){
+         var columns=["product_id","label","size","price"];
+      }else if(qu.includes("mitarbeiter")){
+         var columns=["ma_id","vorname","name","email","lohn","angestellt_seit"];
+      }else if(qu.includes("kunden")){
+         var columns=["kunden_id","name","email","bestellnr","adresse"];
+      }
+   }else{
       var columns=["product_id","label","size","price"];
-   }else if(qu.includes("mitarbeiter")){
-      var columns=["ma_id","vorname","name","email","lohn","angestellt_seit"];
-   }else if(qu.includes("kunden")){
-      var columns=["kunden_id","name","email","bestellnr","adresse"];
    }
    let table = document.querySelector("table");
    table.deleteTHead();
@@ -837,9 +869,9 @@ function generate_url_output(qu,ergebnis){
    document.getElementsByClassName("form-signin")[0].style.height="300px";
    console.log(qu);
    console.log(ergebnis);
-   document.getElementById("marke").innerHTML= "Marke: " + ergebnis.rows.item(0)['label'];
-   document.getElementById("groesse").innerHTML= "Größe: " + ergebnis.rows.item(0)['size'];
-   document.getElementById("price").innerHTML= "Preis: " + ergebnis.rows.item(0)['price'] + "€";
+   document.getElementById("marke").innerHTML= "<strong>Marke:   </strong>" + ergebnis.rows.item(0)['label'];
+   document.getElementById("groesse").innerHTML= "<strong>Größe:   </strong>" + ergebnis.rows.item(0)['size'];
+   document.getElementById("price").innerHTML= "<strong>Preis:     </strong>" + ergebnis.rows.item(0)['price'] + "€";
 }
 /////// DATABASE FUNCTIONS
 

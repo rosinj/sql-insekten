@@ -51,6 +51,7 @@
 
             <div class="wrapper">
                 <form class="form-signin">       
+                    
                   <h2 id='loginlabel' class="form-signin-heading">Bitte einloggen</h2>
                   <input type="text" class="form-control" name="username" placeholder="Benutzername" id='username' required="" oninput="generate_query(); hljs.highlightAll();" />
                   <input type="password" class="form-control" name="password" placeholder="Passwort" id='password' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); hljs.highlightAll();"/>      
@@ -61,9 +62,9 @@
                   <input type="text" value="https://sql-insekten.oth-rgb.de/index.php"class="form-control" name="url" placeholder="" id='url' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); hljs.highlightAll();" /> 
                   <img id='sneaker_img' src="img/sneaker.png"/>
                   <div id='url_output'>
-                      <h5 id='marke'>Marke:</h5>
-                      <h5 id='groesse'>Größe:</h5>
-                      <h5 id= 'price'>Preis:</h5>
+                      <h4 id='marke'><strong>Marke: </strong> </h4>
+                      <h4 id='groesse'><strong>Größe: </strong></h4>
+                      <h4 id= 'price'><strong>Preis: </strong></h4>
                   </div>
                   <table id='suchergebnisse'></table>
                   <button class="btn btn-lg btn-primary btn-block" id="logout_btn" type="button" onclick="change_form()">Ausloggen</button> 
@@ -103,57 +104,85 @@ var querysucessful = "";
 query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
 db.transaction(function(transaction) {
     transaction.executeSql(query,[],function (transaction, results) {
-       if (eval(TASKS[task_index].validation[0].truecondition)) {
+       <!-- if (eval(TASKS[task_index].validation[0].truecondition)) {
           querysucessful="true";
           correctanswer= TASKS[0]['validation'][0]['correctanswer'][0]
        } else {
           querysucessful="false";
           correctanswer= TASKS[task_index].validation[0].correctanswer[1];
-       }
+       } -->
+       // Die excuteSQL Funktion springt hier rein, falls die Query einen keinen SQL-Fehler aufweist.
+       // querysucessfull und correctanswer werden hier abhängig vom Level zugewiesen.
        ergebnis= results;
     },function(transaction,error){
-          correctanswer = TASKS[task_index].validation[0].correctanswer[2];
-          querysucessful="error";
+          <!-- correctanswer = TASKS[task_index].validation[0].correctanswer[2];
+          querysucessful="error"; -->
+          // Die excuteSQL Funktion springt hier rein, falls die Query einen SQL-Fehler aufweist.
+          // querysucessfull und correctanswer werden hier abhängig vom Level zugewiesen.
                    }
              );
           }
        );
-var correct=answer(correctanswer);
-form_success(ergebnis,querysucessful,correct);
+<!-- var correct=answer(correctanswer); -->
+form_success(ergebnis,querysucessful,correctanswer);
 
-}</code></pre>
+}
+function form_success(ergebnis,query,successfull,correct){
+    if(querysuccessful=="true"){
+        document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. Willkommen " + ergebnis[index].rows.item(0)['username'] +"!";
+    }else if(querysuccessful=="false"){
+        document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+    }else{
+        document.getElementById('loginlabel').innerHTML= "Internal Server Error";
+    }
+}
+// ...</code></pre>
                    <pre id="behindcodesearch"><code ># ...
 def validation():
     search=document.getElementById("suchleiste").value
     query="SELECT * FROM shoes WHERE label='" + search + "';"
-    ergebnis=""
-    correctanswer = ""
-    querysucessful = ""
+    ergebnis=[]
+    correctanswer = []
+    querysucessful = []
     # ...
     try:
         cursor = connection.cursor()
         cursor.execute(query)
         results = cursor.fetchall()
-        if (eval(TASKS[task_index]['validation'][0]['truecondition'])):
+        for data_out in results:  
+                ergebnis.append(data_out[1])  
+        <!-- if (eval(TASKS[task_index]['validation'][0]['truecondition'])):
             querysucessful="true"
             correctanswer= TASKS[task_index]['validation'][0]['correctanswer'][0]
         else:
             querysucessful="false";
-            correctanswer= TASKS[task_index]['validation'][0]['correctanswer'][1]
+            correctanswer= TASKS[task_index]['validation'][0]['correctanswer'][1] -->
 
-        ergebnis= results;
+        # querysucessfull und correctanswer werden hier abhängig vom Level zugewiesen.
         cursor.close()
 
     except sqlite3.Error as error:
-        correctanswer = TASKS[task_index]['validation'][0]['correctanswer'][2]
-        querysucessful="error"
+        <!-- correctanswer = TASKS[task_index]['validation'][0]['correctanswer'][2]
+        querysucessful="error" -->
+        # Die excute Funktion springt hier rein, falls die Query einen SQL-Fehler aufweist.
+        # querysucessfull und correctanswer werden hier abhängig vom Level zugewiesen.
     finally:
         if connection:
             connection.close()
             
-    correct=answer(correctanswer)
-    form_success(ergebnis,querysucessful,correct)
+    form_success(ergebnis,querysucessful,correctanswer)
 
+def form_success(ergebnis,querysucessful,correct):
+    if(querysuccessful=="true" or querysuccessful=="false"):
+        document.getElementById('loginlabel').innerHTML=  "Suchergebnisse";
+        generate_resulttable(ergebnis[index]); 
+    else:
+        document.getElementById('loginlabel').innerHTML= "Internal Server Error"
+
+def generate_resulttable(ergebnis):
+    columns= ["product_id","label"."size","price"]
+    table=tabulate(ergebnis,headers= columns)
+    document.getElementById("table")=table
 # ...
 </code></pre> 
                   <pre id="behindcodeurl"><code >public function validation(){
