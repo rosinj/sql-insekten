@@ -715,7 +715,7 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
                index= index-1;
             }
             if(index>=0){
-               generate_resulttable(qu[index],ergebnis[index]); 
+               generate_url_output(qu[index],ergebnis[index]); 
             }  
             break;
          default:
@@ -834,9 +834,12 @@ function generate_resulttable(qu,ergebnis){
     }
 }
 function generate_url_output(qu,ergebnis){
-   document.getElementById("marke").innerHTML= "Marke: " + ergebnis.rows.item(0)[columns[1]];
-   document.getElementById("groesse").innerHTML= "Größe: " + ergebnis.rows.item(0)[columns[2]];
-   document.getElementById("preis").innerHTML= "Preis: " + ergebnis.rows.item(0)[columns[3]];
+   document.getElementsByClassName("form-signin")[0].style.height="300px";
+   console.log(qu);
+   console.log(ergebnis);
+   document.getElementById("marke").innerHTML= "Marke: " + ergebnis.rows.item(0)['label'];
+   document.getElementById("groesse").innerHTML= "Größe: " + ergebnis.rows.item(0)['size'];
+   document.getElementById("price").innerHTML= "Preis: " + ergebnis.rows.item(0)['price'] + "€";
 }
 /////// DATABASE FUNCTIONS
 

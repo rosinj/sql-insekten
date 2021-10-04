@@ -180,13 +180,16 @@ th {
 }
 #sneaker_img{
   display:none;
+  margin-left: 25%;
   width:30%;
-  height:20%;
+  height:60%;
   float:left;
 }
 #url_output{
+  margin-right:25%;
   display:none;
   float:right;
+  margin-top:5%;
 }
 #suche_btn{
   display:none;
