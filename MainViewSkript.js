@@ -104,7 +104,7 @@ TASKS=[
                      "whitelist": [""],
                      "blacklist": [""]}],
    "form":"search",
-   "hints"    : ["Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'kunden' heißt und folgende Spalten hat: 'kunden_id', 'name', 'email', 'bestellnr','adresse'"],
+   "hints"    : ["Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'kunden' heißt und folgende Spalten hat: 'kunden_id', 'name', 'email', 'bestellnr','adresse'."],
    "behindscene" : "",
    "lvl": 3},
     {"text" : [{"h2": "Nun sind wir wieder zurück beim Login-Formular! Schauen wir uns mal die nächste Herausforderung an. <br> <br> <br> ",
@@ -147,14 +147,17 @@ TASKS=[
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an und gehen zurück zum Schuhe-Onlineshop.<br> <br> <br> <br>",
                "h3":"",
                "img": "img/happybee.png"},
-               {"h2": "In der Realität weiß man gar nicht, welche Datenbank genutzt wird, wie die Tabellen heißen und wie die Spalten heißen. Finden wir es heraus! <br> <br> <br>",
+               {"h2": "In der Realität weiß man gar nicht, welche Datenbank genutzt wird, wie die Tabellen und deren Spalten heißen. Finden wir es heraus! <br> <br> <br>",
                "h3":"",
                "img": "img/happybee.png"},
                {"h2": "",
-               "h3":"Jede Datenbank hat eine vorgefertigte Tabelle mit Metadaten, diese wird erzeugt sobald man eine Datenbank erstellt. Diese beinhaltet alle Informationen über Tabellen und Views in einer Datenbank. Bei MySQL, SQL Server, PostgreSQL heißt sie 'information_schema.tables', bei Oracle heißt sie 'sys.user_tables' und bei SQLLite kann man mit der Tabelle 'sqllite_master' das gleiche erzielen.  <br>",
+               "h3":"Jede Datenbank hat eine vorgefertigte Tabelle mit Metadaten, diese wird erzeugt sobald man eine Datenbank erstellt. Diese beinhaltet alle Informationen über Tabellen und Views in einer Datenbank. <br>",
+               "img": "img/happybee.png"},
+               {"h2": "",
+               "h3":"Bei MySQL, SQL Server, PostgreSQL heißt sie 'information_schema.tables', bei Oracle heißt sie 'sys.user_tables' und bei SQLLite kann man mit der Tabelle 'sqllite_master' das gleiche erzielen.  <br>",
                "img": "img/happybee.png"}
    ],
-   "challenge": "Finde durch rumprobieren heraus mit welcher Datenbank wir es zu tun haben und gebe die Metadaten aus. <br> Zur Erinnerung: Bei MySQL, SQL Server, PostgreSQL heißt die Tabelle 'information_schema.tables', bei Oracle heißt sie 'sys.user_tables' und bei SQLLite  'sqllite_master'. ",
+   "challenge": "Finde durch rumprobieren heraus mit welcher Datenbank wir es zu tun haben und gebe die Metadaten aus.  Zur Erinnerung: Bei MySQL, SQL Server, PostgreSQL heißt die Tabelle 'information_schema.tables', bei Oracle heißt sie 'sys.user_tables' und bei SQLLite  'sqllite_master'. ",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
             "truecondition":"results.rows.length == 4 && queries[j].includes('user_tables')",
@@ -203,11 +206,11 @@ TASKS=[
    "challenge": "Mal schauen, ob du es einigermaßen verstanden hast. Gib nach dem letzten Slash folgendes ein: '?product_id=0' ",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1 && queries[j].includes('shoes')",
+            "truecondition":"results.rows.length == 1",
             "correctanswer":["true","false","error","error"],
             "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert. <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut nach dem letzten Slash '?id=0' einzugeben. <br> <br> <br> <br>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
-            "whitelist": [""],
+            "whitelist": ["shoes"],
             "blacklist": ["maxmustermann","alexamusterfrau"]}],
    "form":"url",
    "hints"    : ["hints deactivated"],
@@ -215,19 +218,16 @@ TASKS=[
    "lvl" : 8},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.<br> <br> <br> <br>",
                "h3":"",
-               "img": "img/happybee.png"},
-               {"h2": "Da wir nun durch die vorherigen Level die Spaltennamen der Tabelle 'mitarbeiter' wissen, versuchen wir etwas über einen Mitarbeiter herauszufinden <br> <br> <br>",
-               "h3":"",
                "img": "img/happybee.png"}
                ],
    "challenge": "Finde etwas über einen Mitarbeiter heraus. Wir wissen von vorher die Tabelle mitarbeiter, mit 6 Einträgen, hat die Spalte 'ma_id', diese hat den Datentyp INT.",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1 && queries[j].includes('mitarbeiter')",
+            "truecondition":"results.rows.length == 1",
             "correctanswer":["true","false","error","error"],
             "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> <br> <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut alle User auszugeben. <br> <br> <br> <br>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
-            "whitelist": [""],
+            "whitelist": ["mitarbeiter","label","size","price"],
             "blacklist": ["maxmustermann","alexamusterfrau"]}],
    "form":"url",
    "hints"    : ["Mit Semikolon kannst du eine neue Query anfangen. Wir selektieren die Tabelle 'mitarbeiter' mit ma_id=0 oder 1,2,...,5, da wir wissen, dass die Tabelle 6 Einträge enthält."],
@@ -485,7 +485,8 @@ function validation(){
                transaction.executeSql(queries[j],[],function (transaction, results) {
                   if (eval(TASKS[task_index].validation[0].truecondition)) {
                      querysucessful[j]="true";
-                     if(is_query_vaild(form)){
+                     console.log(queries[j]);
+                     if(is_query_valid(queries[j])){
                         correctanswer[j] = TASKS[task_index].validation[0].correctanswer[0];
                      }else{
                         correctanswer[j]="false";
@@ -524,16 +525,17 @@ function validation(){
       }
    })
    prom.then(response =>{
-      var correct=answer(correctanswer);
-      if (querysucessful.includes("error")){
-         form_success(form,ergebnis,'error',correct,qu);
-      }else{
-         if(querysucessful.includes("true")){
-            form_success(form,ergebnis,'true',correct,qu);
-         }else{
-            form_success(form,ergebnis,'false',correct,qu);
-         }
-      }
+      var correct,correct_index=answer(correctanswer);
+      // if (querysucessful.includes("error")){
+      //    form_success(form,ergebnis,'error',correct,qu);
+      // }else{
+      //    if(querysucessful.includes("true")){
+      //       form_success(form,ergebnis,'true',correct,qu);
+      //    }else{
+      //       form_success(form,ergebnis,'false',correct,qu);
+      //    }
+      // }
+      form_success(form,ergebnis, querysucessful,correct, correct_index,qu);
       
       
    });
@@ -563,34 +565,39 @@ function generate_query(){
    }
    document.querySelector("#codetxt > code").innerHTML = query + ";";
    document.querySelector("#codetxt > code").innerHTML.reload;
-   if(query.includes("sys.user_tab_columns")){
+   if(query.includes("sys.user_tab_columns") ){
+      query=query.replace(".","_");
+   }else if(query.includes("sys.user_tables")){
       query=query.replace(".","_");
    }
    return query;
  
 }
-function is_query_vaild(form){
+function is_query_valid(query){
    var blacklistarray=TASKS[task_index].validation[0].blacklist;
    var whitelistarray=TASKS[task_index].validation[0].whitelist;
    var valid=true;
-   var query= generate_query();
+   // var query= generate_query();
    for (let i in blacklistarray){
       if(blacklistarray[i]!=""){
          if(query.includes(blacklistarray[i])){
             valid=false;
+            console.log("blacklist nicht valid")
          }
       }
    }
    for (let k in whitelistarray){
       if(whitelistarray[k]!=""){
          if(query.includes(whitelistarray[k])){
-            // donothing
+            console.log("whitelist valid")
          }
          else{
             valid=false;
+            console.log("whitelist nicht valid")
          }
       }
    }
+   console.log(valid);
    // switch (form){
    //    case "login":
    //       var uname=document.getElementById("username").value;
@@ -658,13 +665,23 @@ function is_query_vaild(form){
    //    default:
    //       console.log("Error:.");
    // }
-
+   
    return valid;
 }
-function form_success(form,ergebnis,querysucessful,answer,qu){
+function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
    // console.log(qu.trim());
+   var success;
    // console.log(task_index-1);
    // console.log(TASKS[task_index-1].validation[0].validationquery[0].trim());
+         // if (querysucessful.includes("error")){
+      //    form_success(form,ergebnis,'error',correct,qu);
+      // }else{
+      //    if(querysucessful.includes("true")){
+      //       form_success(form,ergebnis,'true',correct,qu);
+      //    }else{
+      //       form_success(form,ergebnis,'false',correct,qu);
+      //    }
+      // }
    console.log(ergebnis);
    console.log(ergebnis[0]);
    console.log(qu);
@@ -678,22 +695,39 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
    }else{
       document.querySelector("table").style.maxHeight="170px";
    }
-   if(querysucessful=='true'){
+   if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+      index= index-1;
+   }
+   if(ergebnis[index] == null){
+      index= index-1;
+   }
+   if (querysucessful.includes("error")){
+         success='error';
+   }else{
+      if(querysucessful[index].includes("true")){
+         success='true';
+      }else{
+         success='false';
+      }
+   }
+   console.log(ergebnis[index],qu[index],querysucessful[index]);
+   console.log(answer,answer_index);
+   if(success=='true'){
 
       switch (form){
          case "login":
-            if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
-               index= index-1;
-            }
-            if(ergebnis[index] == null){
-               index= index-1;
-            }
-            if(qu[index].includes("DROP")){
-               index= index-1;
-            }
-            if(index>=0){
-               document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index].rows.item(0)['username'] +"!";
-            }
+            // if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+            //    index= index-1;
+            // }
+            // if(ergebnis[index] == null){
+            //    index= index-1;
+            // }
+            // if(qu[index].includes("DROP")){
+            //    index= index-1;
+            // }
+            // if(index>=0){
+            document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index].rows.item(0)['username'] +"!";
+            // }
             document.getElementById("username").style.display = 'none';
             document.getElementById("password").style.display = 'none';
             document.getElementById("login_btn").style.display = 'none';
@@ -713,15 +747,15 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
                document.getElementById("suchleiste").style.display = 'block';
                document.getElementById("suche_btn").style.display = 'block';
             }
-            if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
-               index= index-1;
-            }
-            if(ergebnis[index] == null){
-               index= index-1;
-            }
-            if(index>=0){
-               generate_resulttable(qu[index],ergebnis[index],task_index_temp); 
-            }
+            // if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+            //    index= index-1;
+            // }
+            // if(ergebnis[index] == null){
+            //    index= index-1;
+            // }
+            // if(index>=0){
+            generate_resulttable(qu[index],ergebnis[index],task_index_temp); 
+            // }
             break;
          case "url":
             document.getElementById("loginlabel").style.textAlign = 'center';
@@ -733,21 +767,21 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
             if(!answer){
                document.getElementById("url").style.display = 'block';
             } 
-            if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
-               index= index-1;
-            }
-            if(ergebnis[index] == null){
-               index= index-1;
-            }
-            if(index>=0){
-               generate_url_output(qu[index],ergebnis[index]); 
-            }  
+            // if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+            //    index= index-1;
+            // }
+            // if(ergebnis[index] == null){
+            //    index= index-1;
+            // }
+            // if(index>=0){
+            generate_url_output(qu[index],ergebnis[index]); 
+            // }  
             break;
          default:
             console.log("Error in right answer");
             
       }
-   }else if (querysucessful=='false'){
+   }else if (success=='false'){
       switch (form){
          case "login":
             document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
@@ -757,31 +791,31 @@ function form_success(form,ergebnis,querysucessful,answer,qu){
             document.getElementById('loginlabel').innerHTML= "Suchergebnisse";
             document.getElementById("suchergebnisse").style.display = 'block';
             
-            if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
-               index= index-1;
-            }
-            if(ergebnis[index] == null){
-               index= index-1;
-            }
-            if(index>=0){
-               generate_resulttable(qu[index],ergebnis[index],task_index_temp); 
-            }  
+            // if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+            //    index= index-1;
+            // }
+            // if(ergebnis[index] == null){
+            //    index= index-1;
+            // }
+            // if(index>=0){
+            generate_resulttable(qu[index],ergebnis[index],task_index_temp); 
+            // }  
             break;
          case "url":
             document.getElementById("loginlabel").style.textAlign = 'center';
-            document.getElementById('loginlabel').innerHTML= "Ergebnis";
+            document.getElementById('loginlabel').innerHTML= "kein Suchergebnis";
             document.getElementById("suchergebnisse").style.display = 'none';
-            document.getElementById("sneaker_img").style.display='block';
-            document.getElementById("url_output").style.display='block';
-            if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
-               index= index-1;
-            }
-            if(ergebnis[index] == null){
-               index= index-1;
-            }
-            if(index>=0){
-               generate_url_output(qu[index],ergebnis[index]); 
-            }  
+            document.getElementById("sneaker_img").style.display='none';
+            document.getElementById("url_output").style.display='none';
+            // if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
+            //    index= index-1;
+            // }
+            // if(ergebnis[index] == null){
+            //    index= index-1;
+            // }
+            // if(index>=0){
+            //    generate_url_output(qu[index],ergebnis[index]); 
+            // }  
             break;
          default:
             console.log("Error in right answer");
@@ -824,12 +858,24 @@ function answer(correctanswer){
             answer= false;
          }
       }
-      return answer;
+      index=correctanswer.indexOf("true");
+      return answer,index;
 
 }
 function generate_resulttable(qu,ergebnis,task_index_temp){
    if(task_index_temp<11){
-      if(qu.includes("sys_user_tables")){
+      if(!qu.includes("*")){
+         console.log(qu.toLowerCase());
+         console.log(qu.toLowerCase().split("select"));
+         console.log(qu.toLowerCase().split("select")[1].split("from"));
+         console.log(qu.toLowerCase().split("select")[1].split("from")[0].split(","));
+         var columns=qu.toLowerCase().split("select")[1].split("from")[0].split(",")
+         for (let col in columns){
+            columns[col]=columns[col].trim();
+         }
+         console.log(columns);
+         
+      }else if(qu.includes("sys_user_tables")){
          var columns=["table_id","table_name","num_rows"];
       }else if(qu.includes("sys_user_tab_columns")){
          var columns=["table_id","table_name","column_name","data_type"];
@@ -869,6 +915,27 @@ function generate_url_output(qu,ergebnis){
    document.getElementsByClassName("form-signin")[0].style.height="300px";
    console.log(qu);
    console.log(ergebnis);
+   document.getElementById("sneaker_img").style.marginLeft= "20%"
+   if(typeof(ergebnis.rows.item(0)['label'])!="undefined"){
+      if(ergebnis.rows.item(0)['label'].toString().length>17){
+         var len=20-(ergebnis.rows.item(0)['label'].length-17);
+         document.getElementById("sneaker_img").style.marginLeft= len+"%"
+
+      }
+   }
+   if(typeof(ergebnis.rows.item(0)['size']) !="undefined"){
+      if(ergebnis.rows.item(0)['size'].toString().length>17 ){
+         var len=20-(ergebnis.rows.item(0)['size'].length-17);
+         document.getElementById("sneaker_img").style.marginLeft= len+"%"
+
+      }
+   }
+   if(typeof(ergebnis.rows.item(0)['price']) !="undefined"){
+      if(ergebnis.rows.item(0)['price'].toString().length>17){
+         var len=20-(ergebnis.rows.item(0)['price'].length-17);
+         document.getElementById("sneaker_img").style.marginLeft= len+"%"
+      }
+   }
    document.getElementById("marke").innerHTML= "<strong>Marke:   </strong>" + ergebnis.rows.item(0)['label'];
    document.getElementById("groesse").innerHTML= "<strong>Größe:   </strong>" + ergebnis.rows.item(0)['size'];
    document.getElementById("price").innerHTML= "<strong>Preis:     </strong>" + ergebnis.rows.item(0)['price'] + "€";
@@ -1042,9 +1109,9 @@ function show_info(){
    }
    else{
       if(cheatactive){
-        document.querySelector("#modal > div >h5 ").innerHTML = "<a href='https://icons8.com/icon/ZiRwjHmdrgtj/info'>Info icon by Icons8</a><br><a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <br> <br> <input type='text' class='form-control' id='cheat_input'/>  <br> <button class='btn btn-lg btn-primary btn-block' id='cheat_btn' type='button' onclick='cheat()'>cheat</button> ";
+        document.querySelector("#modal > div >h5 ").innerHTML = "<a href='https://icons8.com/icon/ZiRwjHmdrgtj/info'>Info icon by Icons8</a><br><a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div> <br> <br> <input type='text' class='form-control' id='cheat_input'/>  <br> <button class='btn btn-lg btn-primary btn-block' id='cheat_btn' type='button' onclick='cheat()'>cheat</button> ";
       }else{
-         document.querySelector("#modal > div >h5 ").innerHTML = "<a href='https://icons8.com/icon/ZiRwjHmdrgtj/info'>Info icon by Icons8</a><br><a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> ";
+         document.querySelector("#modal > div >h5 ").innerHTML = "<a href='https://icons8.com/icon/ZiRwjHmdrgtj/info'>Info icon by Icons8</a><br><a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div>";
       }
       
         e.style.display = 'block';
