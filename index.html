@@ -31,12 +31,11 @@
             <h2 id='speakbubble_h2'> Willkommen bei SQL-Insekten!</h2>
             <h3>
             <h3 id='speakbubble_h3'> Dies ist ein SQL-Injection-Lernspiel. Mit SQL-Injections (dt. SQL-Einschleußung) kann man Websites hacken,
-                 indem man durch das Einschleusen von SQL-Code beliebige Daten in der Datenbank ändern, löschen oder auslesen kann. <br></h3>
+                 indem man durch das Einschleusen von SQL-Code beliebige Daten in der Datenbank ändern, löschen oder auslesen kann. </h3>
             
-                <button class="btn btn-lg btn-primary btn-block" id='next_btn' type="submit" onclick="speakbubble_next()">Weiter</button><br>
-            <br>
+                
             </h3>
-            <br>
+            <button class="btn btn-lg btn-primary btn-block" id='next_btn' type="submit" onclick="speakbubble_next()">Weiter</button>
         
 
         </div>
@@ -211,23 +210,23 @@ $querysucessful = "";
     }
     );
 }); -->
-// use the connection here
-$sth = $dbh->query('SELECT * FROM countries');
-// fetch all rows into array
+$sth = $dbh->query($query);
 $ergebnis = $stm->fetchAll();
 // querysucessfull und correctanswer werden hier abhängig vom Level und vom SQL-Fehler zugewiesen.
 form_success($ergebnis,$querysucessful,$correctanswer);
 }    
 function form_success($ergebnis,$querysucessful,$correctanswer){
-    if($querysuccessful=="true" or $querysuccessful=="false"){
+    if($querysuccessful=="true"){
         $doc->getElementById('sneaker_img')->style->display='block';
         $doc->getElementById('url_output')->style->display='block';
         $doc->getElementById('login_label')->innerHTML="Ergebnis";
-        $doc->getElementById('login_label')->innerHTML="<strong>Marke:   </strong>" + ergebnis[0][1];
-        $doc->getElementById('login_label')->innerHTML="<strong>Größe:   </strong>" + ergebnis[0][2];
-        $doc->getElementById('login_label')->innerHTML="<strong>Preis:     </strong>" + ergebnis[0][3] + "€";
+        $doc->getElementById('login_label')->innerHTML="<strong>Marke:   </strong>".$ergebnis[0][1];
+        $doc->getElementById('login_label')->innerHTML="<strong>Größe:   </strong>".$ergebnis[0][2];
+        $doc->getElementById('login_label')->innerHTML="<strong>Preis:   </strong>".$ergebnis[0][3]."€";
+    }else if($querysuccessful=="false"){
+        $doc->getElementById('login_label')->innerHTML= "kein Suchergebnis";
     }else{
-        document.getElementById('loginlabel').innerHTML= "Internal Server Error"
+        $doc->getElementById('login_label')->innerHTML= "Internal Server Error";
     }
  
 }           
