@@ -58,13 +58,13 @@
                     
                   <input type="text" class="form-control" name="suchleiste" placeholder="" id='suchleiste' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); hljs.highlightAll();"/>  
                   <button class="btn btn-lg btn-primary btn-block" id="suche_btn" type="button" onclick="try_login()">Suchen</button>  
-                  <input type="text" value="https://sql-insekten.oth-rgb.de/index.php"class="form-control" name="url" placeholder="" id='url' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); hljs.highlightAll();" /> 
+                  <input type="text" value="https://sql-insekten.oth-rgb.de/index.php?product_id=0"class="form-control" name="url" placeholder="" id='url' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); hljs.highlightAll();" /> 
                   <!-- <img id='sneaker_img' src="img/sneaker.png"/> -->
                   <div id='url_output'>
                     <img id='sneaker_img' src="img/sneaker.png"/>
-                      <h4 id='marke'><strong>Marke: </strong> </h4>
-                      <h4 id='groesse'><strong>Größe: </strong></h4>
-                      <h4 id= 'price'><strong>Preis: </strong></h4>
+                      <h4 id='marke'><strong>Marke: </strong> Nicke</h4>
+                      <h4 id='groesse'><strong>Größe: </strong> 40 </h4>
+                      <h4 id= 'price'><strong>Preis: </strong> 80€</h4>
                   </div>
                   <table id='suchergebnisse'></table>
                   <button class="btn btn-lg btn-primary btn-block" id="logout_btn" type="button" onclick="change_form()">Ausloggen</button> 
@@ -90,7 +90,7 @@
                         Erzeugte SQL-Query
                     </p>
                     <pre id="codetxt"><code>
-SELECT * 
+SELECT user_id, username, password, email 
 FROM users 
 WHERE username= '' AND password= '';
                     </code></pre>
@@ -101,7 +101,7 @@ var ergebnis="";
 var correctanswer = "";
 var querysucessful = "";
 // ...
-query="SELECT * FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
+query="SELECT user_id, username, password, email FROM users WHERE username ='" + uname + "' AND password ='"+ pw + "';";
 db.transaction(function(transaction) {
     transaction.executeSql(query,[],function (transaction, results) {
        <!-- if (eval(TASKS[task_index].validation[0].truecondition)) {
@@ -140,7 +140,7 @@ function form_success(ergebnis,query,successfull,correct){
                    <pre id="behindcodesearch"><code ># ...
 def validation():
     search=document.getElementById("suchleiste").value
-    query="SELECT * FROM shoes WHERE label='" + search + "';"
+    query="SELECT product_id, label, size, price FROM shoes WHERE label='" + search + "';"
     ergebnis=[]
     correctanswer = ""
     querysucessful = ""
@@ -188,7 +188,7 @@ def generate_resulttable(ergebnis):
                   <pre id="behindcodeurl"><code >function validation(){
 $url=(string) $doc->getElementById('url')->value;
 $id=explode("?", $url );
-$query="SELECT product_id, label,size, price FROM shoes WHERE " + id[id.length-1]+"";
+$query="SELECT label, size, price FROM shoes WHERE " + id[id.length-1]+"";
 $ergebnis="";
 $correctanswer = "";
 $querysucessful = "";

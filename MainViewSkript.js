@@ -69,7 +69,7 @@ TASKS=[
    "hints"    : ["Nehme die Lösung von Level 1 und quetsche dazwischen einen DROP-TABLE-Befehl. Mit Semikolon trennst du verschiedene Queries voneinander."],
    "behindscene" : "",
    "lvl": 2},
-    {"text" : [{"h2": "Nun sind wir wieder zurück beim Login-Formular! Schauen wir uns mal die nächste Herausforderung an. <br> <br> <br> ",
+    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> <br> <br> ",
                 "h3":"",
                 "img": "img/happybee.png"},
                ],
@@ -106,26 +106,6 @@ TASKS=[
     "hints"    : ["Diese Aufgabe ist ähnlich wie die davor nur, dass du versuchen musst EINE Zeile auszugeben und nicht mehr. Vorher hätte die Query die ganze Tabelle ausgegeben, aber die Sicherheitsbedingungen waren so schwach, dass die Länge der Ergebnisse egal war. Mit LIMIT kannst du nun am Ende einer Query entscheiden, wie viele Zeilen die Query ausgeben soll."],
     "behindscene" : "",
     "lvl" : 4},
-    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
-    "h3":"",
-    "img": "img/happybee.png"},
-    {"h2": "",
-    "h3":"Irgendjemand arbeitet doch hinter diesem Login-Formular. Dann gibt es vielleicht auch eine 'mitarbeiter' Tabelle in der Datenbank. <br> Die einzige Informationsausgabe die wir hier haben ist, wenn man sich eingeloggt hat, denn da steht dann 'Willkommen' und der Username. D.h. um Informationen einer anderen Tabelle auszugeben musst du den 'username' der Tabelle 'users' manipulieren.",
-    "img": "img/happybee.png"}
-   ],
-"challenge": "Ich will wissen wie viel Lohn die Mitarbeiterin mit dem Namen 'Greta Maria' bekommt. <br> Damit das funktioniert musst du den Spaltennamen der Tabelle 'mitarbeiter' umbenennen.",
-"validation"  : [{"validationquery": [""],
-          "validationerror":"",
-          "truecondition":"results.rows.length == 1 && queries[j].includes('mitarbeiter') && results.rows.item(0)['username']==4500",
-          "correctanswer":["true","false","error","error"],
-          "speakbblanswer":["Super! du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut herauszufinden wieviel Greta Maria verdient. <br> Zur Info: Du wirst die Spalte 'username' von 'users' benötigen und 'lohn' und 'name von der Tabelle 'mitarbeiter'"],
-          "imganswer":["img/happybee.png","img/surprisebee.png"],
-          "whitelist": [""],
-          "blacklist": ["maxmustermann","alexamusterfrau"]}],
-"form":"login",
-"hints"    : ["Wie bei dem Level wo du eine Tabelle löschen solltest, fängst du mit Semikolon eine neue Query an und selektierst 'lohn' von Tabelle 'mitarbeiter' mit der Bedingung, dass der 'name' = 'Greta Maria' ist. Wichtig: Wenn man eingeloggt ist gibt er den 'username' aus d.h. er sucht bei deiner Query nach der Spalte 'username' und wird sie nicht finden, daher müssen wir die Spalte 'lohn' mit 'as' auf 'username' umbenennen."],
-"behindscene" : "",
-"lvl" : 5},
     {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung  <br>",
     "h3":"",
     "img": "img/bee.png"},
@@ -144,33 +124,56 @@ TASKS=[
    "form":"search",
    "hints"    : ["hints deactivated"],
    "behindscene" : "",
-   "lvl": 6},
+   "lvl": 5},
    {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung!  <br>",
       "h3":"",
       "img": "img/bee.png"}],
-   "challenge": "Mhm, wenn wir schon eine 'shoes' Tabelle haben für diesen Online-Shop, dann muss es doch auch eine Kundentabelle geben. Sag mir welche E-Mail Adresse der Kunde mit dem Namen 'Dimitri Muster' hat? ",
+   "challenge": "Irgendjemand arbeitet doch hinter diesem Schuhe-Onlineshop. Dann gibt es vielleicht auch eine 'mitarbeiter' Tabelle in der Datenbank. Sag mir welche E-Mail Adresse der Mitarbeiter mit dem Namen 'Dietmar' hat? ",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     "truecondition":"results.rows.length == 1 && queries[j].includes('kunden')",
+                     "truecondition":"results.rows.length == 1 && queries[j].includes('mitarbeiter')  && queries[j].includes('Dietmar')",
                      "correctanswer":["true","false","error","error"],
-                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die E-Mail Adresse von dem Kunden 'Dimitri Muster' auszugeben."],
+                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die E-Mail Adresse von dem Mitarbeiter mit dem Namen 'Dietmar' herauszufinden."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
                      "blacklist": [""]}],
    "form":"search",
-   "hints"    : ["Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'kunden' heißt und folgende Spalten hat: 'kunden_id', 'name', 'email', 'bestellnr','adresse'."],
+   "hints"    : ["Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'mitarbeiter' heißt und folgende Spalten hat: 'ma_id', 'name', 'vorname', 'email','lohn','angestellt_seit'."],
    "behindscene" : "",
-   "lvl": 6},
-   {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. ",
+   "lvl": 5},
+    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an und zurück zum Login-Formular!",
+    "h3":"",
+    "img": "img/happybee.png"},
+    {"h2": "",
+    "h3":"Wie wir gerade herausgefunden haben gibt es eine 'mitarbeiter' Tabelle in der Datenbank. <br> Beim Login-Formular ist die einzige Informationsausgabe die wir hier haben beim Einloggen, denn da steht dann 'Willkommen' und der Username. D.h. um Informationen einer anderen Tabelle auszugeben musst du den 'username' der Tabelle 'users' manipulieren.",
+    "img": "img/happybee.png"}
+   ],
+   "challenge": "Ich will wissen wie viel Lohn die Mitarbeiterin mit dem Namen 'Greta Maria' bekommt. <br> Damit das funktioniert musst du den Spaltennamen der Tabelle 'mitarbeiter' umbenennen.",
+   "validation"  : [{"validationquery": [""],
+            "validationerror":"",
+            "truecondition":"results.rows.length == 1 && queries[j].includes('mitarbeiter') && results.rows.item(0)['username']==4500",
+            "correctanswer":["true","false","error","error"],
+            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> Die Greta bekommt ja ganz schön viel Geld.","Schade, das hat leider nicht geklappt. Versuche erneut herauszufinden wieviel Greta Maria verdient. <br> Zur Info: Du wirst die Spalte 'username' von 'users' benötigen und 'lohn','name' von der Tabelle 'mitarbeiter'"],
+            "imganswer":["img/happybee.png","img/surprisebee.png"],
+            "whitelist": [""],
+            "blacklist": ["maxmustermann","alexamusterfrau"]}],
+   "form":"login",
+   "hints"    : ["Wie bei dem Level wo du eine Tabelle löschen solltest, fängst du mit Semikolon eine neue Query an und selektierst 'lohn' von Tabelle 'mitarbeiter' mit der Bedingung, dass der 'name' = 'Greta Maria' ist. Wichtig: Wenn man eingeloggt ist gibt er den 'username' aus d.h. er sucht bei deiner Query nach der Spalte 'username' und wird sie nicht finden, daher müssen wir die Spalte 'lohn' mit 'as' auf 'username' umbenennen."],
+   "behindscene" : "",
+   "lvl" : 6},
+   {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> In diesem Level sind wir wieder beim Schuhe-Onlineshop mit der Suchleiste.",
+   "h3":"",
+   "img": "img/happybee.png"},
+   {"h2": "Den Softwareentwicklern ist aufgefallen, dass Hacker mit ';' neue Queries in Eingabefelder einschleußen können, daher haben sie ';' im Input verboten.",
    "h3":"",
    "img": "img/happybee.png"}
   ],
-  "challenge": "Versuche ohne Semikolon die Kundendaten auszugeben. <br> Zur Erinnerung: Die Kundentabelle besitzt die Spalten 'kunden_id','name','email','bestellnr' & 'adresse'.",
+  "challenge": "Versuche ohne Semikolon die Mitarbeitertabelle auszugeben. <br> Die Tabelle hat folgende Spaltennamen: 'ma_id', 'name','vorname','email','lohn' & 'angestellt_seit'.",
   "validation"  : [{"validationquery": [""],
            "validationerror":"",
-           "truecondition":"results.rows.length == 4 && queries[j].includes('kunden')",
+           "truecondition":"results.rows.length == 6 && queries[j].includes('mitarbeiter')",
            "correctanswer":["true","false","error","error"],
-           "speakbblanswer":["Super! du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Kundentabelle auszugeben. <br> Zur Erinnerung: Die Kundentabelle besitzt die Spalten 'kunden_id','name','email','bestellnr' & 'adresse'."],
+           "speakbblanswer":["Super! du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Mitarbeitertabelle durch Vereinigung zweier Queries auszugeben. <br> Zur Erinnerung: Die Mitarbeitertabelle besitzt die Spalten  'ma_id', 'name','vorname','email','lohn' & 'angestellt_seit'."],
            "imganswer":["img/happybee.png","img/surprisebee.png"],
            "whitelist": [""],
            "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
@@ -188,40 +191,40 @@ TASKS=[
                "h3":"Jede Datenbank hat eine vorgefertigte Tabelle mit Metadaten, diese wird erzeugt sobald man eine Datenbank erstellt. Diese beinhaltet alle Informationen über Tabellen und Views in einer Datenbank. <br>",
                "img": "img/happybee.png"},
                {"h2": "",
-               "h3":"Bei MySQL, SQL Server, PostgreSQL heißt sie 'information_schema.tables', bei Oracle heißt sie 'sys.user_tables' und bei SQLLite kann man mit der Tabelle 'sqllite_master' das gleiche erzielen.  <br>",
+               "h3":"Bei MySQL, SQL Server, PostgreSQL heißt sie 'information_schema.tables'('table_name', 'table_type', 'table_rows',...), bei Oracle heißt sie 'sys.user_tables'('table_id', 'table_name', 'num_rows',...) und bei SQLLite kann man mit der Tabelle 'sqlite_master'('type', 'name', 'tbl_name',...) das gleiche erzielen.  <br>",
                "img": "img/happybee.png"}
    ],
-   "challenge": "Finde durch rumprobieren heraus mit welcher Datenbank wir es zu tun haben und gebe die Metadaten aus.  Zur Erinnerung: Bei MySQL, SQL Server, PostgreSQL heißt die Tabelle 'information_schema.tables', bei Oracle heißt sie 'sys.user_tables' und bei SQLLite  'sqllite_master'. ",
+   "challenge": "Finde durch rumprobieren heraus mit welcher Datenbank wir es zu tun haben und gebe die Metadaten aus. <br> <h3>Zur Erinnerung:  MySQL, SQL Server, PostgreSQL: 'information_schema.tables'('table_name', 'table_type', 'table_rows',...), <br> Oracle: 'sys.user_tables'('table_id', 'table_name', 'num_rows',...) <br> SQLLite:  'sqlite_master'('type', 'name', 'tbl_name',...). </h3> ",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
             "truecondition":"results.rows.length == 4 && queries[j].includes('user_tables')",
             "correctanswer":["true","false","error","error"],
-            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> Wir haben es wohl mit der Oracle Datenbank zu tun! <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut alle Tabellen-Metadaten auszugeben. <br> Zur Erinnerung: Bei MySQL, SQL Server, PostgreSQL heißt die Tabelle 'information_schema.tables', bei Oracle heißt sie 'sys.user_tables' und bei SQLLite  'sqllite_master'.<br> <br>"],
+            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! <br> Wir haben es wohl mit der Oracle Datenbank zu tun! <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut alle Tabellen-Metadaten auszugeben. <br> <h3>Zur Erinnerung:  MySQL, SQL Server, PostgreSQL: 'information_schema.tables'('table_name', 'table_type', 'table_rows',...), <br> Oracle: 'sys.user_tables'('table_id', 'table_name', 'num_rows',...) <br> SQLLite:  'sqlite_master'('type', 'name', 'tbl_name',...). </h3>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": ["tables"],
-            "blacklist": ["maxmustermann","alexamusterfrau"]}],
+            "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
    "form":"search",
-   "hints"    : ["Mit Semikolon kannst du eine neue Query anfangen. Nun probierst du mit den erwähnten Tabellen eine 'SELECT * FROM' Query zu erzeugen."],
+   "hints"    : ["Mit UNION fängst du eine neue Query an. Nun probierst du mit den erwähnten Tabellen eine 'SELECT * FROM' Query zu erzeugen, wobei die erwähnten Tabellennamen selektiert werden müssen, da bei UNION die Spaltendimensionen gleich sein sollen. Die Tabelle shoes hat 4 Spalten und die andere 3, d.h. du selektierst eine zusätzliche Scheinspalte. Z.B: SELECT table_id, table_name, num_rows, 'test' FROM ..."],
    "behindscene" : "",
    "lvl" : 8},
    {"text" : [{"h2": "Oh! Hast du das gesehen? Da war eine Tabelle aufgelistet, die wir ja noch gar nicht kennen. Wie interessant! ",
    "h3":"",
    "img": "img/happybee.png"},
-   {"h2": "Es gibt auch eine Tabelle, wo alle Spalten jeder Tabelle in der Datenbank gespeichert sind. Beim googeln habe ich herausgefunden, dass sie bei unserer Oracle-Datenbank 'sys.user_tab_columns' heißt. ",
+   {"h2": "Es gibt auch eine Tabelle, wo alle Spalten jeder Tabelle in der Datenbank gespeichert sind. Beim googeln habe ich herausgefunden, dass sie bei unserer Oracle-Datenbank 'sys.user_tab_columns'('table_id', 'table_name', 'column_name', 'data_type') heißt. ",
    "h3":"",
    "img": "img/happybee.png"}
    ],
-   "challenge": "Aus der vorherigen Ausgabe kam heraus, dass es eine Tabelle 'mitarbeiter' existiert. Ich will wissen, welche Spalten diese Tabelle hat. <br> Zur Erinnerung: die Tabelle mit Informationen zu Tabellen heißt 'sys.user_tab_columns'.",
+   "challenge": "Aus der vorherigen Ausgabe kam heraus, dass es eine Tabelle 'kunden' existiert. Ich will wissen, welche Spalten diese Tabelle hat. <br> Zur Erinnerung: die Tabelle mit Informationen zu Tabellen heißt 'sys.user_tab_columns'('table_id', 'table_name', 'column_name', 'data_type').",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     "truecondition":"results.rows.length == 6 && queries[j].includes('user_tab_columns')",
+                     "truecondition":"results.rows.length == 5 && queries[j].includes('user_tab_columns') && queries[j].includes('kunden')",
                      "correctanswer":["true","false","error","error"],
-                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Spalten der Tabelle 'mitarbeiter' auszugeben.  <br> Zur Erinnerung: die Tabelle mit Informationen zu Tabellen heißt 'sys.user_tab_columns'. <br> <br> <br>"],
+                     "speakbblanswer":["Super! du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Spalten der Tabelle 'kunden' auszugeben.  <br> Zur Erinnerung: die Tabelle mit Informationen zu Tabellen heißt 'sys.user_tab_columns'('table_id', 'table_name', 'column_name', 'data_type')."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
-                     "blacklist": ["maxmustermann","alexamusterfrau"]}],
+                     "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
    "form":"search",
-   "hints"    : ["Mit Semikolon kannst du wieder eine neue Query anfangen. Als Tabelle nutzt du die vorgegebene 'sys.user_tab_columns' und in der WHERE-Bedingung geben wir ein, dass wir nur die Spalten von der Tabelle 'mitarbeiter' wollen, also 'table_name'='mitarbeiter'."],
+   "hints"    : ["Mit UNION fängst du eine neue Query an. Als Tabelle nutzt du die vorgegebene 'sys.user_tab_columns' und in der WHERE-Bedingung geben wir ein, dass wir nur die Spalten von der Tabelle 'kunden' wollen, also 'table_name'='kunden'."],
    "behindscene" : "",
    "lvl" : 9},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
@@ -237,15 +240,15 @@ TASKS=[
                "h3":"",
                "img": "img/happybee.png"}
     ],
-   "challenge": "Mal schauen, ob du es einigermaßen verstanden hast. Gib nach dem letzten Slash folgendes ein: '?product_id=0' ",
+   "challenge": "Mal schauen, ob du es einigermaßen verstanden hast. Vordefiniert wird der Schuh mit der product_id=0 ausgewählt. Gib mal eine andere Id ein.  ",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1",
+            "truecondition":"results.rows.length == 1 && queries[j].includes('shoes') && !queries[j].includes('product_id=0')",
             "correctanswer":["true","false","error","error"],
-            "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert. ","Schade, das hat leider nicht geklappt. Versuche erneut nach dem letzten Slash '?product_id=0' einzugeben. "],
+            "speakbblanswer":["Super! Jetzt weißt du wie der URL-Aufruf funktioniert. ","Schade, das hat leider nicht geklappt. Versuche erneut nach dem letzten Slash, wenn nicht vorhanden, '?product_id=' und eine andere Zahl einzugeben. "],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
-            "whitelist": ["shoes"],
-            "blacklist": ["maxmustermann","alexamusterfrau"]}],
+            "whitelist": [""],
+            "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
    "form":"url",
    "hints"    : ["hints deactivated"],
    "behindscene" : "",
@@ -254,17 +257,17 @@ TASKS=[
                "h3":"",
                "img": "img/happybee.png"}
                ],
-   "challenge": "Finde etwas über einen Mitarbeiter heraus. <br> Zur Erinnerung: Die Tabelle hat folgende Spaltennamen: 'ma_id', 'name','vorname','email','lohn' & 'angestellt_seit'.",
+   "challenge": "Gib mir den Namen, die E-mail und die Adresse des Kunden mit der 'kunden_id' =3 aus. <br> Zur Erinnerung: Die Tabelle hat folgende Spaltennamen: 'kunden_id', 'name','email','bestellnr' & 'adresse'.",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1",
+            "truecondition":"results.rows.length == 1 && queries[j].includes('kunden') && queries[j].includes('3') && queries[j].includes('kunden_id')",
             "correctanswer":["true","false","error","error"],
-            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut etwas über einen Mitarbeiter herauszufinden. <br> Zur Erinnerung: Die Tabelle hat folgende Spaltennamen: 'ma_id', 'name','vorname','email','lohn' & 'angestellt_seit'."],
+            "speakbblanswer":["Super! du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Adresse, den Namen und die E-Mail des Kunden mit der id 3 razukriegen. <br> Zur Erinnerung: Die Tabelle hat folgende Spaltennamen: 'kunden_id', 'name','email','bestellnr' & 'adresse'."],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
-            "whitelist": ["mitarbeiter","label","size","price"],
-            "blacklist": ["maxmustermann","alexamusterfrau"]}],
+            "whitelist": [""],
+            "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
    "form":"url",
-   "hints"    : ["Mit Semikolon kannst du eine neue Query anfangen. Wir selektieren die Tabelle 'mitarbeiter' und begrenzen das Ergebnis mit LIMIT 1. Wenn du einen anderen Mitarbeiter ausgeben willst, dann versuch es mit der Bedingung 'ma_id=1'oder 'ma_id=2' usw.. Wichtig ist nun, dass du die Spaltennamen ('ma_id','name','vorname','email','lohn','angestellt_seit') der Mitarbeiter-Tabelle, die du sehen willst, umbennest in den Spaltennamen von der Shoes-Tabelle, die man sieht, also 'label','size' und 'price'."],
+   "hints"    : ["Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Nur muss die Spaltenanzahl beider Datenmengen gleichgroß sein. D.h. Deine Query darf nur 3 Spalten ausgeben."],
    "behindscene" : "",
    "lvl" : 10},
    {"text" : [],
@@ -453,6 +456,8 @@ function change_form(){
       document.getElementById("suche_btn").style.display = 'none';
       document.getElementById("logout_btn").style.display = 'none';
       document.getElementById("url").style.display = 'block';
+      document.getElementById("url_output").style.display = 'block';
+      document.getElementById("sneaker_img").style.display = 'block';
       document.getElementsByClassName("form-signin")[0].style.maxWidth="60%";
    }
 }
@@ -556,7 +561,7 @@ function generate_query(){
       case "url":
          var url=document.getElementById("url").value;
          var id=url.toString().split('?');
-         var query="SELECT product_id, label,size, price FROM shoes WHERE " + id[id.length-1]+"";
+         var query="SELECT label,size, price FROM shoes WHERE " + id[id.length-1]+"";
          break;
       default:
          console.log("Error:.");
@@ -765,13 +770,6 @@ function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
             if(!answer){
                document.getElementById("url").style.display = 'block';
             } 
-            // if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
-            //    index= index-1;
-            // }
-            // if(ergebnis[index] == null){
-            //    index= index-1;
-            // }
-            // if(index>=0){
             generate_url_output(qu[index],ergebnis[index]); 
             // }  
             break;
@@ -801,10 +799,20 @@ function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
             break;
          case "url":
             document.getElementById("loginlabel").style.textAlign = 'center';
-            document.getElementById('loginlabel').innerHTML= "kein Suchergebnis";
             document.getElementById("suchergebnisse").style.display = 'none';
-            document.getElementById("sneaker_img").style.display='none';
-            document.getElementById("url_output").style.display='none';
+            if(ergebnis[index].rows.length==1){
+               document.getElementById('loginlabel').innerHTML= "Ergebnis";
+               document.getElementById("sneaker_img").style.display='block';
+               document.getElementById("url_output").style.display='block';
+               document.getElementById("url").style.display = 'block';
+               
+               generate_url_output(qu[index],ergebnis[index]); 
+
+            }else{
+               document.getElementById('loginlabel').innerHTML= "kein Suchergebnis";
+            }
+            // document.getElementById("sneaker_img").style.display='none';
+            // document.getElementById("url_output").style.display='none';
             // if(qu[index].trim() == TASKS[task_index_temp].validation[0].validationquery[0].trim()){
             //    index= index-1;
             // }
