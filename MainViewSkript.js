@@ -117,7 +117,7 @@ TASKS=[
                      "validationerror":"",
                      "truecondition":"results.rows.length == 4 && queries[j].includes('shoes')",
                      "correctanswer":["true","true","true","true"],
-                     "speakbblanswer":["Super! Du hast verstanden wie das Formular funktioniert. ","Super! Du hast verstanden wie das Formular funktioniert."],
+                     "speakbblanswer":["Super! Du hast verstanden wie die Produktsuche funktioniert. ","Super! Du hast verstanden wie die Produktsuche funktioniert."],
                      "imganswer":["img/happybee.png","img/happybee.png"],
                      "whitelist": [""],
                      "blacklist": [""]}],
