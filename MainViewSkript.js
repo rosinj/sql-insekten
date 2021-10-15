@@ -173,7 +173,7 @@ TASKS=[
            "validationerror":"",
            "truecondition":"results.rows.length == 6 && queries[j].includes('mitarbeiter')",
            "correctanswer":["true","false","error","error"],
-           "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Mitarbeitertabelle durch Vereinigung zweier Queries auszugeben. <br> Zur Erinnerung: Die Mitarbeitertabelle besitzt die Spalten  'ma_id', 'name','vorname','email','lohn' & 'angestellt_seit'."],
+           "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut name,email,lohn und angestellt_seit der Mitarbeitertabelle durch Vereinigung zweier Queries auszugeben."],
            "imganswer":["img/happybee.png","img/surprisebee.png"],
            "whitelist": [""],
            "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
@@ -184,25 +184,25 @@ TASKS=[
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
                "img": "img/happybee.png"},
-               {"h2": "In der Realität weiß man gar nicht, welche Datenbank genutzt wird, wie die Tabellen und deren Spalten heißen. Finden wir es heraus! <br> <br> <br>",
+               {"h2": "In der Realität weiß man gar nicht, wie die Tabellen der Datenbank und deren Spalten heißen. Finden wir es heraus! <br> <br> <br>",
                "h3":"",
                "img": "img/happybee.png"},
                {"h2": "",
                "h3":"Bei den meisten Datenbankmanagementsystemen (DBMS) gibt es eine interne Tabelle mit Metadaten. Diese beinhaltet alle Informationen über Tabellen und Views in einer Datenbank. <br>",
                "img": "img/happybee.png"},
                {"h2": "",
-               "h3":"Bei MySQL, SQL Server, PostgreSQL heißt sie information_schema.tables(table_name, table_type, table_rows,...), bei Oracle heißt sie sys.user_tables(table_id, table_name, num_rows,...) und bei SQLLite kann man mit der Tabelle sqlite_master(type, name, tbl_name,...) das gleiche erzielen.  <br>",
+               "h3":"Bei Oracle heißt sie sys.user_tables(table_id, table_name, num_rows,...), bei MySQL, SQL Server, PostgreSQL heißt sie information_schema.tables(table_name, table_type, table_rows,...) und bei SQLLite kann man mit der Tabelle sqlite_master(type, name, tbl_name,...) das gleiche erzielen.  <br>",
                "img": "img/happybee.png"}
    ],
-   "challenge": "Finde durch rumprobieren heraus, mit welcher Datenbank wir es zu tun haben und gib die Metadaten aus. <br> <h3>Zur Erinnerung:  MySQL, SQL Server, PostgreSQL: information_schema.tables(table_name, table_type, table_rows,...), <br> Oracle: sys.user_tables(table_id, table_name, num_rows,...) <br> SQLLite:  sqlite_master(type, name, tbl_name,...). </h3> ",
+   "challenge": "Finde durch rumprobieren heraus, mit welcher Datenbank wir es zu tun haben und gib die Metadaten aus. <br> <h3>Zur Erinnerung: Oracle: sys.user_tables(table_id, table_name, num_rows,...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables(table_name, table_type, table_rows,...) <br> SQLLite:  sqlite_master(type, name, tbl_name,...). </h3> ",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 4 && queries[j].includes('user_tables')",
+            "truecondition":"results.rows.length == 4 && queries[j].includes('information_schema')",
             "correctanswer":["true","false","error","error"],
-            "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> Wir haben es wohl mit der Oracle Datenbank zu tun! <br> <br>","Schade, das hat leider nicht geklappt. Versuche erneut alle Tabellen-Metadaten auszugeben. <br> <h3>Zur Erinnerung:  MySQL, SQL Server, PostgreSQL: information_schema.tables(table_name, table_type, table_rows,...), <br> Oracle: sys.user_tables(table_id, table_name, num_rows,...) <br> SQLite:  sqlite_master(type, name, tbl_name,...)</h3>"],
+            "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> Nun wissen wir, welche Tabelle die Datenbank besitzt!","Schade, das hat leider nicht geklappt. Versuche erneut alle Tabellen-Metadaten auszugeben. <br> <h3>Zur Erinnerung: Oracle: sys.user_tables(table_id, table_name, num_rows,...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables(table_name, table_type, table_rows,...) <br> SQLLite:  sqlite_master(type, name, tbl_name,...). </h3>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": ["tables"],
-            "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
+            "blacklist": ["maxmustermann","alexamusterfrau",";","sqlite_master"]}],
    "form":"search",
    "hints"    : ["Mit UNION fängst du eine neue Query an. Nun probierst du mit den erwähnten Tabellen eine 'SELECT * FROM' Query zu erzeugen, wobei die erwähnten Tabellennamen selektiert werden müssen, da bei UNION die Spaltendimensionen gleich sein sollen. Die Tabelle Schuhe hat 4 Spalten und die andere 3, d.h. du selektierst eine zusätzliche Scheinspalte. Z.B: SELECT table_id, table_name, num_rows, 'test' FROM ..."],
    "behindscene" : "",
@@ -210,21 +210,21 @@ TASKS=[
    {"text" : [{"h2": "Oh! Hast du das gesehen? Da war eine Tabelle aufgelistet, die wir ja noch gar nicht kennen. Wie interessant! ",
    "h3":"",
    "img": "img/happybee.png"},
-   {"h2": "Es gibt auch eine Tabelle, wo alle Spalten jeder Tabelle in der Datenbank gespeichert sind. Beim googeln habe ich herausgefunden, dass sie bei unserer Oracle-Datenbank sys.user_tab_columns(table_id, table_name, column_name, data_type) heißt. ",
+   {"h2": "Es gibt auch eine Tabelle, wo alle Spalten jeder Tabelle in der Datenbank gespeichert sind. Beim googeln habe ich herausgefunden, dass sie in unserem Fall information_schema.columns(table_name, column_name, data_type) heißt. ",
    "h3":"",
    "img": "img/happybee.png"}
    ],
-   "challenge": "Aus der vorherigen Ausgabe kam heraus, dass eine Kunden-Tabelle existiert. Ich will wissen, welche Spalten diese Tabelle hat. <br> Zur Erinnerung: die Tabelle mit Informationen zu den Spalten heißt sys.user_tab_columns(table_id, table_name, column_name, data_type).",
+   "challenge": "Aus der vorherigen Ausgabe kam heraus, dass eine Kunden-Tabelle existiert. Ich will wissen, welche Spalten diese Tabelle hat. <br> Zur Erinnerung: die Tabelle mit Informationen zu den Spalten heißt information_schema.columns(table_name, column_name, data_type).",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     "truecondition":"results.rows.length == 5 && queries[j].includes('user_tab_columns') && queries[j].includes('kunden')",
+                     "truecondition":"results.rows.length == 5 && queries[j].includes('information_schema') && Object.values(results.rows.item(0)).includes('adresse') && Object.values(results.rows.item(1)).includes('bestellnr') && Object.values(results.rows.item(2)).includes('email') && Object.values(results.rows.item(3)).includes('kunden_id') && Object.values(results.rows.item(4)).includes('name')",
                      "correctanswer":["true","false","error","error"],
-                     "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Spalten der Tabelle 'kunden' auszugeben.  <br> Zur Erinnerung: die Tabelle mit Informationen zu den Spalten heißt sys.user_tab_columns(table_id, table_name, column_name, data_type)."],
+                     "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Spalten der Tabelle 'kunden' auszugeben.  <br> Zur Erinnerung: die Tabelle mit Informationen zu den Spalten heißt information_schema.columns(table_name, column_name, data_type)."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
-                     "whitelist": [""],
-                     "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
+                     "whitelist": ["columns"],
+                     "blacklist": ["maxmustermann","alexamusterfrau",";","sqlite_master"]}],
    "form":"search",
-   "hints"    : ["Mit UNION fängst du eine neue Query an. Als Tabelle nutzt du die vorgegebene 'sys.user_tab_columns' und in der WHERE-Bedingung geben wir ein, dass wir nur die Spalten von der Tabelle 'kunden' wollen, also table_name='kunden'."],
+   "hints"    : ["Mit UNION fängst du eine neue Query an. Als Tabelle nutzt du die vorgegebene 'information_schema.columns' und in der WHERE-Bedingung geben wir ein, dass wir nur die Spalten von der Tabelle 'kunden' wollen, also table_name='kunden'. Da aber die Tabelle Schuhe 4 Spalten besitzt und die, die wir nutzen wollen nur 3, müssen wir eine Scheinspalte nach der UNION Anweisung dranhängen, damit die Spaltendimensionen gleich groß sind. Zum Beispiel: SELECT table_name, columns_name, data_type, null FROM ..."],
    "behindscene" : "",
    "lvl" : 9},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
@@ -262,7 +262,7 @@ TASKS=[
             "validationerror":"",
             "truecondition":"results.rows.length == 1 && queries[j].includes('kunden') && queries[j].includes('3') && queries[j].includes('kunden_id')",
             "correctanswer":["true","false","error","error"],
-            "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Adresse, den Namen und die E-Mail des Kunden mit der id 3 razukriegen. <br> Zur Erinnerung: Die Tabelle hat folgende Spaltennamen: 'kunden_id', 'name','email','bestellnr' & 'adresse'."],
+            "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Adresse, den Namen und die E-Mail des Kunden mit der id 3 rauszukriegen. <br> Zur Erinnerung: Die Tabelle hat folgende Spaltennamen: 'kunden_id', 'name','email','bestellnr' & 'adresse'."],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
@@ -419,6 +419,7 @@ function try_login(){
    createTableTables(db);
    createTableColumns(db);
    createTableKunden(db);
+   generate_query();
 }
 
 function change_form(){
@@ -459,6 +460,10 @@ function change_form(){
       document.getElementById("url_output").style.display = 'block';
       document.getElementById("sneaker_img").style.display = 'block';
       document.getElementsByClassName("form-signin")[0].style.maxWidth="60%";
+      document.getElementById('url').value = "https://sql-insekten.oth-rgb.de/index.php?produkt_id=0";
+      document.getElementById("marke").innerHTML= "<strong>Marke:   </strong> Nicke"
+      document.getElementById("groesse").innerHTML= "<strong>Größe:   </strong> 40";
+      document.getElementById("price").innerHTML= "<strong>Preis:     </strong> 80€";
    }
 }
 
@@ -502,6 +507,9 @@ function validation(){
                      correctanswer[j] = TASKS[task_index].validation[0].correctanswer[1];
                   }
                   ergebnis[j]= results;
+                  if(queries[j].includes("sqlite_master")){
+                     querysucessful[j]="error";
+                  }
                   resolve(correctanswer,ergebnis,querysucessful);
 
                   },function(transaction,error){
@@ -512,6 +520,13 @@ function validation(){
                      }
                      ergebnis[j]="error";
                      querysucessful[j]="error";
+                     console.log(TASKS[task_index].validation[0].blacklist.includes(";"));
+                     console.log(queries[j].includes(";"));
+                     console.log(TASKS[task_index].validation[0].blacklist + queries[j]);
+                     if(TASKS[task_index].validation[0].blacklist.includes(";") && queries[j].includes(";")){
+                        querysucessful[j]="semi";
+                        console.log("iam semi");
+                     }
                      resolve(correctanswer,ergebnis,querysucessful);
                               }
                         );
@@ -528,16 +543,8 @@ function validation(){
    })
    prom.then(response =>{
       var correct=answer(correctanswer);
-      // if (querysucessful.includes("error")){
-      //    form_success(form,ergebnis,'error',correct,qu);
-      // }else{
-      //    if(querysucessful.includes("true")){
-      //       form_success(form,ergebnis,'true',correct,qu);
-      //    }else{
-      //       form_success(form,ergebnis,'false',correct,qu);
-      //    }
-      // }
       console.log(correct);
+      console.log(querysucessful);
       form_success(form,ergebnis, querysucessful,correct[0], correct[1],qu);
       
       
@@ -568,9 +575,9 @@ function generate_query(){
    }
    document.querySelector("#codetxt > code").innerHTML = query + ";";
    document.querySelector("#codetxt > code").innerHTML.reload;
-   if(query.includes("sys.user_tab_columns") ){
+   if(query.includes("information_schema.tables") ){
       query=query.replace(".","_");
-   }else if(query.includes("sys.user_tables")){
+   }else if(query.includes("information_schema.columns")){
       query=query.replace(".","_");
    }
    return query;
@@ -753,6 +760,9 @@ function answer(correctanswer){
             document.getElementById('password').value = "";
             document.getElementById('suchleiste').value = "";
             document.getElementById('url').value = "https://sql-insekten.oth-rgb.de/index.php?produkt_id=0";
+            document.getElementById("marke").innerHTML= "<strong>Marke:   </strong> Nicke"
+            document.getElementById("groesse").innerHTML= "<strong>Größe:   </strong> 40";
+            document.getElementById("price").innerHTML= "<strong>Preis:     </strong> 80€";
             answer=true;
          }else{
             // fails=fails+1;
@@ -779,10 +789,10 @@ function generate_resulttable(qu,ergebnis,task_index_temp){
          }
          console.log(columns);
          
-      }else if(qu.includes("sys_user_tables")){
-         var columns=["table_id","table_name","num_rows"];
-      }else if(qu.includes("sys_user_tab_columns")){
-         var columns=["table_id","table_name","column_name","data_type"];
+      }else if(qu.includes("information_schema_tables")){
+         var columns=["table_name", "table_type", "table_rows"];
+      }else if(qu.includes("information_schema_columns")){
+         var columns=["table_name","column_name","data_type"];
       }else if(qu.includes("FROM benutzer")){
          var columns=["benutzer_id","benutzername","passwort","email"];
       }else if(qu.includes("FROM schuhe")){
@@ -923,14 +933,14 @@ function createTableKunden(db){
 function createTableTables(db){
    db.transaction(
       function (transaction) {
-         transaction.executeSql('DROP TABLE IF EXISTS sys_user_tables;', [], nullDataHandler, errorHandler);
+         transaction.executeSql('DROP TABLE IF EXISTS information_schema_tables;', [], nullDataHandler, errorHandler);
           /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql('create table sys_user_tables(table_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , table_name TEXT NOT NULL, num_rows INT NOT NULL);', [], nullDataHandler, errorHandler);
+          transaction.executeSql('create table information_schema_tables(table_name TEXT NOT NULL, table_type TEXT NOT NULL, table_rows INT NOT NULL);', [], nullDataHandler, errorHandler);
           /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql('INSERT INTO sys_user_tables VALUES (0,"benutzer",3);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tables VALUES (1,"schuhe",14);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tables VALUES (2,"mitarbeiter",6);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tables VALUES (3,"kunden",4);', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_tables VALUES ("benutzer","BASE TABLE",3);', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_tables VALUES ("schuhe","BASE TABLE",14);', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_tables VALUES ("mitarbeiter","BASE TABLE",6);', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_tables VALUES ("kunden","BASE TABLE",4);', [], nullDataHandler, errorHandler);
       }
   );
 }
@@ -939,28 +949,28 @@ function createTableColumns(db){
       function (transaction) {
 
           /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql('DROP TABLE IF EXISTS sys_user_tab_columns;', [], nullDataHandler, errorHandler);
-          transaction.executeSql('create table sys_user_tab_columns(table_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , table_name TEXT NOT NULL, column_name TEXT NOT NULL, data_type TEXT NOT NULL);', [], nullDataHandler, errorHandler);
+          transaction.executeSql('DROP TABLE IF EXISTS information_schema_columns;', [], nullDataHandler, errorHandler);
+          transaction.executeSql('create table information_schema_columns(table_name TEXT NOT NULL, column_name TEXT NOT NULL, data_type TEXT NOT NULL);', [], nullDataHandler, errorHandler);
           /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (0,"benutzer","nutzer_id","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (1,"benutzer","nutzername","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (2,"benutzer","passwort","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (3,"benutzer","email","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (4,"schuhe","produkt_id","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (5,"schuhe","marke","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (6,"schuhe","groesse","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (7,"schuhe","preis","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (8,"mitarbeiter","ma_id","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (9,"mitarbeiter","name","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (10,"mitarbeiter","vorname","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (11,"mitarbeiter","email","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (12,"mitarbeiter","lohn","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (13,"mitarbeiter","angestellt_seit","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (14,"kunden","kunden_id","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (15,"kunden","name","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (16,"kunden","email","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (17,"kunden","bestellnr","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO sys_user_tab_columns VALUES (18,"kunden","adresse","VARCHAR2");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("benutzer","nutzer_id","NUMBER");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("benutzer","nutzername","VARCHAR2");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("benutzer","passwort","VARCHAR2");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("benutzer","email","VARCHAR2");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("schuhe","produkt_id","NUMBER");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("schuhe","marke","VARCHAR2");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("schuhe","groesse","NUMBER");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("schuhe","preis","NUMBER");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("mitarbeiter","ma_id","NUMBER");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("mitarbeiter","name","VARCHAR2");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("mitarbeiter","vorname","VARCHAR2");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("mitarbeiter","email","VARCHAR2");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("mitarbeiter","lohn","NUMBER");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("mitarbeiter","angestellt_seit","NUMBER");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("kunden","kunden_id","NUMBER");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("kunden","name","VARCHAR2");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("kunden","email","VARCHAR2");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("kunden","bestellnr","NUMBER");', [], nullDataHandler, errorHandler);
+          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("kunden","adresse","VARCHAR2");', [], nullDataHandler, errorHandler);
       }
   );
 }

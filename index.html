@@ -4,7 +4,7 @@
     <script src="MainViewSkript.js"></script>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>SQL Insekten</title>
-
+    <link rel="icon" href="img/floww.png">
     <link href="stylesheet.css" rel="stylesheet">
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <!-- highlight js -->
@@ -54,12 +54,11 @@
                   <h2 id='loginlabel' class="form-signin-heading">Bitte einloggen</h2>
                   <input type="text" class="form-control" name="username" placeholder="Benutzername" id='username' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); generate_query(); hljs.highlightAll();" />
                   <input type="password" class="form-control" name="password" placeholder="Passwort" id='password' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); generate_query();hljs.highlightAll();"/>      
-                  <button class="btn btn-lg btn-primary btn-block" id="login_btn" type="button" onclick="try_login();hljs.highlightAll();">Einloggen</button>  
+                  <button class="btn btn-lg btn-primary btn-block" id="login_btn" type="button" onclick="try_login(); generate_query();hljs.highlightAll();">Einloggen</button>  
                     
                   <input type="text" class="form-control" name="suchleiste" placeholder="" id='suchleiste' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); generate_query();hljs.highlightAll();"/>  
-                  <button class="btn btn-lg btn-primary btn-block" id="suche_btn" type="button" onclick="try_login(); hljs.highlightAll();">Suchen</button>  
+                  <button class="btn btn-lg btn-primary btn-block" id="suche_btn" type="button" onclick="try_login(); generate_query();hljs.highlightAll();">Suchen</button>  
                   <input type="text" value="https://sql-insekten.oth-rgb.de/index.php?produkt_id=0"class="form-control" name="url" placeholder="" id='url' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event);generate_query(); hljs.highlightAll();" /> 
-                  <!-- <img id='sneaker_img' src="img/sneaker.png"/> -->
                   <div id='url_output'>
                     <img id='sneaker_img' src="img/sneaker.png"/>
                       <h4 id='marke'><strong>Marke: </strong> Nicke</h4>
@@ -67,12 +66,12 @@
                       <h4 id= 'price'><strong>Preis: </strong> 80€</h4>
                   </div>
                   <table id='suchergebnisse'></table>
-                  <button class="btn btn-lg btn-primary btn-block" id="logout_btn" type="button" onclick="change_form();hljs.highlightAll();">Ausloggen</button> 
+                  <button class="btn btn-lg btn-primary btn-block" id="logout_btn" type="button" onclick="change_form(); generate_query();hljs.highlightAll();">Ausloggen</button> 
                 </form>
               </div>
         </div>
         <div class='rsbottom'>
-            <button class="btn btn-lg btn-primary btn-block" id='behindscene_btn' type="submit" onclick="show_behindscene();hljs.highlightAll();">Hintergrunddetails anzeigen</button> 
+            <button class="btn btn-lg btn-primary btn-block" id='behindscene_btn' type="submit" onclick="show_behindscene(); generate_query(); hljs.highlightAll();">Hintergrunddetails anzeigen</button> 
             <button class="btn btn-lg btn-primary btn-block" id='tipp_btn' type="submit" onclick="show_hints()">Tipp einblenden</button> 
             <div class='btnbox' id='btnboxre'> 
                 <p class='btnboxtxt'>
@@ -94,8 +93,8 @@ SELECT nutzer_id, benutzername, passwort, email
 FROM benutzer 
 WHERE benutzername= '' AND passwort= '';
                     </code></pre>
-                    <pre id="behindcodelogin"><code >function validation(){
-var uname=document.getElementById("username").value;
+                    <pre id="behindcodelogin"><code >// Java
+<!-- var uname=document.getElementById("username").value;
 var pw=document.getElementById("password").value;
 var ergebnis="";
 var correctanswer = "";
@@ -104,26 +103,16 @@ var querysucessful = "";
 query="nutzer_id, benutzername, passwort, email  FROM benutzer WHERE benutzername ='" + uname + "' AND passwort ='"+ pw + "';";
 db.transaction(function(transaction) {
     transaction.executeSql(query,[],function (transaction, results) {
-       <!-- if (eval(TASKS[task_index].validation[0].truecondition)) {
-          querysucessful="true";
-          correctanswer= TASKS[0]['validation'][0]['correctanswer'][0]
-       } else {
-          querysucessful="false";
-          correctanswer= TASKS[task_index].validation[0].correctanswer[1];
-       } -->
        // Die excuteSQL Funktion springt hier rein, falls die Query einen keinen SQL-Fehler aufweist.
        // querysucessfull und correctanswer werden hier abhängig vom Level zugewiesen.
        ergebnis= results;
     },function(transaction,error){
-          <!-- correctanswer = TASKS[task_index].validation[0].correctanswer[2];
-          querysucessful="error"; -->
           // Die excuteSQL Funktion springt hier rein, falls die Query einen SQL-Fehler aufweist.
           // querysucessfull und correctanswer werden hier abhängig vom Level zugewiesen.
                    }
              );
           }
        );
-<!-- var correct=answer(correctanswer); -->
 form_success(ergebnis,querysucessful,correctanswer);
 
 }
@@ -135,10 +124,24 @@ function form_success(ergebnis,query,successfull,correct){
     }else{
         document.getElementById('loginlabel').innerHTML= "Internal Server Error";
     }
+} -->
+public static User login(String uname, String pw) throws
+InternalServerErrorException {
+     try {
+         conn = DriverManager.getConnection(...);
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery("SELECT nutzer_id, benutzername,passwort, email FROM benutzer WHERE benutzername ='" + uname + "' AND passwort ='"+ pw + "';");
+         if (rs.next()) {
+             return new User(rs.getString("benutzername"));
+         }
+         return null;
+     } catch (SQLException e) {
+         throw new InternalServerErrorException();
+     }
 }
 // ...</code></pre>
-                   <pre id="behindcodesearch"><code ># ...
-def validation():
+                   <pre id="behindcodesearch"><code ># Python
+<!-- def validation():
     search=document.getElementById("suchleiste").value
     query="SELECT produkt_id, marke, groesse, preis FROM schuhe WHERE marke='" + search + "';"
     ergebnis=[]
@@ -150,20 +153,12 @@ def validation():
         cursor.execute(query)
         results = cursor.fetchall()
         for data_out in results:  
-                ergebnis.append(data_out[1])  
-        <!-- if (eval(TASKS[task_index]['validation'][0]['truecondition'])):
-            querysucessful="true"
-            correctanswer= TASKS[task_index]['validation'][0]['correctanswer'][0]
-        else:
-            querysucessful="false";
-            correctanswer= TASKS[task_index]['validation'][0]['correctanswer'][1] -->
+                ergebnis.append(data_out[1])
 
         # querysucessfull und correctanswer werden hier abhängig vom Level zugewiesen.
         cursor.close()
 
     except sqlite3.Error as error:
-        <!-- correctanswer = TASKS[task_index]['validation'][0]['correctanswer'][2]
-        querysucessful="error" -->
         # Die excute Funktion springt hier rein, falls die Query einen SQL-Fehler aufweist.
         # querysucessfull und correctanswer werden hier abhängig vom Level zugewiesen.
     finally:
@@ -182,10 +177,26 @@ def form_success(ergebnis,querysucessful,correct):
 def generate_resulttable(ergebnis):
     columns= ["produkt_id","marke","groesse","preis"]
     table=tabulate(ergebnis,headers= columns)
-    document.getElementById("table")=table
+    document.getElementById("table")=table -->
+try:   
+    conn = psycopg2.connect(...)
+    cur = conn.cursor()
+    cur.execute("SELECT produkt_id, marke, groesse, preis FROM schuhe WHERE marke='" + search + "';")
+    row = cur.fetchone()
+    while row is not None:
+        print("&lt;tr&gt;")
+        for col in row: print("&lt;td&gt;"+str(col)+"&lt;/td&gt;")
+        print("&lt;/tr&gt;")
+        row = cur.fetchone()
+
+    cur.close()
+except (MySQLdb.Error, MySQLdb.Warning) as e:
+    print("Internal Server Error")
+    return None
 # ...
 </code></pre> 
-                  <pre id="behindcodeurl"><code >function validation(){
+                  <pre id="behindcodeurl"><code >/* PHP */
+                      <!-- function validation(){
 $url=(string) $doc->getElementById('url')->value;
 $id=explode("?", $url );
 $query="SELECT marke, groesse, preis FROM schuhe WHERE " + id[id.length-1]+"";
@@ -193,23 +204,6 @@ $ergebnis="";
 $correctanswer = "";
 $querysucessful = "";
 /* ... */
-
-<!-- $db->transaction(function($transaction) {
-    $transaction->executeSql($query,[],function ($transaction, $results) {
-        if (eval($TASKS[task_index].validation[0].truecondition)) {
-            $querysucessful="true";
-            $correctanswer= $TASKS[task_index]['validation'][0]['correctanswer'][0];
-        } else {
-            $querysucessful="false";
-            $correctanswer= $TASKS[task_index]['validation'][0]['correctanswer'][1];
-        }
-        $ergebnis= $results;
-    },function($transaction,$error){
-        $correctanswer = $TASKS[task_index]['validation'][0]['correctanswer'][2];
-        $querysucessful="error";
-    }
-    );
-}); -->
 $sth = $dbh->query($query);
 $ergebnis = $stm->fetchAll();
 // querysucessfull und correctanswer werden hier abhängig vom Level und vom SQL-Fehler zugewiesen.
@@ -229,7 +223,16 @@ function form_success($ergebnis,$querysucessful,$correctanswer){
         $doc->getElementById('login_label')->innerHTML= "Internal Server Error";
     }
  
-}           
+}            -->
+$conn = new PDO(...)
+$stmt = $conn->query("SELECT marke, groesse, preis FROM schuhe WHERE produkt_id=".$_GET["produkt_id"]);
+$res = $stmt->fetch();
+
+echo &lt;&lt;&lt;OUTPUT
+&lt;b&gt;Marke:&lt;/b&gt; {$res["marke"]}&lt;br&gt;
+&lt;b&gt;Größe:&lt;/b&gt; {$res["groesse"]}&lt;br&gt;
+&lt;b&gt;Preis:&lt;/b&gt; {$res["preis"]}€
+OUTPUT;
 </code></pre> 
                 </div>
 
