@@ -6,7 +6,6 @@ var hints=3;
 var bbltxtindex=0;
 // var fails=0
 var cheatactive=true;
-// var lvl=1;
 var task_index=0;
 TASKS=[
    {"text": [{"h2": "",
