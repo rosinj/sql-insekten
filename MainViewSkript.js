@@ -5,7 +5,7 @@
 var hints=3;
 var bbltxtindex=0;
 // var fails=0
-var cheatactive=true;
+var cheatactive=false;
 var task_index=0;
 TASKS=[
    {"text": [{"h2": "",
@@ -377,7 +377,7 @@ function change_codemode(){
             document.getElementById("behindcodesearch").style.display="none";
             break;
          default:
-            console.log("couldn't update codetext");
+            // console.log("couldn't update codetext");
    
       }
    }
@@ -491,7 +491,6 @@ function validation(){
                transaction.executeSql(queries[j],[],function (transaction, results) {
                   if (eval(TASKS[task_index].validation[0].truecondition)) {
                      querysucessful[j]="true";
-                     console.log(queries[j]);
                      if(is_query_valid(queries[j])){
                         correctanswer[j] = TASKS[task_index].validation[0].correctanswer[0];
                      }else{
@@ -519,12 +518,8 @@ function validation(){
                      }
                      ergebnis[j]="error";
                      querysucessful[j]="error";
-                     console.log(TASKS[task_index].validation[0].blacklist.includes(";"));
-                     console.log(queries[j].includes(";"));
-                     console.log(TASKS[task_index].validation[0].blacklist + queries[j]);
                      if(TASKS[task_index].validation[0].blacklist.includes(";") && queries[j].includes(";")){
                         querysucessful[j]="semi";
-                        console.log("iam semi");
                      }
                      resolve(correctanswer,ergebnis,querysucessful);
                               }
@@ -542,8 +537,6 @@ function validation(){
    })
    prom.then(response =>{
       var correct=answer(correctanswer);
-      console.log(correct);
-      console.log(querysucessful);
       form_success(form,ergebnis, querysucessful,correct[0], correct[1],qu);
       
       
@@ -570,7 +563,7 @@ function generate_query(){
          var query="SELECT marke, groesse, preis FROM schuhe WHERE " + id[id.length-1]+"";
          break;
       default:
-         console.log("Error:.");
+         // console.log("Error:.");
    }
    document.querySelector("#codetxt > code").innerHTML = query + ";";
    document.querySelector("#codetxt > code").innerHTML.reload;
@@ -591,35 +584,27 @@ function is_query_valid(query){
       if(blacklistarray[i]!=""){
          if(query.includes(blacklistarray[i])){
             valid=false;
-            console.log("blacklist nicht valid")
          }
       }
    }
    for (let k in whitelistarray){
       if(whitelistarray[k]!=""){
          if(query.includes(whitelistarray[k])){
-            console.log("whitelist valid")
          }
          else{
             valid=false;
-            console.log("whitelist nicht valid")
          }
       }
    }
-   console.log(valid);
    
    return valid;
 }
 function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
    // console.log(qu.trim());
    var success;
-   console.log(ergebnis);
-   console.log(ergebnis[0]);
-   console.log(qu);
    // console.log(ergebnis.length);
    var index=ergebnis.length-1;
    var task_index_temp=task_index;
-   console.log(qu[index]);
    if(answer){
       task_index_temp=task_index_temp-1;
       document.querySelector("table").style.maxHeight="270px";
@@ -643,8 +628,6 @@ function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
          success='false';
       }
    }
-   console.log(ergebnis[index],qu[index],querysucessful[index]);
-   console.log(answer,answer_index);
    if(success=='true'){
 
       switch (form){
@@ -684,7 +667,7 @@ function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
             generate_url_output(qu[index],ergebnis[index]); 
             break;
          default:
-            console.log("Error in right answer");
+            // console.log("Error in right answer");
             
       }
    }else if (success=='false'){
@@ -717,7 +700,7 @@ function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
             }
             break;
          default:
-            console.log("Error in right answer");
+            // console.log("Error in right answer");
             
       }
 
@@ -778,15 +761,10 @@ function answer(correctanswer){
 function generate_resulttable(qu,ergebnis,task_index_temp){
    if(task_index_temp<11){
       if(!qu.includes("*")){
-         console.log(qu.toLowerCase());
-         console.log(qu.toLowerCase().split("select"));
-         console.log(qu.toLowerCase().split("select")[1].split("from"));
-         console.log(qu.toLowerCase().split("select")[1].split("from")[0].split(","));
          var columns=qu.toLowerCase().split("select")[1].split("from")[0].split(",")
          for (let col in columns){
             columns[col]=columns[col].trim();
          }
-         console.log(columns);
          
       }else if(qu.includes("information_schema_tables")){
          var columns=["table_name", "table_type", "table_rows"];
@@ -826,8 +804,6 @@ function generate_resulttable(qu,ergebnis,task_index_temp){
 }
 function generate_url_output(qu,ergebnis){
    document.getElementsByClassName("form-signin")[0].style.height="300px";
-   console.log(qu);
-   console.log(ergebnis);
    document.getElementById("sneaker_img").style.marginLeft= "20%"
    if(typeof(ergebnis.rows.item(0)['marke'])!="undefined"){
       if(ergebnis.rows.item(0)['marke'].toString().length>17){
@@ -975,7 +951,7 @@ function createTableColumns(db){
 }
 function errorHandler(transaction, error)
 {
-    console.log('Error:'+error.message+' (Code '+error.code+')');
+   //  console.log('Error:'+error.message+' (Code '+error.code+')');
  
     // Handle errors here
     var we_think_this_error_is_fatal = true;
@@ -987,14 +963,14 @@ function dataHandler(transaction, results)
 {
     // Handle the results
     var string = "list contains the following people:\n\n";
-    console.log(results.rows.length);
+   //  console.log(results.rows.length);
     for (var i=0; i<results.rows.length; i++) {
         // Each row is a standard JavaScript array indexed by
         // column names.
         var row = results.rows.item(i);
         string = string + row['username'] + " (ID "+row['id']+")\n";
     }
-    console.log(string);
+   //  console.log(string);
 }
 function createdb(){
    try {
@@ -1055,7 +1031,7 @@ function cheat(){
          document.getElementById('btnboxli').style.display = 'none';
          document.getElementById('btnboxre').style.display = 'none';
       }else{
-         console.log('Level existiert nicht.')
+         // console.log('Level existiert nicht.')
       }
    }
    close_modal();
