@@ -12,9 +12,60 @@
     <script src="highlight/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
 
+    <!-- /* Attach the Joyride CSS file */ -->
+    <link rel=" stylesheet" type="text/css" href="joyride-2.0.0/joyride-2.1.css">
+
+    <!-- /* jQuery needs to be attached */ -->
+    <script src="joyride-2.0.0/jquery-1.10.1.js"></script>
+
+    <!-- /* Then attach the Joyride plugin */ -->
+    <script src="joyride-2.0.0/jquery.joyride-2.1.js"></script>
+    <script type="text/javascript" src="joyride-2.0.0/jquery.cookie.js"></script>
+    <script type="text/javascript" src="joyride-2.0.0/modernizr.mq.js"></script>
+
 </head>
 <body>
+    <ol id="joyRideTipContent">
+        <li data-class="form-signin" data-text="Weiter" class="custom" data-options="tipLocation:left;tipAnimation:'fade';">
+          <h2>Stop #1</h2>
+          <p>You can control all the details for you tour stop. Any valid HTML will work inside of Joyride.</p>
+        </li>
+        <li data-id="behindscene_btn" data-button="Weiter" data-options="tipLocation:top;tipAnimation:'fade';">
+          <h2>Stop #2</h2>
+          <p>Get the details right by styling Joyride with a custom stylesheet!</p>
+        </li>
+        <li data-id="tipp_btn" data-button="Weiter" data-options="tipLocation:right">
+          <h2>Stop #3</h2>
+          <p>It works right aligned.</p>
+        </li>
+        <li data-button="Next">
+          <h2>Stop #4</h2>
+          <p>It works as a modal too!</p>
+        </li>
+        <li data-class="login_label" data-button="Next" data-options="tipLocation:right">
+          <h2>Stop #4.5</h2>
+          <p>It works with classes, and only on the first visible element with that class.</p>
+        </li>
+        <li data-id="numero5" data-button="Close">
+          <h2>Stop #5</h2>
+          <p>Now what are you waiting for? Add this to your projects and get the most out of your apps!</p>
+        </li>
+      </ol>
 
+      <script>
+        $(window).load(function() {
+          $('#joyRideTipContent').joyride({
+            autoStart : true,
+            postStepCallback : function (index, tip) {
+            if (index == 2) {
+              $(this).joyride('set_li', false, 1);
+            }
+          },
+          modal:true,
+          expose: true
+          });
+        });
+      </script>
     <div class='top'>
         <img id='logo' src="img/OTH_Logo.png"/>
         <h2 id='lvl'>Level: 1</h2>
@@ -24,7 +75,6 @@
             <img id='light3' src="img/light.png"/></h2>
         <h2 id='title'>SQL - Insekten</h2>
     </div>
-
     <div class='leftside'>
     
         <div class='sprechblase'>
