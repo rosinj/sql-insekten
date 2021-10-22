@@ -14,10 +14,12 @@ body {
   background: rgba(0,0,0,0.8);
   display: none;
   color: #fff;
-  width: 300px;
+  width: 33%;
   z-index: 101;
-  top: 0; /* keeps the page from scrolling when calculating position */
-  left: 0;
+  top: 0; 
+  left: 0; 
+  margin-left: -2.5%;
+  margin-top: 2%;
   font-family: "HelveticaNeue", "Helvetica Neue", "Helvetica", Helvetica, Arial, Lucida, sans-serif;
   font-weight: normal;
      -moz-border-radius: 4px;
@@ -26,7 +28,7 @@ body {
 }
 
 .joyride-content-wrapper {
-  padding: 10px 10px 15px 15px;
+  padding: 2% 2% 5% 5%;
 }
 
 /* Mobile */
@@ -48,10 +50,10 @@ body {
 .joyride-tip-guide span.joyride-nub {
   display: block;
   position: absolute;
-  left: 22px;
+  left: 80%;
   width: 0;
   height: 0;
-  border: solid 14px;
+  border: solid 15px;
   border: solid 14px;
 }
 
@@ -71,6 +73,7 @@ body {
   border-top-width: 0;
   top: -14px;
   bottom: none;
+
 }
 
 .joyride-tip-guide span.joyride-nub.bottom {
@@ -160,32 +163,42 @@ body {
 
 /* Button Style */
 .joyride-tip-guide .joyride-next-tip {
-  width: auto;
-  padding: 6px 18px 4px;
-  font-size: 13px;
-  text-decoration: none;
-  color: rgb(255,255,255);
-  border: solid 1px rgb(0,60,180);
-  background: rgb(0,99,255);
-  background: -moz-linear-gradient(top, rgb(0,99,255) 0%, rgb(0,85,214) 100%);
+  width: 45%;
+  float: right;
+  padding: 2% 15% 2%;
+  margin-bottom: 2%;
+  
+  font-size: 20px;
+  text-align: center;
+  /* text-decoration: none;
+  color: rgb(255,255,255); */
+  background-color: rgba(122, 137, 194, 1);
+  border: 1px solid gray;
+  box-sizing: border-box;
+  border-radius: 3px 3px 3px 3px;
+  /* border: solid 1px rgb(0,60,180);
+  background: rgb(0,99,255); */
+  /* background: -moz-linear-gradient(top, rgb(0,99,255) 0%, rgb(0,85,214) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(0,99,255)), color-stop(100%,rgb(0,85,214)));
   background: -webkit-linear-gradient(top, rgb(0,99,255) 0%,rgb(0,85,214) 100%);
   background: -o-linear-gradient(top, rgb(0,99,255) 0%,rgb(0,85,214) 100%);
-  background: -ms-linear-gradient(top, rgb(0,99,255) 0%,rgb(0,85,214) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0063ff', endColorstr='#0055d6',GradientType=0 );
-  background: linear-gradient(top, rgb(0,99,255) 0%,rgb(0,85,214) 100%);
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+  background: -ms-linear-gradient(top, rgb(0,99,255) 0%,rgb(0,85,214) 100%); */
+  /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0063ff', endColorstr='#0055d6',GradientType=0 ); */
+  /* background: linear-gradient(top, rgb(0,99,255) 0%,rgb(0,85,214) 100%); */
+  /* text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
   -webkit-border-radius: 2px;
      -moz-border-radius: 2px;
           border-radius: 2px;
   -webkit-box-shadow: 0px 1px 0px rgba(255,255,255,0.3) inset;
      -moz-box-shadow: 0px 1px 0px rgba(255,255,255,0.3) inset;
-          box-shadow: 0px 1px 0px rgba(255,255,255,0.3) inset;
+          box-shadow: 0px 1px 0px rgba(255,255,255,0.3) inset; */
 }
 
 .joyride-next-tip:hover {
   color: rgb(255,255,255) !important;
-  border: solid 1px rgb(0,60,180) !important;
+  background-color: rgba(122, 137, 194, 0.9);
+  border: 1px solid gray;
+  /* border: solid 1px rgb(0,60,180) !important;
   background: rgb(43,128,255);
   background: -moz-linear-gradient(top, rgb(43,128,255) 0%, rgb(29,102,211) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(43,128,255)), color-stop(100%,rgb(29,102,211)));
@@ -193,7 +206,7 @@ body {
   background: -o-linear-gradient(top, rgb(43,128,255) 0%,rgb(29,102,211) 100%);
   background: -ms-linear-gradient(top, rgb(43,128,255) 0%,rgb(29,102,211) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b80ff', endColorstr='#1d66d3',GradientType=0 );
-  background: linear-gradient(top, rgb(43,128,255) 0%,rgb(29,102,211) 100%);
+  background: linear-gradient(top, rgb(43,128,255) 0%,rgb(29,102,211) 100%); */
 }
 
 .joyride-timer-indicator-wrap {
@@ -227,7 +240,7 @@ body {
   color: rgba(255,255,255,0.9) !important;
 }
 
-.joyride-modal-bg {
+/* .joyride-modal-bg {
   position: fixed;
   height: 100%;
   width: 100%;
@@ -242,16 +255,16 @@ body {
   top: 0;
   left: 0;
   cursor: pointer;
-}
+} */
 
-.joyride-expose-wrapper {
+/* .joyride-expose-wrapper {
     background-color: #ffffff;
     position: absolute;
     z-index: 102;
     -moz-box-shadow: 0px 0px 30px #ffffff;
     -webkit-box-shadow: 0px 0px 30px #ffffff;
     box-shadow: 0px 0px 30px #ffffff;
-}
+} */
 
 .joyride-expose-cover {
     background: transparent;

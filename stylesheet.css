@@ -5,10 +5,13 @@
 /* body */
 .body{
   font-family: 'Lato', sans-serif;
+  height: 100vh; /* For 100% screen height */
+  width:  100vw; /* For 100% screen width */
 }
 /*top*/
 .top{
-    height: 70px;
+    /* height: 70px; */
+    height: 7vh;
     width: 100%;
     border-bottom: 2px solid gray;
     background-color: #72788D; 
@@ -41,7 +44,8 @@
 /*Leftside*/
 .leftside{
     float: left;
-    height: 840px;
+    height: 86vh;
+    /* height: 90%; */
     width: 35%;
 }
 .sprechblase {
@@ -99,7 +103,8 @@
 
 /*rightside*/
 .rightside{
-    height: 840px;
+    height: 86vh;
+    /* height: 90%; */
     width: 65%;
     float: right;
     background-color: #fff;
@@ -177,10 +182,17 @@ th {
   background-color: #7A89C2;
   border: 1px solid gray;
 }
+#login_btn:hover{
+  background-color: rgba(122, 137, 194, 0.9);
+}
 #logout_btn{
   background-color: #7A89C2;
   border: 1px solid gray;
   display:none;
+}
+#logout_btn:hover{
+  background-color: rgba(122, 137, 194, 0.9);
+
 }
 #suchleiste{
   display:none;
@@ -232,6 +244,10 @@ th {
     background-color: #72788D;
     border: 1px solid gray;
 }
+#behindscene_btn:hover{
+  background-color: rgba(114, 120, 141, 0.9);
+
+}
 #tipp_btn{
     margin-top: 0px;
     float: right;
@@ -240,12 +256,20 @@ th {
     background-color: #72788D;
     border: 1px solid gray;
 }
+#tipp_btn:hover{
+  background-color: rgba(114, 120, 141, 0.9);
+
+}
 #btn_modal{
   margin-top: 3%;
   margin-left: 25%;
   width: 50%;
   background-color: #72788D;
   border: 1px solid gray;
+}
+#btn_modal:hover{
+  background-color: rgba(114, 120, 141, 0.9);
+
 }
 .btnbox{
   background-color: #eeeeee;
@@ -368,7 +392,8 @@ input:checked + .slider:before {
 .bottom{
     border-top: 2px solid gray;
     clear:both;
-    height: 59px;
+    float: bottom;
+    height: 7vh;
     width: 100%;
     background-color: #72788D; 
     color: white;

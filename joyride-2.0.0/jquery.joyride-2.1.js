@@ -15,7 +15,7 @@
       'version'              : '2.1',
       'tipLocation'          : 'bottom',  // 'top' or 'bottom' in relation to parent
       'nubPosition'          : 'auto',    // override on a per tooltip bases
-      'scroll'               : true,      // whether to scroll to tips
+      'scroll'               : false,      // whether to scroll to tips
       'scrollSpeed'          : 300,       // Page scrolling speed in milliseconds
       'timer'                : 0,         // 0 = no timer , all other numbers = timer in milliseconds
       'autoStart'            : false,     // true or false - false tour starts when restart called
@@ -331,7 +331,7 @@
 
             settings.$current_tip = settings.$next_tip;
             // Focus next button for keyboard users.
-            $('.joyride-next-tip', settings.$current_tip).focus();
+            // $('.joyride-next-tip', settings.$current_tip).focus();
             methods.tabbable(settings.$current_tip);
           // skip non-existent targets
           } else if (settings.$li && settings.$target.length < 1) {
