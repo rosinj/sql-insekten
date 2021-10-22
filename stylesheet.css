@@ -52,13 +52,23 @@
     height: 40%;
     margin: 3%;
     position: relative;
+    display:none;
     padding: 1rem;
     color: #fff;
-    border: 4px solid #72788d;
-    -webkit-border-radius: 20px;
+    /* border: 4px solid #72788d; */
+    
+    /* -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
-    border-radius: 20px;
-    background: #7A89C2;
+    border-radius: 20px; */
+    /* background: #7A89C2; */
+    background: #000;
+    background:rgba(0,0,0,0.75);
+    font-family: "HelveticaNeue", "Helvetica Neue", "Helvetica", Helvetica, Arial, Lucida, sans-serif;
+    font-weight: normal;
+     -moz-border-radius: 4px;
+     -webkit-border-radius: 4px;
+          border-radius: 4px;
+    
   }
     
     .sprechblase:before {
@@ -66,41 +76,54 @@
     position: absolute;
     width: 0;
     height: 0;
-    left: 70%;
+    left: 75%;
     top: 100%;
-    border: 40px solid;
-    border-color: #72788d transparent transparent #72788d;}
+    border: 30px solid; 
+    /* border-color: #72788d transparent transparent #72788d; */
+    border-color: rgba(0,0,0,0.75) transparent transparent transparent;
+    }
     
     .sprechblase:after {
     content: ' ';
     position: absolute;
     width: 0;
     height: 0;
-    left: 70.7%;
+    left: 75%;
     top: 100%;
-    border: 35px solid;
-    border-color: #7A89C2 transparent transparent #7A89C2;}
+    border: 30px solid;
+    border-color:  transparent transparent transparent transparent ;
+    } 
 #next_btn{
       /* float: right; */
       margin-right:2%;
       margin-bottom:2%;
       width: 40%;
-      background-color: #72788D;
+      background-color: #7A89C2;
       border: 1px solid gray;
       position: absolute;
       right:    0;
       bottom:   0;
 }
 .animal{
-  margin-top: -10%;
+  /* margin-top: -10%; */
+  margin-top: 55%;
   margin-left: 10%;
   
 }
 #insect{
   height: 90%;
   width: 90%;
-}
 
+}
+#first{
+  margin-top: 5%;
+}
+#sec{
+  margin-top: 1.2%;
+}
+#last{
+  margin-top: 1.2%;
+}
 /*rightside*/
 .rightside{
     height: 86vh;
@@ -389,13 +412,14 @@ input:checked + .slider:before {
   border-radius: 50%;
 } 
 /*bottom*/
-.bottom{
+.bottomg{
     border-top: 2px solid gray;
     clear:both;
     float: bottom;
     height: 7vh;
     width: 100%;
-    background-color: #72788D; 
+    /* background-color: #72788D;  */
+    background-color: #72788D;
     color: white;
 }
 #info{
