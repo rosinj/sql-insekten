@@ -89,142 +89,42 @@
                         Erzeugte SQL-Query
                     </p>
                     <pre id="codetxt"><code>
-SELECT nutzer_id, benutzername, passwort, email 
+SELECT benutzername 
 FROM benutzer 
 WHERE benutzername= '' AND passwort= '';
                     </code></pre>
-                    <pre id="behindcodelogin"><code >// Java
-<!-- var uname=document.getElementById("username").value;
-var pw=document.getElementById("password").value;
-var ergebnis="";
-var correctanswer = "";
-var querysucessful = "";
-// ...
-query="nutzer_id, benutzername, passwort, email  FROM benutzer WHERE benutzername ='" + uname + "' AND passwort ='"+ pw + "';";
-db.transaction(function(transaction) {
-    transaction.executeSql(query,[],function (transaction, results) {
-       // Die excuteSQL Funktion springt hier rein, falls die Query einen keinen SQL-Fehler aufweist.
-       // querysucessfull und correctanswer werden hier abhängig vom Level zugewiesen.
-       ergebnis= results;
-    },function(transaction,error){
-          // Die excuteSQL Funktion springt hier rein, falls die Query einen SQL-Fehler aufweist.
-          // querysucessfull und correctanswer werden hier abhängig vom Level zugewiesen.
-                   }
-             );
-          }
-       );
-form_success(ergebnis,querysucessful,correctanswer);
-
-}
-function form_success(ergebnis,query,successfull,correct){
-    if(querysuccessful=="true"){
-        document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. Willkommen " + ergebnis[index].rows.item(0)['benutzername'] +"!";
-    }else if(querysuccessful=="false"){
-        document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
-    }else{
-        document.getElementById('loginlabel').innerHTML= "Internal Server Error";
+                    <pre id="behindcodelogin"><code >public static User login(String uname, String pw) throws InternalServerErrorException {
+  try {
+    conn = DriverManager.getConnection(...);
+    Statement stmt = conn.createStatement();
+    ResultSet rs = stmt.executeQuery("SELECT benutzername FROM benutzer WHERE benutzername ='" + uname + "' AND passwort ='"+ md5(pw) + "';");
+    if (rs.next()) {
+      return new User(rs.getString("benutzername"));
     }
-} -->
-public static User login(String uname, String pw) throws
-InternalServerErrorException {
-     try {
-         conn = DriverManager.getConnection(...);
-         Statement stmt = conn.createStatement();
-         ResultSet rs = stmt.executeQuery("SELECT nutzer_id, benutzername,passwort, email FROM benutzer WHERE benutzername ='" + uname + "' AND passwort ='"+ pw + "';");
-         if (rs.next()) {
-             return new User(rs.getString("benutzername"));
-         }
-         return null;
-     } catch (SQLException e) {
-         throw new InternalServerErrorException();
-     }
+    return null;
+  } catch (SQLException e) {
+    throw new InternalServerErrorException();
+  }
 }
-// ...</code></pre>
-                   <pre id="behindcodesearch"><code ># Python
-<!-- def validation():
-    search=document.getElementById("suchleiste").value
-    query="SELECT produkt_id, marke, groesse, preis FROM schuhe WHERE marke='" + search + "';"
-    ergebnis=[]
-    correctanswer = ""
-    querysucessful = ""
-    # ...
-    try:
-        cursor = connection.cursor()
-        cursor.execute(query)
-        results = cursor.fetchall()
-        for data_out in results:  
-                ergebnis.append(data_out[1])
-
-        # querysucessfull und correctanswer werden hier abhängig vom Level zugewiesen.
-        cursor.close()
-
-    except sqlite3.Error as error:
-        # Die excute Funktion springt hier rein, falls die Query einen SQL-Fehler aufweist.
-        # querysucessfull und correctanswer werden hier abhängig vom Level zugewiesen.
-    finally:
-        if connection:
-            connection.close()
-            
-    form_success(ergebnis,querysucessful,correctanswer)
-
-def form_success(ergebnis,querysucessful,correct):
-    if(querysuccessful=="true" or querysuccessful=="false"):
-        document.getElementById('loginlabel').innerHTML=  "Suchergebnisse";
-        generate_resulttable(ergebnis[index]); 
-    else:
-        document.getElementById('loginlabel').innerHTML= "Internal Server Error"
-
-def generate_resulttable(ergebnis):
-    columns= ["produkt_id","marke","groesse","preis"]
-    table=tabulate(ergebnis,headers= columns)
-    document.getElementById("table")=table -->
-try:   
+//...</code></pre>
+                   <pre id="behindcodesearch"><code >def print_search(user_input):
+  try:   
     conn = psycopg2.connect(...)
     cur = conn.cursor()
-    cur.execute("SELECT produkt_id, marke, groesse, preis FROM schuhe WHERE marke='" + search + "';")
+    cur.execute("SELECT produkt_id, marke, groesse, preis FROM schuhe WHERE marke='" + user_input + "';")
     row = cur.fetchone()
     while row is not None:
-        print("&lt;tr&gt;")
-        for col in row: print("&lt;td&gt;"+str(col)+"&lt;/td&gt;")
-        print("&lt;/tr&gt;")
-        row = cur.fetchone()
-
-    cur.close()
-except (MySQLdb.Error, MySQLdb.Warning) as e:
+      print("&lt;tr&gt;")
+      for col in row: print("&lt;td&gt;"+str(col)+"&lt;/td&gt;")
+      print("&lt;/tr&gt;")
+      row = cur.fetchone()
+    
+      cur.close()
+  except (MySQLdb.Error, MySQLdb.Warning) as e:
     print("Internal Server Error")
-    return None
 # ...
 </code></pre> 
-                  <pre id="behindcodeurl"><code >/* PHP */
-                      <!-- function validation(){
-$url=(string) $doc->getElementById('url')->value;
-$id=explode("?", $url );
-$query="SELECT marke, groesse, preis FROM schuhe WHERE " + id[id.length-1]+"";
-$ergebnis="";
-$correctanswer = "";
-$querysucessful = "";
-/* ... */
-$sth = $dbh->query($query);
-$ergebnis = $stm->fetchAll();
-// querysucessfull und correctanswer werden hier abhängig vom Level und vom SQL-Fehler zugewiesen.
-form_success($ergebnis,$querysucessful,$correctanswer);
-}    
-function form_success($ergebnis,$querysucessful,$correctanswer){
-    if($querysuccessful=="true"){
-        $doc->getElementById('sneaker_img')->style->display='block';
-        $doc->getElementById('url_output')->style->display='block';
-        $doc->getElementById('login_label')->innerHTML="Ergebnis";
-        $doc->getElementById('login_label')->innerHTML="<strong>Marke:   </strong>".$ergebnis[0][1];
-        $doc->getElementById('login_label')->innerHTML="<strong>Größe:   </strong>".$ergebnis[0][2];
-        $doc->getElementById('login_label')->innerHTML="<strong>Preis:   </strong>".$ergebnis[0][3]."€";
-    }else if($querysuccessful=="false"){
-        $doc->getElementById('login_label')->innerHTML= "kein Suchergebnis";
-    }else{
-        $doc->getElementById('login_label')->innerHTML= "Internal Server Error";
-    }
- 
-}            -->
-$conn = new PDO(...)
+                  <pre id="behindcodeurl"><code >$conn = new PDO(...)
 $stmt = $conn->query("SELECT marke, groesse, preis FROM schuhe WHERE produkt_id=".$_GET["produkt_id"]);
 $res = $stmt->fetch();
 

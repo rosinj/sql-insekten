@@ -9,7 +9,7 @@ var cheatactive=true;
 var task_index=0;
 TASKS=[
    {"text": [{"h2": "",
-              "h3":"Diese Sicherheitslücke ist oft in Anwendungen zu finden, in denen keine Prepared Statements verwendet werden. Da wir dies aus Lernzwecken nicht verwenden, ist hier fast alles möglich! <br> In SQL-Insekten lernst du von Level zu Level wie Hacker diese Sicherheitslücke ausnutzen, dabei wären Vorkenntisse in SQL empfehlenswert.",
+              "h3":"Diese Sicherheitslücke ist oft in Anwendungen zu finden, in denen keine Prepared Statements verwendet werden. Da wir dies aus Lernzwecken nicht verwenden, ist hier fast alles möglich! <br> In SQL-Insekten lernst du von Level zu Level wie Hacker diese Sicherheitslücke ausnutzen, dabei wären Vorkenntnisse in SQL empfehlenswert.",
               "img": "img/bee.png"},
               {"h2": "",
               "h3":"In diesem ersten Level haben wir rechts ein Login-Formular, wie man es so von anderen Websiten kennt. <br> <br>  Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert wird, kannst du dir die live-erzeugte SQL-Query anschauen und den Programmcode der Anwendung.",
@@ -42,7 +42,7 @@ TASKS=[
     "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne ihr Passwort zu kennen. Vergiss nicht, wie am Anfang erwähnt, Apostrophe und SQL-Kommentare geschickt zu nutzen und dir die Hintergrunddetails anzuschauen!",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0 && queries[j].includes('benutzer')",
+                      "truecondition":"results.rows.length > 0 && queries[j].includes('benutzer') && results.rows.item(0)['benutzername']=='alexamusterfrau'",
                       "correctanswer":["true","false","error","error"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
@@ -75,7 +75,7 @@ TASKS=[
     "challenge": "Nun kennst du keinen Nutzernamen. Versuche dich trotzdem mit einem User einzuloggen.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0 && queries[j].includes('benutzer')",
+                      "truecondition":"results.rows.length > 0 && queries[j].includes('benutzer') && ['alexamusterfrau','maxmustermann','kati1809'].includes(results.rows.item(0)['benutzername'])",
                       "correctanswer":["true","false","error","error"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
@@ -87,15 +87,15 @@ TASKS=[
     "lvl" : 3},
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                 "h3":"",
-                "img": "img/happybee.png"},
+                "img": "img/bee.png"},
                 {"h2": "",
                 "h3":"Die Softwareentwickler haben eine Lücke in ihrem Code entdeckt. Nun wird man erst eingeloggt, wenn es wirklich nur einen Benutzer mit dem Namen und Passwort gibt. Das heißt für dich: Du kannst nur noch Queries erzeugen, die eine eine Zeile im Ergebnis ausgeben. <br> <br> <br>",
-                "img": "img/happybee.png"}
+                "img": "img/bee.png"}
                ],
     "challenge": "Ohne einen Nutzernamen zu kennen versucht du dich wieder mit irgendeinem User einzuloggen.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length == 1 && queries[j].includes('benutzer')",
+                      "truecondition":"results.rows.length == 1 && queries[j].includes('benutzer') && ['alexamusterfrau','maxmustermann','kati1809'].includes(results.rows.item(0)['benutzername'])",
                       "correctanswer":["true","false","error","error"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. "],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
@@ -125,27 +125,43 @@ TASKS=[
    "behindscene" : "",
    "lvl": 5},
    {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung!  <br>",
-      "h3":"",
-      "img": "img/bee.png"}],
-   "challenge": "Irgendjemand arbeitet doch hinter diesem Schuhe-Onlineshop. Dann gibt es vielleicht auch eine Mitarbeiter-Tabelle in der Datenbank. Sag mir welche E-Mail Adressen die Mitarbeiter haben? ",
+   "h3":"",
+   "img": "img/bee.png"}],
+   "challenge": "Gebe mir den Benutzernamen und Passwort aller User aus.",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     "truecondition":"results.rows.length == 6 && queries[j].includes('mitarbeiter')  && queries[j].includes('email')",
+                     "truecondition":"results.rows.length == 3 && queries[j].includes('benutzer')  && queries[j].includes('benutzername') && queries[j].includes('passwort') ",
                      "correctanswer":["true","false","error","error"],
-                     "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die E-Mail Adressen der Mitarbeiter herauszufinden."],
+                     "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> <h3>Wenigstens speichert die Website die Passwörter nicht in Klartext, sondern als Hashwert, der aus dem Passwort generiert wird. Aber naja, durch sogengannte, freizugängliche Rainbow-Tables konnte ich trotzdem herausfinden, dass maxmustermann's Passwort 'password123' ist.</h3>","Schade, das hat leider nicht geklappt. Versuche erneut Benutzername und Passwort aller Benutzer auszugeben."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
                      "blacklist": [""]}],
    "form":"search",
-   "hints"    : ["Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'mitarbeiter' heißt und folgende Spalten hat: 'ma_id', 'name', 'vorname', 'email','lohn','angestellt_seit'."],
+   "hints"    : ["Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'benutzer' heißt und folgende Spalten hat: 'nutzer_id', 'benutzername', 'passwort','email'."],
    "behindscene" : "",
    "lvl": 5},
-    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an und zurück zum Login-Formular!",
+   // {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung!  <br>",
+   //    "h3":"",
+   //    "img": "img/bee.png"}],
+   // "challenge": "Irgendjemand arbeitet doch hinter diesem Schuhe-Onlineshop. Dann gibt es vielleicht auch eine Mitarbeiter-Tabelle in der Datenbank. Sag mir welche E-Mail Adressen die Mitarbeiter haben? ",
+   // "validation"  : [{"validationquery": [""],
+   //                   "validationerror":"",
+   //                   "truecondition":"results.rows.length == 6 && queries[j].includes('mitarbeiter')  && queries[j].includes('email')",
+   //                   "correctanswer":["true","false","error","error"],
+   //                   "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die E-Mail Adressen der Mitarbeiter herauszufinden."],
+   //                   "imganswer":["img/happybee.png","img/surprisebee.png"],
+   //                   "whitelist": [""],
+   //                   "blacklist": [""]}],
+   // "form":"search",
+   // "hints"    : ["Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'mitarbeiter' heißt und folgende Spalten hat: 'ma_id', 'name', 'vorname', 'email','lohn','angestellt_seit'."],
+   // "behindscene" : "",
+   // "lvl": 5},
+    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an und zurück zum Login-Formular! <br> Irgendjemand arbeitet doch hinter dieser Website. Dann gibt es vielleicht auch eine Mitarbeiter-Tabelle in der Datenbank. ",
     "h3":"",
-    "img": "img/happybee.png"},
+    "img": "img/bee.png"},
     {"h2": "",
-    "h3":"Wie wir gerade herausgefunden haben gibt es eine Mitarbeiter-Tabelle in der Datenbank. <br> Beim Login-Formular ist die einzige Informationsausgabe die wir bekommen, dass wir uns erfolgreich mit einem User eingeloggt haben (z.B. Willkommen maxmustermann!). D.h. um Informationen einer anderen Tabelle auszugeben musst du den 'benutzername' der Tabelle 'benutzer' manipulieren.",
-    "img": "img/happybee.png"}
+    "h3":"Beim Login-Formular ist die einzige Informationsausgabe die wir bekommen, dass wir uns erfolgreich mit einem User eingeloggt haben (z.B. Willkommen maxmustermann!). D.h. um Informationen einer anderen Tabelle auszugeben musst du den 'benutzername' der Tabelle 'benutzer' manipulieren.",
+    "img": "img/bee.png"}
    ],
    "challenge": "Ich will wissen wie viel Lohn die Mitarbeiterin mit dem Vornamen 'Greta Maria' bekommt. <br> Damit das funktioniert musst du den Spaltennamen der Tabelle 'mitarbeiter' umbenennen.",
    "validation"  : [{"validationquery": [""],
@@ -162,10 +178,10 @@ TASKS=[
    "lvl" : 6},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> In diesem Level sind wir wieder beim Schuhe-Onlineshop mit der Suchleiste.",
    "h3":"",
-   "img": "img/happybee.png"},
+   "img": "img/bee.png"},
    {"h2": "Den Softwareentwicklern ist aufgefallen, dass Hacker mit ';' neue Queries in Eingabefelder einschleußen können, daher haben sie ';' im Input verboten.",
    "h3":"",
-   "img": "img/happybee.png"}
+   "img": "img/bee.png"}
   ],
   "challenge": "Ich will von allen Mitarbeitern folgendes wissen: Name, E-Mail Adresse, Verdienst und seit wann sie in diesem Unternehmen arbeiten. <br> Die Tabelle hat folgende Spaltennamen: 'ma_id', 'name','vorname','email','lohn' & 'angestellt_seit'. <br> Achtung: Semikolons sind nicht mehr erlaubt.",
   "validation"  : [{"validationquery": [""],
@@ -182,16 +198,16 @@ TASKS=[
   "lvl" : 7},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
-               "img": "img/happybee.png"},
+               "img": "img/bee.png"},
                {"h2": "In der Realität weiß man gar nicht, wie die Tabellen der Datenbank und deren Spalten heißen. Finden wir es heraus! <br> <br> <br>",
                "h3":"",
-               "img": "img/happybee.png"},
+               "img": "img/bee.png"},
                {"h2": "",
                "h3":"Bei den meisten Datenbankmanagementsystemen (DBMS) gibt es eine interne Tabelle mit Metadaten. Diese beinhaltet alle Informationen über Tabellen und Views in einer Datenbank. <br>",
-               "img": "img/happybee.png"},
+               "img": "img/bee.png"},
                {"h2": "",
                "h3":"Bei Oracle heißt sie sys.user_tables(table_id, table_name, num_rows,...), bei MySQL, SQL Server, PostgreSQL heißt sie information_schema.tables(table_name, table_type, table_rows,...) und bei SQLLite kann man mit der Tabelle sqlite_master(type, name, tbl_name,...) das gleiche erzielen.  <br>",
-               "img": "img/happybee.png"}
+               "img": "img/bee.png"}
    ],
    "challenge": "Finde durch rumprobieren heraus, mit welcher Datenbank wir es zu tun haben und gib die Metadaten aus. <br> <h3>Zur Erinnerung: Oracle: sys.user_tables(table_id, table_name, num_rows,...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables(table_name, table_type, table_rows,...) <br> SQLLite:  sqlite_master(type, name, tbl_name,...). </h3> ",
    "validation"  : [{"validationquery": [""],
@@ -211,7 +227,7 @@ TASKS=[
    "img": "img/happybee.png"},
    {"h2": "Es gibt auch eine Tabelle, wo alle Spalten jeder Tabelle in der Datenbank gespeichert sind. Beim googeln habe ich herausgefunden, dass sie in unserem Fall information_schema.columns(table_name, column_name, data_type) heißt. ",
    "h3":"",
-   "img": "img/happybee.png"}
+   "img": "img/bee.png"}
    ],
    "challenge": "Aus der vorherigen Ausgabe kam heraus, dass eine Kunden-Tabelle existiert. Ich will wissen, welche Spalten diese Tabelle hat. <br> Zur Erinnerung: die Tabelle mit Informationen zu den Spalten heißt information_schema.columns(table_name, column_name, data_type).",
    "validation"  : [{"validationquery": [""],
@@ -228,16 +244,16 @@ TASKS=[
    "lvl" : 9},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
-               "img": "img/happybee.png"},
+               "img": "img/bee.png"},
                {"h2": "Nicht immer findet man auf einer Website eine Suchleiste oder ein Login-Formular. Daher probieren wir es aus auch mal die URL zu manipulieren<br> <br>",
                "h3":"",
-               "img": "img/happybee.png"},
+               "img": "img/bee.png"},
                {"h2": "Nun haben wir eine URL-Leiste von dem Schuhe-Onlineshop. Sie funktioniert ähnlich wie die Suchleiste, nur kommt nach dem letzten Slash die WHERE Bedingung. <br> <br>",
                "h3":"",
-               "img": "img/happybee.png"},
+               "img": "img/bee.png"},
                {"h2": "Die Produktseite gibt nur ein eindeutiges Ergebnis aus, daher darf deine Query nicht mehr als eine Zeile ausgeben. <br> <br>",
                "h3":"",
-               "img": "img/happybee.png"}
+               "img": "img/bee.png"}
     ],
    "challenge": "Mal schauen, ob du es einigermaßen verstanden hast. Vordefiniert wird der Schuh mit der produkt_id=0 ausgewählt. Gib mal eine andere Id ein.  ",
    "validation"  : [{"validationquery": [""],
@@ -254,7 +270,7 @@ TASKS=[
    "lvl" : 10},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
-               "img": "img/happybee.png"}
+               "img": "img/bee.png"}
                ],
    "challenge": "Gib mir den Namen, die E-mail und die Adresse des Kunden mit der 'kunden_id' =3 aus. <br> Zur Erinnerung: Die Tabelle hat folgende Spaltennamen: 'kunden_id', 'name','email','bestellnr' & 'adresse'.",
    "validation"  : [{"validationquery": [""],
@@ -551,7 +567,7 @@ function generate_query(){
       case "login":
          var uname=document.getElementById("username").value;
          var pw=document.getElementById("password").value;
-         var query="SELECT nutzer_id, benutzername, passwort, email FROM benutzer WHERE benutzername ='" + uname + "' AND passwort ='"+ pw + "'";
+         var query="SELECT benutzername  FROM benutzer WHERE benutzername ='" + uname + "' AND passwort ='"+ pw + "'";
       break;
       case "search":
          var search=document.getElementById("suchleiste").value;
@@ -673,7 +689,17 @@ function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
    }else if (success=='false'){
       switch (form){
          case "login":
-            document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+            if(eval(TASKS[task_index_temp].validation[0].truecondition.split('&&')[0].replace("results.rows.length","ergebnis[index].rows.length")) && typeof(ergebnis[index].rows.item(0)['benutzername'])!="undefined"){
+               document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index].rows.item(0)['benutzername'] +"!";
+               document.getElementById("username").style.display = 'none';
+               document.getElementById("password").style.display = 'none';
+               document.getElementById("login_btn").style.display = 'none';
+               document.getElementById("suchergebnisse").style.display = 'none';
+               document.getElementById("logout_btn").style.display = 'block';
+            }else{
+               document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+            }
+            
             break;
          case "search":
             document.getElementById("loginlabel").style.textAlign = 'center';
@@ -842,9 +868,9 @@ function createTableUsers(db)
             transaction.executeSql('DROP TABLE IF EXISTS benutzer;', [], nullDataHandler, errorHandler);
             transaction.executeSql('create table benutzer(nutzer_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , benutzername TEXT NOT NULL, passwort TEXT NOT NULL, email TEXT NOT NULL );', [], nullDataHandler, errorHandler);
             /* These insertions will be skipped if the table already exists. */
-            transaction.executeSql('INSERT INTO benutzer VALUES (0,"maxmustermann","password123","maxmustermann@examplemail.com");', [], nullDataHandler, errorHandler);
-            transaction.executeSql('INSERT INTO benutzer VALUES (1,"alexamusterfrau","alexa12345","alexamustermann@example.de");', [], nullDataHandler, errorHandler);
-            transaction.executeSql('INSERT INTO benutzer VALUES (2,"kati1809","khatrin321","kati@examplemail.com");', [], nullDataHandler, dataHandler);
+            transaction.executeSql('INSERT INTO benutzer VALUES (0,"maxmustermann","482c811da5d5b4bc6d497ffa98491e38","maxmustermann@examplemail.com");', [], nullDataHandler, errorHandler);
+            transaction.executeSql('INSERT INTO benutzer VALUES (1,"alexamusterfrau","ccce608af11293cecc1c1c272a04d54d","alexamustermann@example.de");', [], nullDataHandler, errorHandler);
+            transaction.executeSql('INSERT INTO benutzer VALUES (2,"kati1809","5e446b734ae11b7f30c907e54d89a84e","kati@examplemail.com");', [], nullDataHandler, dataHandler);
         }
     );
 }
