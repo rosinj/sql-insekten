@@ -151,8 +151,7 @@
 table{
   margin-top: 1%;
   max-width: 30%;
-  /* max-height: 170px; */
-  max-height: 17%;
+  max-height: 170px;
   overflow: auto;
 }
 th,
@@ -169,7 +168,7 @@ th {
 } 
 .form-signin {
     /* max-width: 350px; */
-    max-height: 370px;
+    max-height: 380px;
     max-width:28%;
     padding: 15px 35px 45px;
     margin: 0 auto;
