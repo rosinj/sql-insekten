@@ -26,35 +26,42 @@
 </head>
 <body>
     <ol id="joyRideTipContent">
-      <li data-id="insect" data-text="Weiter" class="custom" data-options="tipLocation:top;" id="first">
+      <li data-class="animal" data-text="Weiter" class="custom" data-options="tipLocation:top;" id="first">
         <br>
         <h1> Willkommen bei SQL-Insekten!</h1><br> <br>
             <h3> Dies ist ein SQL-Injection-Lernspiel. Mit SQL-Injections (dt. SQL-Einschleußung) kann man Websites hacken,
-                 indem man durch das Einschleusen von SQL-Code beliebige Daten in der Datenbank ändern, löschen oder auslesen kann. </h3> <br> <br> <br> 
+                 indem man durch das Einschleusen von SQL-Code beliebige Daten in der Datenbank ändern, löschen oder auslesen kann. </h3> <br> 
       </li>
         <li data-id="insect" data-text="Weiter" class="custom" data-options="tipLocation:top;" id="sec">
-          <br><br>
+          <br>
           <h3>Diese Sicherheitslücke ist oft in Anwendungen zu finden, in denen keine Prepared Statements verwendet werden.Da wir dies aus Lernzwecken nicht verwenden, ist hier fast alles möglich! 
-            <br> <br> In SQL-Insekten lernst du von Level zu Level wie Hacker diese Sicherheitslücke ausnutzen, dabei wären Vorkenntisse in SQL empfehlenswert.</h3><br> <br>
+            <br> <br> In SQL-Insekten lernst du von Level zu Level wie Hacker diese Sicherheitslücke ausnutzen, dabei wären Vorkenntisse in SQL empfehlenswert.</h3>
         </li>
-        <li data-class="form-signin" data-text="Weiter" class="custom" data-options="tipLocation:left;" data-prev-text="Zurück">
+        <li data-class="form-signin" data-text="Weiter" class="custom" data-options="tipLocation:left;" >
           <br> <br>
           <h3>In diesem ersten Level haben wir hier ein Login-Formular, wie man es so von anderen Websiten kennt. </h3><br> <br>
         </li>
-        <li data-id="behindscene_btn" data-button="Weiter" data-options="tipLocation:top;" data-prev-text="Zurück">
-          <br><br>
-          <h3>Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert wird, kannst du dir die live-erzeugte SQL-Query anschauen und den Programmcode der Anwendung.</h3>
-          <br><br>
+        <li data-id="behindscene_btn" data-text="Weiter" data-options="tipLocation:top-right;" >
+          <br>
+          <h3>Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert wird, 
+              kannst du dir die live-erzeugte SQL-Query anschauen und den Programmcode der Anwendung.</h3>
+          <br>
         </li>
-        <li data-id="tipp_btn" data-button="Weiter" data-options="tipLocation:right" data-prev-text="Zurück">
-          <br><br>
-          <h3>Einen Tipp kannst du dir hier bei dem Button anzeigen lassen. Aber Vorsicht: Dir stehen insgesamt nur 3 Tipps zur Verfügung! <br> <br> Allgemein versucht man durch geschickten Input in den Eingabefeldern eine Syntax-korrekte SQL-Query zu erzeugen, die die Aufgabe löst.</h3>
-          <br><br>
+        <li data-id="behindscene_btn" data-text="Weiter" class="joyride-tip-guide2" data-options="tipLocation:top-right;" >
+            <br>
+            <h3>Unter dem Button 'Hintergrunddetails anzeigen', der bei 3 Fehlversuchen aktiviert wird, 
+                kannst du dir die live-erzeugte SQL-Query anschauen und den Programmcode der Anwendung.</h3>
+            <br>
+          </li>
+        <li data-id="tipp_btn" data-button="Weiter" class="joyride-tip-guide2" data-options="tipLocation:top;" >
+          <br>
+          <h3>Einen Tipp kannst du dir hier bei dem Button anzeigen lassen. Aber Vorsicht: Dir stehen insgesamt nur 3 Tipps zur Verfügung! <br> Allgemein versucht man durch geschickten Input in den Eingabefeldern eine Syntax-korrekte SQL-Query zu erzeugen, die die Aufgabe löst.</h3>
+        
         </li>
         <li data-id="insect" data-text="Weiter" class="custom" data-options="tipLocation:top-right;" id="last">
-          <br><br>
+          <br>
           <h3>Hierbei ist es wichtig bewusst rumzuprobieren oder sich die Hindergrunddetails anzuschauen, um zu wissen, wie die Query aus den Werten der Eingabefelder erzeugt wird, die dann schließlich in der Datenbank ausgeführt wird.
-             <br> <br>Kleiner Hinweis im Voraus: In den ersten Levels wirst du geschickt Apostrophe und SQL-Kommentare '--' verwenden.</h3><br><br>
+            <br>Kleiner Hinweis im Voraus: In den ersten Levels wirst du geschickt Apostrophe und SQL-Kommentare '--' verwenden.</h3>
         </li>
       </ol>
 
@@ -71,7 +78,7 @@
           expose: true,
           postRideCallback: function (){
             $('.sprechblase').show();
-            $('.animal').css('margin-top',"-10%");
+            $('.animal').css('margin-top',"0%");
             $("#insect").attr("src","img/happybee.png");
           }
           });
@@ -79,7 +86,8 @@
       </script>
     <div class='top'>
         <img id='logo' src="img/OTH_Logo.png"/>
-        <h2 id='lvl'>Level: 1</h2>
+        <button id='btn_info' onclick="show_info()"><img id='info' src="img/menu.png"></button>
+        <h2 id='lvl'> Level: 1</h2>
         <h2 id='hints'>Tipps: 
             <img id='light1' src="img/light.png" /> 
             <img id='light2' src="img/light.png"/>
@@ -87,7 +95,7 @@
         <h2 id='title'>SQL - Insekten</h2>
     </div>
     <div class='leftside'>
-    
+
         <div class='sprechblase'>
             <h2 id='speakbubble_h2'> Genug geredet, los gehts! </h2>
             <h3>
@@ -304,7 +312,7 @@ OUTPUT;
     </div>
     <div class='bottomg'>
         <br>
-        <button id='info_btn' onclick="show_info()"><img id='info' src="https://img.icons8.com/ios/50/000000/info--v4.png"/></button> 
+        <!-- <button id='info_btn' onclick="show_info()"><img id='info' src="https://img.icons8.com/ios/50/000000/info--v4.png"/></button>  -->
         <div id='modal' class='modal'>
             <div class="modal-content">
                 <span class="close" onclick="close_modal()">&times;</span>
@@ -312,7 +320,8 @@ OUTPUT;
                     <h5><a href="https://icons8.com/icon/ZiRwjHmdrgtj/info">Info icon by Icons8</a><br>
                     <a target="_blank" href="https://icons8.com/icon/19209/light">Light</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> <br>
                     <a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a><br>
-                    <div>Icons made by <a href="https://www.flaticon.com/authors/itim2101" title="itim2101">itim2101</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></h5>
+                    <div>Icons made by <a href="https://www.flaticon.com/authors/itim2101" title="itim2101">itim2101</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                    <div>Icons erstellt von <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/de/" title="Flaticon">www.flaticon.com</a></div></h5>
                     <button class="btn btn-lg btn-primary btn-block" id='btn_modal' type="submit" onclick="close_modal()">Ok</button>
                 </p>
               

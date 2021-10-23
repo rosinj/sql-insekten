@@ -75,7 +75,8 @@
             settings.attempts = 0;
 
             settings.tipLocationPatterns = {
-              top: ['bottom'],
+              // top: ['bottom'],
+              top: [],
               bottom: [], // bottom should not need to be repositioned
               left: ['right', 'top', 'bottom'],
               right: ['left', 'top', 'bottom']
