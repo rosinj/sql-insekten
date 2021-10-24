@@ -553,21 +553,39 @@ function generate_query(){
       case "login":
          var uname=document.getElementById("username").value;
          var pw=document.getElementById("password").value;
-         var query="SELECT benutzername  FROM benutzer WHERE benutzername ='" + uname + "' AND passwort ='"+ pw + "'";
+         var select="SELECT benutzername ";
+         var from="FROM benutzer ";
+         var where="WHERE benutzername ='" + uname + "' AND passwort ='"+ pw + "';";
+         document.querySelector("#codetxt > code").innerHTML = select + "\n" +
+                                                               from   +"\n" +
+                                                               where;
+         var query="SELECT benutzername FROM benutzer WHERE benutzername ='" + uname + "' AND passwort ='"+ pw + "'";
       break;
       case "search":
          var search=document.getElementById("suchleiste").value;
          var query="SELECT produkt_id, marke, groesse, preis FROM schuhe WHERE marke='" + search + "'";
+         var select="SELECT produkt_id, marke, groesse, preis ";
+         var from="FROM schuhe ";
+         var where="WHERE marke='" + search + "';";
+         document.querySelector("#codetxt > code").innerHTML = select + "\n" +
+                                                               from   +"\n" +
+                                                               where;
          break;
       case "url":
          var url=document.getElementById("url").value;
          var id=url.toString().split('?');
          var query="SELECT marke, groesse, preis FROM schuhe WHERE " + id[id.length-1]+"";
+         var select="SELECT produkt_id, marke, groesse, preis ";
+         var from="FROM schuhe ";
+         var where="WHERE " + id[id.length-1]+";";
+         document.querySelector("#codetxt > code").innerHTML = select + "\n" +
+                                                               from   +"\n" +
+                                                               where;
          break;
       default:
          console.log("Error:.");
    }
-   document.querySelector("#codetxt > code").innerHTML = query + ";";
+   // document.querySelector("#codetxt > code").innerHTML = query + ";";
    document.querySelector("#codetxt > code").innerHTML.reload;
    if(query.includes("information_schema.tables") ){
       query=query.replace(".","_");

@@ -161,39 +161,48 @@ SELECT benutzername
 FROM benutzer 
 WHERE benutzername= '' AND passwort= '';
                     </code></pre>
-                    <pre id="behindcodelogin"><code >public static User login(String uname, String pw) throws InternalServerErrorException {
-  try {
-    conn = DriverManager.getConnection(...);
-    Statement stmt = conn.createStatement();
-    ResultSet rs = stmt.executeQuery("SELECT benutzername FROM benutzer WHERE benutzername ='" + uname + "' AND passwort ='"+ md5(pw) + "';");
-    if (rs.next()) {
-      return new User(rs.getString("benutzername"));
-    }
-    return null;
-  } catch (SQLException e) {
-    throw new InternalServerErrorException();
+
+                    <pre id="behindcodelogin"><code overflow="auto">public static User login(String uname, String pw) throws InternalServerErrorException {
+ try {
+  conn = DriverManager.getConnection(...);
+  Statement stmt = conn.createStatement();
+  ResultSet rs = stmt.executeQuery("SELECT benutzername " + 
+                 "FROM benutzer " +
+                 "WHERE benutzername ='" + uname + "' " +
+                 "AND passwort ='"+ md5(pw) + "';");
+  if (rs.next()){
+    return new User(rs.getString("benutzername"));
   }
+  return null;
+ }
+ catch (SQLException e) {
+  throw new InternalServerErrorException();
+ }
 }
 //...</code></pre>
                    <pre id="behindcodesearch"><code >def print_search(user_input):
   try:   
     conn = psycopg2.connect(...)
     cur = conn.cursor()
-    cur.execute("SELECT produkt_id, marke, groesse, preis FROM schuhe WHERE marke='" + user_input + "';")
+    cur.execute("SELECT produkt_id, marke, groesse, preis "
+                "FROM schuhe "
+                "WHERE marke='" + user_input + "';")
     row = cur.fetchone()
     while row is not None:
       print("&lt;tr&gt;")
       for col in row: print("&lt;td&gt;"+str(col)+"&lt;/td&gt;")
       print("&lt;/tr&gt;")
       row = cur.fetchone()
-    
       cur.close()
   except (MySQLdb.Error, MySQLdb.Warning) as e:
     print("Internal Server Error")
 # ...
 </code></pre> 
-                  <pre id="behindcodeurl"><code >$conn = new PDO(...)
-$stmt = $conn->query("SELECT marke, groesse, preis FROM schuhe WHERE produkt_id=".$_GET["produkt_id"]);
+                  <pre id="behindcodeurl"><code >$conn = new PDO(...);
+$qu = "SELECT marke, groesse, preis ";
+$qu .= "FROM schuhe ";
+$qu .= "WHERE produkt_id=".$_GET["produkt_id"];
+$stmt = $conn->query($qu);
 $res = $stmt->fetch();
 
 echo &lt;&lt;&lt;OUTPUT
