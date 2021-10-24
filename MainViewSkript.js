@@ -113,7 +113,7 @@ TASKS=[
    {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung!  <br>",
    "h3":"",
    "img": "img/bee.png"}],
-   "challenge": "Gebe mir den Benutzernamen und Passwort aller User aus.",
+   "challenge": "Gebe mir den Benutzernamen und das Passwort aller User aus.",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
                      "truecondition":"results.rows.length == 3 && queries[j].includes('benutzer')  && queries[j].includes('benutzername') && queries[j].includes('passwort') ",
