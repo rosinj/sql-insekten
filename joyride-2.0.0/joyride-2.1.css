@@ -44,6 +44,25 @@ body {
   -webkit-border-radius: 4px;
           border-radius: 4px;
 }
+
+.joyride-tip-guide3{
+  position: absolute;
+  background: #000;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  color: #fff;
+  width: 33%;
+  z-index: 101;
+  top: 0; 
+  left: 0; 
+  margin-left: -15%;
+  margin-top: 3%;
+  font-family: "HelveticaNeue", "Helvetica Neue", "Helvetica", Helvetica, Arial, Lucida, sans-serif;
+  font-weight: normal;
+     -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+          border-radius: 4px;
+}
 .joyride-content-wrapper {
   padding: 2% 2% 5% 5%;
 }
@@ -123,7 +142,7 @@ body {
   */
   border-color: #000;
   border-color: rgba(0,0,0,0.75) !important;
-  border-bottom-color: tranparent !important;
+  border-bottom-color: transparent !important;
   border-left-color: transparent !important;
   border-right-color: transparent !important;
   border-bottom-width: 0;
