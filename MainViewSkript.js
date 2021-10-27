@@ -460,9 +460,9 @@ function validation(){
    var querysucessful = new Array();
    var form=TASKS[task_index].form;
    var query=generate_query();
-   if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
-      query=query + ";" + TASKS[task_index].validation[0].validationquery[0];
-   }
+   // if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
+   //    query=query + ";" + TASKS[task_index].validation[0].validationquery[0];
+   // }
    if(TASKS[task_index].validation[0].blacklist.includes(";")){
       queries=[query];
    }else{
