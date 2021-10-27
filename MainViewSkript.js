@@ -466,13 +466,20 @@ function validation(){
    if(TASKS[task_index].validation[0].blacklist.includes(";")){
       queries=[query];
    }else{
-      queries=query.split(";");
+      console.log(query);
+      queries=query.split("--")[0];
+      console.log(queries);
+      queries=queries.split(";");
+      console.log(queries);
+   }
+   if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
+      // query=query + ";" + TASKS[task_index].validation[0].validationquery[0];
+      queries.push(TASKS[task_index].validation[0].validationquery[0]);
    }
    var prom= new Promise((resolve,reject) =>{
-
       for (let j in queries){
          var prom2= new Promise((resolve,reject) =>{
-         if(!queries[j].trim().startsWith("--")){
+         if(!queries[j].trim().startsWith("--") && queries[j].trim()!=""){
             db.transaction(function(transaction) {
                transaction.executeSql(queries[j],[],function (transaction, results) {
                   if (eval(TASKS[task_index].validation[0].truecondition)) {
@@ -606,6 +613,9 @@ function is_query_valid(query){
 function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
    // console.log(qu.trim());
    var success;
+   console.log(ergebnis);
+   console.log(qu);
+   console.log(querysucessful);
    // console.log(ergebnis.length);
    var index=ergebnis.length-1;
    var task_index_temp=task_index;
