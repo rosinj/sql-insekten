@@ -1,6 +1,5 @@
 
 //////////////// GLOBAL
-//https://dbfiddle.uk/?rdbms=oracle_18&fiddle=10f4b401db4a17a7b16677a0acf40231
 
 var hints=3;
 var bbltxtindex=0;
@@ -140,22 +139,6 @@ TASKS=[
    "hints"    : ["Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'benutzer' heißt und folgende Spalten hat: 'nutzer_id', 'benutzername', 'passwort','email'."],
    "behindscene" : "",
    "lvl": 5},
-   // {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung!  <br>",
-   //    "h3":"",
-   //    "img": "img/bee.png"}],
-   // "challenge": "Irgendjemand arbeitet doch hinter diesem Schuhe-Onlineshop. Dann gibt es vielleicht auch eine Mitarbeiter-Tabelle in der Datenbank. Sag mir welche E-Mail Adressen die Mitarbeiter haben? ",
-   // "validation"  : [{"validationquery": [""],
-   //                   "validationerror":"",
-   //                   "truecondition":"results.rows.length == 6 && queries[j].includes('mitarbeiter')  && queries[j].includes('email')",
-   //                   "correctanswer":["true","false","error","error"],
-   //                   "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die E-Mail Adressen der Mitarbeiter herauszufinden."],
-   //                   "imganswer":["img/happybee.png","img/surprisebee.png"],
-   //                   "whitelist": [""],
-   //                   "blacklist": [""]}],
-   // "form":"search",
-   // "hints"    : ["Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'mitarbeiter' heißt und folgende Spalten hat: 'ma_id', 'name', 'vorname', 'email','lohn','angestellt_seit'."],
-   // "behindscene" : "",
-   // "lvl": 5},
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an und zurück zum Login-Formular! <br> Irgendjemand arbeitet doch hinter dieser Website. Dann gibt es vielleicht auch eine Mitarbeiter-Tabelle in der Datenbank. ",
     "h3":"",
     "img": "img/bee.png"},
