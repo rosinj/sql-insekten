@@ -292,6 +292,7 @@ function show_hints(){
    }else if(hintperlvl <= 0){
       document.querySelector("#modal > div >h5 ").innerHTML = 'Es gibt pro Level nur einen Tipp.';
       document.getElementById("modal").style.display='block';
+      e.style.display = 'block';
    }else{
       if(hints>0){
          e.style.display = 'block';
