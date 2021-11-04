@@ -4,6 +4,7 @@
 
 var hints=3;
 var bbltxtindex=0;
+var hintperlvl=1;
 // var fails=0
 var cheatactive=false;
 var task_index=0;
@@ -288,10 +289,14 @@ function show_hints(){
    }else if(TASKS[task_index].hints[0]=="hints deactivated"){
       document.querySelector("#modal > div >h5 ").innerHTML = 'In dieser Herausforderung gibt es keine Tipps.';
       document.getElementById("modal").style.display='block';
+   }else if(hintperlvl <= 0){
+      document.querySelector("#modal > div >h5 ").innerHTML = 'Es gibt pro Level nur einen Tipp.';
+      document.getElementById("modal").style.display='block';
    }else{
       if(hints>0){
          e.style.display = 'block';
       }
+      hintperlvl=hintperlvl-1
       hints=hints-1;
       if(hints==2){
         document.getElementById('light1').src="img/light.png"
@@ -752,6 +757,7 @@ function answer(correctanswer){
             document.getElementById("insect").src = TASKS[task_index].validation[0].imganswer[0];
             // fails=0;
             task_index=task_index+1;
+            hintperlvl=1;
             document.getElementById("lvl").innerHTML="Level: " + TASKS[task_index].lvl;
             document.getElementById('btnboxli').style.display = 'none';
             document.getElementById('btnboxre').style.display = 'none';
