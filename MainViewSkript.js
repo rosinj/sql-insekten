@@ -1,6 +1,5 @@
 
 //////////////// GLOBAL
-//https://dbfiddle.uk/?rdbms=oracle_18&fiddle=10f4b401db4a17a7b16677a0acf40231
 
 var hints=3;
 var bbltxtindex=0;
@@ -467,11 +466,21 @@ function validation(){
    var querysucessful = new Array();
    var form=TASKS[task_index].form;
    var query=generate_query();
+   // if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
+   //    query=query + ";" + TASKS[task_index].validation[0].validationquery[0];
+   // }
    if(TASKS[task_index].validation[0].blacklist.includes(";")){
       queries=[query];
    }else{
+      console.log(query);
       queries=query.split("--")[0];
+      console.log(queries);
       queries=queries.split(";");
+      console.log(queries);
+   }
+   if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
+      // query=query + ";" + TASKS[task_index].validation[0].validationquery[0];
+      queries.push(TASKS[task_index].validation[0].validationquery[0]);
    }
    if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
       // query=query + ";" + TASKS[task_index].validation[0].validationquery[0];
@@ -479,7 +488,6 @@ function validation(){
    }
 
    var prom= new Promise((resolve,reject) =>{
-
       for (let j in queries){
          var prom2= new Promise((resolve,reject) =>{
          if(!queries[j].trim().startsWith("--") && queries[j].trim()!=""){
@@ -616,6 +624,9 @@ function is_query_valid(query){
 function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
    // console.log(qu.trim());
    var success;
+   console.log(ergebnis);
+   console.log(qu);
+   console.log(querysucessful);
    // console.log(ergebnis.length);
    var index=ergebnis.length-1;
    var task_index_temp=task_index;
