@@ -1000,7 +1000,8 @@ function dataHandler(transaction, results)
 function createdb(){
    try {
       if (!window.openDatabase) {
-          alert('not supported');
+          alert('Your browser does not support the database. Try another.');
+          window.close();
       } else {
           var shortName = 'db2hack';
           var version = '1.0';
