@@ -5,8 +5,9 @@ var hints=3;
 var bbltxtindex=0;
 var hintperlvl=1;
 // var fails=0
-var cheatactive=false;
+var cheatactive=true;
 var task_index=0;
+
 TASKS=[
    {"text": [],
     "challenge" : "Versuche als Erstes dich ganz normal als 'alexamusterfrau' mit einem Passwort einzuloggen, wie man es normalerweise kennt. Da du ihr Passwort nicht kennst, gib einfach irgendwas ein.",
@@ -18,9 +19,8 @@ TASKS=[
                       "imganswer":["img/happybee.png","img/happybee.png"],
                       "whitelist": [""],
                       "blacklist": [""]}],
-    "form":"login",
+    "category":"login",
     "hints"    : ["hints deactivated"],
-    "behindscene" : "",
     "lvl" : 1},
    {"text": [{"h2": "Ok, jetzt geht's aber wirklich los! ",
               "h3":"",
@@ -34,9 +34,8 @@ TASKS=[
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": ["alexamusterfrau"],
                       "blacklist": ["maxmustermann"]}],
-    "form":"login",
-    "hints"    : ["Wie du es in den Hintergrunddetails siehst, ist vor der Eingabevariable 'uname' ein Apostroph zu finden. D.h. nachdem du den Benutzernamen in das Eingabefeld eingegeben hast brauchen wir noch ein Apostroph um den String zu beenden. Danach interessiert uns die restliche Query nicht, daher kommentieren wir sie aus."],
-    "behindscene" : "",
+    "category":"login",
+    "hints"    : ["Wie du es in den Hintergrunddetails siehst, ist vor der Eingabevariable 'uname' ein Apostroph zu finden. D.h. nachdem du den Benutzernamen in das Eingabefeld eingegeben hast brauchen wir noch ein Apostroph um den String zu beenden. Danach interessiert uns die restliche Query nicht, daher kommentieren wir sie aus. '--' ist ein Kommentar in SQL."],
     "lvl" : 1},
     {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung!",
     "h3":"",
@@ -46,13 +45,12 @@ TASKS=[
                      "validationerror":"could not prepare statement (1 no such table: benutzer)",
                      "truecondition":"results.rows.length > 0",
                      "correctanswer":["false","false","true","error"],
-                     "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'benutzer' zu droppen."],
+                     "speakbblanswer":["Super! Du hast die Benutzertabelle gelöscht! ","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'benutzer' zu droppen bzw. zu löschen."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
                      "blacklist": [""]}],
-   "form":"login",
-   "hints"    : ["Nehme die Lösung von Level 1 und quetsche dazwischen einen DROP-TABLE-Befehl. Mit Semikolon trennst du verschiedene Queries voneinander."],
-   "behindscene" : "",
+   "category":"login",
+   "hints"    : ["Nehme die Lösung von Level 1 (alexamusterfrau'--) und quetsche dazwischen einen DROP-TABLE-Befehl. Mit Semikolon trennst du verschiedene Queries voneinander."],
    "lvl": 2},
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> <br> <br> ",
                 "h3":"",
@@ -63,13 +61,12 @@ TASKS=[
                       "validationerror":"",
                       "truecondition":"results.rows.length > 0 && queries[j].includes('benutzer') && ['alexamusterfrau','maxmustermann','kati1809'].includes(results.rows.item(0)['benutzername'])",
                       "correctanswer":["true","false","error","error"],
-                      "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen."],
+                      "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich mit einem User einzuloggen ohne einen Namen zu kennen."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
-    "form":"login",
-    "hints"    : ["Wir müssen die Query so geschickt erzeugen, dass sie mind. eine Zeile ausgibt. Wenn wir die erste WHERE Bedingung leer lassen und eine zweite mit OR hinzufügen die immer wahr ist, können wir wieder mit '--' den restlichen Code auskommentieren und haben somit eien Query erzeugt, die alle User ausgeben würde."],
-    "behindscene" : "",
+    "category":"login",
+    "hints"    : ["Wir müssen die Query so geschickt erzeugen, dass sie mind. eine Zeile ausgibt. Wenn wir die erste WHERE Bedingung leer lassen und eine zweite mit OR hinzufügen, die immer wahr ist, können wir wieder mit '--' den restlichen Code auskommentieren und haben somit eine Query erzeugt, die alle User ausgeben würde."],
     "lvl" : 3},
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                 "h3":"",
@@ -86,10 +83,9 @@ TASKS=[
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> Vergiss nicht, dass deine Query nur eine Zeile im Ergebnis ausgeben darf."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": [""],
-                      "blacklist": ["maxmustermann","alexamusterfrau"]}],
-    "form":"login",
+                      "blacklist": ["maxmustermann","alexamusterfrau","kati1809"]}],
+    "category":"login",
     "hints"    : ["Diese Aufgabe ist ähnlich wie die davor nur, dass du versuchen musst EINE Zeile auszugeben und nicht mehr. Vorher hätte die Query die ganze Tabelle ausgegeben, aber die Sicherheitsbedingungen waren so schwach, dass die Länge der Ergebnisse egal war. Mit LIMIT kannst du nun am Ende einer Query entscheiden, wie viele Zeilen die Query ausgeben soll."],
-    "behindscene" : "",
     "lvl" : 4},
     {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung  <br>",
     "h3":"",
@@ -102,13 +98,12 @@ TASKS=[
                      "validationerror":"",
                      "truecondition":"results.rows.length == 4 && queries[j].includes('schuhe')",
                      "correctanswer":["true","false","error","error"],
-                     "speakbblanswer":["Super! Du hast verstanden wie die Produktsuche funktioniert. ","Schade, das hat leider nicht geklappt. Suche nach den Schuhen 'Nicke'"],
+                     "speakbblanswer":["Super! Du hast verstanden wie die Produktsuche funktioniert. ","Schade, das hat leider nicht geklappt. Suche nach Schuhen der Marke 'Nicke'"],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
                      "blacklist": [""]}],
-   "form":"search",
+   "category":"search",
    "hints"    : ["hints deactivated"],
-   "behindscene" : "",
    "lvl": 5},
    {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung!  <br>",
    "h3":"",
@@ -122,9 +117,8 @@ TASKS=[
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
                      "blacklist": [""]}],
-   "form":"search",
+   "category":"search",
    "hints"    : ["Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'benutzer' heißt und folgende Spalten hat: 'nutzer_id', 'benutzername', 'passwort','email'."],
-   "behindscene" : "",
    "lvl": 5},
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an und zurück zum Login-Formular! <br> Irgendjemand arbeitet doch hinter dieser Website. Dann gibt es vielleicht auch eine Mitarbeiter-Tabelle in der Datenbank. ",
     "h3":"",
@@ -142,9 +136,8 @@ TASKS=[
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau"]}],
-   "form":"login",
+   "category":"login",
    "hints"    : ["Wie bei dem Level wo du eine Tabelle löschen solltest, fängst du mit Semikolon eine neue Query an und selektierst 'lohn' von Tabelle 'mitarbeiter' mit der Bedingung, dass der 'vorname' = 'Greta Maria' ist. Wichtig: Wenn man eingeloggt ist gibt er den 'benutzername' aus d.h. er sucht bei deiner Query nach der Spalte 'benutzername' und wird sie nicht finden, daher müssen wir die Spalte 'lohn' mit 'as' auf 'benutzername' umbenennen."],
-   "behindscene" : "",
    "lvl" : 6},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> In diesem Level sind wir wieder beim Schuhe-Onlineshop mit der Suchleiste.",
    "h3":"",
@@ -162,9 +155,8 @@ TASKS=[
            "imganswer":["img/happybee.png","img/surprisebee.png"],
            "whitelist": [""],
            "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
-  "form":"search",
+  "category":"search",
   "hints"    : ["Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Nur muss die Spaltenanzahl beider Datenmengen gleichgroß sein."],
-  "behindscene" : "",
   "lvl" : 7},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
@@ -184,13 +176,12 @@ TASKS=[
             "validationerror":"",
             "truecondition":"results.rows.length == 4 && queries[j].includes('information_schema')",
             "correctanswer":["true","false","error","error"],
-            "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> Nun wissen wir, welche Tabelle die Datenbank besitzt!","Schade, das hat leider nicht geklappt. Versuche erneut alle Tabellen-Metadaten auszugeben. <br> <h4>Zur Erinnerung: <br> Oracle: sys.user_tables(table_id, table_name, num_rows,...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables(table_name, table_type, table_rows,...) <br> SQLLite:  sqlite_master(type, name, tbl_name,...). </h4>"],
+            "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> Nun wissen wir, welche Tabellen die Datenbank besitzt!","Schade, das hat leider nicht geklappt. Versuche erneut alle Tabellen-Metadaten auszugeben. <br> <h4>Zur Erinnerung: <br> Oracle: sys.user_tables(table_id, table_name, num_rows,...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables(table_name, table_type, table_rows,...) <br> SQLLite:  sqlite_master(type, name, tbl_name,...). </h4>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": ["tables"],
             "blacklist": ["maxmustermann","alexamusterfrau",";","sqlite_master"]}],
-   "form":"search",
+   "category":"search",
    "hints"    : ["Mit UNION fängst du eine neue Query an. Nun probierst du mit den erwähnten Tabellen eine 'SELECT * FROM' Query zu erzeugen, wobei die erwähnten Tabellennamen selektiert werden müssen, da bei UNION die Spaltendimensionen gleich sein sollen. Die Tabelle Schuhe hat 4 Spalten und die andere 3, d.h. du selektierst eine zusätzliche Scheinspalte. Z.B: SELECT table_id, table_name, num_rows, 'test' FROM ..."],
-   "behindscene" : "",
    "lvl" : 8},
    {"text" : [{"h2": "Oh! Hast du das gesehen? Da war eine Tabelle aufgelistet, die wir ja noch gar nicht kennen. Wie interessant! ",
    "h3":"",
@@ -208,9 +199,8 @@ TASKS=[
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": ["columns"],
                      "blacklist": ["maxmustermann","alexamusterfrau",";","sqlite_master"]}],
-   "form":"search",
+   "category":"search",
    "hints"    : ["Mit UNION fängst du eine neue Query an. Als Tabelle nutzt du die vorgegebene 'information_schema.columns' und in der WHERE-Bedingung geben wir ein, dass wir nur die Spalten von der Tabelle 'kunden' wollen, also table_name='kunden'. Da aber die Tabelle Schuhe 4 Spalten besitzt und die, die wir nutzen wollen nur 3, müssen wir eine Scheinspalte nach der UNION Anweisung dranhängen, damit die Spaltendimensionen gleich groß sind. Zum Beispiel: SELECT table_name, column_name, data_type, null FROM ..."],
-   "behindscene" : "",
    "lvl" : 9},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
@@ -225,7 +215,7 @@ TASKS=[
                "h3":"",
                "img": "img/bee.png"}
     ],
-   "challenge": "Mal schauen, ob du es einigermaßen verstanden hast. Vordefiniert wird der Schuh mit der produkt_id=0 ausgewählt. Gib mal eine andere Id ein.  ",
+   "challenge": "Mal schauen, ob du es verstanden hast. Vordefiniert wird der Schuh mit der produkt_id=0 ausgewählt. Gib mal eine andere Id ein.  ",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
             "truecondition":"results.rows.length == 1 && queries[j].includes('schuhe') && !queries[j].includes('produkt_id=0')",
@@ -234,9 +224,8 @@ TASKS=[
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
-   "form":"url",
+   "category":"url",
    "hints"    : ["hints deactivated"],
-   "behindscene" : "",
    "lvl" : 10},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
@@ -251,9 +240,8 @@ TASKS=[
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
-   "form":"url",
+   "category":"url",
    "hints"    : ["Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Nur muss die Spaltenanzahl beider Datenmengen gleichgroß sein. D.h. Deine Query darf nur 3 Spalten ausgeben."],
-   "behindscene" : "",
    "lvl" : 10},
    {"text" : [],
   "challenge": "Super! Du hast das Spiel durchgespielt! ",
@@ -265,9 +253,8 @@ TASKS=[
            "imganswer":["img/happybee.png","img/surprisebee.png"],
            "whitelist": [""],
            "blacklist": ["maxmustermann","alexamusterfrau"]}],
-  "form":"url",
+  "category":"url",
   "hints"    : ["hints deactivated"],
-  "behindscene" : "",
   "lvl" : 10}
 ];
 var db= createdb();
@@ -277,6 +264,7 @@ createTableMa(db);
 createTableTables(db);
 createTableColumns(db);
 createTableKunden(db);
+
 //////////////  HINTS
 
 function show_hints(){
@@ -340,9 +328,10 @@ function show_behindscene(){
 
    // }
 }
+
 function change_codemode(){
    var checked= document.getElementById("switcher").checked;
-   var form=TASKS[task_index].form;
+   var category=TASKS[task_index].category;
    if(checked){
       document.getElementById("codetxt").style.display="block";
       document.getElementById("behindcodesearch").style.display="none";
@@ -351,7 +340,7 @@ function change_codemode(){
    }
    else{
       document.getElementById("codetxt").style.display="none";
-      switch (form){
+      switch (category){
          case "login":
             document.getElementById("behindcodelogin").style.display="block";
             document.getElementById("behindcodesearch").style.display="none";
@@ -377,7 +366,7 @@ function change_codemode(){
 
 function speakbubble_next(){
 
-   change_form();
+   change_category();
    if(bbltxtindex >= TASKS[task_index].text.length){
       show_lvl();
       bbltxtindex=0;
@@ -412,13 +401,13 @@ function try_login(){
    generate_query();
 }
 
-function change_form(){
+function change_category(){
    document.getElementsByClassName("form-signin")[0].style.height="auto";
    document.getElementById("sneaker_img").style.display='none';
    document.getElementById("url_output").style.display='none';
    document.getElementById("loginlabel").style.textAlign = 'left';
    document.getElementById("suchergebnisse").style.display = 'none';
-   if(TASKS[task_index].form == "login"){
+   if(TASKS[task_index].category == "login"){
       document.getElementById('loginlabel').innerHTML= "Bitte einloggen";
       document.getElementById("username").style.display = 'block';
       document.getElementById("password").style.display = 'block';
@@ -428,7 +417,7 @@ function change_form(){
       document.getElementById("logout_btn").style.display = 'none';
       document.getElementById("url").style.display = 'none';
       document.getElementsByClassName("form-signin")[0].style.maxWidth="28%";
-   }else if(TASKS[task_index].form == "search"){
+   }else if(TASKS[task_index].category == "search"){
       document.getElementById('loginlabel').innerHTML= "Produktsuche";
       document.getElementById("username").style.display = 'none';
       document.getElementById("password").style.display = 'none';
@@ -438,7 +427,7 @@ function change_form(){
       document.getElementById("logout_btn").style.display = 'none';
       document.getElementsByClassName("form-signin")[0].style.maxWidth="43%";
       document.getElementById("url").style.display = 'none';
-   }else if(TASKS[task_index].form == "url"){
+   }else if(TASKS[task_index].category == "url"){
       document.getElementById('loginlabel').innerHTML= "URL";
       document.getElementById("loginlabel").style.textAlign = 'center';
       document.getElementById("username").style.display = 'none';
@@ -464,7 +453,7 @@ function validation(){
    var qu = new Array();
    var correctanswer = new Array();
    var querysucessful = new Array();
-   var form=TASKS[task_index].form;
+   var category=TASKS[task_index].category;
    var query=generate_query();
    // if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
    //    query=query + ";" + TASKS[task_index].validation[0].validationquery[0];
@@ -541,17 +530,18 @@ function validation(){
    })
    prom.then(response =>{
       var correct=answer(correctanswer);
-      form_success(form,ergebnis, querysucessful,correct[0], correct[1],qu);
+      form_success(category,ergebnis, querysucessful,correct[0], correct[1],qu);
       
       
    });
    prom.catch(error => {
-      false_answer(form);
+      false_answer(category);
       });
 }
+
 function generate_query(){
-   var form=TASKS[task_index].form;
-   switch (form){
+   var category=TASKS[task_index].category;
+   switch (category){
       case "login":
          var uname=document.getElementById("username").value;
          var pw=document.getElementById("password").value;
@@ -597,6 +587,7 @@ function generate_query(){
    return query;
  
 }
+
 function is_query_valid(query){
    var blacklistarray=TASKS[task_index].validation[0].blacklist;
    var whitelistarray=TASKS[task_index].validation[0].whitelist;
@@ -621,7 +612,8 @@ function is_query_valid(query){
    
    return valid;
 }
-function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
+
+function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
    // console.log(qu.trim());
    var success;
    console.log(ergebnis);
@@ -655,7 +647,7 @@ function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
    }
    if(success=='true'){
 
-      switch (form){
+      switch (category){
          case "login":
             document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index].rows.item(0)['benutzername'] +"!";
             document.getElementById("username").style.display = 'none';
@@ -696,7 +688,7 @@ function form_success(form,ergebnis,querysucessful,answer,answer_index,qu){
             
       }
    }else if (success=='false'){
-      switch (form){
+      switch (category){
          case "login":
             if(eval(TASKS[task_index_temp].validation[0].truecondition.split('&&')[0].replace("results.rows.length","ergebnis[index].rows.length")) && typeof(ergebnis[index].rows.item(0)['benutzername'])!="undefined"){
                document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index].rows.item(0)['benutzername'] +"!";
@@ -794,6 +786,7 @@ function answer(correctanswer){
       return [answer,index];
 
 }
+
 function generate_resulttable(qu,ergebnis,task_index_temp){
    if(task_index_temp<11){
       if(!qu.includes("*")){
@@ -838,6 +831,7 @@ function generate_resulttable(qu,ergebnis,task_index_temp){
       }
     }
 }
+
 function generate_url_output(qu,ergebnis){
    document.getElementsByClassName("form-signin")[0].style.height="300px";
    document.getElementById("sneaker_img").style.marginLeft= "20%"
@@ -865,6 +859,7 @@ function generate_url_output(qu,ergebnis){
    document.getElementById("groesse").innerHTML= "<strong>Größe:   </strong>" + ergebnis.rows.item(0)['groesse'];
    document.getElementById("price").innerHTML= "<strong>Preis:     </strong>" + ergebnis.rows.item(0)['preis'] + "€";
 }
+
 /////// DATABASE FUNCTIONS
 
 function nullDataHandler(transaction, results) { }
