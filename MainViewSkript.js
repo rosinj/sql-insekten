@@ -4,7 +4,7 @@ var hints=3;
 var bbltxtindex=0;
 var hintperlvl=1;
 // var fails=0
-var cheatactive=true;
+var cheatactive=false;
 var task_index=0;
 
 TASKS=[
