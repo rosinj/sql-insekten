@@ -454,24 +454,13 @@ function validation(){
    var querysucessful = new Array();
    var category=TASKS[task_index].category;
    var query=generate_query();
-   // if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
-   //    query=query + ";" + TASKS[task_index].validation[0].validationquery[0];
-   // }
    if(TASKS[task_index].validation[0].blacklist.includes(";")){
       queries=[query];
    }else{
-      console.log(query);
       queries=query.split("--")[0];
-      console.log(queries);
       queries=queries.split(";");
-      console.log(queries);
    }
    if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
-      // query=query + ";" + TASKS[task_index].validation[0].validationquery[0];
-      queries.push(TASKS[task_index].validation[0].validationquery[0]);
-   }
-   if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
-      // query=query + ";" + TASKS[task_index].validation[0].validationquery[0];
       queries.push(TASKS[task_index].validation[0].validationquery[0]);
    }
 
@@ -546,7 +535,7 @@ function generate_query(){
          var pw=document.getElementById("password").value;
          var select="SELECT benutzername ";
          var from="FROM benutzer ";
-         var where="WHERE benutzername ='" + uname + "' AND passwort ='"+ md5(pw) + "';";
+         var where="WHERE benutzername ='" + uname + "' AND passwort ='"+ pw + "';";
          document.querySelector("#codetxt > code").innerHTML = select + "\n" +
                                                                from   +"\n" +
                                                                where;
