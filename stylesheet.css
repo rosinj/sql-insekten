@@ -116,15 +116,6 @@
   width: 80%;
 
 }
-/* #first{
-  margin-top: 5%;
-}
-#sec{
-  margin-top: 1.2%;
-}
-#last{
-  margin-top: 1.2%;
-} */
 /*rightside*/
 .rightside{
     height: 850px;
@@ -408,17 +399,6 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 } 
-/*bottom*/
-.bottomg{
-    /* border-top: 2px solid gray; */
-    clear:both;
-    float: bottom;
-    height: 59px;
-    width: 100%;
-    /* background-color: #72788D;  */
-    /* background-color: #72788D; */
-    color: white;
-}
 #info{
   
   height: 35px;
