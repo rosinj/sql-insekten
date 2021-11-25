@@ -28,7 +28,7 @@ TASKS=[
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
                       "truecondition":"results.rows.length > 0 && queries[j].includes('benutzer') && results.rows.item(0)['benutzername']=='alexamusterfrau'",
-                      "correctanswer":["true","false","error","error"],
+                      "correctanswer":["true","false","false","false"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen. <br> Also nicht als 'maxmustermann' einloggen!"],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": ["alexamusterfrau"],
@@ -43,7 +43,7 @@ TASKS=[
    "validation"  : [{"validationquery": ["SELECT benutzername FROM benutzer"],
                      "validationerror":"could not prepare statement (1 no such table: benutzer)",
                      "truecondition":"results.rows.length > 0",
-                     "correctanswer":["false","false","true","error"],
+                     "correctanswer":["false","false","true","false"],
                      "speakbblanswer":["Super! Du hast die Benutzertabelle gelöscht! ","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'benutzer' zu droppen bzw. zu löschen."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
@@ -59,7 +59,7 @@ TASKS=[
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
                       "truecondition":"results.rows.length > 0 && queries[j].includes('benutzer') && ['alexamusterfrau','maxmustermann','kati1809'].includes(results.rows.item(0)['benutzername'])",
-                      "correctanswer":["true","false","error","error"],
+                      "correctanswer":["true","false","false","false"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich mit einem User einzuloggen ohne einen Namen zu kennen."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": [""],
@@ -78,7 +78,7 @@ TASKS=[
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
                       "truecondition":"results.rows.length == 1 && queries[j].includes('benutzer') && ['alexamusterfrau','maxmustermann','kati1809'].includes(results.rows.item(0)['benutzername'])",
-                      "correctanswer":["true","false","error","error"],
+                      "correctanswer":["true","false","false","false"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> Vergiss nicht, dass deine Query nur eine Zeile im Ergebnis ausgeben darf."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": [""],
@@ -96,7 +96,7 @@ TASKS=[
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
                      "truecondition":"results.rows.length == 4 && queries[j].includes('schuhe')",
-                     "correctanswer":["true","false","error","error"],
+                     "correctanswer":["true","false","false","false"],
                      "speakbblanswer":["Super! Du hast verstanden wie die Produktsuche funktioniert. ","Schade, das hat leider nicht geklappt. Suche nach Schuhen der Marke 'Nicke'"],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
@@ -111,7 +111,7 @@ TASKS=[
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
                      "truecondition":"results.rows.length == 3 && queries[j].includes('benutzer')  && queries[j].includes('benutzername') && queries[j].includes('passwort') ",
-                     "correctanswer":["true","false","error","error"],
+                     "correctanswer":["true","false","false","false"],
                      "speakbblanswer":["Super! Du hast es geschafft! <br> <h3>Wenigstens speichert die Website die Passwörter nicht in Klartext, sondern als Hashwert, der aus dem Passwort generiert wird. Aber durch frei zugängliche sog. Rainbow-Tables konnte ich trotzdem herausfinden, dass das Passwort von maxmustermann 'password123' ist.</h3>","Schade, das hat leider nicht geklappt. Versuche erneut Benutzername und Passwort aller Benutzer auszugeben."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
@@ -130,7 +130,7 @@ TASKS=[
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
             "truecondition":"results.rows.length == 1 && queries[j].includes('mitarbeiter') && results.rows.item(0)['benutzername']==4500",
-            "correctanswer":["true","false","error","error"],
+            "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> Die Greta bekommt ja ganz schön viel Geld.","Schade, das hat leider nicht geklappt. Versuche erneut herauszufinden wieviel Greta Maria verdient. <br> Zur Info: Du wirst die Spalte 'benutzername' von 'benutzer' benötigen und 'lohn','vorname' von der Tabelle 'mitarbeiter'"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
@@ -149,7 +149,7 @@ TASKS=[
   "validation"  : [{"validationquery": [""],
            "validationerror":"",
            "truecondition":"results.rows.length == 6 && queries[j].includes('mitarbeiter')",
-           "correctanswer":["true","false","error","error"],
+           "correctanswer":["true","false","false","false"],
            "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut name, email, lohn und angestellt_seit der Mitarbeitertabelle durch Vereinigung zweier Queries auszugeben."],
            "imganswer":["img/happybee.png","img/surprisebee.png"],
            "whitelist": [""],
@@ -174,7 +174,7 @@ TASKS=[
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
             "truecondition":"results.rows.length == 4 && queries[j].includes('information_schema')",
-            "correctanswer":["true","false","error","error"],
+            "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> Nun wissen wir, welche Tabellen die Datenbank besitzt!","Schade, das hat leider nicht geklappt. Versuche erneut alle Tabellen-Metadaten auszugeben. <br> <h4>Zur Erinnerung: <br> Oracle: sys.user_tables(table_id, table_name, num_rows,...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables(table_name, table_type, table_rows,...) <br> SQLLite:  sqlite_master(type, name, tbl_name,...). </h4>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": ["tables"],
@@ -193,7 +193,7 @@ TASKS=[
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
                      "truecondition":"results.rows.length == 5 && queries[j].includes('information_schema') && Object.values(results.rows.item(0)).includes('adresse') && Object.values(results.rows.item(1)).includes('bestellnr') && Object.values(results.rows.item(2)).includes('email') && Object.values(results.rows.item(3)).includes('kunden_id') && Object.values(results.rows.item(4)).includes('name')",
-                     "correctanswer":["true","false","error","error"],
+                     "correctanswer":["true","false","false","false"],
                      "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Spalten der Tabelle 'kunden' auszugeben.  <br> <h3>Zur Erinnerung: die Tabelle mit Informationen zu den Spalten heißt information_schema.columns (table_name, column_name, data_type).</h3>"],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": ["columns"],
@@ -218,7 +218,7 @@ TASKS=[
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
             "truecondition":"results.rows.length == 1 && queries[j].includes('schuhe') && !queries[j].includes('produkt_id=0')",
-            "correctanswer":["true","false","error","error"],
+            "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Jetzt weißt du wie der URL-Aufruf funktioniert. ","Schade, das hat leider nicht geklappt. Versuche erneut nach dem letzten Slash, wenn nicht vorhanden, '?produkt_id=' und eine andere Zahl einzugeben. "],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
@@ -234,7 +234,7 @@ TASKS=[
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
             "truecondition":"results.rows.length == 1 && queries[j].includes('kunden') && Object.values(results.rows.item(0)).includes('dietmar0123@exm.com') && Object.values(results.rows.item(0)).includes('Seestr. 18') && Object.values(results.rows.item(0)).includes('Dimitri Muster')",
-            "correctanswer":["true","false","error","error"],
+            "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Adresse, den Namen und die E-Mail des Kunden mit der id 3 rauszukriegen. <br> <h3>Zur Erinnerung: Die Tabelle hat folgende Spaltennamen: 'kunden_id', 'name','email','bestellnr' & 'adresse'.</h3>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
@@ -247,7 +247,7 @@ TASKS=[
   "validation"  : [{"validationquery": [""],
            "validationerror":"",
            "truecondition":"false",
-           "correctanswer":["true","false","error","error"],
+           "correctanswer":["true","false","false","false"],
            "speakbblanswer":["Super! Du hast das Spiel durchgespielt! ","Super! Du hast das Spiel durchgespielt! "],
            "imganswer":["img/happybee.png","img/surprisebee.png"],
            "whitelist": [""],
@@ -735,13 +735,13 @@ function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
 
 function answer(correctanswer){
    var answer;
-      if (correctanswer.includes("error")){
-         // fails=fails+1;
-         document.getElementById("speakbubble_h2").innerHTML=TASKS[task_index].validation[0].speakbblanswer[1];
-         document.getElementById("speakbubble_h3").innerHTML="";
-         document.getElementById("insect").src = TASKS[task_index].validation[0].imganswer[1];
-         answer=false;
-      }else{
+      // if (correctanswer.includes("error")){
+      //    // fails=fails+1;
+      //    document.getElementById("speakbubble_h2").innerHTML=TASKS[task_index].validation[0].speakbblanswer[1];
+      //    document.getElementById("speakbubble_h3").innerHTML="";
+      //    document.getElementById("insect").src = TASKS[task_index].validation[0].imganswer[1];
+      //    answer=false;
+      // }else{
          if(correctanswer.includes("true")){
             document.getElementById("speakbubble_h2").innerHTML=TASKS[task_index].validation[0].speakbblanswer[0];
             document.getElementById("speakbubble_h3").innerHTML="";
@@ -769,7 +769,7 @@ function answer(correctanswer){
             document.getElementById("insect").src = TASKS[task_index].validation[0].imganswer[1];
             answer= false;
          }
-      }
+      // }
       index=correctanswer.indexOf("true");
       return [answer,index];
 
