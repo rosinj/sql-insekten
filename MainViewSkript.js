@@ -19,7 +19,7 @@ TASKS=[
                       "whitelist": [""],
                       "blacklist": [""]}],
     "category":"login",
-    "hints"    : ["hints deactivated"],
+    "hints"    : "hints deactivated",
     "lvl" : 1},
    {"text": [{"h2": "Ok, jetzt geht's aber wirklich los! ",
               "h3":"",
@@ -34,7 +34,7 @@ TASKS=[
                       "whitelist": ["alexamusterfrau"],
                       "blacklist": ["maxmustermann"]}],
     "category":"login",
-    "hints"    : ["Wie du es in den Hintergrunddetails siehst, ist vor der Eingabevariable 'uname' ein Apostroph zu finden. D.h. nachdem du den Benutzernamen in das Eingabefeld eingegeben hast brauchen wir noch ein Apostroph um den String zu beenden. Danach interessiert uns die restliche Query nicht, daher kommentieren wir sie aus. '--' ist ein Kommentar in SQL."],
+    "hints"    : "Wie du es in den Hintergrunddetails siehst, ist vor der Eingabevariable 'uname' ein Apostroph zu finden. D.h. nachdem du den Benutzernamen in das Eingabefeld eingegeben hast brauchen wir noch ein Apostroph um den String zu beenden. Danach interessiert uns die restliche Query nicht, daher kommentieren wir sie aus. '--' ist ein Kommentar in SQL.",
     "lvl" : 1},
     {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung!",
     "h3":"",
@@ -49,7 +49,7 @@ TASKS=[
                      "whitelist": [""],
                      "blacklist": [""]}],
    "category":"login",
-   "hints"    : ["Nehme die Lösung von Level 1 (alexamusterfrau'--) und quetsche dazwischen einen DROP-TABLE-Befehl. Mit Semikolon trennst du verschiedene Queries voneinander."],
+   "hints"    : "Nehme die Lösung von Level 1 (alexamusterfrau'--) und quetsche dazwischen einen DROP-TABLE-Befehl. Mit Semikolon trennst du verschiedene Queries voneinander.",
    "lvl": 2},
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> <br> <br> ",
                 "h3":"",
@@ -65,7 +65,7 @@ TASKS=[
                       "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "category":"login",
-    "hints"    : ["Wir müssen die Query so geschickt erzeugen, dass sie mind. eine Zeile ausgibt. Wenn wir die erste WHERE Bedingung leer lassen und eine zweite mit OR hinzufügen, die immer wahr ist, können wir wieder mit '--' den restlichen Code auskommentieren und haben somit eine Query erzeugt, die alle User ausgeben würde."],
+    "hints"    : "Wir müssen die Query so geschickt erzeugen, dass sie mind. eine Zeile ausgibt. Wenn wir die erste WHERE Bedingung leer lassen und eine zweite mit OR hinzufügen, die immer wahr ist, können wir wieder mit '--' den restlichen Code auskommentieren und haben somit eine Query erzeugt, die alle User ausgeben würde.",
     "lvl" : 3},
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                 "h3":"",
@@ -84,7 +84,7 @@ TASKS=[
                       "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau","kati1809"]}],
     "category":"login",
-    "hints"    : ["Diese Aufgabe ist ähnlich wie die davor nur, dass du versuchen musst EINE Zeile auszugeben und nicht mehr. Vorher hätte die Query die ganze Tabelle ausgegeben, aber die Sicherheitsbedingungen waren so schwach, dass die Länge der Ergebnisse egal war. Mit LIMIT kannst du nun am Ende einer Query entscheiden, wie viele Zeilen die Query ausgeben soll."],
+    "hints"    : "Diese Aufgabe ist ähnlich wie die davor nur, dass du versuchen musst EINE Zeile auszugeben und nicht mehr. Vorher hätte die Query die ganze Tabelle ausgegeben, aber die Sicherheitsbedingungen waren so schwach, dass die Länge der Ergebnisse egal war. Mit LIMIT kannst du nun am Ende einer Query entscheiden, wie viele Zeilen die Query ausgeben soll.",
     "lvl" : 4},
     {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung  <br>",
     "h3":"",
@@ -102,7 +102,7 @@ TASKS=[
                      "whitelist": [""],
                      "blacklist": [""]}],
    "category":"search",
-   "hints"    : ["hints deactivated"],
+   "hints"    : "hints deactivated",
    "lvl": 5},
    {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung!  <br>",
    "h3":"",
@@ -117,7 +117,7 @@ TASKS=[
                      "whitelist": [""],
                      "blacklist": [""]}],
    "category":"search",
-   "hints"    : ["Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'benutzer' heißt und folgende Spalten hat: 'nutzer_id', 'benutzername', 'passwort','email'."],
+   "hints"    : "Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'benutzer' heißt und folgende Spalten hat: 'nutzer_id', 'benutzername', 'passwort','email'.",
    "lvl": 5},
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an und zurück zum Login-Formular! <br> Irgendjemand arbeitet doch hinter dieser Website. Dann gibt es vielleicht auch eine Mitarbeiter-Tabelle in der Datenbank. ",
     "h3":"",
@@ -136,7 +136,7 @@ TASKS=[
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau"]}],
    "category":"login",
-   "hints"    : ["Wie bei dem Level wo du eine Tabelle löschen solltest, fängst du mit Semikolon eine neue Query an und selektierst 'lohn' von Tabelle 'mitarbeiter' mit der Bedingung, dass der 'vorname' = 'Greta Maria' ist. Wichtig: Wenn man eingeloggt ist gibt er den 'benutzername' aus d.h. er sucht bei deiner Query nach der Spalte 'benutzername' und wird sie nicht finden, daher müssen wir die Spalte 'lohn' mit 'as' auf 'benutzername' umbenennen."],
+   "hints"    : "Wie bei dem Level wo du eine Tabelle löschen solltest, fängst du mit Semikolon eine neue Query an und selektierst 'lohn' von Tabelle 'mitarbeiter' mit der Bedingung, dass der 'vorname' = 'Greta Maria' ist. Wichtig: Wenn man eingeloggt ist gibt er den 'benutzername' aus d.h. er sucht bei deiner Query nach der Spalte 'benutzername' und wird sie nicht finden, daher müssen wir die Spalte 'lohn' mit 'as' auf 'benutzername' umbenennen.",
    "lvl" : 6},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> In diesem Level sind wir wieder beim Schuhe-Onlineshop mit der Suchleiste.",
    "h3":"",
@@ -155,7 +155,7 @@ TASKS=[
            "whitelist": [""],
            "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
   "category":"search",
-  "hints"    : ["Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Nur muss die Spaltenanzahl beider Datenmengen gleichgroß sein."],
+  "hints"    : "Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Nur muss die Spaltenanzahl beider Datenmengen gleichgroß sein.",
   "lvl" : 7},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
@@ -180,7 +180,7 @@ TASKS=[
             "whitelist": ["tables"],
             "blacklist": ["maxmustermann","alexamusterfrau",";","sqlite_master"]}],
    "category":"search",
-   "hints"    : ["Mit UNION fängst du eine neue Query an. Nun probierst du mit den erwähnten Tabellen eine 'SELECT * FROM' Query zu erzeugen, wobei die erwähnten Tabellennamen selektiert werden müssen, da bei UNION die Spaltendimensionen gleich sein sollen. Die Tabelle Schuhe hat 4 Spalten und die andere 3, d.h. du selektierst eine zusätzliche Scheinspalte. Z.B: SELECT table_id, table_name, num_rows, 'test' FROM ..."],
+   "hints"    : "Mit UNION fängst du eine neue Query an. Nun probierst du mit den erwähnten Tabellen eine 'SELECT * FROM' Query zu erzeugen, wobei die erwähnten Tabellennamen selektiert werden müssen, da bei UNION die Spaltendimensionen gleich sein sollen. Die Tabelle Schuhe hat 4 Spalten und die andere 3, d.h. du selektierst eine zusätzliche Scheinspalte. Z.B: SELECT table_id, table_name, num_rows, 'test' FROM ...",
    "lvl" : 8},
    {"text" : [{"h2": "Oh! Hast du das gesehen? Da war eine Tabelle aufgelistet, die wir ja noch gar nicht kennen. Wie interessant! ",
    "h3":"",
@@ -199,7 +199,7 @@ TASKS=[
                      "whitelist": ["columns"],
                      "blacklist": ["maxmustermann","alexamusterfrau",";","sqlite_master"]}],
    "category":"search",
-   "hints"    : ["Mit UNION fängst du eine neue Query an. Als Tabelle nutzt du die vorgegebene 'information_schema.columns' und in der WHERE-Bedingung geben wir ein, dass wir nur die Spalten von der Tabelle 'kunden' wollen, also table_name='kunden'. Da aber die Tabelle Schuhe 4 Spalten besitzt und die, die wir nutzen wollen nur 3, müssen wir eine Scheinspalte nach der UNION Anweisung dranhängen, damit die Spaltendimensionen gleich groß sind. Zum Beispiel: SELECT table_name, column_name, data_type, null FROM ..."],
+   "hints"    : "Mit UNION fängst du eine neue Query an. Als Tabelle nutzt du die vorgegebene 'information_schema.columns' und in der WHERE-Bedingung geben wir ein, dass wir nur die Spalten von der Tabelle 'kunden' wollen, also table_name='kunden'. Da aber die Tabelle Schuhe 4 Spalten besitzt und die, die wir nutzen wollen nur 3, müssen wir eine Scheinspalte nach der UNION Anweisung dranhängen, damit die Spaltendimensionen gleich groß sind. Zum Beispiel: SELECT table_name, column_name, data_type, null FROM ...",
    "lvl" : 9},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
@@ -224,7 +224,7 @@ TASKS=[
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
    "category":"url",
-   "hints"    : ["hints deactivated"],
+   "hints"    : "hints deactivated",
    "lvl" : 10},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
@@ -240,7 +240,7 @@ TASKS=[
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
    "category":"url",
-   "hints"    : ["Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Nur muss die Spaltenanzahl beider Datenmengen gleichgroß sein. D.h. Deine Query darf nur 3 Spalten ausgeben."],
+   "hints"    : "Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Nur muss die Spaltenanzahl beider Datenmengen gleichgroß sein. D.h. Deine Query darf nur 3 Spalten ausgeben.",
    "lvl" : 10},
    {"text" : [],
   "challenge": "Super! Du hast das Spiel durchgespielt! ",
@@ -253,7 +253,7 @@ TASKS=[
            "whitelist": [""],
            "blacklist": ["maxmustermann","alexamusterfrau"]}],
   "category":"url",
-  "hints"    : ["hints deactivated"],
+  "hints"    : "hints deactivated",
   "lvl" : 10}
 ];
 var db= createdb();
@@ -267,12 +267,12 @@ createTableKunden(db);
 //////////////  HINTS
 
 function show_hints(){
-    var hinttxt=TASKS[task_index].hints;
-    document.getElementsByClassName("btnboxtxt")[0].innerHTML=hinttxt[0];
+    var hint=TASKS[task_index].hints;
+    document.getElementsByClassName("btnboxtxt")[0].innerHTML=hint;
     var e = document.getElementById('btnboxre');
     if(e.style.display == 'block'){
       e.style.display = 'none';
-   }else if(TASKS[task_index].hints[0]=="hints deactivated"){
+   }else if(hint=="hints deactivated"){
       document.querySelector("#modal > div >h5 ").innerHTML = 'In dieser Herausforderung gibt es keine Tipps.';
       document.getElementById("modal").style.display='block';
    }else if(hintperlvl <= 0){
