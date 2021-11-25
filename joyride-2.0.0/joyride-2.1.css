@@ -63,6 +63,24 @@ body {
   -webkit-border-radius: 4px;
           border-radius: 4px;
 }
+.joyride-tip-guide4{
+  position: absolute;
+  background: #000;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  color: #fff;
+  width: 33%;
+  z-index: 101;
+  top: 0; 
+  left: 0; 
+  margin-left: -1%;
+  margin-top: 3%;
+  font-family: "HelveticaNeue", "Helvetica Neue", "Helvetica", Helvetica, Arial, Lucida, sans-serif;
+  font-weight: normal;
+     -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+          border-radius: 4px;
+}
 .joyride-content-wrapper {
   padding: 2% 2% 5% 5%;
 }
@@ -87,6 +105,26 @@ body {
   display: block;
   position: absolute;
   left: 75%;
+  width: 0;
+  height: 0;
+  /* border: solid 15px; */
+  border: solid 30px;
+  /* border: solid 14px; */
+}
+.joyride-tip-guide4 span.joyride-nub {
+  display: block;
+  position: absolute;
+  left: 3%;
+  width: 0;
+  height: 0;
+  /* border: solid 15px; */
+  border: solid 30px;
+  /* border: solid 14px; */
+}
+.joyride-tip-guide3 span.joyride-nub {
+  display: block;
+  position: absolute;
+  left: 65%;
   width: 0;
   height: 0;
   /* border: solid 15px; */
