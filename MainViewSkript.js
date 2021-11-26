@@ -4,7 +4,7 @@ var hints=3;
 var bbltxtindex=0;
 var hintperlvl=1;
 // var fails=0
-var cheatactive=false;
+var cheatactive=true;
 var task_index=0;
 
 TASKS=[
@@ -273,10 +273,10 @@ function show_hints(){
     if(e.style.display == 'block'){
       e.style.display = 'none';
    }else if(hint=="hints deactivated"){
-      document.querySelector("#modal > div >h5 ").innerHTML = 'In dieser Herausforderung gibt es keine Tipps.';
+      document.querySelector("#modal > div >p ").innerHTML = "<h3>Information</h3><h5>In dieser Herausforderung gibt es keine Tipps.</h5> <br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
       document.getElementById("modal").style.display='block';
    }else if(hintperlvl <= 0){
-      document.querySelector("#modal > div >h5 ").innerHTML = 'Es gibt pro Level nur einen Tipp.';
+      document.querySelector("#modal > div >p ").innerHTML = "<h3>Information</h3><h5>Es gibt pro Level nur einen Tipp.</h5> <br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
       document.getElementById("modal").style.display='block';
       e.style.display = 'block';
    }else{
@@ -301,7 +301,7 @@ function show_hints(){
         document.getElementById('light3').src="img/lightoff.png"
        }
        else if(hints<0){
-         document.querySelector("#modal > div >h5 ").innerHTML = 'Deine Tipps sind aufgebraucht.';
+         document.querySelector("#modal > div >h5 ").innerHTML = "<h3>Information</h3><h5>Deine Tipps sind aufgebraucht.</h5><br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
          document.getElementById("modal").style.display='block';
        }
    }
@@ -1257,9 +1257,9 @@ function show_info(){
    }
    else{
       if(cheatactive){
-        document.querySelector("#modal > div >h5 ").innerHTML = "<a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div> <br> <br> <input type='text' class='form-control' id='cheat_input'/>  <br> <button class='btn btn-lg btn-primary btn-block' id='cheat_btn' type='button' onclick='cheat()'>cheat</button> ";
+        document.querySelector("#modal > div >p ").innerHTML = "<h3>Informationen</h3> <a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div> <br> <br> <input type='text' class='form-control' id='cheat_input'/>  <br> <button class='btn btn-lg btn-primary btn-block' id='cheat_btn' type='button' onclick='cheat()'>cheat</button> </h5> <h3>Bewerte SQL-Insekten</h3><h5><a href='https://elc9lt395y8.typeform.com/to/etL5oVOK'>Link zur Umfrage</a></h5><br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
       }else{
-         document.querySelector("#modal > div >h5 ").innerHTML = "<a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div><div>Icons erstellt von <a href='https://www.freepik.com' title='Freepik'>Freepik</a> from <a href='https://www.flaticon.com/de/' title='Flaticon'>www.flaticon.com</a></div>";
+         document.querySelector("#modal > div >p ").innerHTML = "<h3>Informationen</h3> <a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div><div>Icons erstellt von <a href='https://www.freepik.com' title='Freepik'>Freepik</a> from <a href='https://www.flaticon.com/de/' title='Flaticon'>www.flaticon.com</a></div> </h5> <h3>Bewerte SQL-Insekten</h3><h5><a href='https://elc9lt395y8.typeform.com/to/etL5oVOK'>Link zur Umfrage</a></h5><br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
       }
       
         e.style.display = 'block';
