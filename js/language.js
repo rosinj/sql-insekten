@@ -50,7 +50,7 @@ lang_en = {
 language_code = "";
 
 //change_language(window.navigator.language.slice(0, 2));
-change_language("de");
+change_language("en");
 
 function change_language(new_language_code) {
   if(new_language_code == "de") {
