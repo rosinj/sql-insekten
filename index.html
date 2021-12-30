@@ -107,7 +107,7 @@
                     
                   <input type="text" class="form-control" name="suchleiste" placeholder="" id='suchleiste' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); generate_query();hljs.highlightAll();"/>
                   <button class="btn btn-lg btn-primary btn-block lang" id="suche_btn" type="button" onclick="try_login(); generate_query();hljs.highlightAll();">Suchen</button>
-                  <input type="text" value="https://sql-insekten.oth-rgb.de/index.php?produkt_id=0"class="form-control" name="url" placeholder="" id='url' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event);generate_query(); hljs.highlightAll();" />
+                  <input type="text" class="form-control" name="url" placeholder="" id='url' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event);generate_query(); hljs.highlightAll();" />
                   <div id='url_output'>
                     <img id='sneaker_img' src="img/sneaker.png"/>
                       <h4 id='marke'><strong><span class="lang">Marke</span>: </strong>Nicke</h4>
@@ -138,7 +138,7 @@
                         </label>
                         <span class="lang">Erzeugte SQL-Query</span>
                     </p>
-                    <pre id="codetxt"><code></code></pre>
+                    <pre id="codetxt"><code class="hljs language-sql"></code></pre>
 
                     <pre id="behindcodelogin"><code overflow="auto">public static User login(String uname, String pw) throws InternalServerErrorException {
  try {
@@ -179,7 +179,7 @@
                   <pre id="behindcodeurl"><code class="hljs language-sql">$conn = new PDO(...);
 $qu = "SELECT <span class="lang">marke</span>, <span class="lang">groesse</span>, <span class="lang">preis</span> ";
 $qu .= "FROM <span class="lang">schuhe</span> ";
-$qu .= "WHERE produkt_id=".$_GET["produkt_id"];
+$qu .= "WHERE <span class="lang">produkt_id</span>=".$_GET["<span class="lang">produkt_id</span>"];
 $stmt = $conn->query($qu);
 $res = $stmt->fetch();
 

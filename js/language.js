@@ -40,6 +40,11 @@ lang_en = {
   "marke": "brand",
   "groesse": "size",
   "preis": "price",
+  "Produktsuche": "Product Search",
+  "Suchergebnisse": "Search results",
+  "Ergebnis": "Result",
+  "Login fehlgeschlagen": "Login failed",
+  "kein Suchergebnis": "empty search result"
 }
 
 language_code = "";

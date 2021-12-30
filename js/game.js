@@ -4,7 +4,7 @@ var hints=3;
 var bbltxtindex=0;
 var hintperlvl=1;
 // var fails=0
-var cheatactive=false;
+var cheatactive=!false;
 var task_index=0;
 
 TASKS=[
@@ -407,7 +407,7 @@ function change_category(){
    document.getElementById("loginlabel").style.textAlign = 'left';
    document.getElementById("suchergebnisse").style.display = 'none';
    if(TASKS[task_index].category == "login"){
-      document.getElementById('loginlabel').innerHTML= "Bitte einloggen";
+      document.getElementById('loginlabel').innerHTML= translate("Bitte einloggen");
       document.getElementById("username").style.display = 'block';
       document.getElementById("password").style.display = 'block';
       document.getElementById("login_btn").style.display = 'block';
@@ -417,7 +417,7 @@ function change_category(){
       document.getElementById("url").style.display = 'none';
       document.getElementsByClassName("form-signin")[0].style.maxWidth="28%";
    }else if(TASKS[task_index].category == "search"){
-      document.getElementById('loginlabel').innerHTML= "Produktsuche";
+      document.getElementById('loginlabel').innerHTML= translate("Produktsuche");
       document.getElementById("username").style.display = 'none';
       document.getElementById("password").style.display = 'none';
       document.getElementById("login_btn").style.display = 'none';
@@ -439,10 +439,10 @@ function change_category(){
       document.getElementById("url_output").style.display = 'block';
       document.getElementById("sneaker_img").style.display = 'block';
       document.getElementsByClassName("form-signin")[0].style.maxWidth="60%";
-      document.getElementById('url').value = "https://sql-insekten.oth-rgb.de/index.php?produkt_id=0";
-      document.getElementById("marke").innerHTML= "<strong>Marke:   </strong> Nicke"
-      document.getElementById("groesse").innerHTML= "<strong>Größe:   </strong> 40";
-      document.getElementById("price").innerHTML= "<strong>Preis:     </strong> 80€";
+      document.getElementById('url').value = "https://sql-insekten.example.com/index.php?"+translate("produkt_id")+"=0";
+      document.getElementById("marke").innerHTML= "<strong>"+translate("Marke")+":   </strong> Nicke"
+      document.getElementById("groesse").innerHTML= "<strong>"+translate("Größe")+":   </strong> 40";
+      document.getElementById("price").innerHTML= "<strong>"+translate("Preis")+":     </strong> 80"+translate("€");
    }
 }
 
@@ -648,7 +648,7 @@ function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
             break;
          case "search":
             document.getElementById("loginlabel").style.textAlign = 'center';
-            document.getElementById('loginlabel').innerHTML= "Suchergebnisse";
+            document.getElementById('loginlabel').innerHTML= translate("Suchergebnisse");
             document.getElementById("suchleiste").style.display = 'none';
             document.getElementById("suche_btn").style.display = 'none';
             document.getElementById("suchergebnisse").style.display = 'block';
@@ -661,7 +661,7 @@ function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
             break;
          case "url":
             document.getElementById("loginlabel").style.textAlign = 'center';
-            document.getElementById('loginlabel').innerHTML= "Ergebnis";
+            document.getElementById('loginlabel').innerHTML= translate("Ergebnis");
             document.getElementById("url").style.display = 'none';
             document.getElementById("suchergebnisse").style.display = 'none';
             document.getElementById("sneaker_img").style.display='block';
@@ -686,13 +686,13 @@ function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
                document.getElementById("suchergebnisse").style.display = 'none';
                document.getElementById("logout_btn").style.display = 'block';
             }else{
-               document.getElementById('loginlabel').innerHTML= "Login fehlgeschlagen";
+               document.getElementById('loginlabel').innerHTML= translate("Login fehlgeschlagen");
             }
             
             break;
          case "search":
             document.getElementById("loginlabel").style.textAlign = 'center';
-            document.getElementById('loginlabel').innerHTML= "Suchergebnisse";
+            document.getElementById('loginlabel').innerHTML= translate("Suchergebnisse");
             document.getElementById("suchergebnisse").style.display = 'block';
             generate_resulttable(qu[index],ergebnis[index],task_index_temp); 
             break;
@@ -700,7 +700,7 @@ function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
             document.getElementById("loginlabel").style.textAlign = 'center';
             document.getElementById("suchergebnisse").style.display = 'none';
             if(ergebnis[index].rows.length==1){
-               document.getElementById('loginlabel').innerHTML= "Ergebnis";
+               document.getElementById('loginlabel').innerHTML= translate("Ergebnis");
                document.getElementById("sneaker_img").style.display='block';
                document.getElementById("url_output").style.display='block';
                document.getElementById("url").style.display = 'block';
@@ -708,7 +708,7 @@ function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
                generate_url_output(qu[index],ergebnis[index]); 
 
             }else{
-               document.getElementById('loginlabel').innerHTML= "kein Suchergebnis";
+               document.getElementById('loginlabel').innerHTML= translate("kein Suchergebnis");
                document.getElementById("suchergebnisse").style.display = 'none';
                document.getElementById("sneaker_img").style.display='none';
                document.getElementById("url_output").style.display='none';
@@ -757,10 +757,10 @@ function answer(correctanswer){
             document.getElementById('username').value="";
             document.getElementById('password').value = "";
             document.getElementById('suchleiste').value = "";
-            document.getElementById('url').value = "https://sql-insekten.oth-rgb.de/index.php?produkt_id=0";
-            document.getElementById("marke").innerHTML= "<strong>Marke:   </strong> Nicke"
-            document.getElementById("groesse").innerHTML= "<strong>Größe:   </strong> 40";
-            document.getElementById("price").innerHTML= "<strong>Preis:     </strong> 80€";
+            document.getElementById('url').value = "https://sql-insekten.example.com/index.php?"+translate("produkt_id")+"=0";
+            document.getElementById("marke").innerHTML= "<strong>"+translate("Marke")+":   </strong> Nicke"
+            document.getElementById("groesse").innerHTML= "<strong>"+translate("Größe")+":   </strong> 40";
+            document.getElementById("price").innerHTML= "<strong>"+translate("Preis")+":     </strong> 80"+translate("€")+"";
             answer=true;
          }else{
             // fails=fails+1;
@@ -843,9 +843,9 @@ function generate_url_output(qu,ergebnis){
          document.getElementById("sneaker_img").style.marginLeft= len+"%"
       }
    }
-   document.getElementById("marke").innerHTML= "<strong>Marke:   </strong>" + ergebnis.rows.item(0)['marke'];
-   document.getElementById("groesse").innerHTML= "<strong>Größe:   </strong>" + ergebnis.rows.item(0)['groesse'];
-   document.getElementById("price").innerHTML= "<strong>Preis:     </strong>" + ergebnis.rows.item(0)['preis'] + "€";
+   document.getElementById("marke").innerHTML= "<strong>"+translate("Marke")+":   </strong>" + ergebnis.rows.item(0)['marke'];
+   document.getElementById("groesse").innerHTML= "<strong>"+translate("Größe")+":   </strong>" + ergebnis.rows.item(0)['groesse'];
+   document.getElementById("price").innerHTML= "<strong>"+translate("Preis")+":     </strong>" + ergebnis.rows.item(0)['preis'] + translate("€");
 }
 
 /////// DATABASE FUNCTIONS
