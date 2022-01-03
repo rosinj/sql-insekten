@@ -1270,6 +1270,7 @@ function show_info(){
 function show_menu(){
    e=document.evaluate("/html/body/div[1]/nav/ul/li/ul", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
    if(e.style.display == 'block'){
+      document.evaluate("/html/body/div[1]/nav/ul/li/ul/li/ul", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.style.display='none';
       e.style.display = 'none';
    }else{
       e.style.display = 'block';
@@ -1283,6 +1284,7 @@ function show_lan(){
    }else{
       e.style.display = 'block';
    }
+   
 }
 
 function close_modal(){

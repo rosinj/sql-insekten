@@ -61,6 +61,30 @@ nav ul li ul li {
   margin: 0;
   text-align: left;
 }
+nav ul li ul li ul{
+  box-shadow: 8px 8px 8px -4px #676d80;
+  display:none;
+  position: absolute;
+  overflow: visible;
+  z-index: 999;
+  top: 100%;
+  left: 0;
+  width: 240px;
+  
+  border-bottom: 4px solid #7A89C2; 
+}
+nav ul li ul li ul li{
+  display: block;
+  width: 100%;
+  /* margin-left: 1%; */
+  text-align: start;
+}
+nav ul li ul li ul li a{
+  display: block;
+  
+  background: #3a3a3a;
+  padding: 10px 15px;
+}
 nav ul li ul li a {
   display: block;
   background: #3a3a3a;
@@ -76,6 +100,17 @@ nav ul li ul li a:first-child {
 nav ul li ul li a:hover {
   background: #333333;
   border-left: 4px solid #7A89C2;
+}
+nav ul li ul li ul li a:first-child {
+  background: #3a3a3a;
+  width: auto;
+  border-left: 4px solid #7A89C2;
+  padding: 10px 15px;
+  font-size: 14px;
+}
+nav ul li ul li ul li a:hover {
+  background: #333333;
+  border-left: 8px solid #7A89C2;
 }
 /*top*/
 .topp{
