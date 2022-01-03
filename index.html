@@ -23,7 +23,7 @@
     <!-- /* Then attach the Joyride plugin */ -->
     <script src="joyride-2.0.0/jquery.joyride-2.1.js"></script>
     <script type="text/javascript" src="joyride-2.0.0/jquery.cookie.js"></script>
-    <script type="text/javascript" src="joyride-2.0.0/modernizr.mq.js"></script> 
+    <script type="text/javascript" src="joyride-2.0.0/modernizr.mq.js"></script>
 
 </head>
 <body>
@@ -64,7 +64,7 @@
         
         </li>
 
-        <li data-id="btn_info" data-button="Weiter"  class="joyride-tip-guide4"  data-options="tipLocation:bottom;" >
+        <li data-id="menu" data-button="Weiter"  class="joyride-tip-guide4"  data-options="tipLocation:bottom;" >
           <br>
           <h3>In dem Menü kannst du Informationen einsehen und das Spiel SQL-Insekten bewerten!<br></h3>
         
@@ -104,9 +104,28 @@
           });
         });
       </script>
+   
     <div class='topp'>
         <img id='logo' src="img/OTH_Logo.png"/>
-        <button id='btn_info' onclick="show_info()"><img id='info' src="img/menu.png"></button>
+        <nav>
+          <ul>
+           
+            <li onclick='show_menu()' id='menu'>
+              <a href='#'> <img id='info' src="img/menu.png"></a>
+              <ul>
+                <li onClick="window.location.reload(true)"><a href='#'>Restart game</a></li>
+                <li><a href='#'>Change language</a>
+                    <ul> 
+                      <li><a href='#'>english</a></li>
+                      <li><a href='#'>german</a></li>
+                    </ul>
+                  </li>
+                <li onclick="show_info();"><a href='#'>About</a></li>
+              </ul>
+            </li>
+          </ul>
+  
+      </nav>
         <h2 id='lvl'> Level: 1</h2>
         <h2 id='hints'>Tipps: 
             <img id='light1' src="img/light.png" /> 
@@ -114,6 +133,13 @@
             <img id='light3' src="img/light.png"/></h2>
         <h2 id='title'>SQL - Insekten</h2>
     </div>
+    <!-- <div class='menu'> 
+      <ul>
+        <li><h3>Restart Game</h3></li>
+        <li><h3>Change language</h3></li>
+        <li><h3 onclick='show_info()'>About</h3></li>
+      </ul>
+    </div> -->
     <div class='leftside'>
 
         <div class='sprechblase'>
@@ -241,15 +267,7 @@ OUTPUT;
         <div id='modal' class='modal'>
             <div class="modal-content">
                 <span class="close" onclick="close_modal()">&times;</span>
-                <p>            
-                    <!-- <h5><a target="_blank" href="https://icons8.com/icon/19209/light">Light</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> <br>
-                    <a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a><br>
-                    <div>Icons made by <a href="https://www.flaticon.com/authors/itim2101" title="itim2101">itim2101</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-                    <div>Icons erstellt von <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/de/" title="Flaticon">www.flaticon.com</a></div></h5>
-                    
-                    <h3>Bewerte SQL-Insekten</h3>
-                    <h5><a href="https://elc9lt395y8.typeform.com/to/etL5oVOK">Link zur Umfrage</a></h5><br>
-                    <button class="btn btn-lg btn-primary btn-block" id='btn_modal' type="submit" onclick="close_modal()">Ok</button> -->
+                <p>     
                 </p>
               
                 </div>
