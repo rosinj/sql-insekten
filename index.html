@@ -122,7 +122,7 @@
                   <h2 id='loginlabel' class="form-signin-heading lang">Bitte einloggen</h2>
                   <input type="text" class="form-control lang" name="username" placeholder="Benutzername" id='username' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); generate_query(); hljs.highlightAll();" />
                   <input type="password" class="form-control lang" name="password" placeholder="Passwort" id='password' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); generate_query();hljs.highlightAll();"/>
-                  <button class="btn btn-lg btn-primary btn-block lang" id="login_btn" type="button" onclick="try_login(); generate_query();hljs.highlightAll();">Einloggen</button>
+                  <button class="btn btn-lg btn-primary btn-block lang" id="login_btn" type="button" onclick="try_login(); generate_query();hljs.highlightAll();document.getElementsByClassName('joyride-close-tip')[0].click();">Einloggen</button>
                     
                   <input type="text" class="form-control" name="suchleiste" placeholder="" id='suchleiste' required="" oninput="generate_query(); hljs.highlightAll();" onKeyPress="onEnter(event); generate_query();hljs.highlightAll();"/>
                   <button class="btn btn-lg btn-primary btn-block lang" id="suche_btn" type="button" onclick="try_login(); generate_query();hljs.highlightAll();">Suchen</button>
