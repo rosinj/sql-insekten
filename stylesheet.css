@@ -45,6 +45,7 @@ nav ul li a:hover {
   background-color: #676d80;
 }
 nav ul li ul {
+  box-shadow: 8px 8px 8px -4px #676d80;
   display:none;
   position: absolute;
   overflow: visible;
@@ -120,7 +121,7 @@ ul {
 } */
 /*Leftside*/
 .leftside{
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
     float: left;
     height: 850px;
     width: 35%;
