@@ -1257,13 +1257,31 @@ function show_info(){
    }
    else{
       if(cheatactive){
-        document.querySelector("#modal > div >p ").innerHTML = "<h3>Informationen</h3> <a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div> <br> <br> <input type='text' class='form-control' id='cheat_input'/>  <br> <button class='btn btn-lg btn-primary btn-block' id='cheat_btn' type='button' onclick='cheat()'>cheat</button> </h5> <h3>Bewerte SQL-Insekten</h3><h5><a href='https://elc9lt395y8.typeform.com/to/etL5oVOK'>Link zur Umfrage</a></h5><br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
+        document.querySelector("#modal > div >p ").innerHTML = "<h3>Informationen</h3> <a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div> <br> <br> <input type='text' class='form-control' id='cheat_input'/>  <br> <button class='btn btn-lg btn-primary btn-block' id='cheat_btn' type='button' onclick='cheat()'>cheat</button> </h5> <button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
       }else{
-         document.querySelector("#modal > div >p ").innerHTML = "<h3>Informationen</h3> <a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div><div>Icons erstellt von <a href='https://www.freepik.com' title='Freepik'>Freepik</a> from <a href='https://www.flaticon.com/de/' title='Flaticon'>www.flaticon.com</a></div> </h5> <h3>Bewerte SQL-Insekten</h3><h5><a href='https://elc9lt395y8.typeform.com/to/etL5oVOK'>Link zur Umfrage</a></h5><br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
+         document.querySelector("#modal > div >p ").innerHTML = "<h3>Informationen</h3> <a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div><div>Icons erstellt von <a href='https://www.freepik.com' title='Freepik'>Freepik</a> from <a href='https://www.flaticon.com/de/' title='Flaticon'>www.flaticon.com</a></div> </h5><br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
       }
       
         e.style.display = 'block';
       
+   }
+}
+
+function show_menu(){
+   e=document.evaluate("/html/body/div[1]/nav/ul/li/ul", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+   if(e.style.display == 'block'){
+      e.style.display = 'none';
+   }else{
+      e.style.display = 'block';
+   }
+
+}
+function show_lan(){
+   e=document.evaluate("/html/body/div[1]/nav/ul/li/ul/li/ul", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+   if(e.style.display == 'block'){
+      e.style.display = 'none';
+   }else{
+      e.style.display = 'block';
    }
 }
 

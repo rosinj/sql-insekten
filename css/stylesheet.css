@@ -3,8 +3,79 @@
 /* colors:  E3D7FF AFA2FF 7A89C2 72788D 636B61 https://coolors.co/e3d7ff-afa2ff-7a89c2-72788d-636b61
 "Helvetica Neue",Helvetica,Arial,sans-serif*/
 /* body */
-.body{
+body{
   font-family: 'Lato', sans-serif;
+}
+nav {
+  float:left;
+  border: 2px solid transparent;
+  background-color: transparent;
+  box-shadow:none;
+  box-sizing: border-box;
+  border-radius: 4px 4px 4px 4px;
+}
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+nav ul li {
+  position: relative;
+  display: inline-block;
+  margin-right: -4px;
+  text-align: center;
+}
+nav ul li:first-child a {
+  width: 49px;
+  padding: 15px 0;
+}
+nav ul li:last-child {
+  margin: 0;
+}
+nav ul li a {
+  display: block;
+  background: #72788D; 
+  padding: 15px 20px;
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.2s linear;
+}
+nav ul li a:hover {
+  background-color: #676d80;
+}
+nav ul li ul {
+  box-shadow: 8px 8px 8px -4px #676d80;
+  display:none;
+  position: absolute;
+  overflow: visible;
+  z-index: 999;
+  top: 100%;
+  left: 0;
+  width: 240px;
+  border-bottom: 4px solid #7A89C2; 
+}
+nav ul li ul li {
+  display: block;
+  width: 100%;
+  margin: 0;
+  text-align: left;
+}
+nav ul li ul li a {
+  display: block;
+  background: #3a3a3a;
+  padding: 10px 15px;
+}
+nav ul li ul li a:first-child {
+  background: #3a3a3a;
+  width: auto;
+  border-left: 4px solid transparent;
+  padding: 10px 15px;
+  font-size: 14px;
+}
+nav ul li ul li a:hover {
+  background: #333333;
+  border-left: 4px solid #7A89C2;
 }
 /*top*/
 .topp{
@@ -39,8 +110,18 @@
   margin-left: 15%;
 
 }
+/* .menu{
+  display:none;
+  position: relative;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+} */
 /*Leftside*/
 .leftside{
+  background-color: #fff;
     float: left;
     height: 850px;
     width: 35%;
@@ -403,19 +484,6 @@ input:checked + .slider:before {
   
   height: 35px;
   width: 35px;
-}
-#btn_info{
-  margin-top: 15px;
-  margin-left:20px;
-  float:left;
-  border: 2px solid transparent;
-  background-color: transparent;
-  box-shadow:none;
-  box-sizing: border-box;
-  border-radius: 4px 4px 4px 4px;
-}
-#btn_info:hover{
-  background-color: #676d80;
 }
 .modal {
   display: none; /* Hidden by default */
