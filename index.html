@@ -72,9 +72,9 @@
            
             <li  id='menu'>
               <a onclick='show_menu()' href='#'> <img id='info' src="img/menu.png"></a>
-              <ul>
+              <ul id="menu_ul">
                 <li onClick="window.location.reload(true);"><a href='#' class="lang">Spiel neustarten</a></li>
-                <li onclick="show_info();document.evaluate('/html/body/div[1]/nav/ul/li/ul', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.style.display='none';"><a href='#' class="lang">Über das Spiel</a></li>
+                <li onclick="show_info();document.getElementById('menu_ul').style.display='none';"><a href='#' class="lang">Über das Spiel</a></li>
                 <li><a href='#' onclick="show_lan();" class="lang">Sprache ändern</a>
                     <ul id="change_language">
                       <li onclick="change_language('en');"><a href='#'>English</a></li>
