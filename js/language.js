@@ -8,10 +8,20 @@ lang_de = {
   "%joyride_menu": "In dem Menü kannst du Informationen einsehen und die Sprache ändern.",
   "%joyride_info3": "Allgemein versucht man durch geschickten Input in den Eingabefeldern eine Syntax-korrekte SQL-Query zu erzeugen, die die Aufgabe löst.",
   "%joyride_info4": "Hierbei ist es wichtig bewusst rumzuprobieren oder sich die Hindergrunddetails anzuschauen, um zu wissen, wie die Query aus den Werten der Eingabefelder erzeugt wird, die dann schließlich in der Datenbank ausgeführt wird.",
-  "%joyride_info5": "Kleiner Hinweis im Voraus: In den ersten Levels wirst du geschickt Apostrophe und SQL-Kommentare '--' verwenden.",
+  "%joyride_info5": "Kleiner Hinweis im Voraus: In den ersten Levels wirst du geschickt Apostrophe und SQL-Kommentare -- verwenden.",
 }
 
 lang_en = {
+  "%joyride_info1": "This is an SQL-injection learning game. SQL injections allow you to hack websites by changing, deleting or reading arbitrary data in the database by injecting SQL code.", 
+  "%joyride_info2": "This vulnerability is often found in applications that do not use Prepared Statements. Since we do not use them in this game (for learning purposes ;-), almost anything is possible here!<br> <br> In SQL Insekten, you will learn from level to level how hackers exploit this vulnerability. Prior knowledge in SQL is recommended.",
+  "%joyride_login": "In this first level, you see a login form, as you know it from other websites.",
+  "%joyride_details": "When clicking the 'Show background details' button, it shows you the generated SQL query as well as the application's program code.",
+  "%joyride_hints1": "You can see a hint here when clicking this button.",
+  "%joyride_hints2": "But beware: You only have three 3 hints in total!",
+  "%joyride_menu": "Behind this menu, there is more information about the game and you can change the language.",
+  "%joyride_info3": "Basically, what you need to do is to build a syntax-correct SQL query by typing the right input in the input fields to solve the exercise.",
+  "%joyride_info4": "It can be helpful for you to play around and look at the background details to understand how the query is generated from the input-field values, which is then finally executed within the database.",
+  "%joyride_info5": "A small hint in advance: In the first levels, you need to use apostrophes and SQL comments --",
   "SQL-Insekten - Das SQL-Injection-Lernspiel": "SQL-Insekten - The SQL Injection Learning Game", 
   "Tipps": "Hints",
   "SQL-Insekten": "SQL-Insekten",
