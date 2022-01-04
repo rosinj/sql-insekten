@@ -73,28 +73,28 @@ function change_language(new_language_code) {
 
   $('.lang').each(function(e) {
       // translate <... placeholder="...">
-      if($(this).prop("placeholder") != undefined) {
-        if($(this).prop("data-lang") != undefined) {
-          $(this).prop("placeholder", translate($(this).prop("data-lang")));
+      if($(this).attr("placeholder") != undefined) {
+        if($(this).attr("data-lang") != undefined) {
+          $(this).attr("placeholder", translate($(this).attr("data-lang")));
           return;
         }
-        $(this).prop("data-lang", $(this).prop("placeholder"));
-        $(this).prop("placeholder", translate($(this).prop("placeholder")));
+        $(this).attr("data-lang", $(this).attr("placeholder"));
+        $(this).attr("placeholder", translate($(this).attr("placeholder")));
       }
 
       // translate <...>innerHTML</...>
-      if($(this).prop("data-lang") != undefined) {
-          this.innerHTML = translate($(this).prop("data-lang"));
+      if($(this).attr("data-lang") != undefined) {
+          this.innerHTML = translate($(this).attr("data-lang"));
           return;
       }
-      $(this).prop("data-lang", this.innerHTML);
+      $(this).attr("data-lang", this.innerHTML);
       this.innerHTML = translate(this.innerHTML);
   });
   if(TASKS != undefined && TASKS[task_index] != undefined && TASKS[task_index][language_code] != undefined) {
       $('#exercise_text').text(TASKS[task_index][language_code]);
   }
 
-  //$('#language-modal').foundation('reveal', 'close');
+  show_menu(false);
 }
 
 

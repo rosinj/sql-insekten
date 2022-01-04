@@ -75,10 +75,10 @@
               <ul>
                 <li onClick="window.location.reload(true);"><a href='#'>Restart game</a></li>
                 <li onclick="show_info();document.evaluate('/html/body/div[1]/nav/ul/li/ul', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.style.display='none';"><a href='#'>About</a></li>
-                <li onclick="show_lan();"><a href='#'>Change language</a>
-                    <ul>
-                      <li onclick="change_language('en');document.evaluate('/html/body/div[1]/nav/ul/li/ul', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.style.display='none';"><a href='#'>english</a></li>
-                      <li onclick="change_language('de');document.evaluate('/html/body/div[1]/nav/ul/li/ul', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.style.display='none';"><a href='#'>german</a></li>
+                <li><a href='#' onclick="show_lan();">Change language</a>
+                    <ul id="change_language">
+                      <li onclick="change_language('en');"><a href='#'>english</a></li>
+                      <li onclick="change_language('de');"><a href='#'>german</a></li>
                     </ul>
                   </li>
               </ul>

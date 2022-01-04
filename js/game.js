@@ -1267,9 +1267,11 @@ function show_info(){
    }
 }
 
-function show_menu(){
+function show_menu(show = null){
    e=document.evaluate("/html/body/div[1]/nav/ul/li/ul", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-   if(e.style.display == 'block'){
+   if(show != null && show) {
+      e.style.display = 'block';
+   } else if((show!=null && !show) || e.style.display == 'block'){
       document.evaluate("/html/body/div[1]/nav/ul/li/ul/li/ul", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.style.display='none';
       e.style.display = 'none';
    }else{
@@ -1278,7 +1280,7 @@ function show_menu(){
 
 }
 function show_lan(){
-   e=document.evaluate("/html/body/div[1]/nav/ul/li/ul/li/ul", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+   e=document.getElementById('change_language');
    if(e.style.display == 'block'){
       e.style.display = 'none';
    }else{
