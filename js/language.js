@@ -79,7 +79,7 @@ function change_language(new_language_code) {
       lang = lang_en;
   }
 
-  $('.lang').each(function(e) {
+  $('.lang,.joyride-next-tip').each(function(e) {
       // translate <... placeholder="...">
       if($(this).attr("placeholder") != undefined) {
         if($(this).attr("data-lang") != undefined) {
@@ -88,16 +88,6 @@ function change_language(new_language_code) {
         }
         $(this).attr("data-lang", $(this).attr("placeholder"));
         $(this).attr("placeholder", translate($(this).attr("placeholder")));
-      }
-
-      // translate <... data-text="...">  // TODO: anders machen
-      if($(this).attr("data-text") != undefined) {
-        if($(this).attr("data-lang") != undefined) {
-          $(this).attr("data-text", translate($(this).attr("data-lang")));
-          return;
-        }
-        $(this).attr("data-lang", $(this).attr("data-text"));
-        $(this).attr("data-text", translate($(this).attr("data-text")));
       }
 
       // translate <...>innerHTML</...>
