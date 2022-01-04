@@ -16,6 +16,7 @@ TASKS=[
                       "truecondition":"results.rows.length > 0  && queries[j].includes('benutzer')",
                       "correctanswer":["true","true","true","true"],
                       "speakbblanswer":["Super! Du hast verstanden wie das Login-Formular funktioniert. ","Super! Du hast verstanden wie das Login-Formular funktioniert."],
+                      "speakbblanswer_en":["Perfect! You now know how this login form works.","Perfect! You now know how this login form works."],
                       "imganswer":["img/happybee.png","img/happybee.png"],
                       "whitelist": [""],
                       "blacklist": [""]}],
@@ -29,6 +30,7 @@ TASKS=[
    "h3":"",
    "img": "img/happybee.png"}],
     "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne ihr Passwort zu kennen. Vergiss nicht, wie am Anfang erwähnt, Apostrophe und SQL-Kommentare geschickt zu nutzen und dir die Hintergrunddetails anzuschauen!",
+    "challenge_en" : "Try to log in as 'jane' without knowing her password. As mentioned before, use apostophes and SQL comments, and take a look in the background-details section.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
                       "truecondition":"results.rows.length > 0 && queries[j].includes('benutzer') && results.rows.item(0)['benutzername']=='alexamusterfrau'",
@@ -40,6 +42,7 @@ TASKS=[
                       "blacklist": ["maxmustermann"]}],
     "category":"login",
     "hints"    : "Wie du es in den Hintergrunddetails siehst, ist vor der Eingabevariable 'uname' ein Apostroph zu finden. D.h. nachdem du den Benutzernamen in das Eingabefeld eingegeben hast brauchen wir noch ein Apostroph um den String zu beenden. Danach interessiert uns die restliche Query nicht, daher kommentieren wir sie aus. '--' ist ein Kommentar in SQL.",
+    "hints_en": "As you can see in the background details, there is an apostrophe before the input variable 'uname'. This means, you need to write another apostroph behind your user name to terminate the string. Everything behind that is of no interest, so you can simply comment it. In SQL, comments start with --",
     "lvl" : 1},
     {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung!",
     "h3":"",
@@ -272,16 +275,16 @@ createTableKunden(db);
 //////////////  HINTS
 
 function show_hints(){
-    var hint=TASKS[task_index].hints;
+    var hint= TASKS[task_index]["hints_"+language_code]!=undefined ? TASKS[task_index]["hints_"+language_code] : TASKS[task_index].hints;
     document.getElementsByClassName("btnboxtxt")[0].innerHTML=hint;
     var e = document.getElementById('btnboxre');
     if(e.style.display == 'block'){
       e.style.display = 'none';
    }else if(hint=="hints deactivated"){
-      document.querySelector("#modal > div >p ").innerHTML = "<h3>Information</h3><h5>In dieser Herausforderung gibt es keine Tipps.</h5> <br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
+      document.querySelector("#modal > div >p ").innerHTML = "<h3>"+translate("Information")+"</h3><h5>"+translate("In dieser Herausforderung gibt es keine Tipps.")+"</h5> <br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>"+translate("OK")+"</button>";
       document.getElementById("modal").style.display='block';
    }else if(hintperlvl <= 0){
-      document.querySelector("#modal > div >p ").innerHTML = "<h3>Information</h3><h5>Es gibt pro Level nur einen Tipp.</h5> <br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
+      document.querySelector("#modal > div >p ").innerHTML = "<h3>"+translate("Information")+"</h3><h5>"+translate("Es gibt pro Level nur einen Tipp.")+"</h5> <br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>"+translate("OK")+"</button>";
       document.getElementById("modal").style.display='block';
       e.style.display = 'block';
    }else{
@@ -306,7 +309,7 @@ function show_hints(){
         document.getElementById('light3').src="img/lightoff.png"
        }
        else if(hints<0){
-         document.querySelector("#modal > div >h5 ").innerHTML = "<h3>Information</h3><h5>Deine Tipps sind aufgebraucht.</h5><br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
+         document.querySelector("#modal > div >p ").innerHTML = "<h3>"+translate("Information")+"</h3><h5>"+translate("Deine Tipps sind aufgebraucht.")+"</h5><br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>"+translate("OK")+"</button>";
          document.getElementById("modal").style.display='block';
        }
    }
@@ -327,7 +330,7 @@ function show_behindscene(){
       }
    // }
    // else{
-   //    document.querySelector("#modal > div >h5 ").innerHTML ='Der Button wird erst nach 3 Fehlversuchen aktiviert.';
+   //    document.querySelector("#modal > div >p ").innerHTML ='Der Button wird erst nach 3 Fehlversuchen aktiviert.';
    //    document.getElementById("modal").style.display='block';
 
    // }
