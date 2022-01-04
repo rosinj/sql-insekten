@@ -10,6 +10,7 @@ var task_index=0;
 TASKS=[
    {"text": [],
     "challenge" : "Versuche als Erstes dich ganz normal als 'alexamusterfrau' mit einem Passwort einzuloggen, wie man es normalerweise kennt. Da du ihr Passwort nicht kennst, gib einfach irgendwas ein.",
+    "challenge_en": "First, try to log in as usual as 'jane' with a password. Since you don't know her password, just enter anything.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
                       "truecondition":"results.rows.length > 0  && queries[j].includes('benutzer')",
@@ -24,12 +25,16 @@ TASKS=[
    {"text": [{"h2": "Ok, jetzt geht's aber wirklich los! ",
               "h3":"",
               "img": "img/happybee.png"}],
+   "text_en": [{"h2": "Ok, now it's really starting!",
+   "h3":"",
+   "img": "img/happybee.png"}],
     "challenge" : "Versuche dich als 'alexamusterfrau' einzuloggen, ohne ihr Passwort zu kennen. Vergiss nicht, wie am Anfang erwähnt, Apostrophe und SQL-Kommentare geschickt zu nutzen und dir die Hintergrunddetails anzuschauen!",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
                       "truecondition":"results.rows.length > 0 && queries[j].includes('benutzer') && results.rows.item(0)['benutzername']=='alexamusterfrau'",
                       "correctanswer":["true","false","false","false"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen. <br> Also nicht als 'maxmustermann' einloggen!"],
+                      "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Please try again to log in as 'jane'. <br> So, do not log in as 'maxmiller'!"],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": ["alexamusterfrau"],
                       "blacklist": ["maxmustermann"]}],
@@ -370,14 +375,14 @@ function speakbubble_next(){
       show_lvl();
       bbltxtindex=0;
    }else{
-      document.getElementById("speakbubble_h2").innerHTML = TASKS[task_index].text[bbltxtindex].h2;
-      document.getElementById("speakbubble_h3").innerHTML = TASKS[task_index].text[bbltxtindex].h3;
+      document.getElementById("speakbubble_h2").innerHTML = TASKS[task_index]["text_"+language_code]!=undefined ? TASKS[task_index]["text_"+language_code][bbltxtindex].h2 : TASKS[task_index].text[bbltxtindex].h2;
+      document.getElementById("speakbubble_h3").innerHTML = TASKS[task_index]["text_"+language_code]!=undefined ? TASKS[task_index]["text_"+language_code][bbltxtindex].h3 : TASKS[task_index].text[bbltxtindex].h3;
       document.getElementById("insect").src = TASKS[task_index].text[bbltxtindex].img;
       bbltxtindex=bbltxtindex+1;
    }
 }
 function show_lvl(){
-   document.getElementById("speakbubble_h2").innerHTML = TASKS[task_index].challenge;
+   document.getElementById("speakbubble_h2").innerHTML = TASKS[task_index]["challenge_"+language_code]!=undefined ? TASKS[task_index]["challenge_"+language_code] : TASKS[task_index].challenge;
    document.getElementById("speakbubble_h3").innerHTML = "";
    document.getElementById("next_btn").style.display = 'none';
 }
@@ -737,13 +742,13 @@ function answer(correctanswer){
    var answer;
       // if (correctanswer.includes("error")){
       //    // fails=fails+1;
-      //    document.getElementById("speakbubble_h2").innerHTML=TASKS[task_index].validation[0].speakbblanswer[1];
+      //    document.getElementById("speakbubble_h2").innerHTML=TASKS[task_index].validation[0]["speakbblanswer_"+language_code]!=undefined ? TASKS[task_index].validation[0]["speakbblanswer_"+language_code][0] : TASKS[task_index].validation[0].speakbblanswer[0];
       //    document.getElementById("speakbubble_h3").innerHTML="";
       //    document.getElementById("insect").src = TASKS[task_index].validation[0].imganswer[1];
       //    answer=false;
       // }else{
          if(correctanswer.includes("true")){
-            document.getElementById("speakbubble_h2").innerHTML=TASKS[task_index].validation[0].speakbblanswer[0];
+            document.getElementById("speakbubble_h2").innerHTML=TASKS[task_index].validation[0]["speakbblanswer_"+language_code]!=undefined ? TASKS[task_index].validation[0]["speakbblanswer_"+language_code][0] : TASKS[task_index].validation[0].speakbblanswer[0];
             document.getElementById("speakbubble_h3").innerHTML="";
             document.getElementById("next_btn").style.display = 'block';
             document.getElementById("insect").src = TASKS[task_index].validation[0].imganswer[0];
@@ -764,7 +769,7 @@ function answer(correctanswer){
             answer=true;
          }else{
             // fails=fails+1;
-            document.getElementById("speakbubble_h2").innerHTML=TASKS[task_index].validation[0].speakbblanswer[1];
+            document.getElementById("speakbubble_h2").innerHTML= TASKS[task_index].validation[0]["speakbblanswer_"+language_code]!=undefined ? TASKS[task_index].validation[0]["speakbblanswer_"+language_code][1] : TASKS[task_index].validation[0].speakbblanswer[1];
             document.getElementById("speakbubble_h3").innerHTML="";
             document.getElementById("insect").src = TASKS[task_index].validation[0].imganswer[1];
             answer= false;
@@ -1297,7 +1302,7 @@ function cheat(){
    for (let i in TASKS){
       if (TASKS[i].lvl.toString().trim()==lvl_input.toString().trim()){
          task_index=i;
-         document.getElementById("speakbubble_h2").innerHTML=TASKS[task_index].validation[0].speakbblanswer[0];
+         document.getElementById("speakbubble_h2").innerHTML= TASKS[task_index].validation[0]["speakbblanswer_"+language_code]!=undefined ? TASKS[task_index].validation[0]["speakbblanswer_"+language_code][0] : TASKS[task_index].validation[0].speakbblanswer[0];
          document.getElementById("speakbubble_h3").innerHTML="";
          document.getElementById("next_btn").style.display = 'block';
          document.getElementById("insect").src = TASKS[task_index].validation[0].imganswer[0];
