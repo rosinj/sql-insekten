@@ -77,8 +77,8 @@
                 <li onclick="show_info();document.getElementById('menu_ul').style.display='none';"><a href='#' class="lang">Über das Spiel</a></li>
                 <li><a href='#' onclick="show_lan();" class="lang">Sprache ändern</a>
                     <ul id="change_language">
-                      <li onclick="change_language('en');"><a href='#'>English</a></li>
-                      <li onclick="change_language('de');"><a href='#'>Deutsch</a></li>
+                      <li><a href='./?lang=en'>English</a></li>
+                      <li><a href='./?lang=de'>Deutsch</a></li>
                     </ul>
                   </li>
               </ul>
@@ -229,8 +229,17 @@ OUTPUT;
     <script src="joyride-2.0.0/jquery.joyride-2.1.js"></script>
     <script type="text/javascript" src="joyride-2.0.0/jquery.cookie.js"></script>
     <script type="text/javascript" src="joyride-2.0.0/modernizr.mq.js"></script>
-    <script type="text/javascript" src="js/game.js"></script>
     <script type="text/javascript" src="js/language.js"></script>
+    <script type="text/javascript" src="js/game.js"></script>
+
+    <script type="text/javascript" defer>
+      var lang_code = new URLSearchParams(window.location.search).get("lang");
+      if(lang_code == null) { 
+        //lang_code = window.navigator.language.slice(0, 2);
+        lang_code = "en";
+      }
+      change_language(lang_code);
+    </script>
 
     <script>
       $(window).load(function() {

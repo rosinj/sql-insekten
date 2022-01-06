@@ -13,7 +13,7 @@ TASKS=[
     "challenge_en": "First, try to log in as usual as 'jane' with a password. Since you don't know her password, just enter anything.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0  && queries[j].includes('benutzer')",
+                      "truecondition":"results.rows.length > 0  && queries[j].includes('"+translate("benutzer")+"')",
                       "correctanswer":["true","true","true","true"],
                       "speakbblanswer":["Super! Du hast verstanden wie das Login-Formular funktioniert. ","Super! Du hast verstanden wie das Login-Formular funktioniert."],
                       "speakbblanswer_en":["Perfect! You now know how this login form works.","Perfect! You now know how this login form works."],
@@ -33,7 +33,7 @@ TASKS=[
     "challenge_en" : "Try to log in as 'jane' without knowing her password. As mentioned before, use apostophes and SQL comments, and take a look in the background-details section.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0 && queries[j].includes('benutzer') && results.rows.item(0)['benutzername']=='alexamusterfrau'",
+                      "truecondition":"results.rows.length > 0 && queries[j].includes(translate('benutzer')) && results.rows.item(0)[translate('benutzername')]==translate('alexamusterfrau')",
                       "correctanswer":["true","false","false","false"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen. <br> Also nicht als 'maxmustermann' einloggen!"],
                       "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Please try again to log in as 'jane'. <br> So, do not log in as 'maxmiller'!"],
@@ -52,8 +52,8 @@ TASKS=[
     "img": "img/bee.png"}],
    "challenge": "Versuche die Tabelle 'benutzer' zu droppen. <br> <h3> Im Hintergrund wird zwar eigentlich nur eine Query ausgeführt, aber wenn du eine Query mit ';' beendest kannst du eine weitere Query einschleußen. Lass dich übrigens nicht davon irritieren, wenn der Login fehlschlägt oder eine Fehlermeldung auftaucht. </h3>",
    "challenge_en": "Try to drop the table 'users'; <br> <h3> Basically, only one single query should be executed when logging in, but when you terminate your query with a semicolon; beendest kannst du eine weitere Query you can inject a second query. By the way, don't get irritated if the login fails or you get an error message.</h3>",
-   "validation"  : [{"validationquery": ["SELECT benutzername FROM benutzer"],
-                     "validationerror":"could not prepare statement (1 no such table: benutzer)",
+   "validation"  : [{"validationquery": ["SELECT "+translate("benutzername")+" FROM "+translate("benutzer")+""],
+                     "validationerror":"could not prepare statement (1 no such table: "+translate("benutzer")+")",
                      "truecondition":"results.rows.length > 0",
                      "correctanswer":["false","false","true","false"],
                      "speakbblanswer":["Super! Du hast die Benutzertabelle gelöscht! ","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'benutzer' zu droppen bzw. zu löschen."],
@@ -62,7 +62,7 @@ TASKS=[
                      "whitelist": [""],
                      "blacklist": [""]}],
    "category":"login",
-   "hints"    : "Nehme die Lösung von Level 1 (alexamusterfrau'--) und quetsche dazwischen einen DROP-TABLE-Befehl. Mit Semikolon trennst du verschiedene Queries voneinander.",
+   "hints"    : "Nimm die Lösung von Level 1 (alexamusterfrau'--) und quetsche dazwischen einen DROP-TABLE-Befehl. Mit Semikolon trennst du verschiedene Queries voneinander.",
    "hints_en"    : "Take your solution from Level 1 (jane'--) und place a DROP TABLE command before the comment. You can separate multiple queries with a semicolon.",
    "lvl": 2},
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> <br> <br> ",
@@ -77,7 +77,7 @@ TASKS=[
     "challenge_en": "Let's say you do not know a user name. Anyway, try to log in with any user.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0 && queries[j].includes('benutzer') && ['alexamusterfrau','maxmustermann','kati1809'].includes(results.rows.item(0)['benutzername'])",
+                      "truecondition":"results.rows.length > 0 && queries[j].includes('"+translate("benutzer")+"') && ['"+translate("alexamusterfrau")+"','"+translate("maxmustermann")+"','"+translate("kati1809")+"'].includes(results.rows.item(0)['"+translate("benutzername")+"'])",
                       "correctanswer":["true","false","false","false"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich mit einem User einzuloggen ohne einen Namen zu kennen."],
                       "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Try again to log in with a user without knowing their user name."],
@@ -106,10 +106,10 @@ TASKS=[
     "challenge_en": "Can you also solve this challenge? Please again log in as a user that you do not know.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length == 1 && queries[j].includes('benutzer') && ['alexamusterfrau','maxmustermann','kati1809'].includes(results.rows.item(0)['benutzername'])",
+                      "truecondition":"results.rows.length == 1 && queries[j].includes('"+translate("benutzer")+"') && ['"+translate("alexamusterfrau")+"','"+translate("maxmustermann")+"','"+translate("kati1809")+"'].includes(results.rows.item(0)['"+translate("benutzername")+"'])",
                       "correctanswer":["true","false","false","false"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> Vergiss nicht, dass deine Query nur eine Zeile im Ergebnis ausgeben darf."],
-                      "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Try again to log in as a user without knowing their user name. <br> Beware, that your query must only return one single row!"],
+                      "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Try again to log in as a user without knowing their user name. <br> Beware that your query must only return one single row!"],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": [""],
                       "blacklist": ["maxmustermann","alexamusterfrau","kati1809"]}],
@@ -123,12 +123,20 @@ TASKS=[
     {"h2": "",
     "h3":"Nun haben wir statt eines Login-Formulars eine typische Suchleiste. In diesem Fall von einem Online-Shop für Schuhe. Versuche hier dich per SQL-Injection reinzuhacken! Viel Spaß! ",
     "img": "img/bee.png"}],
+    "text_en" :[{"h2": "Let's come to the next challenge!  <br>",
+    "h3":"",
+    "img": "img/bee.png"},
+    {"h2": "",
+    "h3":"In this challenge, we now have a search bar instead of a login form. It allows us to search for all shoes of a specific brand. We will now try to attack the web site using this search feature! Have fun! ",
+    "img": "img/bee.png"}],
    "challenge": "Versuche erstmal ganz normal nach Schuhen der Marke 'Nicke' zu suchen. ",
+   "challenge_en": "First of all, just use a normal search to find all shoes from the brand 'Nicke'.",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     "truecondition":"results.rows.length == 4 && queries[j].includes('schuhe')",
+                     "truecondition":"results.rows.length == 4 && queries[j].includes('"+translate("schuhe")+"')",
                      "correctanswer":["true","false","false","false"],
                      "speakbblanswer":["Super! Du hast verstanden wie die Produktsuche funktioniert. ","Schade, das hat leider nicht geklappt. Suche nach Schuhen der Marke 'Nicke'"],
+                     "speakbblanswer_en":["Perfect! You know know how the product search works. ","Oh no, this did not work out. Try again to search for shoes of the brand 'Nicke'."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
                      "blacklist": [""]}],
@@ -138,17 +146,23 @@ TASKS=[
    {"text" :[{"h2": "Kommen wir zur nächsten Herausforderung!  <br>",
    "h3":"",
    "img": "img/bee.png"}],
+   "text_en" :[{"h2": "Let's take a look at the next challenge!  <br>",
+   "h3":"",
+   "img": "img/bee.png"}],
    "challenge": "Gebe mir den Benutzernamen und das Passwort aller User aus.",
+   "challenge_en": "Please output the usernames and passwords of all users!",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
                      "truecondition":"results.rows.length == 3 && queries[j].includes('benutzer')  && queries[j].includes('benutzername') && queries[j].includes('passwort') ",
                      "correctanswer":["true","false","false","false"],
                      "speakbblanswer":["Super! Du hast es geschafft! <br> <h3>Wenigstens speichert die Website die Passwörter nicht in Klartext, sondern als Hashwert, der aus dem Passwort generiert wird. Aber durch frei zugängliche sog. Rainbow-Tables konnte ich trotzdem herausfinden, dass das Passwort von maxmustermann 'password123' ist.</h3>","Schade, das hat leider nicht geklappt. Versuche erneut Benutzername und Passwort aller Benutzer auszugeben."],
+                     "speakbblanswer_en":["Perfect! It worked! <br> <h3>As you can see, the website stores the passwords in an encrypted format using their MD5 hash. That's better than storing them in plain text. But, rainbow tables which are publicly available can help us to look up for the original password, for maxmiller that's 'password123'.</h3>","Oh no, this did not work out. Try again to output the usernames and passwords of all users."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
                      "blacklist": [""]}],
    "category":"search",
    "hints"    : "Wie vorher kannst du mit ';' eine neue Query anfangen, nur dass die Tabelle 'benutzer' heißt und folgende Spalten hat: 'nutzer_id', 'benutzername', 'passwort','email'.",
+   "hints_en"    : "You can again use a ';' to terminate a query and start a new one. And in your second query, you can use the table 'users' in the FROM clause. It has the columns '"+translate("nutzer_id")+"', '"+translate("benutzername")+"', '"+translate("passwort")+"','"+translate("email")+"'.",
    "lvl": 5},
     {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an und zurück zum Login-Formular! <br> Irgendjemand arbeitet doch hinter dieser Website. Dann gibt es vielleicht auch eine Mitarbeiter-Tabelle in der Datenbank. ",
     "h3":"",
@@ -564,31 +578,31 @@ function generate_query(){
       case "login":
          var uname=document.getElementById("username").value;
          var pw=document.getElementById("password").value;
-         var select="SELECT benutzername ";
-         var from="FROM benutzer ";
-         var where="WHERE benutzername ='" + uname + "' AND passwort ='"+ pw + "';";
+         var select="SELECT "+translate("benutzername")+" ";
+         var from="FROM "+translate("benutzer")+" ";
+         var where="WHERE "+translate("benutzername")+" ='" + uname + "' AND "+translate("passwort")+" ='"+ md5(pw) + "';";
          document.querySelector("#codetxt > code").innerHTML = select + "\n" +
                                                                from   +"\n" +
                                                                where;
-         var query="SELECT benutzername FROM benutzer WHERE benutzername ='" + uname + "' AND passwort ='"+ md5(pw) + "'";
+         var query="SELECT "+translate("benutzername")+" FROM "+translate("benutzer")+" WHERE "+translate("benutzername")+" ='" + uname + "' AND "+translate("passwort")+" ='"+ md5(pw) + "'";
       break;
       case "search":
          var search=document.getElementById("suchleiste").value;
-         var query="SELECT produkt_id, marke, groesse, preis FROM schuhe WHERE marke='" + search + "'";
-         var select="SELECT produkt_id, marke, groesse, preis ";
-         var from="FROM schuhe ";
-         var where="WHERE marke='" + search + "';";
+         var query="SELECT "+translate("produkt_id")+", "+translate("marke")+", "+translate("groesse")+", "+translate("preis")+" FROM "+translate("schuhe")+" WHERE "+translate("marke")+"='" + search + "'";
+         var select="SELECT "+translate("produkt_id")+", "+translate("marke")+", "+translate("groesse")+", "+translate("preis")+" ";
+         var from="FROM "+translate("schuhe")+" ";
+         var where="WHERE "+translate("marke")+"='" + search + "';";
          document.querySelector("#codetxt > code").innerHTML = select + "\n" +
                                                                from   +"\n" +
                                                                where;
          break;
       case "url":
          var url=document.getElementById("url").value;
-         var id=url.toString().split('?');
-         var query="SELECT marke, groesse, preis FROM schuhe WHERE " + id[id.length-1]+"";
-         var select="SELECT produkt_id, marke, groesse, preis ";
-         var from="FROM schuhe ";
-         var where="WHERE " + id[id.length-1]+";";
+         var id=url.toString().split('?'+translate("produkt_id")+"=");
+         var query="SELECT "+translate("marke")+", "+translate("groesse")+", "+translate("preis")+" FROM "+translate("schuhe")+" WHERE "+translate("produkt_id")+"=" + id[id.length-1]+"";
+         var select="SELECT "+translate("produkt_id")+", "+translate("marke")+", "+translate("groesse")+", "+translate("preis")+" ";
+         var from="FROM "+translate("schuhe")+" ";
+         var where="WHERE " + translate("produkt_id")+" = "+ id[id.length-1]+";";
          document.querySelector("#codetxt > code").innerHTML = select + "\n" +
                                                                from   +"\n" +
                                                                where;
@@ -614,14 +628,14 @@ function is_query_valid(query){
    // var query= generate_query();
    for (let i in blacklistarray){
       if(blacklistarray[i]!=""){
-         if(query.includes(blacklistarray[i])){
+         if(query.includes(translate(blacklistarray[i]))){
             valid=false;
          }
       }
    }
    for (let k in whitelistarray){
       if(whitelistarray[k]!=""){
-         if(query.includes(whitelistarray[k])){
+         if(query.includes(translate(whitelistarray[k]))){
          }
          else{
             valid=false;
@@ -668,7 +682,7 @@ function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
 
       switch (category){
          case "login":
-            document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index].rows.item(0)['benutzername'] +"!";
+            document.getElementById('loginlabel').innerHTML= translate("Login war erfolgreich.")+" <br> <br> "+translate("Willkommen")+" " + ergebnis[index].rows.item(0)[translate('benutzername')] +"!";
             document.getElementById("username").style.display = 'none';
             document.getElementById("password").style.display = 'none';
             document.getElementById("login_btn").style.display = 'none';
@@ -889,12 +903,12 @@ function createTableUsers(db)
         function (transaction) {
  
             /* The first query causes the transaction to (intentionally) fail if the table exists. */
-            transaction.executeSql('DROP TABLE IF EXISTS benutzer;', [], nullDataHandler, errorHandler);
-            transaction.executeSql('create table benutzer(nutzer_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , benutzername TEXT NOT NULL, passwort TEXT NOT NULL, email TEXT NOT NULL );', [], nullDataHandler, errorHandler);
+            transaction.executeSql("DROP TABLE IF EXISTS "+translate("benutzer")+";", [], nullDataHandler, errorHandler);
+            transaction.executeSql("create table "+translate("benutzer")+"(nutzer_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("benutzername")+" TEXT NOT NULL, "+translate("passwort")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL );", [], nullDataHandler, errorHandler);
             /* These insertions will be skipped if the table already exists. */
-            transaction.executeSql('INSERT INTO benutzer VALUES (0,"maxmustermann","482c811da5d5b4bc6d497ffa98491e38","maxmustermann@examplemail.com");', [], nullDataHandler, errorHandler);
-            transaction.executeSql('INSERT INTO benutzer VALUES (1,"alexamusterfrau","ccce608af11293cecc1c1c272a04d54d","alexamustermann@example.de");', [], nullDataHandler, errorHandler);
-            transaction.executeSql('INSERT INTO benutzer VALUES (2,"kati1809","5e446b734ae11b7f30c907e54d89a84e","kati@examplemail.com");', [], nullDataHandler, dataHandler);
+            transaction.executeSql("INSERT INTO "+translate("benutzer")+" VALUES (0,'"+translate("maxmustermann")+"','482c811da5d5b4bc6d497ffa98491e38','"+translate("maxmustermann@example.com")+"');", [], nullDataHandler, errorHandler);
+            transaction.executeSql("INSERT INTO "+translate("benutzer")+" VALUES (1,'"+translate("alexamusterfrau")+"','ccce608af11293cecc1c1c272a04d54d','"+translate("alexamusterfrau@example.com")+"');", [], nullDataHandler, errorHandler);
+            transaction.executeSql("INSERT INTO "+translate("benutzer")+" VALUES (2,'"+translate("kati1809")+"','5e446b734ae11b7f30c907e54d89a84e','"+translate("kati@example.com")+"');", [], nullDataHandler, dataHandler);
         }
     );
 }
@@ -903,23 +917,23 @@ function createTableShoes(db){
       function (transaction) {
 
           /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql('DROP TABLE IF EXISTS schuhe;', [], nullDataHandler, errorHandler);
-          transaction.executeSql('create table schuhe(produkt_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , marke TEXT NOT NULL, groesse INT NOT NULL, preis INT NOT NULL );', [], nullDataHandler, errorHandler);
+          transaction.executeSql("DROP TABLE IF EXISTS "+translate("schuhe")+";", [], nullDataHandler, errorHandler);
+          transaction.executeSql("create table "+translate("schuhe")+"("+translate("produkt_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("marke")+" TEXT NOT NULL, "+translate("groesse")+" INT NOT NULL, "+translate("preis")+" INT NOT NULL );", [], nullDataHandler, errorHandler);
           /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql('INSERT INTO schuhe VALUES (0,"Nicke",40,80);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (1,"Abidas",37,70);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (2,"Nicke",42,80);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (3,"Abidas",41,80);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (4,"Nicke",38,100);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (5,"Nicke",40,80);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (6,"Abidas",40,70);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (7,"Conwers",43,60);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (8,"Weja",38,130);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (9,"Reedok",45,70);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (10,"Weja",36,120);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (11,"Reedok",46,60);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (12,"Trash Plant",39,190);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO schuhe VALUES (13,"Bifffalo",39,99);', [], nullDataHandler, dataHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (0,'Nicke',40,80);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (1,'Abidas',37,70);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (2,'Nicke',42,80);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (3,'Abidas',41,80);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (4,'Nicke',38,100);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (5,'Nicke',40,80);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (6,'Abidas',40,70);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (7,'Conwers',43,60);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (8,'Weja',38,130);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (9,'Reedok',45,70);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (10,'Weja',36,120);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (11,'Reedok',46,60);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (12,'Trash Plant',39,190);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (13,'Bifffalo',39,99);", [], nullDataHandler, dataHandler);
       }
   );
 }
@@ -928,15 +942,15 @@ function createTableMa(db){
       function (transaction) {
 
           /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql('DROP TABLE IF EXISTS mitarbeiter;', [], nullDataHandler, errorHandler);
-          transaction.executeSql('create table mitarbeiter(ma_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , vorname TEXT NOT NULL, name TEXT NOT NULL, email TEXT NOT NULL, lohn INT NOT NULL, angestellt_seit INT NOT NULL );', [], nullDataHandler, errorHandler);
+          transaction.executeSql("DROP TABLE IF EXISTS "+translate("mitarbeiter")+";", [], nullDataHandler, errorHandler);
+          transaction.executeSql("create table "+translate("mitarbeiter")+"("+translate("ma_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("vorname")+" TEXT NOT NULL, "+translate("name")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL, lohn INT NOT NULL, "+translate("angestellt_seit")+" INT NOT NULL );", [], nullDataHandler, errorHandler);
           /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql('INSERT INTO mitarbeiter VALUES (0,"Franziska","die Große","examplemail.com",700,2020);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO mitarbeiter VALUES (1,"Mohammed","Schneider","schneider@webb.de",1700,2017);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO mitarbeiter VALUES (2,"Greta Maria","Reifenberger","gretamaria-reifenberger@email.com",4500,2000);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO mitarbeiter VALUES (3,"Dietmar","Kaslowski","dietmar0123@exm.com",2800,2005);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO mitarbeiter VALUES (4,"Jessica","Koch","Koch1009@mail.com",1200,2019);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO mitarbeiter VALUES (5,"Clarissa","Waismeier","waismeier.com",3500,2010);', [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (0,'Franziska','die Große','examplemail.com',700,2020);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (1,'Mohammed','Schneider','schneider@webb.de',1700,2017);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (2,'Greta Maria','Reifenberger','gretamaria-reifenberger@email.com',4500,2000);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (3,'Dietmar','Kaslowski','dietmar0123@exm.com',2800,2005);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (4,'Jessica','Koch','Koch1009@mail.com',1200,2019);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (5,'Clarissa','Waismeier','waismeier.com',3500,2010);", [], nullDataHandler, errorHandler);
       }
   );
 }
@@ -945,27 +959,27 @@ function createTableKunden(db){
       function (transaction) {
 
           /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql('DROP TABLE IF EXISTS kunden;', [], nullDataHandler, errorHandler);
-          transaction.executeSql('create table kunden(kunden_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , name TEXT NOT NULL, email TEXT NOT NULL, bestellnr INT NOT NULL, adresse TEXT NOT NULL );', [], nullDataHandler, errorHandler);
+          transaction.executeSql("DROP TABLE IF EXISTS "+translate("kunden")+";", [], nullDataHandler, errorHandler);
+          transaction.executeSql("create table kunden("+translate("kunden_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("name")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL, "+translate("bestellnr")+" INT NOT NULL, "+translate("adresse")+" TEXT NOT NULL );", [], nullDataHandler, errorHandler);
           /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql('INSERT INTO kunden VALUES (0,"Franziska Baumgartner","examplemail.com",12345,"Studentenstr. 10");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO kunden VALUES (1,"Mohammed Weinzierl","weinzierlr@webb.de",54321, "Merkelstr. 98");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO kunden VALUES (2,"Maria Königsberg","maria_königsweg@mail.com",28888,"Veilchenstr. 13");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO kunden VALUES (3,"Dimitri Muster","dietmar0123@exm.com",33445,"Seestr. 18");', [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("kunden")+" VALUES (0,'Franziska Baumgartner','examplemail.com',12345,'Studentenstr. 10');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("kunden")+" VALUES (1,'Mohammed Weinzierl','weinzierlr@webb.de',54321, 'Merkelstr. 98');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("kunden")+" VALUES (2,'Maria Königsberg','maria_königsweg@mail.com',28888,'Veilchenstr. 13');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO "+translate("kunden")+" VALUES (3,'Dimitri Muster','dietmar0123@exm.com',33445,'Seestr. 18');", [], nullDataHandler, errorHandler);
       }
   );
 }
 function createTableTables(db){
    db.transaction(
       function (transaction) {
-         transaction.executeSql('DROP TABLE IF EXISTS information_schema_tables;', [], nullDataHandler, errorHandler);
+         transaction.executeSql("DROP TABLE IF EXISTS information_schema_tables;", [], nullDataHandler, errorHandler);
           /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql('create table information_schema_tables(table_name TEXT NOT NULL, table_type TEXT NOT NULL, table_rows INT NOT NULL);', [], nullDataHandler, errorHandler);
+          transaction.executeSql("create table information_schema_tables(table_name TEXT NOT NULL, table_type TEXT NOT NULL, table_rows INT NOT NULL);", [], nullDataHandler, errorHandler);
           /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql('INSERT INTO information_schema_tables VALUES ("benutzer","BASE TABLE",3);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_tables VALUES ("schuhe","BASE TABLE",14);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_tables VALUES ("mitarbeiter","BASE TABLE",6);', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_tables VALUES ("kunden","BASE TABLE",4);', [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_tables VALUES ('"+translate("benutzer")+"','BASE TABLE',3);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_tables VALUES ('"+translate("schuhe")+"','BASE TABLE',14);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_tables VALUES ('"+translate("mitarbeiter")+"','BASE TABLE',6);", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_tables VALUES ('"+translate("kunden")+"','BASE TABLE',4);", [], nullDataHandler, errorHandler);
       }
   );
 }
@@ -974,28 +988,28 @@ function createTableColumns(db){
       function (transaction) {
 
           /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql('DROP TABLE IF EXISTS information_schema_columns;', [], nullDataHandler, errorHandler);
-          transaction.executeSql('create table information_schema_columns(table_name TEXT NOT NULL, column_name TEXT NOT NULL, data_type TEXT NOT NULL);', [], nullDataHandler, errorHandler);
+          transaction.executeSql("DROP TABLE IF EXISTS information_schema_columns;", [], nullDataHandler, errorHandler);
+          transaction.executeSql("create table information_schema_columns(table_name TEXT NOT NULL, column_name TEXT NOT NULL, data_type TEXT NOT NULL);", [], nullDataHandler, errorHandler);
           /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("benutzer","nutzer_id","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("benutzer","nutzername","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("benutzer","passwort","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("benutzer","email","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("schuhe","produkt_id","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("schuhe","marke","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("schuhe","groesse","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("schuhe","preis","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("mitarbeiter","ma_id","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("mitarbeiter","name","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("mitarbeiter","vorname","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("mitarbeiter","email","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("mitarbeiter","lohn","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("mitarbeiter","angestellt_seit","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("kunden","kunden_id","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("kunden","name","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("kunden","email","VARCHAR2");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("kunden","bestellnr","NUMBER");', [], nullDataHandler, errorHandler);
-          transaction.executeSql('INSERT INTO information_schema_columns VALUES ("kunden","adresse","VARCHAR2");', [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("benutzer")+"','"+translate("nutzer_id")+"','NUMBER');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("benutzer")+"','"+translate("nutzername")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("benutzer")+"','"+translate("passwort")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("benutzer")+"','"+translate("email")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("schuhe")+"','"+translate("produkt_id")+"','NUMBER');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("schuhe")+"','"+translate("marke")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("schuhe")+"','"+translate("groesse")+"','NUMBER');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("schuhe")+"','"+translate("preis")+"','NUMBER');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("ma_id")+"','NUMBER');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("name")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("vorname")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("email")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("lohn")+"','NUMBER');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("angestellt_seit")+"','NUMBER');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("kunden_id")+"','NUMBER');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("name")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("email")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("bestellnr")+"','NUMBER');", [], nullDataHandler, errorHandler);
+          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("adresse")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
       }
   );
 }

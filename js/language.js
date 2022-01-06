@@ -58,17 +58,36 @@ lang_en = {
   "marke": "brand",
   "groesse": "size",
   "preis": "price",
+  "email": "email",
+  "alexamusterfrau": "jane",
+  "maxmustermann": "maxmiller",
+  "kati1809": "kati1809",
+  "alexamusterfrau@example.com": "jane@example.com",
+  "maxmustermann@example.com": "maxmiller@example.com",
+  "kati@example.com": "kati@example.com",
+  "vorname": "firstname",
+  "lohn": "salary",
+  "kunden": "customers",
+  "kunden_id": "customer_id",
+  "mitarbeiter": "staff",
+  "name": "name",
+  "ma_id": "staff_id",
+  "nutzer_id": "user_id",
+  "bestellnr": "order_id",
+  "adresse": "address",
+  "angestellt_seit": "employed_since",
+  "nutzername": "username",
   "Produktsuche": "Product Search",
   "Suchergebnisse": "Search results",
   "Ergebnis": "Result",
   "Login fehlgeschlagen": "Login failed",
-  "kein Suchergebnis": "empty search result"
+  "kein Suchergebnis": "empty search result",
+  "Login war erfolgreich.": "Login was successful!",
+  "Willkommen": "Welcome",
 }
 
-language_code = "";
-
-//change_language(window.navigator.language.slice(0, 2));
-change_language("de");
+language_code = "de";
+lang = lang_de;
 
 function change_language(new_language_code) {
   if(new_language_code == "de") {
