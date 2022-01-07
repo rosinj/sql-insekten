@@ -4,7 +4,7 @@ var hints=3;
 var bbltxtindex=0;
 var hintperlvl=1;
 // var fails=0
-var cheatactive=!false;
+var cheatactive=false;
 var task_index=0;
 
 TASKS=[
@@ -39,7 +39,7 @@ TASKS=[
                       "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Please try again to log in as 'jane'. <br> So, do not log in as 'maxmiller'!"],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": ["alexamusterfrau","jane"],
-                      "blacklist": ["maxmustermann","maxmiller"]}],
+                      "blacklist": ["maxmustermann"]}],
     "category":"login",
     "hints"    : "Wie du es in den Hintergrunddetails siehst, ist vor der Eingabevariable 'uname' ein Apostroph zu finden. D.h. nachdem du den Benutzernamen in das Eingabefeld eingegeben hast brauchen wir noch ein Apostroph um den String zu beenden. Danach interessiert uns die restliche Query nicht, daher kommentieren wir sie aus. '--' ist ein Kommentar in SQL.",
     "hints_en": "As you can see in the background details, there is an apostrophe before the input variable 'uname'. This means, you need to write another apostroph behind your user name to terminate the string. Everything behind that is of no interest, so you can simply comment it. In SQL, comments start with --",
@@ -51,7 +51,7 @@ TASKS=[
     "h3":"",
     "img": "img/bee.png"}],
    "challenge": "Versuche die Tabelle 'benutzer' zu droppen. <br> <h3> Im Hintergrund wird zwar eigentlich nur eine Query ausgeführt, aber wenn du eine Query mit ';' beendest kannst du eine weitere Query einschleußen. Lass dich übrigens nicht davon irritieren, wenn der Login fehlschlägt oder eine Fehlermeldung auftaucht. </h3>",
-   "challenge_en": "Try to drop the table 'users'; <br> <h3> Basically, only one single query should be executed when logging in, but when you terminate your query with a semicolon; beendest kannst du eine weitere Query you can inject a second query. By the way, don't get irritated if the login fails or you get an error message.</h3>",
+   "challenge_en": "Try to drop the table 'users'; <br> <h3> Basically, only one single query should be executed when logging in, but when you terminate your query with a semicolon ';'  you can inject a second query. By the way, don't get irritated if the login fails or you get an error message.</h3>",
    "validation"  : [{"validationquery": ["'SELECT '+ translate('benutzername') +' FROM '+translate('benutzer')"],
                      "validationerror":"'could not prepare statement (1 no such table: '+translate('benutzer')+')'",
                      "truecondition":"results.rows.length > 0",
@@ -175,24 +175,24 @@ TASKS=[
     "h3":"",
     "img": "img/bee.png"},
     {"h2": "",
-    "h3":"With the login form, the only information output we get is that we have successfully logged in with a user (e.g., welcome maxmiller!). I.e. to output information from another table you have to manipulate the 'username' of the table 'user'.",
+    "h3":"With the login form, the only information output we get is that we have successfully logged in with a user (e.g., Welcome maxmiller!). I.e. to output information from another table you have to manipulate the column 'username' of the table 'users'.",
     "img": "img/bee.png"}
    ],
    "challenge": "Ich will wissen wie viel Lohn die Mitarbeiterin mit dem Vornamen 'Greta Maria' bekommt. <br> Damit das funktioniert musst du den Spaltennamen der Tabelle 'mitarbeiter' umbenennen.",
-   "challenge_en": "I want to know how much the staff member with the first name 'Greta Maria' gets. <br> For this to work you have to rename the column name of the table 'staff'.",
+   "challenge_en": "I want to know how much the staff member with the first name 'Greta Maria' earns. <br> For this to work you have to rename the column name of the table 'staff'.",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
             "truecondition":"results.rows.length == 1 && queries[j].includes(translate('mitarbeiter')) && results.rows.item(0)[translate('benutzername')]==4500",
             "correctanswer":["true","false","false","false"],
-            "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> Die Greta bekommt ja ganz schön viel Geld.","Schade, das hat leider nicht geklappt. Versuche erneut herauszufinden wieviel Greta Maria verdient. <br> Zur Info: Du wirst die Spalte 'benutzername' von 'benutzer' benötigen und 'lohn','vorname' von der Tabelle 'mitarbeiter'"],
-            "speakbblanswer_en":["Perfect! You solved this challenge! <br> Wow, Greta gets a lot of money.","Oh no, this did not work out. Try again to output Greta Maria's salary. <br> For your information: You will need the column 'username' from 'users' and 'salary', 'firstname' from the table 'staff'"],
+            "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> Die Greta bekommt ja ganz schön viel Geld.","Schade, das hat leider nicht geklappt. Versuche erneut herauszufinden wieviel Greta Maria verdient. <br> Zur Info: Du wirst die Spalte 'benutzername' von 'benutzer' benötigen und 'lohn','vorname' von der Tabelle 'mitarbeiter'."],
+            "speakbblanswer_en":["Perfect! You solved this challenge! <br> Wow, Greta gets a lot of money.","Oh no, this did not work out. Try again to output Greta Maria's salary. <br> For your information: You will need the column 'username' from 'users' and 'salary', 'firstname' from the table 'staff'."],
 
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau","maxmiller","jane"]}],
    "category":"login",
    "hints"    : "Wie bei dem Level wo du eine Tabelle löschen solltest, fängst du mit Semikolon eine neue Query an und selektierst 'lohn' von Tabelle 'mitarbeiter' mit der Bedingung, dass der 'vorname' = 'Greta Maria' ist. Wichtig: Wenn man eingeloggt ist gibt er den 'benutzername' aus d.h. er sucht bei deiner Query nach der Spalte 'benutzername' und wird sie nicht finden, daher müssen wir die Spalte 'lohn' mit 'as' auf 'benutzername' umbenennen.",
-   "hints_en"    : "As with the level where you should delete a table, you start a new query with a semicolon and select 'salary' from table 'staff' with the condition that the 'firstname' = 'Greta Maria'. Important: When you are logged in, it outputs the 'username', i.e. it looks for the 'username' column in your query and will not find it, so we have to rename the 'salary' column to 'username' with 'as'.",
+   "hints_en"    : "As with the level where you should delete a table, you start a new query with a semicolon and select 'salary' from the table 'staff' with the condition that the 'firstname' = 'Greta Maria'. Important: When you are logged in, it outputs the 'username', i.e. it looks for the 'username' column in your query and will not find it, so we have to rename the 'salary' column to 'username' with 'as'.",
 
    "lvl" : 6},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> In diesem Level sind wir wieder beim Schuhe-Onlineshop mit der Suchleiste.",
@@ -202,17 +202,27 @@ TASKS=[
    "h3":"",
    "img": "img/bee.png"}
   ],
+  "text_en" : [{"h2": "Let's take a look at the next challenge. <br> Now we're back to the search bar of that shoe shopping website.",
+   "h3":"",
+   "img": "img/bee.png"},
+   {"h2": "The software developers have noticed that hackers can inject new queries into the input fields with ';', so semicolons are now prohibited in the input.",
+   "h3":"",
+   "img": "img/bee.png"}
+  ],
   "challenge": "Ich will von allen Mitarbeitern folgendes wissen: Name, E-Mail Adresse, Verdienst und seit wann sie in diesem Unternehmen arbeiten. <br> <h3>Die Tabelle hat folgende Spaltennamen: 'ma_id', 'name','vorname','email','lohn' & 'angestellt_seit'. Achtung: Semikolons sind nicht mehr erlaubt. </h3>",
+  "challenge_en": "I want to know the following from all staff members: name, email address, salary and since when they have been working for this company. <br> <h3> The table has the following column names: 'staff_id', 'name', 'firstname', 'email', 'salary' & 'employed_since'. Warning: semicolons are no longer allowed. </h3>",
   "validation"  : [{"validationquery": [""],
            "validationerror":"",
-           "truecondition":"results.rows.length == 6 && queries[j].includes('mitarbeiter')",
+           "truecondition":"results.rows.length == 6 && queries[j].includes(translate('mitarbeiter'))",
            "correctanswer":["true","false","false","false"],
            "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut name, email, lohn und angestellt_seit der Mitarbeitertabelle durch Vereinigung zweier Queries auszugeben."],
+           "speakbblanswer_en":["Perfect! You solved this challenge! <br>","Oh no, this did not work out. Try again to output name, email, salary and employed_since from the staff table by merging two queries."],
            "imganswer":["img/happybee.png","img/surprisebee.png"],
            "whitelist": [""],
            "blacklist": ["maxmustermann","alexamusterfrau",";","maxmiller","jane"]}],
   "category":"search",
-  "hints"    : "Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Nur muss die Spaltenanzahl beider Datenmengen gleichgroß sein.",
+  "hints"    : "Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Dabei muss nur darauf geachtet werden, dass die beiden Teilabfragen vereinigungsverträglich sind, also die gleiche Anzahl an Spalten mit jeweils zueinander kompatiblen Datentypen besitzen.",
+  "hints_en"    : "Query results can be treated in a similar way to sets. So if you cannot start a new query with a semicolon, try expanding your query with UNION. With UNION you can combine 2 queries. After the UNION command you can start a new query as normal. You only have to make sure that the two partial queries are union compatible, i.e. have the same number of columns with mutually compatible data types.",
   "lvl" : 7},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
@@ -225,38 +235,66 @@ TASKS=[
                "img": "img/bee.png"},
                {"h2": "",
                "h3":"Bei Oracle heißt sie sys.user_tables(table_id, table_name, num_rows,...), bei MySQL, SQL Server, PostgreSQL heißt sie information_schema.tables(table_name, table_type, table_rows,...) und bei SQLLite kann man mit der Tabelle sqlite_master(type, name, tbl_name,...) das gleiche erzielen.  <br>",
-               "img": "img/bee.png"}
-   ],
+               "img": "img/bee.png"}],
+   "text_en" : [{"h2": "Let's take a look at the next challenge!  <br>",
+               "h3":"",
+               "img": "img/bee.png"},
+               {"h2": "In reality, you don't even know what the names of the tables in the database and their columns are. Let's find out! <br> <br> <br>",
+               "h3":"",
+               "img": "img/bee.png"},
+               {"h2": "",
+               "h3":"Most database management systems (DBMS) have an internal table with metadata. This contains all information about tables and views in a database. <br>",
+               "img": "img/bee.png"},
+               {"h2": "",
+               "h3":"With Oracle it is called sys.user_tables(table_id, table_name, num_rows,...), with MySQL, SQL Server, PostgreSQL it is called information_schema.tables(table_name, table_type, table_rows,...) and with SQLLite you can use the table sqlite_master(type, name, tbl_name,...) to achieve the same.  <br>",
+               "img": "img/bee.png"}],
    "challenge": "Finde durch rumprobieren heraus, mit welcher Datenbank wir es zu tun haben und gib die Metadaten aus. <br> <h4>Zur Erinnerung: Oracle: sys.user_tables(table_id, table_name, num_rows,...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables(table_name, table_type, table_rows,...) <br> SQLLite:  sqlite_master(type, name, tbl_name,...). </h4> ",
+   "challenge_en": "Try to find out which database we are dealing with and output the metadata. <br> <h4> As a reminder: Oracle: sys.user_tables (table_id, table_name, num_rows, ...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables (table_name, table_type, table_rows, ...) <br> SQLLite: sqlite_master (type, name, tbl_name, ...). </h4>",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
             "truecondition":"results.rows.length == 4 && queries[j].includes('information_schema')",
             "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> Nun wissen wir, welche Tabellen die Datenbank besitzt!","Schade, das hat leider nicht geklappt. Versuche erneut alle Tabellen-Metadaten auszugeben. <br> <h4>Zur Erinnerung: <br> Oracle: sys.user_tables(table_id, table_name, num_rows,...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables(table_name, table_type, table_rows,...) <br> SQLLite:  sqlite_master(type, name, tbl_name,...). </h4>"],
+            "speakbblanswer_en":["Perfect! You solved this challenge! <br> Now we know which tables the database has!","Oh no, this did not work out. Try to output all table metadata again. <br> <h4> As a reminder: <br> Oracle: sys.user_tables (table_id, table_name, num_rows, ...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables (table_name, table_type, table_rows, ...) <br> SQLLite : sqlite_master (type, name, tbl_name, ...). </h4>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": ["tables"],
             "blacklist": ["maxmustermann","alexamusterfrau",";","sqlite_master","maxmiller","jane"]}],
    "category":"search",
-   "hints"    : "Mit UNION fängst du eine neue Query an. Nun probierst du mit den erwähnten Tabellen eine 'SELECT * FROM' Query zu erzeugen, wobei die erwähnten Tabellennamen selektiert werden müssen, da bei UNION die Spaltendimensionen gleich sein sollen. Die Tabelle Schuhe hat 4 Spalten und die andere 3, d.h. du selektierst eine zusätzliche Scheinspalte. Z.B: SELECT table_id, table_name, num_rows, 'test' FROM ...",
+   "hints"    : "Mit UNION fängst du eine neue Query an. Nun probierst du mit den erwähnten Tabellen eine 'SELECT * FROM' Query zu erzeugen, wobei die erwähnten Spaltennamen selektiert werden müssen, da aber bei UNION die Spaltendimensionen gleich sein müssen fehlt noch ein Schritt. Denn die Tabelle Schuhe hat 4 Spalten und die andere 3, d.h. du selektierst eine zusätzliche Scheinspalte: z. B. SELECT table_id, table_name, num_rows, 'test' FROM ... .",
+   "hints_en"    : "With UNION you start a new query. Now you try to generate a 'SELECT * FROM' query with the tables and columns mentioned, but since the column dimensions must be the same with UNION, one step is still missing. Tthe shoes table has 4 columns and the other 3, i.e. you select an additional dummy column: e.g., SELECT table_id, table_name, num_rows, null FROM ... .",
    "lvl" : 8},
    {"text" : [{"h2": "Oh! Hast du das gesehen? Da war eine Tabelle aufgelistet, die wir ja noch gar nicht kennen. Wie interessant! ",
-   "h3":"",
-   "img": "img/happybee.png"},
-   {"h2": "Es gibt auch eine Tabelle, wo alle Spalten jeder Tabelle in der Datenbank gespeichert sind. Beim googeln habe ich herausgefunden, dass sie in unserem Fall information_schema.columns (table_name, column_name, data_type) heißt. ",
-   "h3":"",
-   "img": "img/bee.png"}
-   ],
+               "h3":"",
+               "img": "img/happybee.png"},
+               {"h2": "Es gibt auch eine Tabelle, wo alle Spalten jeder Tabelle in der Datenbank gespeichert sind. Beim googeln habe ich herausgefunden, dass sie in unserem Fall information_schema.columns (table_name, column_name, data_type) heißt. ",
+               "h3":"",
+               "img": "img/bee.png"}],
+   "text_en" : [{"h2": "Oh! Did you see that? There was a table listed that we don't even know. Interesting!",
+                 "h3":"",
+                 "img": "img/happybee.png"},
+                 {"h2": "There is also a table where all the columns of each table are stored in the database. While googling I found out that in our case it is called information_schema.columns (table_name, column_name, data_type). ",
+                 "h3":"",
+                 "img": "img/bee.png"}],
    "challenge": "Aus der vorherigen Ausgabe kam heraus, dass eine Kunden-Tabelle existiert. Ich will wissen, welche Spalten diese Tabelle hat. <br> <h3>Zur Erinnerung: die Tabelle mit Informationen zu den Spalten heißt information_schema.columns (table_name, column_name, data_type). </h3>",
+   "challenge_en": "The previous output showed that there is another table called customers. I want to know which columns this table has. <br> <h3> As a reminder: the table with information on the columns is called information_schema.columns (table_name, column_name, data_type). </h3>",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     "truecondition":"results.rows.length == 5 && queries[j].includes('information_schema') && Object.values(results.rows.item(0)).includes('adresse') && Object.values(results.rows.item(1)).includes('bestellnr') && Object.values(results.rows.item(2)).includes('email') && Object.values(results.rows.item(3)).includes('kunden_id') && Object.values(results.rows.item(4)).includes('name')",
+                     // "truecondition":"results.rows.length == 5 && queries[j].includes('information_schema') && Object.values(results.rows.item(0)).includes(translate('adresse')) && Object.values(results.rows.item(1)).includes(translate('bestellnr')) && Object.values(results.rows.item(2)).includes(translate('email')) && Object.values(results.rows.item(3)).includes(translate('kunden_id')) && Object.values(results.rows.item(4)).includes(translate('name'))",
+                     "truecondition":"results.rows.length == 5 && queries[j].includes('information_schema') && " +
+                                     "(Object.values(results.rows.item(0)).includes(translate('adresse')) || Object.values(results.rows.item(0)).includes(translate('bestellnr')) || Object.values(results.rows.item(0)).includes(translate('email')) || Object.values(results.rows.item(0)).includes(translate('kunden_id')) || Object.values(results.rows.item(0)).includes(translate('name'))) && "+
+                                     "(Object.values(results.rows.item(1)).includes(translate('adresse')) || Object.values(results.rows.item(1)).includes(translate('bestellnr')) || Object.values(results.rows.item(1)).includes(translate('email')) || Object.values(results.rows.item(1)).includes(translate('kunden_id')) || Object.values(results.rows.item(1)).includes(translate('name'))) && "+
+                                     "(Object.values(results.rows.item(2)).includes(translate('adresse')) || Object.values(results.rows.item(2)).includes(translate('bestellnr')) || Object.values(results.rows.item(2)).includes(translate('email')) || Object.values(results.rows.item(2)).includes(translate('kunden_id')) || Object.values(results.rows.item(2)).includes(translate('name'))) && "+
+                                     "(Object.values(results.rows.item(3)).includes(translate('adresse')) || Object.values(results.rows.item(3)).includes(translate('bestellnr')) || Object.values(results.rows.item(3)).includes(translate('email')) || Object.values(results.rows.item(3)).includes(translate('kunden_id')) || Object.values(results.rows.item(3)).includes(translate('name'))) && "+
+                                     "(Object.values(results.rows.item(4)).includes(translate('adresse')) || Object.values(results.rows.item(4)).includes(translate('bestellnr')) || Object.values(results.rows.item(4)).includes(translate('email')) || Object.values(results.rows.item(4)).includes(translate('kunden_id')) || Object.values(results.rows.item(4)).includes(translate('name')))",
                      "correctanswer":["true","false","false","false"],
                      "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Spalten der Tabelle 'kunden' auszugeben.  <br> <h3>Zur Erinnerung: die Tabelle mit Informationen zu den Spalten heißt information_schema.columns (table_name, column_name, data_type).</h3>"],
+                     "speakbblanswer_en":["Perfect! You solved this challenge! ","Oh no, this did not work out. Try again to display the columns of the table 'customers'. <br> <h3> As a reminder: the table with information on the columns is called information_schema.columns (table_name, column_name, data_type). </h3>"],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": ["columns"],
                      "blacklist": ["maxmustermann","alexamusterfrau",";","sqlite_master","maxmiller","jane"]}],
    "category":"search",
    "hints"    : "Mit UNION fängst du eine neue Query an. Als Tabelle nutzt du die vorgegebene 'information_schema.columns' und in der WHERE-Bedingung geben wir ein, dass wir nur die Spalten von der Tabelle 'kunden' wollen, also table_name='kunden'. Da aber die Tabelle Schuhe 4 Spalten besitzt und die, die wir nutzen wollen nur 3, müssen wir eine Scheinspalte nach der UNION Anweisung dranhängen, damit die Spaltendimensionen gleich groß sind. Zum Beispiel: SELECT table_name, column_name, data_type, null FROM ...",
+   "hints_en" : "With UNION you start a new query. You use the predefined 'information_schema.columns' as the table and in the WHERE condition we enter that we only want the columns from the table 'customers', i.e. table_name = 'customers'. But since the shoes table has 4 columns and the one we want to use only 3, we have to add a dummy column after the UNION statement so that the column dimensions are the same. For example: SELECT table_name, column_name, data_type, null FROM ... .",
    "lvl" : 9},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
@@ -269,14 +307,27 @@ TASKS=[
                "img": "img/bee.png"},
                {"h2": "Die Produktseite gibt nur ein eindeutiges Ergebnis aus, daher darf deine Query nicht mehr als eine Zeile ausgeben. <br> <br>",
                "h3":"",
-               "img": "img/bee.png"}
-    ],
+               "img": "img/bee.png"} ],
+    "text_en" : [{"h2": "Let's take a look at the next challenge!  <br>",
+               "h3":"",
+               "img": "img/bee.png"},
+               {"h2": "You don't always find a search bar or login form on a website. Therefore we now try to manipulate the URL of this shopping website. <br> <br>",
+               "h3":"",
+               "img": "img/bee.png"},
+               {"h2": "So, now we have a URL bar from the online shop for shoes. It works similar to the search bar, except that the WHERE condition comes after the last slash. <br> <br>",
+               "h3":"",
+               "img": "img/bee.png"},
+               {"h2": "The product page only outputs a unique result, so your output is limited to one single row. <br> <br>",
+               "h3":"",
+               "img": "img/bee.png"} ],
    "challenge": "Mal schauen, ob du es verstanden hast. Vordefiniert wird der Schuh mit der produkt_id=0 ausgewählt. Gib mal eine andere Id ein.  ",
+   "challenge_en": "Let's see if you understand. The shoe with product_id = 0 is selected in advance. Enter a different id. ",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1 && queries[j].includes('schuhe') && !queries[j].includes('produkt_id=0')",
+            "truecondition":"results.rows.length == 1 && queries[j].includes(translate('schuhe')) && !queries[j].includes(translate('produkt_id')+'=0')",
             "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Jetzt weißt du wie der URL-Aufruf funktioniert. ","Schade, das hat leider nicht geklappt. Versuche erneut nach dem letzten Slash, wenn nicht vorhanden, '?produkt_id=' und eine andere Zahl einzugeben. "],
+            "speakbblanswer_en":["Perfect! Now you know how the URL call works. ","Oh no, this did not work out. Try again to enter after the last slash '? Product_id =' and another number. "],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau",";","maxmiller","jane"]}],
@@ -285,27 +336,35 @@ TASKS=[
    "lvl" : 10},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an.",
                "h3":"",
-               "img": "img/bee.png"}
-               ],
+               "img": "img/bee.png"}],
+    "text_en" : [{"h2": "Let's take a look at the next challenge! ",
+               "h3":"",
+               "img": "img/bee.png"}],
    "challenge": "Gib mir den Namen, die E-mail und die Adresse des Kunden mit der 'kunden_id' =3 aus. <br><h3> Zur Erinnerung: Die Tabelle hat folgende Spaltennamen: 'kunden_id', 'name','email','bestellnr' & 'adresse'. </h3>",
+   "challenge_en": "Output the name, e-mail and address of the customer with the 'customer_id' = 3. <br> <h3> As a reminder: The table has the following column names: 'customer_id', 'name', 'email', 'order_id' & 'address'. </h3>",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1 && queries[j].includes('kunden') && Object.values(results.rows.item(0)).includes('dietmar0123@exm.com') && Object.values(results.rows.item(0)).includes('Seestr. 18') && Object.values(results.rows.item(0)).includes('Dimitri Muster')",
+            "truecondition":"results.rows.length == 1 && queries[j].includes(translate('kunden')) && Object.values(results.rows.item(0)).includes('dietmar0123@exm.com') && Object.values(results.rows.item(0)).includes('Seestr. 18') && Object.values(results.rows.item(0)).includes('Dimitri Muster')",
             "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Adresse, den Namen und die E-Mail des Kunden mit der id 3 rauszukriegen. <br> <h3>Zur Erinnerung: Die Tabelle hat folgende Spaltennamen: 'kunden_id', 'name','email','bestellnr' & 'adresse'.</h3>"],
+            "speakbblanswer_en":["Perfect! You solved this challenge!  ","Oh no, this did not work out. Try again to output the address, name and email of the customer with id 3. <br> <h3> As a reminder: The table has the following column names: 'customer_id', 'name', 'email', 'order_id' & 'address'. </h3>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
             "blacklist": ["maxmustermann","alexamusterfrau",";","maxmiller","jane"]}],
    "category":"url",
    "hints"    : "Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Nur muss die Spaltenanzahl beider Datenmengen gleichgroß sein. D.h. Deine Query darf nur 3 Spalten ausgeben.",
+   "hints_en"    : "Query results can be treated in a similar way to sets. So if you cannot start a new query with a semicolon, try expanding your query with UNION. With UNION you can combine 2 queries. After the UNION command you can start a new query as normal. Only the number of columns in both data sets must be the same. I.e. your query can only output 3 columns.",
    "lvl" : 10},
    {"text" : [],
+   "text_en" : [],
   "challenge": "Super! Du hast das Spiel durchgespielt! ",
+  "challenge_en": "Excellent! You finished the game!",
   "validation"  : [{"validationquery": [""],
            "validationerror":"",
            "truecondition":"false",
            "correctanswer":["true","false","false","false"],
            "speakbblanswer":["Super! Du hast das Spiel durchgespielt! ","Super! Du hast das Spiel durchgespielt! "],
+           "speakbblanswer_en":["Excellent! You finished the game!","Excellent! You finished the game! "],
            "imganswer":["img/happybee.png","img/surprisebee.png"],
            "whitelist": [""],
            "blacklist": ["maxmustermann","alexamusterfrau","maxmiller","jane"]}],
@@ -549,8 +608,8 @@ function validation(){
                   resolve(correctanswer,ergebnis,querysucessful);
 
                   },function(transaction,error){
-                     console.log(error.message);
-                     console.log(TASKS[task_index].validation[0].validationerror);
+                     // console.log(error.message);
+                     // console.log(TASKS[task_index].validation[0].validationerror);
                      if(TASKS[task_index].validation[0].validationquery[0] !="" && error.message == eval(TASKS[task_index].validation[0].validationerror)){
                         correctanswer[j] = TASKS[task_index].validation[0].correctanswer[2];
                      }else{
@@ -664,9 +723,9 @@ function is_query_valid(query){
 function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
    // console.log(qu.trim());
    var success;
-   console.log(ergebnis);
-   console.log(qu);
-   console.log(querysucessful);
+   // console.log(ergebnis);
+   // console.log(qu);
+   // console.log(querysucessful);
    // console.log(ergebnis.length);
    var index=ergebnis.length-1;
    var task_index_temp=task_index;
@@ -847,17 +906,19 @@ function generate_resulttable(qu,ergebnis,task_index_temp){
          var columns=["table_name", "table_type", "table_rows"];
       }else if(qu.includes("information_schema_columns")){
          var columns=["table_name","column_name","data_type"];
-      }else if(qu.includes("FROM benutzer")){
-         var columns=["nutzer_id","benutzername","passwort","email"];
-      }else if(qu.includes("FROM schuhe")){
-         var columns=["produkt_id","marke","groesse","preis"];
-      }else if(qu.includes("mitarbeiter")){
-         var columns=["ma_id","vorname","name","email","lohn","angestellt_seit"];
-      }else if(qu.includes("kunden")){
-         var columns=["kunden_id","name","email","bestellnr","adresse"];
+      }else if(qu.includes(translate("benutzer"))){
+         var columns=[translate("nutzer_id"),translate("benutzername"),translate("passwort"),translate("email")];
+      }else if(qu.includes(translate("schuhe"))){
+         var columns=[translate("produkt_id"),translate("marke"),translate("groesse"),translate("preis")];
+      }else if(qu.includes(translate("mitarbeiter"))){
+         var columns=[translate("ma_id"),translate("vorname"),translate("name"),translate("email"),translate("lohn"),translate("angestellt_seit")];
+      }else if(qu.includes(translate("kunden"))){
+         var columns=[translate("kunden_id"),translate("name"),translate("email"),translate("bestellnr"),translate("adresse")];
+      }else{
+         var columns=[translate("produkt_id"),translate("marke"),translate("groesse"),translate("preis")];
       }
    }else{
-      var columns=["produkt_id","marke","groesse","preis"];
+      var columns=[translate("produkt_id"),translate("marke"),translate("groesse"),translate("preis")];
    }
    let table = document.querySelector("table");
    table.deleteTHead();
@@ -883,29 +944,29 @@ function generate_resulttable(qu,ergebnis,task_index_temp){
 function generate_url_output(qu,ergebnis){
    document.getElementsByClassName("form-signin")[0].style.height="300px";
    document.getElementById("sneaker_img").style.marginLeft= "20%"
-   if(typeof(ergebnis.rows.item(0)['marke'])!="undefined"){
-      if(ergebnis.rows.item(0)['marke'].toString().length>17){
-         var len=20-(ergebnis.rows.item(0)['marke'].length-17);
+   if(typeof(ergebnis.rows.item(0)[translate('marke')])!="undefined"){
+      if(ergebnis.rows.item(0)[translate('marke')].toString().length>17){
+         var len=20-(ergebnis.rows.item(0)[translate('marke')].length-17);
          document.getElementById("sneaker_img").style.marginLeft= len+"%"
 
       }
    }
-   if(typeof(ergebnis.rows.item(0)['groesse']) !="undefined"){
-      if(ergebnis.rows.item(0)['groesse'].toString().length>17 ){
-         var len=20-(ergebnis.rows.item(0)['groesse'].length-17);
+   if(typeof(ergebnis.rows.item(0)[translate('groesse')]) !="undefined"){
+      if(ergebnis.rows.item(0)[translate('groesse')].toString().length>17 ){
+         var len=20-(ergebnis.rows.item(0)[translate('groesse')].length-17);
          document.getElementById("sneaker_img").style.marginLeft= len+"%"
 
       }
    }
-   if(typeof(ergebnis.rows.item(0)['preis']) !="undefined"){
-      if(ergebnis.rows.item(0)['preis'].toString().length>17){
-         var len=20-(ergebnis.rows.item(0)['preis'].length-17);
+   if(typeof(ergebnis.rows.item(0)[translate('preis')]) !="undefined"){
+      if(ergebnis.rows.item(0)[translate('preis')].toString().length>17){
+         var len=20-(ergebnis.rows.item(0)[translate('preis')].length-17);
          document.getElementById("sneaker_img").style.marginLeft= len+"%"
       }
    }
-   document.getElementById("marke").innerHTML= "<strong>"+translate("Marke")+":   </strong>" + ergebnis.rows.item(0)['marke'];
-   document.getElementById("groesse").innerHTML= "<strong>"+translate("Größe")+":   </strong>" + ergebnis.rows.item(0)['groesse'];
-   document.getElementById("price").innerHTML= "<strong>"+translate("Preis")+":     </strong>" + ergebnis.rows.item(0)['preis'] + translate("€");
+   document.getElementById("marke").innerHTML= "<strong>"+translate("Marke")+":   </strong>" + ergebnis.rows.item(0)[translate('marke')];
+   document.getElementById("groesse").innerHTML= "<strong>"+translate("Größe")+":   </strong>" + ergebnis.rows.item(0)[translate('groesse')];
+   document.getElementById("price").innerHTML= "<strong>"+translate("Preis")+":     </strong>" + ergebnis.rows.item(0)[translate('preis')] + translate("€");
 }
 
 /////// DATABASE FUNCTIONS
@@ -975,7 +1036,7 @@ function createTableKunden(db){
 
           /* The first query causes the transaction to (intentionally) fail if the table exists. */
           transaction.executeSql("DROP TABLE IF EXISTS "+translate("kunden")+";", [], nullDataHandler, errorHandler);
-          transaction.executeSql("create table kunden("+translate("kunden_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("name")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL, "+translate("bestellnr")+" INT NOT NULL, "+translate("adresse")+" TEXT NOT NULL );", [], nullDataHandler, errorHandler);
+          transaction.executeSql("create table " +translate("kunden")+"("+translate("kunden_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("name")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL, "+translate("bestellnr")+" INT NOT NULL, "+translate("adresse")+" TEXT NOT NULL );", [], nullDataHandler, errorHandler);
           /* These insertions will be skipped if the table already exists. */
           transaction.executeSql("INSERT INTO "+translate("kunden")+" VALUES (0,'Franziska Baumgartner','examplemail.com',12345,'Studentenstr. 10');", [], nullDataHandler, errorHandler);
           transaction.executeSql("INSERT INTO "+translate("kunden")+" VALUES (1,'Mohammed Weinzierl','weinzierlr@webb.de',54321, 'Merkelstr. 98');", [], nullDataHandler, errorHandler);

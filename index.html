@@ -194,7 +194,7 @@
     print("Internal Server Error")
 # ...
 </code></pre>
-                  <pre id="behindcodeurl"><code class="hljs language-sql">$conn = new PDO(...);
+                  <pre id="behindcodeurl"><code>$conn = new PDO(...);
 $qu = "SELECT <span class="lang">marke</span>, <span class="lang">groesse</span>, <span class="lang">preis</span> ";
 $qu .= "FROM <span class="lang">schuhe</span> ";
 $qu .= "WHERE <span class="lang">produkt_id</span>=".$_GET["<span class="lang">produkt_id</span>"];
