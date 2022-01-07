@@ -27,6 +27,7 @@ lang_en = {
   "Über das Spiel": "About", 
   "Sprache ändern": "Change language", 
   "Information": "Info",
+  "Informationen": "Information",
   "In dieser Herausforderung gibt es keine Tipps.": "There are no hints for this challenge.",
   "Es gibt pro Level nur einen Tipp.": "There is only one hint per level.",
   "Deine Tipps sind aufgebraucht.": "You do not have any hints left.", 

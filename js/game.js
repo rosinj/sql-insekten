@@ -13,7 +13,7 @@ TASKS=[
     "challenge_en": "First, try to log in as usual as 'jane' with a password. Since you don't know her password, just enter anything.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0  && queries[j].includes('"+translate("benutzer")+"')",
+                      "truecondition":"results.rows.length > 0  && queries[j].includes(translate('benutzer'))",
                       "correctanswer":["true","true","true","true"],
                       "speakbblanswer":["Super! Du hast verstanden wie das Login-Formular funktioniert. ","Super! Du hast verstanden wie das Login-Formular funktioniert."],
                       "speakbblanswer_en":["Perfect! You now know how this login form works.","Perfect! You now know how this login form works."],
@@ -52,12 +52,12 @@ TASKS=[
     "img": "img/bee.png"}],
    "challenge": "Versuche die Tabelle 'benutzer' zu droppen. <br> <h3> Im Hintergrund wird zwar eigentlich nur eine Query ausgeführt, aber wenn du eine Query mit ';' beendest kannst du eine weitere Query einschleußen. Lass dich übrigens nicht davon irritieren, wenn der Login fehlschlägt oder eine Fehlermeldung auftaucht. </h3>",
    "challenge_en": "Try to drop the table 'users'; <br> <h3> Basically, only one single query should be executed when logging in, but when you terminate your query with a semicolon; beendest kannst du eine weitere Query you can inject a second query. By the way, don't get irritated if the login fails or you get an error message.</h3>",
-   "validation"  : [{"validationquery": ["SELECT "+translate("benutzername")+" FROM "+translate("benutzer")+""],
-                     "validationerror":"could not prepare statement (1 no such table: "+translate("benutzer")+")",
+   "validation"  : [{"validationquery": ["'SELECT '+ translate('benutzername') +' FROM '+translate('benutzer')"],
+                     "validationerror":"'could not prepare statement (1 no such table: '+translate('benutzer')+')'",
                      "truecondition":"results.rows.length > 0",
                      "correctanswer":["false","false","true","false"],
                      "speakbblanswer":["Super! Du hast die Benutzertabelle gelöscht! ","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'benutzer' zu droppen bzw. zu löschen."],
-                     "speakbblanswer":["Perfect! You dropped the users table! ","Oh no, unfortunately this did not work. Please try again to drop the table 'users'."],
+                     "speakbblanswer_en":["Perfect! You dropped the users table! ","Oh no, unfortunately this did not work. Please try again to drop the table 'users'."],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": [""],
                      "blacklist": [""]}],
@@ -77,7 +77,7 @@ TASKS=[
     "challenge_en": "Let's say you do not know a user name. Anyway, try to log in with any user.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0 && queries[j].includes('"+translate("benutzer")+"') && ['"+translate("alexamusterfrau")+"','"+translate("maxmustermann")+"','"+translate("kati1809")+"'].includes(results.rows.item(0)['"+translate("benutzername")+"'])",
+                      "truecondition":"results.rows.length > 0 && queries[j].includes(translate('benutzer')) && [translate('alexamusterfrau'),translate('maxmustermann'),translate('kati1809')].includes(results.rows.item(0)[translate('benutzername')])",
                       "correctanswer":["true","false","false","false"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich mit einem User einzuloggen ohne einen Namen zu kennen."],
                       "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Try again to log in with a user without knowing their user name."],
@@ -106,7 +106,7 @@ TASKS=[
     "challenge_en": "Can you also solve this challenge? Please again log in as a user that you do not know.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length == 1 && queries[j].includes('"+translate("benutzer")+"') && ['"+translate("alexamusterfrau")+"','"+translate("maxmustermann")+"','"+translate("kati1809")+"'].includes(results.rows.item(0)['"+translate("benutzername")+"'])",
+                      "truecondition":"results.rows.length == 1 && queries[j].includes(translate('benutzer')) && [translate('alexamusterfrau'),translate('maxmustermann'),translate('kati1809')].includes(results.rows.item(0)[translate('benutzername')])",
                       "correctanswer":["true","false","false","false"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> Vergiss nicht, dass deine Query nur eine Zeile im Ergebnis ausgeben darf."],
                       "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Try again to log in as a user without knowing their user name. <br> Beware that your query must only return one single row!"],
@@ -133,7 +133,7 @@ TASKS=[
    "challenge_en": "First of all, just use a normal search to find all shoes from the brand 'Nicke'.",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     "truecondition":"results.rows.length == 4 && queries[j].includes('"+translate("schuhe")+"')",
+                     "truecondition":"results.rows.length == 4 && queries[j].includes(translate('schuhe'))",
                      "correctanswer":["true","false","false","false"],
                      "speakbblanswer":["Super! Du hast verstanden wie die Produktsuche funktioniert. ","Schade, das hat leider nicht geklappt. Suche nach Schuhen der Marke 'Nicke'"],
                      "speakbblanswer_en":["Perfect! You know know how the product search works. ","Oh no, this did not work out. Try again to search for shoes of the brand 'Nicke'."],
@@ -153,7 +153,7 @@ TASKS=[
    "challenge_en": "Please output the usernames and passwords of all users!",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     "truecondition":"results.rows.length == 3 && queries[j].includes('benutzer')  && queries[j].includes('benutzername') && queries[j].includes('passwort') ",
+                     "truecondition":"results.rows.length == 3 && queries[j].includes(translate('benutzer'))  && queries[j].includes(translate('benutzername')) && queries[j].includes(translate('passwort')) ",
                      "correctanswer":["true","false","false","false"],
                      "speakbblanswer":["Super! Du hast es geschafft! <br> <h3>Wenigstens speichert die Website die Passwörter nicht in Klartext, sondern als Hashwert, der aus dem Passwort generiert wird. Aber durch frei zugängliche sog. Rainbow-Tables konnte ich trotzdem herausfinden, dass das Passwort von maxmustermann 'password123' ist.</h3>","Schade, das hat leider nicht geklappt. Versuche erneut Benutzername und Passwort aller Benutzer auszugeben."],
                      "speakbblanswer_en":["Perfect! It worked! <br> <h3>As you can see, the website stores the passwords in an encrypted format using their MD5 hash. That's better than storing them in plain text. But, rainbow tables which are publicly available can help us to look up for the original password, for maxmiller that's 'password123'.</h3>","Oh no, this did not work out. Try again to output the usernames and passwords of all users."],
@@ -171,17 +171,29 @@ TASKS=[
     "h3":"Beim Login-Formular ist die einzige Informationsausgabe die wir bekommen, dass wir uns erfolgreich mit einem User eingeloggt haben (z.B. Willkommen maxmustermann!). D.h. um Informationen einer anderen Tabelle auszugeben musst du den 'benutzername' der Tabelle 'benutzer' manipulieren.",
     "img": "img/bee.png"}
    ],
+   "text_en" : [{"h2": "Let's take a look at the next challenge and get back to the login form! <br> Somebody works behind this website. Then maybe there is also an staff table in the database.",
+    "h3":"",
+    "img": "img/bee.png"},
+    {"h2": "",
+    "h3":"With the login form, the only information output we get is that we have successfully logged in with a user (e.g., welcome maxmiller!). I.e. to output information from another table you have to manipulate the 'username' of the table 'user'.",
+    "img": "img/bee.png"}
+   ],
    "challenge": "Ich will wissen wie viel Lohn die Mitarbeiterin mit dem Vornamen 'Greta Maria' bekommt. <br> Damit das funktioniert musst du den Spaltennamen der Tabelle 'mitarbeiter' umbenennen.",
+   "challenge_en": "I want to know how much the staff member with the first name 'Greta Maria' gets. <br> For this to work you have to rename the column name of the table 'staff'.",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1 && queries[j].includes('mitarbeiter') && results.rows.item(0)['benutzername']==4500",
+            "truecondition":"results.rows.length == 1 && queries[j].includes(translate('mitarbeiter')) && results.rows.item(0)[translate('benutzername')]==4500",
             "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> Die Greta bekommt ja ganz schön viel Geld.","Schade, das hat leider nicht geklappt. Versuche erneut herauszufinden wieviel Greta Maria verdient. <br> Zur Info: Du wirst die Spalte 'benutzername' von 'benutzer' benötigen und 'lohn','vorname' von der Tabelle 'mitarbeiter'"],
+            "speakbblanswer_en":["Perfect! You solved this challenge! <br> Wow, Greta gets a lot of money.","Oh no, this did not work out. Try again to output Greta Maria's salary. <br> For your information: You will need the column 'username' from 'users' and 'salary', 'firstname' from the table 'staff'"],
+
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
-            "blacklist": ["maxmustermann","alexamusterfrau"]}],
+            "blacklist": ["maxmustermann","alexamusterfrau","maxmiller","jane"]}],
    "category":"login",
    "hints"    : "Wie bei dem Level wo du eine Tabelle löschen solltest, fängst du mit Semikolon eine neue Query an und selektierst 'lohn' von Tabelle 'mitarbeiter' mit der Bedingung, dass der 'vorname' = 'Greta Maria' ist. Wichtig: Wenn man eingeloggt ist gibt er den 'benutzername' aus d.h. er sucht bei deiner Query nach der Spalte 'benutzername' und wird sie nicht finden, daher müssen wir die Spalte 'lohn' mit 'as' auf 'benutzername' umbenennen.",
+   "hints_en"    : "As with the level where you should delete a table, you start a new query with a semicolon and select 'salary' from table 'staff' with the condition that the 'firstname' = 'Greta Maria'. Important: When you are logged in, it outputs the 'username', i.e. it looks for the 'username' column in your query and will not find it, so we have to rename the 'salary' column to 'username' with 'as'.",
+
    "lvl" : 6},
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> In diesem Level sind wir wieder beim Schuhe-Onlineshop mit der Suchleiste.",
    "h3":"",
@@ -506,7 +518,7 @@ function validation(){
       queries=queries.split(";");
    }
    if(TASKS[task_index].validation[0].validationquery[0] !="" && query!="notvalid"){
-      queries.push(TASKS[task_index].validation[0].validationquery[0]);
+      queries.push(eval(TASKS[task_index].validation[0].validationquery[0]));
    }
 
    var prom= new Promise((resolve,reject) =>{
@@ -537,7 +549,9 @@ function validation(){
                   resolve(correctanswer,ergebnis,querysucessful);
 
                   },function(transaction,error){
-                     if(TASKS[task_index].validation[0].validationquery[0] !="" && error.message==TASKS[task_index].validation[0].validationerror){
+                     console.log(error.message);
+                     console.log(TASKS[task_index].validation[0].validationerror);
+                     if(TASKS[task_index].validation[0].validationquery[0] !="" && error.message == eval(TASKS[task_index].validation[0].validationerror)){
                         correctanswer[j] = TASKS[task_index].validation[0].correctanswer[2];
                      }else{
                         correctanswer[j] = TASKS[task_index].validation[0].correctanswer[3];
@@ -547,6 +561,7 @@ function validation(){
                      if(TASKS[task_index].validation[0].blacklist.includes(";") && queries[j].includes(";")){
                         querysucessful[j]="semi";
                      }
+                     
                      resolve(correctanswer,ergebnis,querysucessful);
                               }
                         );
@@ -943,7 +958,7 @@ function createTableMa(db){
 
           /* The first query causes the transaction to (intentionally) fail if the table exists. */
           transaction.executeSql("DROP TABLE IF EXISTS "+translate("mitarbeiter")+";", [], nullDataHandler, errorHandler);
-          transaction.executeSql("create table "+translate("mitarbeiter")+"("+translate("ma_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("vorname")+" TEXT NOT NULL, "+translate("name")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL, lohn INT NOT NULL, "+translate("angestellt_seit")+" INT NOT NULL );", [], nullDataHandler, errorHandler);
+          transaction.executeSql("create table "+translate("mitarbeiter")+"("+translate("ma_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("vorname")+" TEXT NOT NULL, "+translate("name")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL, "+ translate("lohn")+" INT NOT NULL, "+translate("angestellt_seit")+" INT NOT NULL );", [], nullDataHandler, errorHandler);
           /* These insertions will be skipped if the table already exists. */
           transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (0,'Franziska','die Große','examplemail.com',700,2020);", [], nullDataHandler, errorHandler);
           transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (1,'Mohammed','Schneider','schneider@webb.de',1700,2017);", [], nullDataHandler, errorHandler);
@@ -1302,9 +1317,9 @@ function show_info(){
    }
    else{
       if(cheatactive){
-        document.querySelector("#modal > div >p ").innerHTML = "<h3>Informationen</h3> <a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div> <br> <br> <input type='text' class='form-control' id='cheat_input'/>  <br> <button class='btn btn-lg btn-primary btn-block' id='cheat_btn' type='button' onclick='cheat()'>cheat</button> </h5> <button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
+        document.querySelector("#modal > div >p ").innerHTML = "<h3>"+translate("Informationen")+"</h3> <a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div> <br> <br> <input type='text' class='form-control' id='cheat_input'/>  <br> <button class='btn btn-lg btn-primary btn-block' id='cheat_btn' type='button' onclick='cheat()'>cheat</button> </h5> <button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
       }else{
-         document.querySelector("#modal > div >p ").innerHTML = "<h3>Informationen</h3> <a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div><div>Icons erstellt von <a href='https://www.freepik.com' title='Freepik'>Freepik</a> from <a href='https://www.flaticon.com/de/' title='Flaticon'>www.flaticon.com</a></div> </h5><br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
+         document.querySelector("#modal > div >p ").innerHTML = "<h3>"+translate("Informationen")+"</h3> <a target='_blank' href='https://icons8.com/icon/19209/light'>Light</a> icon by <a target='_blank' href='https://icons8.com'>Icons8</a> <br><a href='https://de.freepik.com/vektoren/blume'>Blume Vektor erstellt von terdpongvector - de.freepik.com</a> <div>Icons made by <a href='https://www.flaticon.com/authors/itim2101' title='itim2101'>itim2101</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a></div><div>Icons erstellt von <a href='https://www.freepik.com' title='Freepik'>Freepik</a> from <a href='https://www.flaticon.com/de/' title='Flaticon'>www.flaticon.com</a></div> </h5><br><button class='btn btn-lg btn-primary btn-block' id='btn_modal' type='submit' onclick='close_modal()'>Ok</button>";
       }
       
         e.style.display = 'block';
