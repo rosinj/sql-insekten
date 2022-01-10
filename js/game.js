@@ -83,7 +83,7 @@ TASKS=[
                       "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Try again to log in with a user without knowing their user name."],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": [""],
-                      "blacklist": ["maxmustermann","alexamusterfrau","maxmiller","jane"]}],
+                      "blacklist": ["maxmustermann","alexamusterfrau"]}],
     "category":"login",
     "hints"    : "Wir müssen die Query so geschickt erzeugen, dass sie mind. eine Zeile ausgibt. Wenn wir die erste WHERE Bedingung leer lassen und eine zweite mit OR hinzufügen, die immer wahr ist, können wir wieder mit '--' den restlichen Code auskommentieren und haben somit eine Query erzeugt, die alle User ausgeben würde.",
     "hints_en"    : "We need to generate a query in a way that it returns at least one row. Maybe we can somehow let the WHERE predicate match every row, for example by adding an OR and a second predicate that's always true. After that, you can again use a --comment to comment out the rest of the query to have a valid query that returns all users.",
@@ -112,7 +112,7 @@ TASKS=[
                       "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Try again to log in as a user without knowing their user name. <br> Beware that your query must only return one single row!"],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
                       "whitelist": [""],
-                      "blacklist": ["maxmustermann","alexamusterfrau","kati1809","maxmiller","jane"]}],
+                      "blacklist": ["maxmustermann","alexamusterfrau","kati1809"]}],
     "category":"login",
     "hints"    : "Diese Aufgabe ist ähnlich wie die davor nur, dass du versuchen musst EINE Zeile auszugeben und nicht mehr. Vorher hätte die Query die ganze Tabelle ausgegeben, aber die Sicherheitsbedingungen waren so schwach, dass die Länge der Ergebnisse egal war. Mit LIMIT kannst du nun am Ende einer Query entscheiden, wie viele Zeilen die Query ausgeben soll.",
     "hints_en"    : "This task is similar to the one before except that your query must return just one single row. In the previous level, the query could return all users. But now, this bug is fixed. The application will now only let you log in when the query-result length is one. Try to use a LIMIT clause in your query to limit the number of result rows.",
@@ -189,7 +189,7 @@ TASKS=[
 
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
-            "blacklist": ["maxmustermann","alexamusterfrau","maxmiller","jane"]}],
+            "blacklist": ["maxmustermann","alexamusterfrau"]}],
    "category":"login",
    "hints"    : "Wie bei dem Level wo du eine Tabelle löschen solltest, fängst du mit Semikolon eine neue Query an und selektierst 'lohn' von Tabelle 'mitarbeiter' mit der Bedingung, dass der 'vorname' = 'Greta Maria' ist. Wichtig: Wenn man eingeloggt ist gibt er den 'benutzername' aus d.h. er sucht bei deiner Query nach der Spalte 'benutzername' und wird sie nicht finden, daher müssen wir die Spalte 'lohn' mit 'as' auf 'benutzername' umbenennen.",
    "hints_en"    : "As with the level where you should delete a table, you start a new query with a semicolon and select 'salary' from the table 'staff' with the condition that the 'firstname' = 'Greta Maria'. Important: When you are logged in, it outputs the 'username', i.e. it looks for the 'username' column in your query and will not find it, so we have to rename the 'salary' column to 'username' with 'as'.",
@@ -219,7 +219,7 @@ TASKS=[
            "speakbblanswer_en":["Perfect! You solved this challenge! <br>","Oh no, this did not work out. Try again to output name, email, salary and employed_since from the staff table by merging two queries."],
            "imganswer":["img/happybee.png","img/surprisebee.png"],
            "whitelist": [""],
-           "blacklist": ["maxmustermann","alexamusterfrau",";","maxmiller","jane"]}],
+           "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
   "category":"search",
   "hints"    : "Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Dabei muss nur darauf geachtet werden, dass die beiden Teilabfragen vereinigungsverträglich sind, also die gleiche Anzahl an Spalten mit jeweils zueinander kompatiblen Datentypen besitzen.",
   "hints_en"    : "Query results can be treated in a similar way to sets. So if you cannot start a new query with a semicolon, try expanding your query with UNION. With UNION you can combine 2 queries. After the UNION command you can start a new query as normal. You only have to make sure that the two partial queries are union compatible, i.e. have the same number of columns with mutually compatible data types.",
@@ -258,7 +258,7 @@ TASKS=[
             "speakbblanswer_en":["Perfect! You solved this challenge! <br> Now we know which tables the database has!","Oh no, this did not work out. Try to output all table metadata again. <br> <h4> As a reminder: <br> Oracle: sys.user_tables (table_id, table_name, num_rows, ...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables (table_name, table_type, table_rows, ...) <br> SQLLite : sqlite_master (type, name, tbl_name, ...). </h4>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": ["tables"],
-            "blacklist": ["maxmustermann","alexamusterfrau",";","sqlite_master","maxmiller","jane"]}],
+            "blacklist": ["maxmustermann","alexamusterfrau",";","sqlite_master"]}],
    "category":"search",
    "hints"    : "Mit UNION fängst du eine neue Query an. Nun probierst du mit den erwähnten Tabellen eine 'SELECT * FROM' Query zu erzeugen, wobei die erwähnten Spaltennamen selektiert werden müssen, da aber bei UNION die Spaltendimensionen gleich sein müssen fehlt noch ein Schritt. Denn die Tabelle Schuhe hat 4 Spalten und die andere 3, d.h. du selektierst eine zusätzliche Scheinspalte: z. B. SELECT table_id, table_name, num_rows, 'test' FROM ... .",
    "hints_en"    : "With UNION you start a new query. Now you try to generate a 'SELECT * FROM' query with the tables and columns mentioned, but since the column dimensions must be the same with UNION, one step is still missing. Tthe shoes table has 4 columns and the other 3, i.e. you select an additional dummy column: e.g., SELECT table_id, table_name, num_rows, null FROM ... .",
@@ -291,7 +291,7 @@ TASKS=[
                      "speakbblanswer_en":["Perfect! You solved this challenge! ","Oh no, this did not work out. Try again to display the columns of the table 'customers'. <br> <h3> As a reminder: the table with information on the columns is called information_schema.columns (table_name, column_name, data_type). </h3>"],
                      "imganswer":["img/happybee.png","img/surprisebee.png"],
                      "whitelist": ["columns"],
-                     "blacklist": ["maxmustermann","alexamusterfrau",";","sqlite_master","maxmiller","jane"]}],
+                     "blacklist": ["maxmustermann","alexamusterfrau",";","sqlite_master"]}],
    "category":"search",
    "hints"    : "Mit UNION fängst du eine neue Query an. Als Tabelle nutzt du die vorgegebene 'information_schema.columns' und in der WHERE-Bedingung geben wir ein, dass wir nur die Spalten von der Tabelle 'kunden' wollen, also table_name='kunden'. Da aber die Tabelle Schuhe 4 Spalten besitzt und die, die wir nutzen wollen nur 3, müssen wir eine Scheinspalte nach der UNION Anweisung dranhängen, damit die Spaltendimensionen gleich groß sind. Zum Beispiel: SELECT table_name, column_name, data_type, null FROM ...",
    "hints_en" : "With UNION you start a new query. You use the predefined 'information_schema.columns' as the table and in the WHERE condition we enter that we only want the columns from the table 'customers', i.e. table_name = 'customers'. But since the shoes table has 4 columns and the one we want to use only 3, we have to add a dummy column after the UNION statement so that the column dimensions are the same. For example: SELECT table_name, column_name, data_type, null FROM ... .",
@@ -327,10 +327,10 @@ TASKS=[
             "truecondition":"results.rows.length == 1 && queries[j].includes(translate('schuhe')) && !queries[j].includes(translate('produkt_id')+'=0')",
             "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Jetzt weißt du wie der URL-Aufruf funktioniert. ","Schade, das hat leider nicht geklappt. Versuche erneut nach dem letzten Slash, wenn nicht vorhanden, '?produkt_id=' und eine andere Zahl einzugeben. "],
-            "speakbblanswer_en":["Perfect! Now you know how the URL call works. ","Oh no, this did not work out. Try again to enter after the last slash '? Product_id =' and another number. "],
+            "speakbblanswer_en":["Perfect! Now you know how the URL call works. ","Oh no, this did not work out. Try again to enter after the last slash '?product_id =' and another number. "],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
-            "blacklist": ["maxmustermann","alexamusterfrau",";","maxmiller","jane"]}],
+            "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
    "category":"url",
    "hints"    : "hints deactivated",
    "lvl" : 10},
@@ -350,7 +350,7 @@ TASKS=[
             "speakbblanswer_en":["Perfect! You solved this challenge!  ","Oh no, this did not work out. Try again to output the address, name and email of the customer with id 3. <br> <h3> As a reminder: The table has the following column names: 'customer_id', 'name', 'email', 'order_id' & 'address'. </h3>"],
             "imganswer":["img/happybee.png","img/surprisebee.png"],
             "whitelist": [""],
-            "blacklist": ["maxmustermann","alexamusterfrau",";","maxmiller","jane"]}],
+            "blacklist": ["maxmustermann","alexamusterfrau",";"]}],
    "category":"url",
    "hints"    : "Queryergebnisse kann man ähnlich wie Mengen behandeln. Wenn du also keine neue Query mit Semikolon anfangen kannst, versuche deine Query mit UNION zu erweitern. Mit UNION kannst du 2 Queries vereinigen. Nach dem UNION Befehl kannst du ganz normal eine neue Query anfangen. Nur muss die Spaltenanzahl beider Datenmengen gleichgroß sein. D.h. Deine Query darf nur 3 Spalten ausgeben.",
    "hints_en"    : "Query results can be treated in a similar way to sets. So if you cannot start a new query with a semicolon, try expanding your query with UNION. With UNION you can combine 2 queries. After the UNION command you can start a new query as normal. Only the number of columns in both data sets must be the same. I.e. your query can only output 3 columns.",
@@ -367,7 +367,7 @@ TASKS=[
            "speakbblanswer_en":["Excellent! You finished the game!","Excellent! You finished the game! "],
            "imganswer":["img/happybee.png","img/surprisebee.png"],
            "whitelist": [""],
-           "blacklist": ["maxmustermann","alexamusterfrau","maxmiller","jane"]}],
+           "blacklist": ["maxmustermann","alexamusterfrau"]}],
   "category":"url",
   "hints"    : "hints deactivated",
   "lvl" : 10}
@@ -673,7 +673,7 @@ function generate_query(){
          var url=document.getElementById("url").value;
          var id=url.toString().split('?'+translate("produkt_id")+"=");
          var query="SELECT "+translate("marke")+", "+translate("groesse")+", "+translate("preis")+" FROM "+translate("schuhe")+" WHERE "+translate("produkt_id")+"=" + id[id.length-1]+"";
-         var select="SELECT "+translate("produkt_id")+", "+translate("marke")+", "+translate("groesse")+", "+translate("preis")+" ";
+         var select="SELECT "+translate("marke")+", "+translate("groesse")+", "+translate("preis")+" ";
          var from="FROM "+translate("schuhe")+" ";
          var where="WHERE " + translate("produkt_id")+" = "+ id[id.length-1]+";";
          document.querySelector("#codetxt > code").innerHTML = select + "\n" +

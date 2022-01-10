@@ -86,6 +86,7 @@ lang_en = {
   "kein Suchergebnis": "empty search result",
   "Login war erfolgreich.": "Login was successful!",
   "Willkommen": "Welcome",
+  ";":";",
 }
 
 language_code = "de";
