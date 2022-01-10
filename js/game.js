@@ -1,4 +1,4 @@
-
+nix = null;
 //////////////// GLOBAL
 var hints=3;
 var bbltxtindex=0;
@@ -38,7 +38,7 @@ TASKS=[
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen. <br> Also nicht als 'maxmustermann' einloggen!"],
                       "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Please try again to log in as 'jane'. <br> So, do not log in as 'maxmiller'!"],
                       "imganswer":["img/happybee.png","img/surprisebee.png"],
-                      "whitelist": ["alexamusterfrau","jane"],
+                      "whitelist": ["alexamusterfrau"],
                       "blacklist": ["maxmustermann"]}],
     "category":"login",
     "hints"    : "Wie du es in den Hintergrunddetails siehst, ist vor der Eingabevariable 'uname' ein Apostroph zu finden. D.h. nachdem du den Benutzernamen in das Eingabefeld eingegeben hast brauchen wir noch ein Apostroph um den String zu beenden. Danach interessiert uns die restliche Query nicht, daher kommentieren wir sie aus. '--' ist ein Kommentar in SQL.",
@@ -586,9 +586,8 @@ function validation(){
          if(!queries[j].trim().startsWith("--") && queries[j].trim()!=""){
             db.transaction(function(transaction) {
                transaction.executeSql(queries[j],[],function (transaction, results) {
-                  if (eval(TASKS[task_index].validation[0].truecondition)) {
-                     querysucessful[j]="true";
-                     if(is_query_valid(queries[j])){
+                  if (eval(TASKS[task_index].validation[0].truecondition)) {        
+                     if(is_query_valid(queries[j])){ 
                         correctanswer[j] = TASKS[task_index].validation[0].correctanswer[0];
                      }else{
                         correctanswer[j]="false";
@@ -699,11 +698,11 @@ function is_query_valid(query){
    var blacklistarray=TASKS[task_index].validation[0].blacklist;
    var whitelistarray=TASKS[task_index].validation[0].whitelist;
    var valid=true;
-   // var query= generate_query();
+   // var query= generate_query(); 
    for (let i in blacklistarray){
       if(blacklistarray[i]!=""){
          if(query.includes(translate(blacklistarray[i]))){
-            valid=false;
+            valid=false; 
          }
       }
    }
@@ -711,12 +710,12 @@ function is_query_valid(query){
       if(whitelistarray[k]!=""){
          if(query.includes(translate(whitelistarray[k]))){
          }
-         else{
+         else{ 
             valid=false;
          }
       }
    }
-   
+
    return valid;
 }
 
@@ -746,7 +745,7 @@ function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
    }else if(querysucessful.includes("semi")){
       success='semi';
    }else{
-      if(querysucessful[index].includes("true")){
+      if(querysucessful.includes("true")){
          success='true';
       }else{
          success='false';
@@ -797,8 +796,8 @@ function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
    }else if (success=='false'){
       switch (category){
          case "login":
-            if(eval(TASKS[task_index_temp].validation[0].truecondition.split('&&')[0].replace("results.rows.length","ergebnis[index].rows.length")) && typeof(ergebnis[index].rows.item(0)['benutzername'])!="undefined"){
-               document.getElementById('loginlabel').innerHTML= "Login war erfolgreich. <br> <br>Willkommen " + ergebnis[index].rows.item(0)['benutzername'] +"!";
+            if(eval(TASKS[task_index_temp].validation[0].truecondition.split('&&')[0].replace("results.rows.length","ergebnis[index].rows.length")) && typeof(ergebnis[index].rows.item(0)[translate('benutzername')])!="undefined"){
+               document.getElementById('loginlabel').innerHTML= translate("Login war erfolgreich.")+" <br> <br>"+translate("Willkommen")+" " + ergebnis[index].rows.item(0)[translate('benutzername')] +"!";
                document.getElementById("username").style.display = 'none';
                document.getElementById("password").style.display = 'none';
                document.getElementById("login_btn").style.display = 'none';
