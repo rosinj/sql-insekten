@@ -233,8 +233,7 @@ OUTPUT;
     <script type="text/javascript" defer>
       var lang_code = new URLSearchParams(window.location.search).get("lang");
       if(lang_code == null) { 
-        //lang_code = window.navigator.language.slice(0, 2);
-        lang_code = "en";
+        lang_code = window.navigator.language.slice(0, 2);
       }
       change_language(lang_code);
     </script>
