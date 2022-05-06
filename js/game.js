@@ -42,7 +42,7 @@ TASKS=[
                       "blacklist": ["maxmustermann"]}],
     "category":"login",
     "hints"    : "Wie du es in den Hintergrunddetails siehst, ist vor der Eingabevariable 'uname' ein Apostroph zu finden. D.h. nachdem du den Benutzernamen in das Eingabefeld eingegeben hast brauchen wir noch ein Apostroph um den String zu beenden. Danach interessiert uns die restliche Query nicht, daher kommentieren wir sie aus. '--' ist ein Kommentar in SQL.",
-    "hints_en": "As you can see in the background details, there is an apostrophe before the input variable 'uname'. This means, you need to write another apostroph behind your user name to terminate the string. Everything behind that is of no interest, so you can simply comment it. In SQL, comments start with --",
+    "hints_en": "As you can see in the background details, there is an apostrophe before the input variable 'uname'. This means that you need to write another apostrophe behind your user name to terminate the string. Everything behind that is of no interest, so you can simply comment it. In SQL, comments start with --",
     "lvl" : 1},
     {"text" : [{"h2": "Kommen wir zur nächsten Herausforderung!",
     "h3":"",
