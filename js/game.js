@@ -50,7 +50,7 @@ TASKS=[
     "text_en" : [{"h2": "Let's take a look what the next challenge is about!",
     "h3":"",
     "img": "img/bee.png"}],
-   "challenge": "Versuche die Tabelle 'benutzer' zu droppen. <br> <h3> Im Hintergrund wird zwar eigentlich nur eine Query ausgeführt, aber wenn du eine Query mit ';' beendest kannst du eine weitere Query einschleußen. Lass dich übrigens nicht davon irritieren, wenn der Login fehlschlägt oder eine Fehlermeldung auftaucht. </h3>",
+   "challenge": "Versuche die Tabelle 'benutzer' zu droppen. <br> <h3> Im Hintergrund wird zwar eigentlich nur eine Query ausgeführt, aber wenn du eine Query mit ';' beendest kannst du eine weitere Query einschleusen. Lass dich übrigens nicht davon irritieren, wenn der Login fehlschlägt oder eine Fehlermeldung auftaucht. </h3>",
    "challenge_en": "Try to drop the table 'users'; <br> <h3> Basically, only one single query should be executed when logging in, but when you terminate your query with a semicolon ';'  you can inject a second query. By the way, don't get irritated if the login fails or you get an error message.</h3>",
    "validation"  : [{"validationquery": ["'SELECT '+ translate('benutzername') +' FROM '+translate('benutzer')"],
                      "validationerror":"'could not prepare statement (1 no such table: '+translate('benutzer')+')'",
@@ -198,7 +198,7 @@ TASKS=[
    {"text" : [{"h2": "Schauen wir uns mal die nächste Herausforderung an. <br> In diesem Level sind wir wieder beim Schuhe-Onlineshop mit der Suchleiste.",
    "h3":"",
    "img": "img/bee.png"},
-   {"h2": "Den Softwareentwicklern ist aufgefallen, dass Hacker mit ';' neue Queries in Eingabefelder einschleußen können, daher haben sie ';' im Input verboten.",
+   {"h2": "Den Softwareentwicklern ist aufgefallen, dass Hacker mit ';' neue Queries in Eingabefelder einschleusen können, daher haben sie ';' im Input verboten.",
    "h3":"",
    "img": "img/bee.png"}
   ],

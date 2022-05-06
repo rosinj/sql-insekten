@@ -1,5 +1,5 @@
 lang_de = {
-  "%joyride_info1": "Dies ist ein SQL-Injection-Lernspiel. Mit SQL-Injections (dt. SQL-Einschleußung) kann man Websites hacken, indem man durch das Einschleusen von SQL-Code beliebige Daten in der Datenbank ändern, löschen oder auslesen kann.", 
+  "%joyride_info1": "Dies ist ein SQL-Injection-Lernspiel. Mit SQL-Injections (dt. SQL-Einschleusung) kann man Websites hacken, indem man durch das Einschleusen von SQL-Code beliebige Daten in der Datenbank ändern, löschen oder auslesen kann.", 
   "%joyride_info2": "Diese Sicherheitslücke ist oft in Anwendungen zu finden, in denen keine Prepared Statements verwendet werden.Da wir dies aus Lernzwecken nicht verwenden, ist hier fast alles möglich!<br> <br> In SQL-Insekten lernst du von Level zu Level wie Hacker diese Sicherheitslücke ausnutzen, dabei wären Vorkenntisse in SQL empfehlenswert.",
   "%joyride_login": "In diesem ersten Level haben wir hier ein Login-Formular, wie man es so von anderen Websiten kennt.",
   "%joyride_details": "Unter dem Button 'Hintergrunddetails anzeigen' kannst du dir die live-erzeugte SQL-Query anschauen und den Programmcode der Anwendung.",
