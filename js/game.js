@@ -13,7 +13,7 @@ TASKS=[
     "challenge_en": "First, try to log in as usual as 'jane' with a password. Since you don't know her password, just enter anything.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0  && queries[j].includes(translate('benutzer'))",
+                      "truecondition":"results.length > 0  && queries[j].includes(translate('benutzer'))",
                       "correctanswer":["true","true","true","true"],
                       "speakbblanswer":["Super! Du hast verstanden wie das Login-Formular funktioniert. ","Super! Du hast verstanden wie das Login-Formular funktioniert."],
                       "speakbblanswer_en":["Perfect! You now know how this login form works.","Perfect! You now know how this login form works."],
@@ -33,7 +33,7 @@ TASKS=[
     "challenge_en" : "Try to log in as 'jane' without knowing her password. As mentioned before, use apostrophes and SQL comments, and take a look in the background-details section.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0 && queries[j].includes(translate('benutzer')) && results.rows.item(0)[translate('benutzername')]==translate('alexamusterfrau')",
+                      "truecondition":"results.length > 0 && queries[j].includes(translate('benutzer')) && results[0][translate('benutzername')]==translate('alexamusterfrau')",
                       "correctanswer":["true","false","false","false"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche es erneut dich als 'alexamusterfrau' einzuloggen. <br> Also nicht als 'maxmustermann' einloggen!"],
                       "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Please try again to log in as 'jane'. <br> So, do not log in as 'maxmiller'!"],
@@ -53,8 +53,8 @@ TASKS=[
    "challenge": "Versuche die Tabelle 'benutzer' zu droppen. <br> <h3> Im Hintergrund wird zwar eigentlich nur eine Query ausgeführt, aber wenn du eine Query mit ';' beendest kannst du eine weitere Query einschleusen. Lass dich übrigens nicht davon irritieren, wenn der Login fehlschlägt oder eine Fehlermeldung auftaucht. </h3>",
    "challenge_en": "Try to drop the table 'users'; <br> <h3> Basically, only one single query should be executed when logging in, but when you terminate your query with a semicolon ';'  you can inject a second query. By the way, don't get irritated if the login fails or you get an error message.</h3>",
    "validation"  : [{"validationquery": ["'SELECT '+ translate('benutzername') +' FROM '+translate('benutzer')"],
-                     "validationerror":"'could not prepare statement (1 no such table: '+translate('benutzer')+')'",
-                     "truecondition":"results.rows.length > 0",
+                     "validationerror":"'Table does not exist: '+translate('benutzer')",
+                     "truecondition":"results.length > 0",
                      "correctanswer":["false","false","true","false"],
                      "speakbblanswer":["Super! Du hast die Benutzertabelle gelöscht! ","Schade, das hat leider nicht geklappt. Versuche erneut die Tabelle 'benutzer' zu droppen bzw. zu löschen."],
                      "speakbblanswer_en":["Perfect! You dropped the users table! ","Oh no, unfortunately this did not work. Please try again to drop the table 'users'."],
@@ -77,7 +77,7 @@ TASKS=[
     "challenge_en": "Let's say you do not know a user name. Anyway, try to log in with any user.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length > 0 && queries[j].includes(translate('benutzer')) && [translate('alexamusterfrau'),translate('maxmustermann'),translate('kati1809')].includes(results.rows.item(0)[translate('benutzername')])",
+                      "truecondition":"results.length > 0 && queries[j].includes(translate('benutzer')) && [translate('alexamusterfrau'),translate('maxmustermann'),translate('kati1809')].includes(results[0][translate('benutzername')])",
                       "correctanswer":["true","false","false","false"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich mit einem User einzuloggen ohne einen Namen zu kennen."],
                       "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Try again to log in with a user without knowing their user name."],
@@ -106,7 +106,7 @@ TASKS=[
     "challenge_en": "Can you also solve this challenge? Please again log in as a user that you do not know.",
     "validation"  : [{"validationquery": [""],
                       "validationerror":"",
-                      "truecondition":"results.rows.length == 1 && queries[j].includes(translate('benutzer')) && [translate('alexamusterfrau'),translate('maxmustermann'),translate('kati1809')].includes(results.rows.item(0)[translate('benutzername')])",
+                      "truecondition":"results.length == 1 && queries[j].includes(translate('benutzer')) && [translate('alexamusterfrau'),translate('maxmustermann'),translate('kati1809')].includes(results[0][translate('benutzername')])",
                       "correctanswer":["true","false","false","false"],
                       "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut dich einzuloggen ohne einen Nutzer zu kennen. <br> Vergiss nicht, dass deine Query nur eine Zeile im Ergebnis ausgeben darf."],
                       "speakbblanswer_en":["Perfect! You solved this challenge!","Oh no, unfortunately that did not work out. Try again to log in as a user without knowing their user name. <br> Beware that your query must only return one single row!"],
@@ -133,7 +133,7 @@ TASKS=[
    "challenge_en": "First of all, just use a normal search to find all shoes from the brand 'Nicke'.",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     "truecondition":"results.rows.length == 4 && queries[j].includes(translate('schuhe'))",
+                     "truecondition":"results.length == 4 && queries[j].includes(translate('schuhe'))",
                      "correctanswer":["true","false","false","false"],
                      "speakbblanswer":["Super! Du hast verstanden wie die Produktsuche funktioniert. ","Schade, das hat leider nicht geklappt. Suche nach Schuhen der Marke 'Nicke'"],
                      "speakbblanswer_en":["Perfect! You now know how the product search works. ","Oh no, this did not work out. Try again to search for shoes of the brand 'Nicke'."],
@@ -153,7 +153,7 @@ TASKS=[
    "challenge_en": "Please output the usernames and passwords of all users!",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     "truecondition":"results.rows.length == 3 && queries[j].includes(translate('benutzer'))  && queries[j].includes(translate('benutzername')) && queries[j].includes(translate('passwort')) ",
+                     "truecondition":"results.length == 3 && queries[j].includes(translate('benutzer'))  && queries[j].includes(translate('benutzername')) && queries[j].includes(translate('passwort')) ",
                      "correctanswer":["true","false","false","false"],
                      "speakbblanswer":["Super! Du hast es geschafft! <br> <h3>Wenigstens speichert die Website die Passwörter nicht in Klartext, sondern als Hashwert, der aus dem Passwort generiert wird. Aber durch frei zugängliche sog. Rainbow-Tables konnte ich trotzdem herausfinden, dass das Passwort von maxmustermann 'password123' ist.</h3>","Schade, das hat leider nicht geklappt. Versuche erneut Benutzername und Passwort aller Benutzer auszugeben."],
                      "speakbblanswer_en":["Perfect! It worked! <br> <h3>As you can see, the website stores the passwords in an encrypted format using their MD5 hash. That's better than storing them in plain text. But, rainbow tables which are publicly available can help us to look up for the original password, for maxmiller that's 'password123'.</h3>","Oh no, this did not work out. Try again to output the usernames and passwords of all users."],
@@ -182,7 +182,7 @@ TASKS=[
    "challenge_en": "I want to know how much the staff member with the first name 'Greta Maria' earns. <br> For this, you have to introduce column aliases (AS ...) for the columns of the table 'staff'.",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1 && queries[j].includes(translate('mitarbeiter')) && results.rows.item(0)[translate('benutzername')]==4500",
+            "truecondition":"results.length == 1 && queries[j].includes(translate('mitarbeiter')) && results[0][translate('benutzername')]==4500",
             "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> Die Greta bekommt ja ganz schön viel Geld.","Schade, das hat leider nicht geklappt. Versuche erneut herauszufinden wieviel Greta Maria verdient. <br> Zur Info: Du wirst die Spalte 'benutzername' von 'benutzer' benötigen und 'lohn','vorname' von der Tabelle 'mitarbeiter'."],
             "speakbblanswer_en":["Perfect! You solved this challenge! <br> Wow, Greta gets a lot of money.","Oh no, this did not work out. Try again to output Greta Maria's salary. <br> For your information: You will need the column 'username' from 'users' and 'salary', 'firstname' from the table 'staff'."],
@@ -213,7 +213,7 @@ TASKS=[
   "challenge_en": "I want to know the following from all staff members: name, email address, salary and since when they have been working for this company. <br> <h3> The table has the following column names: 'staff_id', 'name', 'firstname', 'email', 'salary' & 'employed_since'. Warning: semicolons are no longer allowed. </h3>",
   "validation"  : [{"validationquery": [""],
            "validationerror":"",
-           "truecondition":"results.rows.length == 6 && queries[j].includes(translate('mitarbeiter'))",
+           "truecondition":"results.length == 6 && queries[j].includes(translate('mitarbeiter'))",
            "correctanswer":["true","false","false","false"],
            "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut name, email, lohn und angestellt_seit der Mitarbeitertabelle durch Vereinigung zweier Queries auszugeben."],
            "speakbblanswer_en":["Perfect! You solved this challenge! <br>","Oh no, this did not work out. Try again to output name, email, salary and employed_since from the staff table by merging two queries."],
@@ -252,7 +252,7 @@ TASKS=[
    "challenge_en": "Try to find out which database we are dealing with and output the metadata. <br> <h4> As a reminder: Oracle: sys.user_tables (table_id, table_name, num_rows, ...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables (table_name, table_type, table_rows, ...) <br> SQLLite: sqlite_master (type, name, tbl_name, ...). </h4>",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 4 && queries[j].includes('information_schema')",
+            "truecondition":"results.length == 4 && queries[j].includes('information_schema')",
             "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! <br> Nun wissen wir, welche Tabellen die Datenbank besitzt!","Schade, das hat leider nicht geklappt. Versuche erneut alle Tabellen-Metadaten auszugeben. <br> <h4>Zur Erinnerung: <br> Oracle: sys.user_tables(table_id, table_name, num_rows,...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables(table_name, table_type, table_rows,...) <br> SQLLite:  sqlite_master(type, name, tbl_name,...). </h4>"],
             "speakbblanswer_en":["Perfect! You solved this challenge! <br> Now we know which tables the database has!","Oh no, this did not work out. Try to output all table metadata again. <br> <h4> As a reminder: <br> Oracle: sys.user_tables (table_id, table_name, num_rows, ...) <br> MySQL, SQL Server, PostgreSQL: information_schema.tables (table_name, table_type, table_rows, ...) <br> SQLLite : sqlite_master (type, name, tbl_name, ...). </h4>"],
@@ -279,13 +279,13 @@ TASKS=[
    "challenge_en": "The previous output showed that there is another table called customers. I want to know which columns this table has. <br> <h3> As a reminder: the table with information on the columns is called information_schema.columns (table_name, column_name, data_type). </h3>",
    "validation"  : [{"validationquery": [""],
                      "validationerror":"",
-                     // "truecondition":"results.rows.length == 5 && queries[j].includes('information_schema') && Object.values(results.rows.item(0)).includes(translate('adresse')) && Object.values(results.rows.item(1)).includes(translate('bestellnr')) && Object.values(results.rows.item(2)).includes(translate('email')) && Object.values(results.rows.item(3)).includes(translate('kunden_id')) && Object.values(results.rows.item(4)).includes(translate('name'))",
-                     "truecondition":"results.rows.length == 5 && queries[j].includes('information_schema') && " +
-                                     "(Object.values(results.rows.item(0)).includes(translate('adresse')) || Object.values(results.rows.item(0)).includes(translate('bestellnr')) || Object.values(results.rows.item(0)).includes(translate('email')) || Object.values(results.rows.item(0)).includes(translate('kunden_id')) || Object.values(results.rows.item(0)).includes(translate('name'))) && "+
-                                     "(Object.values(results.rows.item(1)).includes(translate('adresse')) || Object.values(results.rows.item(1)).includes(translate('bestellnr')) || Object.values(results.rows.item(1)).includes(translate('email')) || Object.values(results.rows.item(1)).includes(translate('kunden_id')) || Object.values(results.rows.item(1)).includes(translate('name'))) && "+
-                                     "(Object.values(results.rows.item(2)).includes(translate('adresse')) || Object.values(results.rows.item(2)).includes(translate('bestellnr')) || Object.values(results.rows.item(2)).includes(translate('email')) || Object.values(results.rows.item(2)).includes(translate('kunden_id')) || Object.values(results.rows.item(2)).includes(translate('name'))) && "+
-                                     "(Object.values(results.rows.item(3)).includes(translate('adresse')) || Object.values(results.rows.item(3)).includes(translate('bestellnr')) || Object.values(results.rows.item(3)).includes(translate('email')) || Object.values(results.rows.item(3)).includes(translate('kunden_id')) || Object.values(results.rows.item(3)).includes(translate('name'))) && "+
-                                     "(Object.values(results.rows.item(4)).includes(translate('adresse')) || Object.values(results.rows.item(4)).includes(translate('bestellnr')) || Object.values(results.rows.item(4)).includes(translate('email')) || Object.values(results.rows.item(4)).includes(translate('kunden_id')) || Object.values(results.rows.item(4)).includes(translate('name')))",
+                     // "truecondition":"results.length == 5 && queries[j].includes('information_schema') && Object.values(results[0]).includes(translate('adresse')) && Object.values(results[1]).includes(translate('bestellnr')) && Object.values(results[2]).includes(translate('email')) && Object.values(results[3]).includes(translate('kunden_id')) && Object.values(results[4]).includes(translate('name'))",
+                     "truecondition":"results.length == 5 && queries[j].includes('information_schema') && " +
+                                     "(Object.values(results[0]).includes(translate('adresse')) || Object.values(results[0]).includes(translate('bestellnr')) || Object.values(results[0]).includes(translate('email')) || Object.values(results[0]).includes(translate('kunden_id')) || Object.values(results[0]).includes(translate('name'))) && "+
+                                     "(Object.values(results[1]).includes(translate('adresse')) || Object.values(results[1]).includes(translate('bestellnr')) || Object.values(results[1]).includes(translate('email')) || Object.values(results[1]).includes(translate('kunden_id')) || Object.values(results[1]).includes(translate('name'))) && "+
+                                     "(Object.values(results[2]).includes(translate('adresse')) || Object.values(results[2]).includes(translate('bestellnr')) || Object.values(results[2]).includes(translate('email')) || Object.values(results[2]).includes(translate('kunden_id')) || Object.values(results[2]).includes(translate('name'))) && "+
+                                     "(Object.values(results[3]).includes(translate('adresse')) || Object.values(results[3]).includes(translate('bestellnr')) || Object.values(results[3]).includes(translate('email')) || Object.values(results[3]).includes(translate('kunden_id')) || Object.values(results[3]).includes(translate('name'))) && "+
+                                     "(Object.values(results[4]).includes(translate('adresse')) || Object.values(results[4]).includes(translate('bestellnr')) || Object.values(results[4]).includes(translate('email')) || Object.values(results[4]).includes(translate('kunden_id')) || Object.values(results[4]).includes(translate('name')))",
                      "correctanswer":["true","false","false","false"],
                      "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Spalten der Tabelle 'kunden' auszugeben.  <br> <h3>Zur Erinnerung: die Tabelle mit Informationen zu den Spalten heißt information_schema.columns (table_name, column_name, data_type).</h3>"],
                      "speakbblanswer_en":["Perfect! You solved this challenge! ","Oh no, this did not work out. Try again to display the columns of the table 'customers'. <br> <h3> As a reminder: the table with information on the columns is called information_schema.columns (table_name, column_name, data_type). </h3>"],
@@ -324,7 +324,7 @@ TASKS=[
    "challenge_en": "Let's see if you understand. The shoe with product_id = 0 is selected in advance. Enter a different id. ",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1 && queries[j].includes(translate('schuhe')) && !queries[j].includes(translate('produkt_id')+'=0')",
+            "truecondition":"results.length == 1 && queries[j].includes(translate('schuhe')) && !queries[j].includes(translate('produkt_id')+'=0')",
             "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Jetzt weißt du wie der URL-Aufruf funktioniert. ","Schade, das hat leider nicht geklappt. Versuche erneut nach dem letzten Slash, wenn nicht vorhanden, '?produkt_id=' und eine andere Zahl einzugeben. "],
             "speakbblanswer_en":["Perfect! Now you know how the URL call works. ","Oh no, this did not work out. Try again to enter after the last slash '?product_id =' and another number. "],
@@ -344,7 +344,7 @@ TASKS=[
    "challenge_en": "Output the name, e-mail and address of the customer with the 'customer_id' = 3. <br> <h3> As a reminder: The table has the following column names: 'customer_id', 'name', 'email', 'order_id' & 'address'. </h3>",
    "validation"  : [{"validationquery": [""],
             "validationerror":"",
-            "truecondition":"results.rows.length == 1 && queries[j].includes(translate('kunden')) && Object.values(results.rows.item(0)).includes('dietmar0123@exm.com') && Object.values(results.rows.item(0)).includes('Seestr. 18') && Object.values(results.rows.item(0)).includes('Dimitri Muster')",
+            "truecondition":"results.length == 1 && queries[j].includes(translate('kunden')) && Object.values(results[0]).includes('dietmar0123@exm.com') && Object.values(results[0]).includes('Seestr. 18') && Object.values(results[0]).includes('Dimitri Muster')",
             "correctanswer":["true","false","false","false"],
             "speakbblanswer":["Super! Du hast die Herausforderung gemeistert! ","Schade, das hat leider nicht geklappt. Versuche erneut die Adresse, den Namen und die E-Mail des Kunden mit der id 3 rauszukriegen. <br> <h3>Zur Erinnerung: Die Tabelle hat folgende Spaltennamen: 'kunden_id', 'name','email','bestellnr' & 'adresse'.</h3>"],
             "speakbblanswer_en":["Perfect! You solved this challenge!  ","Oh no, this did not work out. Try again to output the address, name and email of the customer with id 3. <br> <h3> As a reminder: The table has the following column names: 'customer_id', 'name', 'email', 'order_id' & 'address'. </h3>"],
@@ -372,7 +372,7 @@ TASKS=[
   "hints"    : "hints deactivated",
   "lvl" : 10}
 ];
-var db= createdb();
+var db = null; //createdb();
 createTableUsers(db);
 createTableShoes(db);
 createTableMa(db);
@@ -584,47 +584,43 @@ function validation(){
       for (let j in queries){
          var prom2= new Promise((resolve,reject) =>{
          if(!queries[j].trim().startsWith("--") && queries[j].trim()!=""){
-            db.transaction(function(transaction) {
-               transaction.executeSql(queries[j],[],function (transaction, results) {
-                  if (eval(TASKS[task_index].validation[0].truecondition)) {        
-                     if(is_query_valid(queries[j])){ 
-                        correctanswer[j] = TASKS[task_index].validation[0].correctanswer[0];
-                     }else{
-                        correctanswer[j]="false";
-                        if(';' in TASKS[task_index].validation[0].blacklist){
-                           querysucessful[j]="semi";
-                     
-                        }
-                     }
-                  } else {
-                     querysucessful[j]="false";
-                     correctanswer[j] = TASKS[task_index].validation[0].correctanswer[1];
-                  }
-                  ergebnis[j]= results;
-                  if(queries[j].includes("sqlite_master")){
-                     querysucessful[j]="error";
-                  }
-                  resolve(correctanswer,ergebnis,querysucessful);
 
-                  },function(transaction,error){
-                     // console.log(error.message);
-                     // console.log(TASKS[task_index].validation[0].validationerror);
-                     if(TASKS[task_index].validation[0].validationquery[0] !="" && error.message == eval(TASKS[task_index].validation[0].validationerror)){
-                        correctanswer[j] = TASKS[task_index].validation[0].correctanswer[2];
-                     }else{
-                        correctanswer[j] = TASKS[task_index].validation[0].correctanswer[3];
-                     }
-                     ergebnis[j]="error";
-                     querysucessful[j]="error";
-                     if(TASKS[task_index].validation[0].blacklist.includes(";") && queries[j].includes(";")){
+            try {
+               results = alasql(queries[j]);
+               if (eval(TASKS[task_index].validation[0].truecondition)) {        
+                  if(is_query_valid(queries[j])){ 
+                     correctanswer[j] = TASKS[task_index].validation[0].correctanswer[0];
+                  }else{
+                     correctanswer[j]="false";
+                     if(';' in TASKS[task_index].validation[0].blacklist){
                         querysucessful[j]="semi";
                      }
-                     
-                     resolve(correctanswer,ergebnis,querysucessful);
-                              }
-                        );
-                     }
-                  );
+                  }
+               } else {
+                  querysucessful[j]="false";
+                  correctanswer[j] = TASKS[task_index].validation[0].correctanswer[1];
+               }
+               ergebnis[j]= results;
+               if(queries[j].includes("sqlite_master")){
+                  querysucessful[j]="error";
+               }
+               resolve(correctanswer,ergebnis,querysucessful);
+            } catch (error) {
+               if(TASKS[task_index].validation[0].validationquery[0] !="" && error.message == eval(TASKS[task_index].validation[0].validationerror)){
+                  correctanswer[j] = TASKS[task_index].validation[0].correctanswer[2];
+               }else{
+                  correctanswer[j] = TASKS[task_index].validation[0].correctanswer[3];
+               }
+               ergebnis[j]="error";
+               querysucessful[j]="error";
+               if(TASKS[task_index].validation[0].blacklist.includes(";") && queries[j].includes(";")){
+                  querysucessful[j]="semi";
+               }
+               
+               resolve(correctanswer,ergebnis,querysucessful);
+            }
+
+            
           }else{lenminus=lenminus+1;}
          })
          prom2.then(response=>{
@@ -755,7 +751,7 @@ function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
 
       switch (category){
          case "login":
-            document.getElementById('loginlabel').innerHTML= translate("Login war erfolgreich.")+" <br> <br> "+translate("Willkommen")+" " + ergebnis[index].rows.item(0)[translate('benutzername')] +"!";
+            document.getElementById('loginlabel').innerHTML= translate("Login war erfolgreich.")+" <br> <br> "+translate("Willkommen")+" " + ergebnis[index][0][translate('benutzername')] +"!";
             document.getElementById("username").style.display = 'none';
             document.getElementById("password").style.display = 'none';
             document.getElementById("login_btn").style.display = 'none';
@@ -796,8 +792,8 @@ function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
    }else if (success=='false'){
       switch (category){
          case "login":
-            if(eval(TASKS[task_index_temp].validation[0].truecondition.split('&&')[0].replace("results.rows.length","ergebnis[index].rows.length")) && typeof(ergebnis[index].rows.item(0)[translate('benutzername')])!="undefined"){
-               document.getElementById('loginlabel').innerHTML= translate("Login war erfolgreich.")+" <br> <br>"+translate("Willkommen")+" " + ergebnis[index].rows.item(0)[translate('benutzername')] +"!";
+            if(eval(TASKS[task_index_temp].validation[0].truecondition.split('&&')[0].replace("results.length","ergebnis[index].length")) && typeof(ergebnis[index][0][translate('benutzername')])!="undefined"){
+               document.getElementById('loginlabel').innerHTML= translate("Login war erfolgreich.")+" <br> <br>"+translate("Willkommen")+" " + ergebnis[index][0][translate('benutzername')] +"!";
                document.getElementById("username").style.display = 'none';
                document.getElementById("password").style.display = 'none';
                document.getElementById("login_btn").style.display = 'none';
@@ -817,7 +813,7 @@ function form_success(category,ergebnis,querysucessful,answer,answer_index,qu){
          case "url":
             document.getElementById("loginlabel").style.textAlign = 'center';
             document.getElementById("suchergebnisse").style.display = 'none';
-            if(ergebnis[index].rows.length==1){
+            if(ergebnis[index].length==1){
                document.getElementById('loginlabel').innerHTML= translate("Ergebnis");
                document.getElementById("sneaker_img").style.display='block';
                document.getElementById("url_output").style.display='block';
@@ -930,11 +926,11 @@ function generate_resulttable(qu,ergebnis,task_index_temp){
       th.appendChild(text);
       row.appendChild(th);
    }
-   for (var i=0; i<ergebnis.rows.length; i++)  {
+   for (var i=0; i<ergebnis.length; i++)  {
       let row = table.insertRow();
       for (key in columns) {
         let cell = row.insertCell();
-        let text = document.createTextNode(ergebnis.rows.item(i)[columns[key]]);
+        let text = document.createTextNode(ergebnis[i][columns[key]]);
         cell.appendChild(text);
       }
     }
@@ -943,29 +939,29 @@ function generate_resulttable(qu,ergebnis,task_index_temp){
 function generate_url_output(qu,ergebnis){
    document.getElementsByClassName("form-signin")[0].style.height="300px";
    document.getElementById("sneaker_img").style.marginLeft= "20%"
-   if(typeof(ergebnis.rows.item(0)[translate('marke')])!="undefined"){
-      if(ergebnis.rows.item(0)[translate('marke')].toString().length>17){
-         var len=20-(ergebnis.rows.item(0)[translate('marke')].length-17);
+   if(typeof(ergebnis[0][translate('marke')])!="undefined"){
+      if(ergebnis[0][translate('marke')].toString().length>17){
+         var len=20-(ergebnis[0][translate('marke')].length-17);
          document.getElementById("sneaker_img").style.marginLeft= len+"%"
 
       }
    }
-   if(typeof(ergebnis.rows.item(0)[translate('groesse')]) !="undefined"){
-      if(ergebnis.rows.item(0)[translate('groesse')].toString().length>17 ){
-         var len=20-(ergebnis.rows.item(0)[translate('groesse')].length-17);
+   if(typeof(ergebnis[0][translate('groesse')]) !="undefined"){
+      if(ergebnis[0][translate('groesse')].toString().length>17 ){
+         var len=20-(ergebnis[0][translate('groesse')].length-17);
          document.getElementById("sneaker_img").style.marginLeft= len+"%"
 
       }
    }
-   if(typeof(ergebnis.rows.item(0)[translate('preis')]) !="undefined"){
-      if(ergebnis.rows.item(0)[translate('preis')].toString().length>17){
-         var len=20-(ergebnis.rows.item(0)[translate('preis')].length-17);
+   if(typeof(ergebnis[0][translate('preis')]) !="undefined"){
+      if(ergebnis[0][translate('preis')].toString().length>17){
+         var len=20-(ergebnis[0][translate('preis')].length-17);
          document.getElementById("sneaker_img").style.marginLeft= len+"%"
       }
    }
-   document.getElementById("marke").innerHTML= "<strong>"+translate("Marke")+":   </strong>" + ergebnis.rows.item(0)[translate('marke')];
-   document.getElementById("groesse").innerHTML= "<strong>"+translate("Größe")+":   </strong>" + ergebnis.rows.item(0)[translate('groesse')];
-   document.getElementById("price").innerHTML= "<strong>"+translate("Preis")+":     </strong>" + ergebnis.rows.item(0)[translate('preis')] + translate("€");
+   document.getElementById("marke").innerHTML= "<strong>"+translate("Marke")+":   </strong>" + ergebnis[0][translate('marke')];
+   document.getElementById("groesse").innerHTML= "<strong>"+translate("Größe")+":   </strong>" + ergebnis[0][translate('groesse')];
+   document.getElementById("price").innerHTML= "<strong>"+translate("Preis")+":     </strong>" + ergebnis[0][translate('preis')] + translate("€");
 }
 
 /////// DATABASE FUNCTIONS
@@ -974,119 +970,90 @@ function nullDataHandler(transaction, results) { }
  
 function createTableUsers(db)
 {
-    db.transaction(
-        function (transaction) {
- 
-            /* The first query causes the transaction to (intentionally) fail if the table exists. */
-            transaction.executeSql("DROP TABLE IF EXISTS "+translate("benutzer")+";", [], nullDataHandler, errorHandler);
-            transaction.executeSql("create table "+translate("benutzer")+"("+translate("nutzer_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("benutzername")+" TEXT NOT NULL, "+translate("passwort")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL );", [], nullDataHandler, errorHandler);
-            /* These insertions will be skipped if the table already exists. */
-            transaction.executeSql("INSERT INTO "+translate("benutzer")+" VALUES (0,'"+translate("maxmustermann")+"','482c811da5d5b4bc6d497ffa98491e38','"+translate("maxmustermann@example.com")+"');", [], nullDataHandler, errorHandler);
-            transaction.executeSql("INSERT INTO "+translate("benutzer")+" VALUES (1,'"+translate("alexamusterfrau")+"','ccce608af11293cecc1c1c272a04d54d','"+translate("alexamusterfrau@example.com")+"');", [], nullDataHandler, errorHandler);
-            transaction.executeSql("INSERT INTO "+translate("benutzer")+" VALUES (2,'"+translate("kati1809")+"','5e446b734ae11b7f30c907e54d89a84e','"+translate("kati@example.com")+"');", [], nullDataHandler, dataHandler);
-        }
-    );
+   /* The first query causes the transaction to (intentionally) fail if the table exists. */
+   alasql("DROP TABLE IF EXISTS "+translate("benutzer")+";");
+   alasql("create table "+translate("benutzer")+"("+translate("nutzer_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("benutzername")+" TEXT NOT NULL, "+translate("passwort")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL );");
+   /* These insertions will be skipped if the table already exists. */
+   alasql("INSERT INTO "+translate("benutzer")+" VALUES (0,'"+translate("maxmustermann")+"','482c811da5d5b4bc6d497ffa98491e38','"+translate("maxmustermann@example.com")+"');");
+   alasql("INSERT INTO "+translate("benutzer")+" VALUES (1,'"+translate("alexamusterfrau")+"','ccce608af11293cecc1c1c272a04d54d','"+translate("alexamusterfrau@example.com")+"');");
+   alasql("INSERT INTO "+translate("benutzer")+" VALUES (2,'"+translate("kati1809")+"','5e446b734ae11b7f30c907e54d89a84e','"+translate("kati@example.com")+"');");
 }
 function createTableShoes(db){
-   db.transaction(
-      function (transaction) {
-
-          /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql("DROP TABLE IF EXISTS "+translate("schuhe")+";", [], nullDataHandler, errorHandler);
-          transaction.executeSql("create table "+translate("schuhe")+"("+translate("produkt_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("marke")+" TEXT NOT NULL, "+translate("groesse")+" INT NOT NULL, "+translate("preis")+" INT NOT NULL );", [], nullDataHandler, errorHandler);
-          /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (0,'Nicke',40,80);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (1,'Abidas',37,70);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (2,'Nicke',42,80);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (3,'Abidas',41,80);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (4,'Nicke',38,100);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (5,'Nicke',40,80);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (6,'Abidas',40,70);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (7,'Conwers',43,60);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (8,'Weja',38,130);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (9,'Reedok',45,70);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (10,'Weja',36,120);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (11,'Reedok',46,60);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (12,'Trash Plant',39,190);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("schuhe")+" VALUES (13,'Bifffalo',39,99);", [], nullDataHandler, dataHandler);
-      }
-  );
+   /* The first query causes the transaction to (intentionally) fail if the table exists. */
+   alasql("DROP TABLE IF EXISTS "+translate("schuhe")+";");
+   alasql("create table "+translate("schuhe")+"("+translate("produkt_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("marke")+" TEXT NOT NULL, "+translate("groesse")+" INT NOT NULL, "+translate("preis")+" INT NOT NULL );");
+   /* These insertions will be skipped if the table already exists. */
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (0,'Nicke',40,80);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (1,'Abidas',37,70);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (2,'Nicke',42,80);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (3,'Abidas',41,80);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (4,'Nicke',38,100);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (5,'Nicke',40,80);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (6,'Abidas',40,70);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (7,'Conwers',43,60);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (8,'Weja',38,130);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (9,'Reedok',45,70);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (10,'Weja',36,120);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (11,'Reedok',46,60);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (12,'Trash Plant',39,190);");
+   alasql("INSERT INTO "+translate("schuhe")+" VALUES (13,'Bifffalo',39,99);", [], nullDataHandler, dataHandler);
 }
 function createTableMa(db){
-   db.transaction(
-      function (transaction) {
-
-          /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql("DROP TABLE IF EXISTS "+translate("mitarbeiter")+";", [], nullDataHandler, errorHandler);
-          transaction.executeSql("create table "+translate("mitarbeiter")+"("+translate("ma_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("vorname")+" TEXT NOT NULL, "+translate("name")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL, "+ translate("lohn")+" INT NOT NULL, "+translate("angestellt_seit")+" INT NOT NULL );", [], nullDataHandler, errorHandler);
-          /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (0,'Franziska','die Große','examplemail.com',700,2020);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (1,'Mohammed','Schneider','schneider@webb.de',1700,2017);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (2,'Greta Maria','Reifenberger','gretamaria-reifenberger@email.com',4500,2000);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (3,'Dietmar','Kaslowski','dietmar0123@exm.com',2800,2005);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (4,'Jessica','Koch','Koch1009@mail.com',1200,2019);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("mitarbeiter")+" VALUES (5,'Clarissa','Waismeier','waismeier.com',3500,2010);", [], nullDataHandler, errorHandler);
-      }
-  );
+   /* The first query causes the transaction to (intentionally) fail if the table exists. */
+   alasql("DROP TABLE IF EXISTS "+translate("mitarbeiter")+";");
+   alasql("create table "+translate("mitarbeiter")+"("+translate("ma_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("vorname")+" TEXT NOT NULL, "+translate("name")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL, "+ translate("lohn")+" INT NOT NULL, "+translate("angestellt_seit")+" INT NOT NULL );");
+   /* These insertions will be skipped if the table already exists. */
+   alasql("INSERT INTO "+translate("mitarbeiter")+" VALUES (0,'Franziska','die Große','examplemail.com',700,2020);");
+   alasql("INSERT INTO "+translate("mitarbeiter")+" VALUES (1,'Mohammed','Schneider','schneider@webb.de',1700,2017);");
+   alasql("INSERT INTO "+translate("mitarbeiter")+" VALUES (2,'Greta Maria','Reifenberger','gretamaria-reifenberger@email.com',4500,2000);");
+   alasql("INSERT INTO "+translate("mitarbeiter")+" VALUES (3,'Dietmar','Kaslowski','dietmar0123@exm.com',2800,2005);");
+   alasql("INSERT INTO "+translate("mitarbeiter")+" VALUES (4,'Jessica','Koch','Koch1009@mail.com',1200,2019);");
+   alasql("INSERT INTO "+translate("mitarbeiter")+" VALUES (5,'Clarissa','Waismeier','waismeier.com',3500,2010);");
 }
 function createTableKunden(db){
-   db.transaction(
-      function (transaction) {
-
-          /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql("DROP TABLE IF EXISTS "+translate("kunden")+";", [], nullDataHandler, errorHandler);
-          transaction.executeSql("create table " +translate("kunden")+"("+translate("kunden_id")+" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT , "+translate("name")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL, "+translate("bestellnr")+" INT NOT NULL, "+translate("adresse")+" TEXT NOT NULL );", [], nullDataHandler, errorHandler);
-          /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql("INSERT INTO "+translate("kunden")+" VALUES (0,'Franziska Baumgartner','examplemail.com',12345,'Studentenstr. 10');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("kunden")+" VALUES (1,'Mohammed Weinzierl','weinzierlr@webb.de',54321, 'Merkelstr. 98');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("kunden")+" VALUES (2,'Maria Königsberg','maria_königsweg@mail.com',28888,'Veilchenstr. 13');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO "+translate("kunden")+" VALUES (3,'Dimitri Muster','dietmar0123@exm.com',33445,'Seestr. 18');", [], nullDataHandler, errorHandler);
-      }
-  );
+   /* The first query causes the transaction to (intentionally) fail if the table exists. */
+   alasql("DROP TABLE IF EXISTS "+translate("kunden")+";");
+   alasql("create table " +translate("kunden")+"("+translate("kunden_id")+" INTEGER NOT NULL PRIMARY KEY, "+translate("name")+" TEXT NOT NULL, "+translate("email")+" TEXT NOT NULL, "+translate("bestellnr")+" INT NOT NULL, "+translate("adresse")+" TEXT NOT NULL );");
+   /* These insertions will be skipped if the table already exists. */
+   alasql("INSERT INTO "+translate("kunden")+" VALUES (0,'Franziska Baumgartner','examplemail.com',12345,'Studentenstr. 10');");
+   alasql("INSERT INTO "+translate("kunden")+" VALUES (1,'Mohammed Weinzierl','weinzierlr@webb.de',54321, 'Merkelstr. 98');");
+   alasql("INSERT INTO "+translate("kunden")+" VALUES (2,'Maria Königsberg','maria_königsweg@mail.com',28888,'Veilchenstr. 13');");
+   alasql("INSERT INTO "+translate("kunden")+" VALUES (3,'Dimitri Muster','dietmar0123@exm.com',33445,'Seestr. 18');");
 }
 function createTableTables(db){
-   db.transaction(
-      function (transaction) {
-         transaction.executeSql("DROP TABLE IF EXISTS information_schema_tables;", [], nullDataHandler, errorHandler);
-          /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql("create table information_schema_tables(table_name TEXT NOT NULL, table_type TEXT NOT NULL, table_rows INT NOT NULL);", [], nullDataHandler, errorHandler);
-          /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql("INSERT INTO information_schema_tables VALUES ('"+translate("benutzer")+"','BASE TABLE',3);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_tables VALUES ('"+translate("schuhe")+"','BASE TABLE',14);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_tables VALUES ('"+translate("mitarbeiter")+"','BASE TABLE',6);", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_tables VALUES ('"+translate("kunden")+"','BASE TABLE',4);", [], nullDataHandler, errorHandler);
-      }
-  );
+   alasql("DROP TABLE IF EXISTS information_schema_tables;");
+      /* The first query causes the transaction to (intentionally) fail if the table exists. */
+      alasql("create table information_schema_tables(table_name TEXT NOT NULL, table_type TEXT NOT NULL, table_rows INT NOT NULL);");
+      /* These insertions will be skipped if the table already exists. */
+      alasql("INSERT INTO information_schema_tables VALUES ('"+translate("benutzer")+"','BASE TABLE',3);");
+      alasql("INSERT INTO information_schema_tables VALUES ('"+translate("schuhe")+"','BASE TABLE',14);");
+      alasql("INSERT INTO information_schema_tables VALUES ('"+translate("mitarbeiter")+"','BASE TABLE',6);");
+      alasql("INSERT INTO information_schema_tables VALUES ('"+translate("kunden")+"','BASE TABLE',4);");
 }
 function createTableColumns(db){
-   db.transaction(
-      function (transaction) {
-
-          /* The first query causes the transaction to (intentionally) fail if the table exists. */
-          transaction.executeSql("DROP TABLE IF EXISTS information_schema_columns;", [], nullDataHandler, errorHandler);
-          transaction.executeSql("create table information_schema_columns(table_name TEXT NOT NULL, column_name TEXT NOT NULL, data_type TEXT NOT NULL);", [], nullDataHandler, errorHandler);
-          /* These insertions will be skipped if the table already exists. */
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("benutzer")+"','"+translate("nutzer_id")+"','NUMBER');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("benutzer")+"','"+translate("nutzername")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("benutzer")+"','"+translate("passwort")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("benutzer")+"','"+translate("email")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("schuhe")+"','"+translate("produkt_id")+"','NUMBER');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("schuhe")+"','"+translate("marke")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("schuhe")+"','"+translate("groesse")+"','NUMBER');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("schuhe")+"','"+translate("preis")+"','NUMBER');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("ma_id")+"','NUMBER');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("name")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("vorname")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("email")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("lohn")+"','NUMBER');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("angestellt_seit")+"','NUMBER');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("kunden_id")+"','NUMBER');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("name")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("email")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("bestellnr")+"','NUMBER');", [], nullDataHandler, errorHandler);
-          transaction.executeSql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("adresse")+"','VARCHAR2');", [], nullDataHandler, errorHandler);
-      }
-  );
+   /* The first query causes the transaction to (intentionally) fail if the table exists. */
+   alasql("DROP TABLE IF EXISTS information_schema_columns;");
+   alasql("create table information_schema_columns(table_name TEXT NOT NULL, column_name TEXT NOT NULL, data_type TEXT NOT NULL);");
+   /* These insertions will be skipped if the table already exists. */
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("benutzer")+"','"+translate("nutzer_id")+"','NUMBER');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("benutzer")+"','"+translate("nutzername")+"','VARCHAR2');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("benutzer")+"','"+translate("passwort")+"','VARCHAR2');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("benutzer")+"','"+translate("email")+"','VARCHAR2');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("schuhe")+"','"+translate("produkt_id")+"','NUMBER');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("schuhe")+"','"+translate("marke")+"','VARCHAR2');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("schuhe")+"','"+translate("groesse")+"','NUMBER');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("schuhe")+"','"+translate("preis")+"','NUMBER');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("ma_id")+"','NUMBER');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("name")+"','VARCHAR2');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("vorname")+"','VARCHAR2');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("email")+"','VARCHAR2');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("lohn")+"','NUMBER');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("mitarbeiter")+"','"+translate("angestellt_seit")+"','NUMBER');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("kunden_id")+"','NUMBER');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("name")+"','VARCHAR2');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("email")+"','VARCHAR2');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("bestellnr")+"','NUMBER');");
+   alasql("INSERT INTO information_schema_columns VALUES ('"+translate("kunden")+"','"+translate("adresse")+"','VARCHAR2');");
 }
 function errorHandler(transaction, error)
 {
@@ -1102,11 +1069,11 @@ function dataHandler(transaction, results)
 {
     // Handle the results
     var string = "list contains the following people:\n\n";
-   //  console.log(results.rows.length);
-    for (var i=0; i<results.rows.length; i++) {
+   //  console.log(results.length);
+    for (var i=0; i<results.length; i++) {
         // Each row is a standard JavaScript array indexed by
         // column names.
-        var row = results.rows.item(i);
+        var row = results[i];
         string = string + row['username'] + " (ID "+row['id']+")\n";
     }
    //  console.log(string);
